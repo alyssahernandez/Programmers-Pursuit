@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc
+          http://www.springframework.org/schema/mvc/spring-mvc.xsd
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/tx
+          http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<context:annotation-config />
+
+	<!-- This configuration tells Spring to scan (i.e. search) the com.techelevator
+		 package and look for any classes that need to be managed (e.g. Controllers) -->
+    <context:component-scan base-package="com.techelevator"/>
+
+	<!-- ********************** -->
+    <!--  WEB MVC CONFIGURATION -->
+    <!-- ********************** -->
+
+	<mvc:annotation-driven />
+
+	<!-- This view resolver contains logic for translating a logical view name 
+		(e.g. "homePage") into a JSP file path (e.g. "/WEB-INF/jsp/homePage.jsp") -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+	    <property name="prefix" value="/WEB-INF/jsp/"/>
+	    <property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<!-- ************************* -->
+    <!--  DATA ACCESS CONFIGURATION -->
+    <!-- ************************* -->
+    
+    <!-- Uncomment the following datasource definition and provide the correct database name, username, and password
+    	 to connect to a database -->
+    <!--  
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/mydatabase" />
+		<property name="username" value="theUser" />
+		<property name="password" value="thePassword" />
+	</bean>
+	-->
+	
+    <!-- enable the configuration of transactional behavior based on annotations -->
+    <!-- 
+    <tx:annotation-driven transaction-manager="txManager"/>
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+	-->
+</beans>

@@ -1,4 +1,4 @@
-package com.sideprojects.trivialpursuit;
+package com.sideprojects.trivialpursuit.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;

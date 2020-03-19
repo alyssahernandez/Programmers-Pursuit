@@ -1,4 +1,4 @@
-package com.sideprojects.trivialpursuit;
+package com.sideprojects.trivialpursuit.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,7 @@ public class Gameboard {
 
 	private static List<Space> spaces;
 	
-	// TODO THIS IS HOPEFULLY ACCESSIBLE; MAY NEED SOME TWEAKING FOR PROPER STATIC ACCESS
-	public static List<Space> getSpaces() {
+	public List<Space> getSpaces() {
 		return spaces;
 	}
 
