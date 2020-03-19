@@ -15,9 +15,9 @@
 
 	<context:annotation-config />
 
-	<!-- This configuration tells Spring to scan (i.e. search) the com.techelevator
+	<!-- This configuration tells Spring to scan (i.e. search) the com.sideprojects.trivialpursuit
 		 package and look for any classes that need to be managed (e.g. Controllers) -->
-    <context:component-scan base-package="com.techelevator"/>
+    <context:component-scan base-package="com.sideprojects.trivialpursuit"/>
 
 	<!-- ********************** -->
     <!--  WEB MVC CONFIGURATION -->

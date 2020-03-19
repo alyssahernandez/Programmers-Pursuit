@@ -3,9 +3,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>
-			Trivial Pursuit - TE Edition
-		</title>
+	    <meta charset="UTF-8">
+		<title>Trivial Pursuit - TE Edition</title>
 		<c:url var="stylesheetHref" value="/css/style.css" />
 		<link rel="stylesheet" href="${stylesheetHref}">
 	</head>
