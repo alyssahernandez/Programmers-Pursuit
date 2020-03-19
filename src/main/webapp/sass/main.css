@@ -1,0 +1,33 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  height: 100vh;
+}
+
+header {
+  height: 5%;
+  background-color: #0026F1;
+}
+
+main {
+  height: 93%;
+  background-color: #00ADEF;
+}
+
+footer {
+  height: 2%;
+  background-color: #FFB600;
+}
+/*# sourceMappingURL=main.css.map */

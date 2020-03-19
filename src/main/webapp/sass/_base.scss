@@ -1,6 +1,4 @@
-/*
-Color Palette (in Sass)
-
+// COLOR VARIABLES
 $color-primary-0: #00ADEF;
 $color-primary-1: #2BC2FC;
 $color-primary-2: #07BAFF;
@@ -24,11 +22,37 @@ $color-complement-1: #FF9522;
 $color-complement-2: #FF8500;
 $color-complement-3: #FF8500;
 $color-complement-4: #CD6B00;
-*/
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+$color-black: #000;
+$color-white: #fff;
+
+$color-grey-light-1: #eee;
+$color-grey-light-2: #ccc;
+
+$color-grey-dark-1: #222;
+$color-grey-dark-2: #888;
+
+$shadow: 0 2rem 2rem rgba(0,0,0,0.2);
+$shadow-small: 0 1rem 1rem rgba(0,0,0,0.2);
+$shadow-large: 0 3rem 3rem rgba(0,0,0,0.2);
+
+// FONT VARIABLES
+$font-primary: 'Roboto', sans-serif;
+
+// MEDIA QUERIES
+//$large: ;
+//$medium: ;
+//$small: ;
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+html {
+    font-size: 62.5%; // 10px/16px = 62.5% -> 1rem = 10px
+    font-family: $font-primary;
+}
