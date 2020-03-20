@@ -14,8 +14,8 @@
 		</header>
 		<main>
 			<div class="gameboard">
+
 				<div class="gameboard__ring">				
-				
 					<c:forEach var="i" begin="1" end="6">
 						<c:set var="begin" value="${ ((i * 2) - 1) * 6 }"/>
 						<c:forEach var="j" begin="${ begin }" end="${ begin + 6 }">
@@ -30,8 +30,8 @@
 					
 						</c:forEach>
 					</c:forEach>
-				
 				</div>
+
 				<div class="gameboard__spokes">
 					<div class="gameboard__spokes--spoke">
 						<div class="space space__spoke-space">1</div>
@@ -80,10 +80,11 @@
 						<div class="space space__spoke-space">4</div>
 						<div class="space space__spoke-space">5</div>
 						<div class="space space__spoke-space">6</div>
-					</div>
-
+					</div>					
 				</div>
+				
 				<div class="gameboard__center space" id="0">0</div>
+
 			</div>
 			<div class="hud">
 				HUD

@@ -93,9 +93,7 @@ html {
         &:nth-of-type(#{$i}) {
           transform: 
             rotate($rot * 1deg) 
-            translate($circle-size / 2) 
-            rotate($rot * -1deg)
-            rotate(($i - 1) * $angle * 1deg);
+            translate($circle-size / 2);
         }
   
         $rot: $rot + $angle;

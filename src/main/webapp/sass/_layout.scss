@@ -33,24 +33,19 @@ main {
     $ring-size: 65rem;
     $spoke-ring-size: $ring-size / 2;
 
-    & > * {
+    & > div {
         position: absolute;
-    }
-
-    &__ring {
-        @include on-circle($item-count: $number-of-ring-spaces, $circle-size: $ring-size, $item-height: $space-height, $item-width: $space-width); 
-
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
 
+    &__ring {
+        @include on-circle($item-count: $number-of-ring-spaces, $circle-size: $ring-size, $item-height: $space-height, $item-width: $space-width); 
+    }
+
     &__spokes {
         @include on-circle($item-count: $number-of-spokes, $circle-size: $spoke-ring-size, $item-height: $spoke-height, $item-width: $spoke-width); 
-
-        top: 50%;
-        left: 35%;
-        transform: translate(-50%, -50%);
 
         &--spoke {
             width: 26rem;
@@ -66,10 +61,6 @@ main {
 
         background-color: green !important;
         border-radius: 50%;
-
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
     }
 }
 
