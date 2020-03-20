@@ -13,7 +13,38 @@
 			HEADER
 		</header>
 		<main>
-			MAIN
+			<div class="gameboard">
+				<div class="gameboard__ring">				
+				
+				<c:forEach var="i" begin="1" end="6">
+					<c:set var="begin" value="${ ((i * 2) - 1) * 6 }"/>
+					<c:forEach var="j" begin="${ begin }" end="${ begin + 6 }">
+				
+						<c:set var="spaceId" value="${ j }"/>
+						<c:set var="isNode" value=""/>
+						<c:if test="${ (j - 6) % 12 == 0 }">
+							<c:set var="isNode" value="space__node"/>
+						</c:if>
+				
+						<div class="space ${ isNode }" id="${ spaceId }"><c:out value="${ spaceId }"/></div>
+				
+					</c:forEach>
+				</c:forEach>
+				
+<%-- 				<c:forEach var="j" begin="1" end="${ numberOfSpaces }"> --%>
+					
+<%-- 					<c:set var="isNode" value=""/> --%>
+<%-- 					<c:if test="${ (i - 1) % 7 == 0 }"> --%>
+<%-- 						<c:set var="isNode" value="space__node"/> --%>
+<%-- 					</c:if> --%>
+					
+<%-- 					<div class="space ${ isNode }" id="${ i }"><c:out value="${ i }"/></div> --%>
+<%-- 				</c:forEach> --%>
+				</div>
+			</div>
+			<div class="hud">
+				HUD
+			</div>
 		</main>
 		<footer>
 			FOOTER

@@ -10,6 +10,32 @@ header {
 main {
     height: 93%;
     background-color: $color-primary-0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gameboard {
+    height: 100%;
+
+    flex: 3 1 0;
+
+    $number-of-ring-spaces: 42;
+    $space-height: 4rem;
+    $space-width: 4rem;
+    $ring-size: 65rem;
+
+    &__ring {
+        @include on-circle($item-count: $number-of-ring-spaces, $circle-size: $ring-size, $item-height: $space-height, $item-width: $space-width); 
+    }
+}
+
+.hud {
+    background-color: $color-primary-4;
+    height: 100%;
+
+    flex: 2 1 0;
 }
 
 footer {
