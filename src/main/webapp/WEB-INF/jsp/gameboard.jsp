@@ -16,31 +16,74 @@
 			<div class="gameboard">
 				<div class="gameboard__ring">				
 				
-				<c:forEach var="i" begin="1" end="6">
-					<c:set var="begin" value="${ ((i * 2) - 1) * 6 }"/>
-					<c:forEach var="j" begin="${ begin }" end="${ begin + 6 }">
-				
-						<c:set var="spaceId" value="${ j }"/>
-						<c:set var="isNode" value=""/>
-						<c:if test="${ (j - 6) % 12 == 0 }">
-							<c:set var="isNode" value="space__node"/>
-						</c:if>
-				
-						<div class="space ${ isNode }" id="${ spaceId }"><c:out value="${ spaceId }"/></div>
-				
+					<c:forEach var="i" begin="1" end="6">
+						<c:set var="begin" value="${ ((i * 2) - 1) * 6 }"/>
+						<c:forEach var="j" begin="${ begin }" end="${ begin + 6 }">
+					
+							<c:set var="spaceId" value="${ j }"/>
+							<c:set var="isNode" value=""/>
+							<c:if test="${ (j - 6) % 12 == 0 }">
+								<c:set var="isNode" value="space__node"/>
+							</c:if>
+					
+							<div class="space ${ isNode }" id="${ spaceId }"><c:out value="${ spaceId }"/></div>
+					
+						</c:forEach>
 					</c:forEach>
-				</c:forEach>
 				
-<%-- 				<c:forEach var="j" begin="1" end="${ numberOfSpaces }"> --%>
-					
-<%-- 					<c:set var="isNode" value=""/> --%>
-<%-- 					<c:if test="${ (i - 1) % 7 == 0 }"> --%>
-<%-- 						<c:set var="isNode" value="space__node"/> --%>
-<%-- 					</c:if> --%>
-					
-<%-- 					<div class="space ${ isNode }" id="${ i }"><c:out value="${ i }"/></div> --%>
-<%-- 				</c:forEach> --%>
 				</div>
+				<div class="gameboard__spokes">
+					<div class="gameboard__spokes--spoke">
+						<div class="space space__spoke-space">1</div>
+						<div class="space space__spoke-space">2</div>
+						<div class="space space__spoke-space">3</div>
+						<div class="space space__spoke-space">4</div>
+						<div class="space space__spoke-space">5</div>
+						<div class="space space__spoke-space">6</div>
+					</div>
+					<div class="gameboard__spokes--spoke">
+						<div class="space space__spoke-space">1</div>
+						<div class="space space__spoke-space">2</div>
+						<div class="space space__spoke-space">3</div>
+						<div class="space space__spoke-space">4</div>
+						<div class="space space__spoke-space">5</div>
+						<div class="space space__spoke-space">6</div>
+					</div>
+					<div class="gameboard__spokes--spoke">
+						<div class="space space__spoke-space">1</div>
+						<div class="space space__spoke-space">2</div>
+						<div class="space space__spoke-space">3</div>
+						<div class="space space__spoke-space">4</div>
+						<div class="space space__spoke-space">5</div>
+						<div class="space space__spoke-space">6</div>
+					</div>
+					<div class="gameboard__spokes--spoke">
+						<div class="space space__spoke-space">1</div>
+						<div class="space space__spoke-space">2</div>
+						<div class="space space__spoke-space">3</div>
+						<div class="space space__spoke-space">4</div>
+						<div class="space space__spoke-space">5</div>
+						<div class="space space__spoke-space">6</div>
+					</div>
+					<div class="gameboard__spokes--spoke">
+						<div class="space space__spoke-space">1</div>
+						<div class="space space__spoke-space">2</div>
+						<div class="space space__spoke-space">3</div>
+						<div class="space space__spoke-space">4</div>
+						<div class="space space__spoke-space">5</div>
+						<div class="space space__spoke-space">6</div>
+					</div>
+					<div class="gameboard__spokes--spoke">
+						<div class="space space__spoke-space">1</div>
+						<div class="space space__spoke-space">2</div>
+						<div class="space space__spoke-space">3</div>
+						<div class="space space__spoke-space">4</div>
+						<div class="space space__spoke-space">5</div>
+						<div class="space space__spoke-space">6</div>
+					</div>
+
+				</div>
+				<div class="gameboard__center space" id="0">0</div>
 			</div>
 			<div class="hud">
 				HUD

@@ -1,7 +1,17 @@
 .space {
     background-color: red;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     &__node {
         background-color: blue;
+    }
+
+    &__spoke-space {
+        background-color: yellow;
+        height: 4rem;
+        width: 4rem;
     }
 }
