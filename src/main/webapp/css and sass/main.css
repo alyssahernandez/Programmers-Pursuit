@@ -1,0 +1,375 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Mixin to place items on a circle
+    @author Hugo Giraudel
+    @author Ana Tudor
+    @param {Integer} $item-count - Number of items on the circle
+    @param {Length} $circle-size - Large circle size
+    @param {Length} $item-size - Single item size
+*/
+body {
+  height: 100vh;
+}
+
+header {
+  height: 5%;
+  background-color: #0026F1;
+}
+
+main {
+  height: 93%;
+  background-color: #00ADEF;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.gameboard {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  -webkit-box-flex: 3;
+      -ms-flex: 3 1 0px;
+          flex: 3 1 0;
+}
+
+.gameboard__ring > * {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: -1.25rem;
+}
+
+.gameboard__ring > *:nth-of-type(1) {
+  -webkit-transform: rotate(0deg) translate(26rem);
+          transform: rotate(0deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(2) {
+  -webkit-transform: rotate(8.57143deg) translate(26rem);
+          transform: rotate(8.57143deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(3) {
+  -webkit-transform: rotate(17.14286deg) translate(26rem);
+          transform: rotate(17.14286deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(4) {
+  -webkit-transform: rotate(25.71429deg) translate(26rem);
+          transform: rotate(25.71429deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(5) {
+  -webkit-transform: rotate(34.28571deg) translate(26rem);
+          transform: rotate(34.28571deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(6) {
+  -webkit-transform: rotate(42.85714deg) translate(26rem);
+          transform: rotate(42.85714deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(7) {
+  -webkit-transform: rotate(51.42857deg) translate(26rem);
+          transform: rotate(51.42857deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(8) {
+  -webkit-transform: rotate(60deg) translate(26rem);
+          transform: rotate(60deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(9) {
+  -webkit-transform: rotate(68.57143deg) translate(26rem);
+          transform: rotate(68.57143deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(10) {
+  -webkit-transform: rotate(77.14286deg) translate(26rem);
+          transform: rotate(77.14286deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(11) {
+  -webkit-transform: rotate(85.71429deg) translate(26rem);
+          transform: rotate(85.71429deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(12) {
+  -webkit-transform: rotate(94.28571deg) translate(26rem);
+          transform: rotate(94.28571deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(13) {
+  -webkit-transform: rotate(102.85714deg) translate(26rem);
+          transform: rotate(102.85714deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(14) {
+  -webkit-transform: rotate(111.42857deg) translate(26rem);
+          transform: rotate(111.42857deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(15) {
+  -webkit-transform: rotate(120deg) translate(26rem);
+          transform: rotate(120deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(16) {
+  -webkit-transform: rotate(128.57143deg) translate(26rem);
+          transform: rotate(128.57143deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(17) {
+  -webkit-transform: rotate(137.14286deg) translate(26rem);
+          transform: rotate(137.14286deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(18) {
+  -webkit-transform: rotate(145.71429deg) translate(26rem);
+          transform: rotate(145.71429deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(19) {
+  -webkit-transform: rotate(154.28571deg) translate(26rem);
+          transform: rotate(154.28571deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(20) {
+  -webkit-transform: rotate(162.85714deg) translate(26rem);
+          transform: rotate(162.85714deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(21) {
+  -webkit-transform: rotate(171.42857deg) translate(26rem);
+          transform: rotate(171.42857deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(22) {
+  -webkit-transform: rotate(180deg) translate(26rem);
+          transform: rotate(180deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(23) {
+  -webkit-transform: rotate(188.57143deg) translate(26rem);
+          transform: rotate(188.57143deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(24) {
+  -webkit-transform: rotate(197.14286deg) translate(26rem);
+          transform: rotate(197.14286deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(25) {
+  -webkit-transform: rotate(205.71429deg) translate(26rem);
+          transform: rotate(205.71429deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(26) {
+  -webkit-transform: rotate(214.28571deg) translate(26rem);
+          transform: rotate(214.28571deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(27) {
+  -webkit-transform: rotate(222.85714deg) translate(26rem);
+          transform: rotate(222.85714deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(28) {
+  -webkit-transform: rotate(231.42857deg) translate(26rem);
+          transform: rotate(231.42857deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(29) {
+  -webkit-transform: rotate(240deg) translate(26rem);
+          transform: rotate(240deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(30) {
+  -webkit-transform: rotate(248.57143deg) translate(26rem);
+          transform: rotate(248.57143deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(31) {
+  -webkit-transform: rotate(257.14286deg) translate(26rem);
+          transform: rotate(257.14286deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(32) {
+  -webkit-transform: rotate(265.71429deg) translate(26rem);
+          transform: rotate(265.71429deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(33) {
+  -webkit-transform: rotate(274.28571deg) translate(26rem);
+          transform: rotate(274.28571deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(34) {
+  -webkit-transform: rotate(282.85714deg) translate(26rem);
+          transform: rotate(282.85714deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(35) {
+  -webkit-transform: rotate(291.42857deg) translate(26rem);
+          transform: rotate(291.42857deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(36) {
+  -webkit-transform: rotate(300deg) translate(26rem);
+          transform: rotate(300deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(37) {
+  -webkit-transform: rotate(308.57143deg) translate(26rem);
+          transform: rotate(308.57143deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(38) {
+  -webkit-transform: rotate(317.14286deg) translate(26rem);
+          transform: rotate(317.14286deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(39) {
+  -webkit-transform: rotate(325.71429deg) translate(26rem);
+          transform: rotate(325.71429deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(40) {
+  -webkit-transform: rotate(334.28571deg) translate(26rem);
+          transform: rotate(334.28571deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(41) {
+  -webkit-transform: rotate(342.85714deg) translate(26rem);
+          transform: rotate(342.85714deg) translate(26rem);
+}
+
+.gameboard__ring > *:nth-of-type(42) {
+  -webkit-transform: rotate(351.42857deg) translate(26rem);
+          transform: rotate(351.42857deg) translate(26rem);
+}
+
+.gameboard__spokes > * {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26rem;
+  height: 26rem;
+  margin: -13rem;
+}
+
+.gameboard__spokes > *:nth-of-type(1) {
+  -webkit-transform: rotate(0deg) translate(13rem);
+          transform: rotate(0deg) translate(13rem);
+}
+
+.gameboard__spokes > *:nth-of-type(2) {
+  -webkit-transform: rotate(60deg) translate(13rem);
+          transform: rotate(60deg) translate(13rem);
+}
+
+.gameboard__spokes > *:nth-of-type(3) {
+  -webkit-transform: rotate(120deg) translate(13rem);
+          transform: rotate(120deg) translate(13rem);
+}
+
+.gameboard__spokes > *:nth-of-type(4) {
+  -webkit-transform: rotate(180deg) translate(13rem);
+          transform: rotate(180deg) translate(13rem);
+}
+
+.gameboard__spokes > *:nth-of-type(5) {
+  -webkit-transform: rotate(240deg) translate(13rem);
+          transform: rotate(240deg) translate(13rem);
+}
+
+.gameboard__spokes > *:nth-of-type(6) {
+  -webkit-transform: rotate(300deg) translate(13rem);
+          transform: rotate(300deg) translate(13rem);
+}
+
+.gameboard__spokes--spoke {
+  padding: 0 1rem 0 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.gameboard__center {
+  height: 5rem;
+  width: 5rem;
+  background-color: #222 !important;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.hud {
+  background-color: #005D81;
+  height: 100%;
+  -webkit-box-flex: 2;
+      -ms-flex: 2 1 0px;
+          flex: 2 1 0;
+}
+
+footer {
+  height: 2%;
+  background-color: #FFB600;
+}
+
+.space {
+  color: #eee;
+  background-color: #3D5BFC;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.space__node {
+  background-color: #005D81;
+}
+
+.space__spoke-space {
+  background-color: #FFB600;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+/*# sourceMappingURL=main.css.map */
