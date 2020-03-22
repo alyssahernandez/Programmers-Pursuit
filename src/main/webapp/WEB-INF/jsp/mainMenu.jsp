@@ -38,7 +38,7 @@
 	
 	<h4>Or please fill in the fields below to create a game:</h4>
 
-	<form action="${ }" method="POST">
+	<form action="#" method="POST">
 
 		<label for="gameName"></label>
 		<input name="gameName" type="text" placeholder="Enter Game Code..." />
