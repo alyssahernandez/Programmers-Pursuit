@@ -39,14 +39,15 @@
     
     <!-- Uncomment the following datasource definition and provide the correct database name, username, and password
     	 to connect to a database -->
-    <!--  
+    
+    <!-- AC: Here is our database. this is from PG64Admin where you'll find pw and name of database. -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/mydatabase" />
-		<property name="username" value="theUser" />
-		<property name="password" value="thePassword" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/Non-Trivial-Pursuit" />
+		<property name="username" value="postgres" />
+		<property name="password" value="postgres1" />
 	</bean>
-	-->
+	
 	
     <!-- enable the configuration of transactional behavior based on annotations -->
     <!-- 
