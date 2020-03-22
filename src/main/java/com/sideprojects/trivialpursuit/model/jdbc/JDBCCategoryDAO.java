@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.sideprojects.trivialpursuit.model.Category;
 import com.sideprojects.trivialpursuit.model.CategoryDAO;
+import com.sideprojects.trivialpursuit.model.Game;
 
 @Component
 public class JDBCCategoryDAO implements CategoryDAO {
@@ -37,5 +38,19 @@ public class JDBCCategoryDAO implements CategoryDAO {
 		
 		return categoryFromSpace;
 	}
+
+	@Override
+	public Category getCategoryByGameId(Game game) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setCategoryByGameId(Game game) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 
 }

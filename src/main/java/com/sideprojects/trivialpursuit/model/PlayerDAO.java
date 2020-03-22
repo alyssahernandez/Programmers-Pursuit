@@ -3,12 +3,16 @@ package com.sideprojects.trivialpursuit.model;
 public interface PlayerDAO {
 	
 	//AC: these are self explanitory, leaving for now
-	//TODO 
+	//TODO
+	public void getPlayerByName(String name);
+	public void setPlayerByName();
 	
-	public void setPlayerName();
+	public Integer getPlayerPosition(Player player); // maybe pass in a Space or integer (for spaceId)
+	public void setPlayerPosition(Player player); // return Space??
 	
-	public void updateGamesWon();
+	public void setPlayerPiesAttained(Integer piesAttained); // I don't think we have to store "categories pie pieces attained" individually; we can store them collectively, and store them in the DB as 0-6;
+	public Integer getPlayerPiesAttained(); // return integer
 	
-	public void updateGamesPlayed();
-
+	public Player getPlayerByGameId(Game game);
+	public void setPlayerByGameId(Game game);
 }
