@@ -42,8 +42,17 @@
 
 </div>
 <div class="hud">
-<!-- THIS IS WHERE THE HUD WILL GO -->
+<!-- THIS IS WHERE THE HUD WILL GO 
+
+	<form method="GET" action="">
+
+		<button type="submit" value=""></button>
+	</form>
+-->
+
 </div>
+
+
 		
 <c:import url="/WEB-INF/jsp/common/footer.jsp" />
 		
