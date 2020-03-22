@@ -1,8 +1,4 @@
 package com.sideprojects.trivialpursuit.model;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public class Player implements Comparable<Player> { // Compares Players (for sort order) based on desired criteria. See "compareTo" below.

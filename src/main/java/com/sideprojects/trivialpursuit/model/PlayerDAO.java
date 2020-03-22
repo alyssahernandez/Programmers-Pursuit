@@ -4,6 +4,10 @@ public interface PlayerDAO {
 	
 	//AC: these are self explanitory, leaving for now
 	//TODO
+	
+	public void getPlayerById(Long id);
+	public Long setNewPlayer(String name);
+	
 	public void getPlayerByName(String name);
 	public void setPlayerByName();
 	

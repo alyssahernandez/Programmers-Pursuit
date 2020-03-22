@@ -1,11 +1,23 @@
 package com.sideprojects.trivialpursuit.model.jdbc;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 
-public class JDBCPlayerDAO implements PlayerDAO {
+public class JDBCPlayerDAO implements PlayerDAO 
+{
+	private JdbcTemplate template;
 
+	@Autowired
+	public JDBCPlayerDAO(DataSource dataSource) {
+		template = new JdbcTemplate(dataSource);
+	}
+	
 	@Override
 	public void getPlayerByName(String name) {
 		// TODO Auto-generated method stub
@@ -54,5 +66,17 @@ public class JDBCPlayerDAO implements PlayerDAO {
 		
 	}
 
+	@Override
+	public void getPlayerById(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	//getNewPlayer()??
+	public Long setNewPlayer(String name) {
+		String newPlayerId = "INSERT INTO game (name) VALUES (?) RETURNING player_id";
+		return template.queryForObject(newPlayerId, Long.class, name);
+	}
 }
+

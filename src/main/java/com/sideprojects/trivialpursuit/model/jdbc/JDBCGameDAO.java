@@ -36,14 +36,17 @@ public class JDBCGameDAO implements GameDAO {
 	// In controller, this will return a game_id to tie to a new game.
 	public Long setNewGame() {
 		boolean newGame = true;
-		String winner_id = null;
-		String active_player_id = null; // What is active_player_id even for? We can determine # of active players from bridge table (isActive should be a bool in game_player, I think)).
+		Integer winner_id = null;
+		Integer active_player_id = null; // What is active_player_id even for? We can determine # of active players from bridge table (isActive should be a bool in game_player, I think)).
+		
+		// TODO: Can we pass null into 4int4 DB type? If not, we should set it to something that can take a null value -- we won't have winner ID's, for example, from the start.
 		String newGameId = "INSERT INTO game (active, winner_id, active_player_id) VALUES (?, ?, ?) RETURNING game_id";
 		
 		return template.queryForObject(newGameId, Long.class, newGame, winner_id, active_player_id);
 	}
 
 	@Override
+	// User passes in a game code, gets matching game
 	public Game getActiveGame(String gameCode) {
 		String getGameQuery = "SELECT * FROM game WHERE game_code = ?";
 		SqlRowSet rowSet = template.queryForRowSet(getGameQuery, gameCode);

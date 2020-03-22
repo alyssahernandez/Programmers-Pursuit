@@ -31,8 +31,6 @@ public class Game {
 	public boolean isActive() {return active;}
 	public void setActive(boolean active) {this.active = active;}
 	
-
-	
 	public List<Player> getActivePlayers() { return activePlayers; }
 	public void setActivePlayers(List<Player> activePlayers) {this.activePlayers = determinePlayerOrder(activePlayers); }
 	
@@ -56,9 +54,7 @@ public class Game {
 	{
 		// Players are ordered based on their dice roll (highest first)
 		// TODO: Change this back to a for-each if not already -- for-loop used for console tests.
-		for (int i = 0; i < players.size(); i++) { players.get(i).setDiceRoll(); players.get(i).setId((long) i);}
-		
-		// this utilizes the Comparable interface's compareTo method (see: Player)
+		for (Player p : players) { p.setDiceRoll(); }
 		Collections.sort(players);
 
 		int highRoll = 0;			
