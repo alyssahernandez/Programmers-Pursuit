@@ -43,7 +43,7 @@
     <!-- AC: Here is our database. this is from PG64Admin where you'll find pw and name of database. -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/Non-Trivial-Pursuit" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/trivialpursuit" />
 		<property name="username" value="postgres" />
 		<property name="password" value="postgres1" />
 	</bean>
