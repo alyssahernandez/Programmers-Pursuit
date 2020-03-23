@@ -15,10 +15,11 @@ public class GameboardController {
 	*/
 
 	@RequestMapping(path="/gameboard", method=RequestMethod.GET)
-	public String displayGameboard(Model modelHolder, 
-				@RequestParam String toRoll, @RequestParam int playerID) {
+	public String displayGameboard(Model modelHolder) {
+			
 		
-		/* change method name once it's created - int = playerID toRoll = if die was clicked
+		/* @RequestParam String toRoll, @RequestParam int playerID) {
+		change method name once it's created - int = playerID toRoll = if die was clicked
 		
 		List<Integer> availableSpaces = playerDAO.roll(toRoll, playerID);
 		

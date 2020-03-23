@@ -1,6 +1,7 @@
 package com.sideprojects.trivialpursuit.controller;
 
 import org.eclipse.jdt.annotation.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import com.sideprojects.trivialpursuit.model.GameDAO;
 @Controller
 public class MainMenuController {
 	
+	@Autowired
 	GameDAO gameDAO;
 
 	@RequestMapping(path="/", method=RequestMethod.GET)
@@ -34,8 +36,14 @@ public class MainMenuController {
 		TO THE EXISTING GAME URL */
 			
 			Game activeGame = gameDAO.getActiveGame(gameSearch.toLowerCase());
-			moldelHolder.put("activeGame", activeGame);
-			return "gameboard";
+			
+			if (activeGame != null) {				
+				moldelHolder.put("activeGame", activeGame);
+				return "redirect:/gameboard";
+			} else {
+				return "redirect:/";
+			}
+			
 		
 		/* else if (playerName != null && gameName != null) {
 			try {
