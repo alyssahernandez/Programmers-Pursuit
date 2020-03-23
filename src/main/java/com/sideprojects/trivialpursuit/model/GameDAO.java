@@ -4,11 +4,9 @@ public interface GameDAO {
 	
 	//TODO
 
-	public void generateGameCode();
+	public void getGameCode();
+	public void setGameCode(Game game);
 	
-	public void setGameActive();
-	
-	public void setWinner();
-	
-	public void setActivePlayers();
+	public Long setNewGame();
+	public Game getActiveGame(String gameCode); // maybe change return type to Game?
 }

@@ -14,7 +14,7 @@ public class GameboardController {
 	PlayerDAO playerDAO;
 	*/
 
-	@RequestMapping(path="/Gameboard", method=RequestMethod.GET)
+	@RequestMapping(path="/gameboard", method=RequestMethod.GET)
 	public String displayGameboard(Model modelHolder, 
 				@RequestParam String toRoll, @RequestParam int playerID) {
 		

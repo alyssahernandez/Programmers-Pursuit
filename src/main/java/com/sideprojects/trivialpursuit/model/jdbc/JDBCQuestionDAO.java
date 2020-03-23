@@ -11,6 +11,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import com.sideprojects.trivialpursuit.model.Category;
+import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.Question;
 import com.sideprojects.trivialpursuit.model.QuestionDAO;
 
@@ -25,12 +26,32 @@ public class JDBCQuestionDAO implements QuestionDAO {
 	}
 	
 	@Override
-	public Question getQuestionFromCategory(Category categoryFromSpace) {
-				
+	// Modified slightly.
+	// This is likely unnecessary as we're storing Questions as a List in Category class/objs -- for now! Let me know your thoughts as there may be a better approach. For now, the query below seems apt.
+	public Question getQuestionByCategory(Category category) {
+		
+		int categoryId = category.getCategoryID();
+		String sqlGetQuestionFromCategory = "SELECT * FROM question WHERE category_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetQuestionFromCategory, categoryId);
+		
+		Question questionFromCategory = new Question();
+		if (results.next()) {
+			questionFromCategory.setQuestionID(results.getInt("question_id"));
+			questionFromCategory.setCategoryID(results.getInt("category_id"));
+			questionFromCategory.setQuestion(results.getString("question"));
+			questionFromCategory.setAnswer(results.getString("answer"));
+		}
+		return questionFromCategory;
+	}
+	
+	@Override
+	public List<Question> getQuestionsByCategory(Category category) {
+		
+		int categoryId = category.getCategoryID();
 		List<Question> allQuestionsInCategory = new ArrayList<>();
-		String sqlGetQuestionFromCategory = "SELECT * FROM question JOIN category_question ON "
-				+ "category.category_id = question.category_id WHERE category.category_id = ?";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetQuestionFromCategory, categoryFromSpace.getCategoryID());
+		
+		String sqlGetQuestionFromCategory = "SELECT * FROM question WHERE category_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetQuestionFromCategory, categoryId);
 		
 		while(results.next()) {
 			Question questionFromCategory = new Question();
@@ -41,10 +62,9 @@ public class JDBCQuestionDAO implements QuestionDAO {
 			allQuestionsInCategory.add(questionFromCategory);
 		}
 		
-		//AC: not sure how to make this question not asked again, that is an unknown.
-		//right now it is only returning the first question in the table for each category.
-		Question firstQuestionInList = allQuestionsInCategory.get(0);
-		return firstQuestionInList;
+		return allQuestionsInCategory;
 	}
+	
+	public void setQuestionAsked() {} //TODO: update game_question table to NULL if question has been asked
 
 }
