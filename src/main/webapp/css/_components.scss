@@ -1,0 +1,44 @@
+.space {
+    color: $color-grey-light-1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__node {
+        color: $color-grey-dark-1;
+    }
+
+    &__spoke-space {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    &--cat1 {
+        background-color: red;
+    }
+
+    &--cat2 {
+        background-color: blue;
+    }
+    
+    &--cat3 {
+        background-color: green;
+    }
+    
+    &--cat4 {
+        background-color: yellow;
+    }
+    
+    &--cat5 {
+        background-color: orange;
+    }
+    
+    &--cat6 {
+        background-color: pink;
+    }
+
+    &--catRollAgain {
+        background-color: $color-grey-dark-1;
+    }
+}

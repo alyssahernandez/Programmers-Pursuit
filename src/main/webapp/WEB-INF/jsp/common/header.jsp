@@ -5,7 +5,7 @@
 	<head>
 	    <meta charset="UTF-8">
 		<title>Trivial Pursuit - TE Edition</title>
-		<c:url var="stylesheetHref" value="/css and sass/main.css" />
+		<c:url var="stylesheetHref" value="/css/main.css" />
 		<link rel="stylesheet" href="${stylesheetHref}">
 	</head>
 	<body>
