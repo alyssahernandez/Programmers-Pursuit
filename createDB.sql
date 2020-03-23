@@ -216,4 +216,6 @@ INSERT INTO question (question, answer, category_id) VALUES ('What is the name o
                                                              'JUnit',
                                                              6);
 
+INSERT INTO game (game_code, active, winner_id, active_player_id) VALUES ('test', true, 1, 1); 	
+
 COMMIT;

@@ -34,14 +34,10 @@ public class MainMenuController {
 		/* THIS METHOD SEARCHES THE DB FOR AN EXISTING GAME
 		IF IT'S TRUE, THE USER'S SEARCH WILL TAKE THEM
 		TO THE EXISTING GAME URL */
-			try {
-				Game activeGame = gameDAO.getActiveGame(gameSearch);
-				moldelHolder.put("activeGame", activeGame);
-				return "gameboard";
-			} catch(Exception e) {
-				
-			}
-		
+			
+			Game activeGame = gameDAO.getActiveGame(gameSearch.toLowerCase());
+			moldelHolder.put("activeGame", activeGame);
+			return "gameboard";
 		
 		/* else if (playerName != null && gameName != null) {
 			try {
@@ -50,7 +46,7 @@ public class MainMenuController {
 				 * that allows players to create a new game by typing
 				 * in the game code
 				 * 
-				Game newGame = gameDAO.createNewGame(gameName);
+				Game newGame = gameDAO.createNewGame(gameName.toLowerCase());
 				moldelHolder.put("newGame", newGame);
 				
 				
@@ -63,6 +59,6 @@ public class MainMenuController {
 		}
 		*/
 
-		return "mainMenu";
+	//	return "redirect:/";
 	}
 }
