@@ -31,9 +31,9 @@ public class MainMenuController {
 		ModelMap moldelHolder,
 		RedirectAttributes flash) {
 	
-		/* THIS METHOD SEARCHES THE DB FOR AN EXISTING GAME
+		/* TODO WE NEED A METHOD THAT SEARCHES THE DB FOR AN EXISTING GAME
 		IF IT'S TRUE, THE USER'S SEARCH WILL TAKE THEM
-		TO THE EXISTING GAME URL */
+		TO THE EXISTING GAME URL USING THE METHOD BELOW */
 			
 			Game activeGame = gameDAO.getActiveGame(gameSearch.toLowerCase());
 			
