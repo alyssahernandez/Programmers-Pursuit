@@ -12,6 +12,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 
+import com.sideprojects.trivialpursuit.model.GameDAO;
+
 @Controller
 public class MainMenuController {
 	
