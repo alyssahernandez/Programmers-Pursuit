@@ -22,11 +22,13 @@ public class Category {
 	
 	public Question getNewQuestion()
 	{ 	
+		if (questions.equals(null)) { return null; }
+		
 		while (true)
 		{
 			int index = generateRandomNumber(); 
 			Question question = null;
-			//TODO: null check on question list ("questions")
+			
 			if (!(questions.get(index).equals(null)))
 			{
 				question = questions.get(index);

@@ -13,6 +13,7 @@ public class Space {
 	private int id; // change to Long?
 	private boolean isNode;
 	private boolean isRollAgain;
+	private boolean isFinalSpace;
 	private Category category;
 	// THIS IS A MAP OF 6 POSSIBLE DIE ROLLS AND THE INDEXES OF ALL REACHABLE SPACES BASED ON THAT ROLL
 	private Map<Integer, List<Integer>> reachableSpaces = new HashMap<Integer, List<Integer>>();	
@@ -28,11 +29,19 @@ public class Space {
 
 	public boolean isRollAgain() {return isRollAgain;}
 	public void setRollAgain(boolean isRollAgain) {this.isRollAgain = isRollAgain;}
+	
+	public boolean isFinalSpace() { return isFinalSpace; } 
+	public void setFinalSpace(boolean finalSpace) { this.isFinalSpace = finalSpace; }
 
+	// TODO: This is somewhat redundant given we're doing the same thing in Player, but keeping it in Player, too, removes the need for 
+	// the controller to call "player.location.getavailablespaces", instead simply calling player.getreachableSpaces() -- Brooks
+	// Note: we can also return a map via Jeff's getReachableSpaces() below.  This option is also available in Player. Again, we'll remove what we don't need.
+	public List<Integer> getReachableSpaces(int diceRoll) { return reachableSpaces.get(diceRoll); }
+	
+	//TODO: These are probably unnecessary now, but keeping them around in case (they're also referenced in Player, again just in case)
 	public Map<Integer, List<Integer>> getReachableSpaces() { return reachableSpaces;}
 	public void setReachableSpaces(Map<Integer, List<Integer>> reachableSpaces) {this.reachableSpaces = reachableSpaces;}
-
-
+	
 	public Space() {}
 	
 	//TODO: Rework methods. JavaBeans need default (no argument) constructors, so we can't set our reachable spaces with an overloaded constructor. Use setId() to set spaceId where needed and have setAllReachableSpaces be set another way
@@ -40,6 +49,7 @@ public class Space {
 		this.id = spaceId;
 		this.reachableSpaces = setAllReachableSpaces(spaceId);
 	}
+	
 	
 	// THIS SETS *ALL* REACHABLE SPACES BASED ON AN ID
 	private Map<Integer, List<Integer>> setAllReachableSpaces(int spaceId) {
