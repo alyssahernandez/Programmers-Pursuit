@@ -42,3 +42,22 @@
         background-color: $color-grey-dark-1;
     }
 }
+
+.player-piece {
+    background-color: grey;
+    width: 100%;
+    margin: 1rem;
+
+    padding: 1.5rem;
+
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    &__slice {
+        width: 2rem;
+        height: 2rem;
+        margin: 1.5rem;
+        background-color: white;
+    }
+}

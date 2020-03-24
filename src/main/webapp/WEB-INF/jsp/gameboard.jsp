@@ -102,10 +102,18 @@
 
 	<div class="hud__status">
 		<div class="hud__status--piece">
-			PLAYER PIECE
+			<div class="player-piece">
+				<div class="player-piece__slice">cat1</div>
+				<div class="player-piece__slice">cat2</div>
+				<div class="player-piece__slice">cat3</div>
+				<div class="player-piece__slice">cat4</div>
+				<div class="player-piece__slice">cat5</div>
+				<div class="player-piece__slice">cat6</div>
+			</div>
 		</div>
 		<div class="hud__status--die">
-			DIE
+<!-- 		TODO JEFF: THE DIE PNGS NEED TO HAVE THEIR COLORS CHANGED OR SWAPPED OUT FOR NEW GRAPHICS -->
+			<img src="/trivial-pursuit/img/dice3.png">
 		</div>
 	</div>
 
@@ -132,7 +140,7 @@
 		</div>
 		<div class="hud__legend--row">
 			<div class="hud__legend--color">6</div>
-			<div class="hud__legend--category"></div>
+			<div class="hud__legend--category">Technical Interview</div>
 		</div>
 	</div>
 	<!--  

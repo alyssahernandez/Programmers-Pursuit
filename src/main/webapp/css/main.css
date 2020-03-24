@@ -372,15 +372,54 @@ main {
 }
 
 .hud__status--piece {
-  background-color: blue;
+  width: 50%;
+  padding: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .hud__status--die {
-  background-color: green;
+  width: 50%;
+  padding: 4rem;
+}
+
+.hud__status--die img {
+  width: 100%;
 }
 
 .hud__legend {
-  background-color: yellow;
+  padding: 1rem 2rem;
+  background-color: #eee;
+  -webkit-box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.hud__legend--row {
+  width: 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.hud__legend--color {
+  background-color: #00ADEF;
+  width: 2rem;
+  height: 2rem;
 }
 
 footer {
@@ -436,4 +475,26 @@ footer {
 
 .space--catRollAgain {
   background-color: #222;
+}
+
+.player-piece {
+  background-color: grey;
+  width: 100%;
+  margin: 1rem;
+  padding: 1.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.player-piece__slice {
+  width: 2rem;
+  height: 2rem;
+  margin: 1.5rem;
+  background-color: white;
 }
