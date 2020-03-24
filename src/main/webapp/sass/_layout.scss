@@ -66,8 +66,36 @@ main {
 .hud {
     background-color: $color-primary-4;
     height: 100%;
+    padding: 2rem;
 
     flex: 2 1 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    &__message {
+
+    }
+
+    &__status {
+
+        display: flex;
+
+        justify-content: space-evenly;
+
+        &--piece {
+            background-color: blue;        
+        }
+
+        &--die {
+            background-color: green;
+        }
+    }
+
+    &__legend {
+        background-color: yellow;
+    }
 }
 
 footer {

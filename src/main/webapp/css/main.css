@@ -19,6 +19,13 @@ html {
     @param {Length} $circle-size - Large circle size
     @param {Length} $item-size - Single item size
 */
+h2 {
+  text-align: center;
+  color: #eee;
+  font-size: 4.5rem;
+  font-weight: 500;
+}
+
 body {
   height: 100vh;
 }
@@ -339,9 +346,41 @@ main {
 .hud {
   background-color: #005D81;
   height: 100%;
+  padding: 2rem;
   -webkit-box-flex: 2;
       -ms-flex: 2 1 0px;
           flex: 2 1 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.hud__status {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.hud__status--piece {
+  background-color: blue;
+}
+
+.hud__status--die {
+  background-color: green;
+}
+
+.hud__legend {
+  background-color: yellow;
 }
 
 footer {
@@ -398,4 +437,3 @@ footer {
 .space--catRollAgain {
   background-color: #222;
 }
-/*# sourceMappingURL=main.css.map */
