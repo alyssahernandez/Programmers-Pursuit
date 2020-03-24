@@ -96,8 +96,45 @@
 </div>
 <div class="hud">
 
-	
+	<div class="hud__message">
+		<h2>Player 5, it's your turn.<br>Where do you want to move?</h2>
+	</div>
 
+	<div class="hud__status">
+		<div class="hud__status--piece">
+			PLAYER PIECE
+		</div>
+		<div class="hud__status--die">
+			DIE
+		</div>
+	</div>
+
+	<div class="hud__legend">
+		<div class="hud__legend--row">
+			<div class="hud__legend--color">1</div>
+			<div class="hud__legend--category">OOP</div>
+		</div>
+		<div class="hud__legend--row">
+			<div class="hud__legend--color">2</div>
+			<div class="hud__legend--category">Databases</div>
+		</div>
+		<div class="hud__legend--row">
+			<div class="hud__legend--color">3</div>
+			<div class="hud__legend--category">Layout/CSS</div>
+		</div>
+		<div class="hud__legend--row">
+			<div class="hud__legend--color">4</div>
+			<div class="hud__legend--category">Server Side Programming</div>
+		</div>
+		<div class="hud__legend--row">
+			<div class="hud__legend--color">5</div>
+			<div class="hud__legend--category">Client Side Programming</div>
+		</div>
+		<div class="hud__legend--row">
+			<div class="hud__legend--color">6</div>
+			<div class="hud__legend--category"></div>
+		</div>
+	</div>
 	<!--  
 
 	<form method="GET" action="">
