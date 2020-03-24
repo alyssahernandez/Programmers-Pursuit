@@ -351,7 +351,6 @@ footer {
 
 .space {
   color: #eee;
-  background-color: #3D5BFC;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -364,12 +363,39 @@ footer {
 }
 
 .space__node {
-  background-color: #005D81;
+  color: #222;
 }
 
 .space__spoke-space {
-  background-color: #FFB600;
   width: 2.5rem;
   height: 2.5rem;
+}
+
+.space--cat1 {
+  background-color: red;
+}
+
+.space--cat2 {
+  background-color: blue;
+}
+
+.space--cat3 {
+  background-color: green;
+}
+
+.space--cat4 {
+  background-color: yellow;
+}
+
+.space--cat5 {
+  background-color: orange;
+}
+
+.space--cat6 {
+  background-color: pink;
+}
+
+.space--catRollAgain {
+  background-color: #222;
 }
 /*# sourceMappingURL=main.css.map */
