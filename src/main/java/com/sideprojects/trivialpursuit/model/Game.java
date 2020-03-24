@@ -23,7 +23,7 @@ public class Game {
 	public Gameboard getGameboard() { return gameboard; }
 	
 	public String getGameCode() { return gameCode;}
-	public void setGameCode(String gameCode) { this.gameCode = generateGameCode(); }
+	public void setGameCode(String gameCode) { this.gameCode = generateGameCode(); } // genGameCode() probably shouldn't be in the setter.
 	
 	public int getWinnerId() { return winnerId; }
 	public void setWinnerId(int winnerID) { this.winnerId = winnerID; }
@@ -48,12 +48,9 @@ public class Game {
 	    return gameCode;
 	}
 	
-	// SEE: Slack messages (#general) for a general overview of how order is determined.
-	// 90% of this would be redundant if it were possible to do anything more than basic conditional logic in the compareTo method, but it fought me at every turn. 
 	public List<Player> determinePlayerOrder(List<Player> players)
 	{
 		// Players are ordered based on their dice roll (highest first)
-		// TODO: Change this back to a for-each if not already -- for-loop used for console tests.
 		for (Player p : players) { p.setDiceRoll(); }
 		Collections.sort(players);
 

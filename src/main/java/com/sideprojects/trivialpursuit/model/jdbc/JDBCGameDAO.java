@@ -21,7 +21,7 @@ public class JDBCGameDAO implements GameDAO {
 	}
 
 	@Override
-	public void getGameCode() {
+	public Game getGameByCode() {
 		// TODO Auto-generated method stub
 	}
 	
