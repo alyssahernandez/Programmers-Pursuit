@@ -9,7 +9,7 @@ header {
 
 main {
     height: 93%;
-    background-color: $color-primary-0;
+    background-image: linear-gradient(to bottom right, $color-primary-2, $color-primary-3);
 
     display: flex;
     align-items: center;
@@ -119,6 +119,7 @@ main {
             background-color: $color-primary-0;
             width: 2rem;
             height: 2rem;
+            margin-right: 1rem;
         }
 
         &--category {
