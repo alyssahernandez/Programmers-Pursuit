@@ -1,6 +1,7 @@
 package com.sideprojects.trivialpursuit.controller;
 
 import org.eclipse.jdt.annotation.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,11 +12,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 
-import com.sideprojects.trivialpursuit.model.GameDAO;
-
 @Controller
 public class MainMenuController {
 	
+	@Autowired
 	GameDAO gameDAO;
 
 	@RequestMapping(path="/", method=RequestMethod.GET)
