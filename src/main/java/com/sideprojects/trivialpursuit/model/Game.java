@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Game {
 	private Long id;
-	private String gameCode; //1. Remove "static" in case I forget. 2. AC: Database set to only have 4char code
+	private String gameCode; 
 	private boolean active;
 	private Integer winnerId;
 	private List<Player> activePlayers;
@@ -21,9 +21,11 @@ public class Game {
 	// Not sure if getters/setters for gameboard are necessary quite yet; adding in case.  Setter certainly isn't if we're generating board in constructor.
 	// public void setGameboard(Gameboard gameboard) { this.gameboard = gameboard; }
 	public Gameboard getGameboard() { return gameboard; }
+	public void setGameboard(Gameboard gameboard) { this.gameboard = gameboard; } 
 	
-	public String getGameCode() { return gameCode;}
-	public void setGameCode(String gameCode) { this.gameCode = generateGameCode(); }
+	public String getNewGameCode() { return generateGameCode(); }
+	public String getGameCode() { return gameCode; }
+	public void setGameCode(String gameCode) { this.gameCode = gameCode.toUpperCase(); } // genGameCode() probably shouldn't be in the setter.
 	
 	public int getWinnerId() { return winnerId; }
 	public void setWinnerId(int winnerID) { this.winnerId = winnerID; }
@@ -48,13 +50,12 @@ public class Game {
 	    return gameCode;
 	}
 	
-	// SEE: Slack messages (#general) for a general overview of how order is determined.
-	// 90% of this would be redundant if it were possible to do anything more than basic conditional logic in the compareTo method, but it fought me at every turn. 
+	// TODO: This needs major refactoring (pull out diceRolls given they'll be passed in based on user input), tho it doesn't seem we're currently utilizing a player order beyond lobby order of entry.
+	// TODO: Let me know what your thoughts are on the necessity of this, and I'll adjust accordingly. -- Brooks
 	public List<Player> determinePlayerOrder(List<Player> players)
 	{
 		// Players are ordered based on their dice roll (highest first)
-		// TODO: Change this back to a for-each if not already -- for-loop used for console tests.
-		for (Player p : players) { p.setDiceRoll(); }
+		for (Player p : players) { p.getDiceRoll(); }
 		Collections.sort(players);
 
 		int highRoll = 0;			
@@ -73,7 +74,7 @@ public class Game {
 			{
 				highRoll = 0;
 				for (Player p : playersToRollAgain){
-					p.setDiceRoll();
+					p.getDiceRoll();
 					if (p.getDiceRoll() > highRoll)
 						highRoll = p.getDiceRoll();
 				}

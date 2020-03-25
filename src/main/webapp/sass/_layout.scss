@@ -9,7 +9,7 @@ header {
 
 main {
     height: 93%;
-    background-color: $color-primary-0;
+    background-image: linear-gradient(to bottom right, $color-primary-2, $color-primary-3);
 
     display: flex;
     align-items: center;
@@ -66,8 +66,66 @@ main {
 .hud {
     background-color: $color-primary-4;
     height: 100%;
+    padding: 2rem;
 
     flex: 2 1 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    &__status {
+
+        display: flex;
+
+        justify-content: space-evenly;
+
+        &--piece {
+            width: 50%;
+            padding: 2rem;       
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &--die {
+            width: 50%;
+            padding: 4rem;
+
+            & img {
+                width: 100%;
+            }
+        }
+    }
+
+    &__legend {
+
+        padding: 1rem 2rem;
+        background-color: $color-grey-light-1;
+        box-shadow: $shadow;
+
+        display: flex;
+        flex-wrap: wrap;
+
+        &--row {
+            width: 40%;
+
+            display: flex;
+            align-items: center;
+        }
+
+        &--color {
+            background-color: $color-primary-0;
+            width: 2rem;
+            height: 2rem;
+            margin-right: 1rem;
+        }
+
+        &--category {
+
+        }
+    }
 }
 
 footer {

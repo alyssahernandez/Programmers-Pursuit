@@ -19,6 +19,14 @@ html {
     @param {Length} $circle-size - Large circle size
     @param {Length} $item-size - Single item size
 */
+h2 {
+  text-align: center;
+  color: #eee;
+  font-size: 4.5rem;
+  font-weight: 500;
+  text-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
+}
+
 body {
   height: 100vh;
 }
@@ -30,7 +38,8 @@ header {
 
 main {
   height: 93%;
-  background-color: #00ADEF;
+  background-image: -webkit-gradient(linear, left top, right bottom, from(#07BAFF), to(#0078A6));
+  background-image: linear-gradient(to bottom right, #07BAFF, #0078A6);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -339,9 +348,81 @@ main {
 .hud {
   background-color: #005D81;
   height: 100%;
+  padding: 2rem;
   -webkit-box-flex: 2;
       -ms-flex: 2 1 0px;
           flex: 2 1 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.hud__status {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.hud__status--piece {
+  width: 50%;
+  padding: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.hud__status--die {
+  width: 50%;
+  padding: 4rem;
+}
+
+.hud__status--die img {
+  width: 100%;
+}
+
+.hud__legend {
+  padding: 1rem 2rem;
+  background-color: #eee;
+  -webkit-box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.hud__legend--row {
+  width: 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.hud__legend--color {
+  background-color: #00ADEF;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
 }
 
 footer {
@@ -351,7 +432,6 @@ footer {
 
 .space {
   color: #eee;
-  background-color: #3D5BFC;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -364,12 +444,74 @@ footer {
 }
 
 .space__node {
-  background-color: #005D81;
+  color: #222;
 }
 
 .space__spoke-space {
-  background-color: #FFB600;
   width: 2.5rem;
   height: 2.5rem;
 }
-/*# sourceMappingURL=main.css.map */
+
+.space__reachable {
+  border: 3px solid red;
+}
+
+.player-piece {
+  width: 100%;
+  margin: 1rem;
+  padding: 1.5rem;
+  -webkit-box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.player-piece__slice {
+  width: 2rem;
+  height: 2rem;
+  margin: .5rem 1rem;
+  background-color: #eee;
+  border: 1px solid #222;
+}
+
+.player-piece--small {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+.cat1 {
+  background-color: #3D5BFC;
+}
+
+.cat2 {
+  background-color: #FFBF22;
+}
+
+.cat3 {
+  background-color: #FF9522;
+}
+
+.cat4 {
+  background-color: #01178C;
+}
+
+.cat5 {
+  background-color: #CD9200;
+}
+
+.cat6 {
+  background-color: #CD6B00;
+}
+
+.catRollAgain {
+  background-color: #888;
+}

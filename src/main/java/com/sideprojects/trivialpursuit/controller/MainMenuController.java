@@ -30,23 +30,39 @@ public class MainMenuController {
 		@RequestParam @Nullable String gameName,
 		ModelMap moldelHolder,
 		RedirectAttributes flash) {
-	
-		/* THIS METHOD SEARCHES THE DB FOR AN EXISTING GAME
-		IF IT'S TRUE, THE USER'S SEARCH WILL TAKE THEM
-		TO THE EXISTING GAME URL */
+		
+		/* next week we should be learning the javascript
+		 * we need to create a pop-up form when a player
+		 * clicks create game instead of searching for one,
+		 * so i'm not sure which of this code will need to
+		 * be rewritten - Alyssa
+		 */
 			
-			Game activeGame = gameDAO.getActiveGame(gameSearch.toLowerCase());
-			moldelHolder.put("activeGame", activeGame);
-			return "gameboard";
+		
+		/* TODO from the main menu, we need to create
+		 * and store a list of users in the database based on the
+		 * names of players that are typed into the create game
+		 * form - Alyssa
+		 */
+			Game activeGame = gameDAO.getActiveGame(gameSearch.toUpperCase());
+			
+			if (activeGame != null) {				
+				moldelHolder.put("activeGame", activeGame);
+				return "redirect:/gameboard";
+			} else {
+				return "redirect:/";
+			}
+			
 		
 		/* else if (playerName != null && gameName != null) {
 			try {
 				
 				 TODO there needs to be a method in the JDBCGameDAO file
 				 * that allows players to create a new game by typing
-				 * in the game code
+				 * in the game code - there is a setGameCode() method
+				 * i think - Alyssa
 				 * 
-				Game newGame = gameDAO.createNewGame(gameName.toLowerCase());
+				Game newGame = gameDAO.createNewGame(gameName.toUpperCase());
 				moldelHolder.put("newGame", newGame);
 				
 				

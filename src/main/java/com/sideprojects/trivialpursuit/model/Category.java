@@ -22,10 +22,13 @@ public class Category {
 	
 	public Question getNewQuestion()
 	{ 	
+		if (questions.equals(null)) { return null; }
+		
 		while (true)
 		{
 			int index = generateRandomNumber(); 
 			Question question = null;
+			
 			if (!(questions.get(index).equals(null)))
 			{
 				question = questions.get(index);
@@ -40,6 +43,7 @@ public class Category {
 	// TODO: Should probably create a "generateRandomNum" method in the couple of other classes that utilize a random integer, but actually makes sense here whereas it's arguable for the others.
 	public int generateRandomNumber() 
 	{
+		//TODO: null check on question list ("questions")
 		int minQuestionIndex = 0;
 		int maxQuestionIndex = questions.size() - 1;
 		Random r = new Random();

@@ -21,7 +21,7 @@ public class JDBCGameDAO implements GameDAO {
 	}
 
 	@Override
-	public void getGameCode() {
+	public Game getGameByCode() {
 		// TODO Auto-generated method stub
 	}
 	
@@ -40,7 +40,8 @@ public class JDBCGameDAO implements GameDAO {
 		boolean newGame = true;
 		Integer winner_id = null;
 		Integer active_player_id = null; // What is active_player_id even for? We can determine # of active players from bridge table (isActive should be a bool in game_player, I think)).
-		
+		// active_player_id is used in regards to turn order in the controller &
+		// can also be used to pick up an active game that was paused etc - alyssa
 		// TODO: Can we pass null into 4int4 DB type? If not, we should set it to something that can take a null value -- we won't have winner ID's, for example, from the start.
 		String newGameId = "INSERT INTO game (active, winner_id, active_player_id) VALUES (?, ?, ?) RETURNING game_id";
 		

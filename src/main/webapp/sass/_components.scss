@@ -1,0 +1,74 @@
+.space {
+    color: $color-grey-light-1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__node {
+        color: $color-grey-dark-1;
+    }
+
+    &__spoke-space {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    &__reachable {
+        border: 3px solid red;
+    }
+}
+
+.player-piece {
+    width: 100%;
+    margin: 1rem;
+    padding: 1.5rem;
+    box-shadow: $shadow;
+
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    &__slice {
+        width: 2rem;
+        height: 2rem;
+        margin: .5rem 1rem;
+        background-color: $color-grey-light-1;
+        border: 1px solid $color-grey-dark-1;
+    }
+
+    &--small {
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        box-shadow: $shadow;
+    }
+}
+
+.cat1 {
+    background-color: $color-secondary-1-1;
+}
+
+.cat2 {
+    background-color: $color-secondary-2-1;
+}
+
+.cat3 {
+    background-color: $color-complement-1;
+}
+
+.cat4 {
+    background-color: $color-secondary-1-4;
+}
+
+.cat5 {
+    background-color: $color-secondary-2-4;
+}
+
+.cat6 {
+    background-color: $color-complement-4;
+}
+
+.catRollAgain {
+    background-color: $color-grey-dark-2;
+}

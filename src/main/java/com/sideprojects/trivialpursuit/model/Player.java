@@ -1,4 +1,5 @@
 package com.sideprojects.trivialpursuit.model;
+import java.util.List;
 import java.util.Random;
 
 public class Player implements Comparable<Player> { // Compares Players (for sort order) based on desired criteria. See "compareTo" below.
@@ -16,13 +17,25 @@ public class Player implements Comparable<Player> { // Compares Players (for sor
 	public String getName() {return name; }
 	public void setName(String name) { this.name = name; }
 	
-	public int getDiceRoll() { return diceRoll; }
-	public void setDiceRoll()
+	// Either way works, just a matter of if you want to pass a roll in or use their current roll (stored in private field) -- Brooks
+	public List<Integer> getReachableSpaces() { return location.getReachableSpaces(diceRoll); }
+	public List<Integer> getReachableSpacesFromRoll(int diceRoll) { return location.getReachableSpaces(diceRoll); }
+	
+	// These utilizes Jeff's original "getReachableSpaceS()" method, which returns a map, just in case we want them.  - Brooks
+	public List<Integer> getReachableSpacesV2() { return location.getReachableSpaces().get(diceRoll); }
+	public List<Integer> getReachableSpacesFromRollV2(int diceRoll) { return location.getReachableSpaces().get(diceRoll); }
+	
+	// Same with the reachable spaces, it depends on how you want to approach it @ Controller Team -- Brooks
+	public int getDiceRoll() { return generateDiceRoll(); }
+	public int getDiceRoll2() { return diceRoll; }
+	public void setDiceRoll(int diceRoll) { this.diceRoll = diceRoll; } 
+	
+	public int generateDiceRoll()
 	{
 		int minDiceRoll = 1;
 		int maxDiceRoll = 6;
 		Random r = new Random();
-		diceRoll = r.nextInt((maxDiceRoll - minDiceRoll) + 1) + minDiceRoll;
+		return r.nextInt((maxDiceRoll - minDiceRoll) + 1) + minDiceRoll;
 	}
 
 	// Comparing players based on dice roll to determine an initial order (accounting for ties occurs in Game.determinePlayerOrder()). Granted, this isn't the best use of Comparable by any stretch, but I'm lazy and don't want to write a sorting algorithm. 
