@@ -4,7 +4,7 @@ public interface GameDAO {
 	
 	//TODO
 
-	public void getGameByCode();
+	public Game getGameByCode();
 	public void setGameCode(Game game);
 	
 	public Long setNewGame();
