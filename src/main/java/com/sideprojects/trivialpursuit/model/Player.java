@@ -3,13 +3,13 @@ import java.util.List;
 import java.util.Random;
 
 public class Player implements Comparable<Player> { // Compares Players (for sort order) based on desired criteria. See "compareTo" below.
-	private Long id;
+	private int playerId;
 	private String name;
 	private Space location;
 	private int diceRoll;
 	
-	public Long getId() { return id; }
-	public void setId(Long id) { this.id = id; }
+	public int getId() { return playerId; }
+	public void setId(int playerId) { this.playerId = playerId; }
 	
 	public Space getLocation() { return location;}
 	public void setLocation(Space location) {this.location = location; }
