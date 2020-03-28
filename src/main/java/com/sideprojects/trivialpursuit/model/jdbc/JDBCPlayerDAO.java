@@ -1,20 +1,14 @@
 package com.sideprojects.trivialpursuit.model.jdbc;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.stereotype.Component;
 
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 
-@Component
 public class JDBCPlayerDAO implements PlayerDAO 
 {
 	private JdbcTemplate template;
@@ -61,20 +55,9 @@ public class JDBCPlayerDAO implements PlayerDAO
 	}
 
 	@Override
-	public List<Player> getAllPlayersInAGame(int gameID) {
-		List<Player> listAllPlayers = new ArrayList<>();                   
-		String sqlGetAllPlayers = "SELECT * FROM game_player JOIN player ON game_player.player_id "
-				+ "= player.player_id WHERE game_player.game_id = ?";
-		SqlRowSet results = template.queryForRowSet(sqlGetAllPlayers, gameID);
-		
-		while(results.next()) {
-			Player nextPlayer = new Player();
-			nextPlayer.setName(results.getString("name"));
-			nextPlayer.setId(results.getInt("player_id"));
-			listAllPlayers.add(nextPlayer);
-		}
-		
-		return listAllPlayers;
+	public Player getPlayerByGameId(Game game) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -84,28 +67,16 @@ public class JDBCPlayerDAO implements PlayerDAO
 	}
 
 	@Override
-	public void putPlayersIntoGame(int playerId, int gameId) {
-		String sqlPutPlayersIntoGame = "INSERT INTO game_player (player_id, game_id) VALUES (?, ?)";
-		template.update(sqlPutPlayersIntoGame, playerId, gameId);
-	}
-
-	@Override
-	//getNewPlayer()??
-	public void createNewPlayer(String name) {
-		String newPlayerId = "INSERT INTO player (name) VALUES (?)";
-		template.update(newPlayerId, name);
-	}
-
-	@Override
 	public void getPlayerById(Long id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Player getPlayerByGameId(Game game) {
-		// TODO Auto-generated method stub
-		return null;
+	//getNewPlayer()??
+	public Long setNewPlayer(String name) {
+		String newPlayerId = "INSERT INTO game (name) VALUES (?) RETURNING player_id";
+		return template.queryForObject(newPlayerId, Long.class, name);
 	}
 }
 

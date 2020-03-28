@@ -10,25 +10,45 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
+import com.sideprojects.trivialpursuit.model.Game;
+import com.sideprojects.trivialpursuit.model.GameDAO;
 
 @Controller 
 public class GameboardController {
 	
 	@Autowired
 	PlayerDAO playerDAO;
+	
+	@Autowired
+	GameDAO gameDAO;
 
 	// HttpSession session
 	// session.setAttribute(CART_KEY, cart);
 	// ShoppingCart cart = (ShoppingCart)session.getAttribute(CART_KEY);
 
-	@RequestMapping(path="/gameboard", method=RequestMethod.GET)
-	public String displayGameboard(Model modelHolder) {
+	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.GET)
+	public String displayGameboard(
+			ModelMap model,
+
+			@PathVariable String gameCode) {
+		
+		Game currentGame = gameDAO.getActiveGame(gameCode);
+		model.put("currentGame", currentGame);
+
+		List<Player> playersInGame = playerDAO.getAllPlayersInAGame(currentGame.getGameID());
+		model.put("playersInGame", playersInGame);
+		
+		Player currentPlayerTurn = playerDAO.getActivePlayer();
+		
+		
 		return "gameboard";
 	}
 		
@@ -36,7 +56,7 @@ public class GameboardController {
 	// create game from main menu) - like the shopping cart
 	
 	@RequestMapping(path="/gameboard", method=RequestMethod.POST)
-	public String displayGameboardWithPlayers(Model molderHolder, HttpSession session,
+	public String displayGameboardWithPlayers(ModelMap model, HttpSession session,
 			HttpServletRequest request) {
 		
 		// TODO method here for pulling activePlayerID from db
