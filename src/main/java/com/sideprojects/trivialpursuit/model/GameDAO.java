@@ -4,9 +4,10 @@ public interface GameDAO {
 	
 	//TODO
 
-	public void getGameByCode();
-	public void setGameCode(Game game);
+	public Game getGameByCode();
+	//AC: we shouldnt let them change game code on the fly, ommiting. 
+	//public void setGameCode(Game game);
 	
-	public Long setNewGame();
+	public void createNewGame(String code); //AC changed return to void added Code arg
 	public Game getActiveGame(String gameCode); // maybe change return type to Game?
 }

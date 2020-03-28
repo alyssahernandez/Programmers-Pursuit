@@ -9,5 +9,7 @@ public interface CategoryDAO {
 	public void setCategoryByGameId(Game game);
 	
 	//TODO: Select categories based on user-chosen categories (2, 3, or 6 categories -- to divide up the gameboard evenly)
+	// AC: this work has been done in table category_space. all categorys have 12 spaces each. so all user needs is the 
+	//first method above
 	
 }

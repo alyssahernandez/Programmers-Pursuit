@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Game {
-	private Long id;
+	private int id;
 	private String gameCode; 
 	private boolean active;
 	private Integer winnerId;
@@ -38,8 +38,8 @@ public class Game {
 	
 	public Game () { this.gameboard = new Gameboard(); }
 	
-	public Long getGameID() {return id;}
-	public void setGameID(Long gameID) {this.id = gameID;}
+	public int getGameID() {return id;}
+	public void setGameID(int gameID) {this.id = gameID;}
 	
 	// Not sure if getters/setters for gameboard are necessary quite yet; adding in case.  Setter certainly isn't if we're generating board in constructor.
 	// public void setGameboard(Gameboard gameboard) { this.gameboard = gameboard; }

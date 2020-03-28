@@ -23,29 +23,29 @@ public class JDBCGameDAO implements GameDAO {
 	@Override
 	public Game getGameByCode() {
 		// TODO Auto-generated method stub
+		return null;
 	}
 	
-	@Override
-	public void setGameCode(Game game) {
-		
-		// *** TODO: Need a game_code attribute in Game table!! ***
-		String setCodeQuery = "UPDATE game SET game_code = ? WHERE game_id = ?";
-		template.update(setCodeQuery, game.getGameCode(), game.getGameID());
-		
-	}
+//	@Override
+//	public void setGameCode(Game game) {
+//		
+//		// *** TODO: Need a game_code attribute in Game table!! ***
+//		String setCodeQuery = "UPDATE game SET game_code = ? WHERE game_id = ?";
+//		template.update(setCodeQuery, game.getGameCode(), game.getGameID());
+//		
+//	}
 
 	@Override
 	// In controller, this will return a game_id to tie to a new game.
-	public Long setNewGame() {
-		boolean newGame = true;
-		Integer winner_id = null;
-		Integer active_player_id = null; // What is active_player_id even for? We can determine # of active players from bridge table (isActive should be a bool in game_player, I think)).
-		
+	public void createNewGame(String code) {
+		 // What is active_player_id even for? We can determine # of active players from bridge table (isActive should be a bool in game_player, I think)).
+		// active_player_id is used in regards to turn order in the controller &
+		// can also be used to pick up an active game that was paused etc - alyssa
 		// TODO: Can we pass null into 4int4 DB type? If not, we should set it to something that can take a null value -- we won't have winner ID's, for example, from the start.
-		String newGameId = "INSERT INTO game (active, winner_id, active_player_id) VALUES (?, ?, ?) RETURNING game_id";
-		
-		return template.queryForObject(newGameId, Long.class, newGame, winner_id, active_player_id);
+		String newGameId = "INSERT INTO game (game_code, active) VALUES (?, ?)";
+		template.update(newGameId, code, true);
 	}
+	
 
 	@Override
 	// User passes in a game code, gets matching game

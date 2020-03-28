@@ -22,29 +22,42 @@
 
 				<c:choose>				
 					<c:when test="${ j == 6 || j == 22 || j == 36 || j == 43 || j == 57 }">
-						<c:set var="category" value="space--cat1"/>
+						<c:set var="category" value="cat1"/>
 					</c:when>
 					<c:when test="${ j == 18 || j == 34 || j == 48 || j == 55 || j == 69 }">
-						<c:set var="category" value="space--cat2"/>
+						<c:set var="category" value="cat2"/>
 					</c:when>
 					<c:when test="${ j == 30 || j == 46 || j == 60 || j == 67 || j == 9 }">
-						<c:set var="category" value="space--cat3"/>
+						<c:set var="category" value="cat3"/>
 					</c:when>
 					<c:when test="${ j == 42 || j == 58 || j == 72 || j == 7 || j == 21 }">
-						<c:set var="category" value="space--cat4"/>
+						<c:set var="category" value="cat4"/>
 					</c:when>
 					<c:when test="${ j == 54 || j == 70 || j == 12 || j == 19 || j == 33 }">
-						<c:set var="category" value="space--cat5"/>
+						<c:set var="category" value="cat5"/>
 					</c:when>
 					<c:when test="${ j == 66 || j == 10 || j == 24 || j == 31 || j == 45 }">
-						<c:set var="category" value="space--cat6"/>
+						<c:set var="category" value="cat6"/>
 					</c:when>
 					<c:otherwise>
-						<c:set var="category" value="space--catRollAgain"/>
+						<c:set var="category" value="catRollAgain"/>
 					</c:otherwise>
 				</c:choose>
 
-				<div class="space ${ isNode } ${ category }" id="${ spaceId }"><c:out value="${ spaceId }"/></div>
+
+<!-- 					JEFF: TODO THIS IS DUMMY CODE FOR STYLISTIC PURPOSES; FIGURE OUT HOW TO TEST FOR REACHABILITY -->
+				<c:set var="reachable" value=""/>
+				<c:if test="${ j == 18 }">
+					<c:set var="reachable" value="space__reachable"/>
+				</c:if>
+
+<!-- 				THIS ACTUALLY CREATES THE SPACE AS WELL AS ANY PLAYER TOKENS -->
+				<div class="space ${ isNode } ${ category } ${ reachable }" id="${ spaceId }">
+					<c:if test="${ j == 10 }">
+						<div class="player-piece--small cat2"></div>
+						<div class="player-piece--small cat3"></div>
+					</c:if>
+				</div>
 		
 			</c:forEach>
 		</c:forEach>
@@ -64,26 +77,30 @@
 				
 				<c:choose>				
 					<c:when test="${ j == 13 || j == 28 || j == 41 || j == 51 || j == 62 }">
-						<c:set var="category" value="space--cat1"/>
+						<c:set var="category" value="cat1"/>
 					</c:when>
 					<c:when test="${ j == 25 || j == 40 || j == 53 || j == 63 || j == 2 }">
-						<c:set var="category" value="space--cat2"/>
+						<c:set var="category" value="cat2"/>
 					</c:when>
 					<c:when test="${ j == 37 || j == 52 || j == 65 || j == 3 || j == 14 }">
-						<c:set var="category" value="space--cat3"/>
+						<c:set var="category" value="cat3"/>
 					</c:when>
 					<c:when test="${ j == 49 || j == 64 || j == 5 || j == 15 || j == 26 }">
-						<c:set var="category" value="space--cat4"/>
+						<c:set var="category" value="cat4"/>
 					</c:when>
 					<c:when test="${ j == 61 || j == 4 || j == 17 || j == 27 || j == 38 }">
-						<c:set var="category" value="space--cat5"/>
+						<c:set var="category" value="cat5"/>
 					</c:when>
 					<c:when test="${ j == 1 || j == 16 || j == 29 || j == 39 || j == 50 }">
-						<c:set var="category" value="space--cat6"/>
+						<c:set var="category" value="cat6"/>
 					</c:when>
 				</c:choose>
 				
-					<div class="space space__spoke-space ${ category }"><c:out value="${ j }"/></div>	
+					<div class="space space__spoke-space ${ category }">
+						<c:if test="${ j == 15 }">
+							<div class="player-piece--small cat1"></div>
+						</c:if>
+					</div>	
 				</c:forEach>
 			
 			</div>						
@@ -91,48 +108,59 @@
 	</div>
 	
 <!-- THIS IS THE CENTER SPACE -->
-	<div class="gameboard__center space" id="0">0</div>
+	<div class="gameboard__center space space__reachable" id="0"></div>
 
 </div>
 <div class="hud">
 
+<!-- 	THIS IS WHERE THE CURRENT PLAYER INSTRUCTIONS WILL GO -->
 	<div class="hud__message">
 		<h2>Player 5, it's your turn.<br>Where do you want to move?</h2>
 	</div>
 
+<!-- 		THIS SECTION HAS BOTH THE CURRENT DIE ROLL AND A PICTURE OF THE CURRENT PLAYER'S FULL SCORE STATUS -->
 	<div class="hud__status">
 		<div class="hud__status--piece">
-			PLAYER PIECE
+			<div class="player-piece cat1">
+				<div class="player-piece__slice cat1"></div>
+				<div class="player-piece__slice"></div>
+				<div class="player-piece__slice cat3"></div>
+				<div class="player-piece__slice cat4"></div>
+				<div class="player-piece__slice"></div>
+				<div class="player-piece__slice"></div>
+			</div>
 		</div>
 		<div class="hud__status--die">
-			DIE
+<!-- 		TODO JEFF: THE DIE PNGS NEED TO HAVE THEIR COLORS CHANGED OR SWAPPED OUT FOR NEW GRAPHICS -->
+			<img src="/trivial-pursuit/img/dice3.png">
 		</div>
 	</div>
 
+<!-- 	THIS IS THE LEGEND SECTION -->
 	<div class="hud__legend">
 		<div class="hud__legend--row">
-			<div class="hud__legend--color">1</div>
+			<div class="hud__legend--color cat1"></div>
 			<div class="hud__legend--category">OOP</div>
 		</div>
 		<div class="hud__legend--row">
-			<div class="hud__legend--color">2</div>
+			<div class="hud__legend--color cat2"></div>
 			<div class="hud__legend--category">Databases</div>
 		</div>
 		<div class="hud__legend--row">
-			<div class="hud__legend--color">3</div>
+			<div class="hud__legend--color cat3"></div>
 			<div class="hud__legend--category">Layout/CSS</div>
 		</div>
 		<div class="hud__legend--row">
-			<div class="hud__legend--color">4</div>
+			<div class="hud__legend--color cat4"></div>
 			<div class="hud__legend--category">Server Side Programming</div>
 		</div>
 		<div class="hud__legend--row">
-			<div class="hud__legend--color">5</div>
+			<div class="hud__legend--color cat5"></div>
 			<div class="hud__legend--category">Client Side Programming</div>
 		</div>
 		<div class="hud__legend--row">
-			<div class="hud__legend--color">6</div>
-			<div class="hud__legend--category"></div>
+			<div class="hud__legend--color cat6"></div>
+			<div class="hud__legend--category">Technical Interview</div>
 		</div>
 	</div>
 	<!--  
