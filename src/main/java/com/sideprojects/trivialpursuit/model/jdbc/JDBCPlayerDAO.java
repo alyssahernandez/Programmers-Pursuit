@@ -14,6 +14,7 @@ import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 
+@Component
 public class JDBCPlayerDAO implements PlayerDAO 
 {
 	private JdbcTemplate template;
