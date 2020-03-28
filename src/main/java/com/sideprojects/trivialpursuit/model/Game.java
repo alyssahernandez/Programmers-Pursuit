@@ -12,6 +12,29 @@ public class Game {
 	private Integer winnerId;
 	private List<Player> activePlayers;
 	private Gameboard gameboard;
+	private int nextPlayerUpIndex;
+	
+	public Player getNextPlayerUp()
+	{
+		// Throw Exception?
+		if (activePlayers == null)
+			return null;
+		
+		Player p = null;
+		
+		if (nextPlayerUpIndex < activePlayers.size())
+		{
+			p = activePlayers.get(nextPlayerUpIndex);
+			nextPlayerUpIndex++;
+		}
+		else
+		{
+			nextPlayerUpIndex = 0;
+			p = activePlayers.get(nextPlayerUpIndex);
+		}
+		
+		return p;
+	}
 	
 	public Game () { this.gameboard = new Gameboard(); }
 	
