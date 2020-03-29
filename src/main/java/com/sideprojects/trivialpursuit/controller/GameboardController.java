@@ -31,6 +31,16 @@ public class GameboardController {
 	
 	@Autowired
 	GameDAO gameDAO;
+	
+	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.GET)
+	public String displayGameboard() {
+			
+		return "redirect:/gameboard";
+		
+	}
+		
+
+	/* COMMENTING THIS OUT SO THE GAME COMPILES...
 
 	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.GET)
 	public String displayGameboard(
@@ -50,11 +60,11 @@ public class GameboardController {
 		 * that in the jsp to get all players and their current spaces - we can then 
 		 * use each of their spaces and the space.getId() method to actually show 
 		 * it via CSS - ALYSSA
-		*/
+		
 		
 		/* TODO BACK-END: 
 		 * 
-		 */
+		 
 		
 		List<Player> playersInGame = currentGame.getAllPlayersInAGame();
 		model.put("playersInGame", playersInGame);
@@ -64,7 +74,7 @@ public class GameboardController {
 		 * SQL method etc should be done in the JDBCGameDAO file, so you'll need to link
 		 * link the player ID to the player table to populate a player OBJECT 
 		 * which will be returned in the method we're calling below - ALYSSA
-		 */
+		 
 		
 		Player currentPlayerTurn = currentGame.getActivePlayer();
 		model.put("currentPlayerTurn", currentPlayerTurn);
@@ -72,7 +82,7 @@ public class GameboardController {
 		/* when the page loads, we need to see if the die has been clicked on - the default
 		 * value is no, of course, so the first if clause will only execute after a player
 		 * has clicked on the die - ALYSSA
-		 */
+		 
 		if (isRollingDie == true) {
 			
 			// Maybe use currentPlayerTurn.getNewDiceRoll() here -- will update player's roll (can be retrieved & passed to View w/ player.getLastDiceRoll())
@@ -90,7 +100,7 @@ public class GameboardController {
 			    See: Player class for additional notes.
 			    We could store the game board and it's categorized spaces in the DB, too, which might make things easier overall.  Not sure.  
 				
-			*/
+			
 			availableSpacesFromRoll = currentPlayerTurn.getReachableSpacesFromRollV2(diceRollValue);
 			model.put("availableSpacesFromRoll", availableSpacesFromRoll);
 			
@@ -100,12 +110,12 @@ public class GameboardController {
 			 * same thing with the availableSpacesFromRoll - if's null, nothing happens &
 			 * if it isn't null, the spaces available to the active player are displayed
 			 * - ALYSSA
-			 */
+			 
 			
 		} else if (isChoosingSpace == true) {
 			/* TODO FRONT-END: next week we're getting into JavaScript - we can use JS to
 			 * create pop-ups with the questions on them - ALYSSA
-			 */
+			 
 		} else {
 			
 			return "gameboard";
@@ -115,6 +125,8 @@ public class GameboardController {
 		return "gameboard";
 
 	}
+	
+	*/
 	
 	@RequestMapping(path="/gameboard", method=RequestMethod.POST)
 	public String displayGameboardWithPlayers(ModelMap model, HttpSession session,
