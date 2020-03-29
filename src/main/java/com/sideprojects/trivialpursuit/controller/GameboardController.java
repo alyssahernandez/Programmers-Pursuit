@@ -36,37 +36,53 @@ public class GameboardController {
 	// session.setAttribute(CART_KEY, cart);
 	// ShoppingCart cart = (ShoppingCart)session.getAttribute(CART_KEY);
 
-	// GET method is simply loading the game state
+	// GET method is simply loading the current game state
 	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.GET)
 	public String displayGameboard(
 			ModelMap model,
 			@RequestParam(name = "isRollingDie", required = false) Boolean isRollingDie,
+			@RequestParam(name = "isChoosingSpace", required = false) Boolean isChoosingSpace,
 			@PathVariable String gameCode) {
 		
 		int dieRoll;
-		int currentPlayerSpace;
+		Space activePlayerSpace = null;
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		model.put("currentGame", currentGame);
 
+		/* every player object has a Space location, so we can call that in the jsp
+		* to get all players and their current spaces - we can then use each of their
+		* spaces and the space.getId() method to actually show it via CSS - ALYSSA
+		*/
+		
 		List<Player> playersInGame = playerDAO.getAllPlayersInAGame(currentGame.getGameID());
 		model.put("playersInGame", playersInGame);
 		
-		/* TODO the game table is where the active_player_id is stored, so we need a method
-		 * that takes in a game code as a parameter and returns a PLAYER object - note: the
-		 * SQL method will return a player ID so you'll need to link the player ID to the
-		 * player table to populate a player OBJECT which will be returned in the method
-		 * we're calling below - ALYSSA
+		/* TODO BACK-END: the game table is where the active_player_id is stored, so we need a method
+		 * in the game.java class that returns a PLAYER object - note: the
+		 * SQL method etc should be done in the JDBCGameDAO file, so you'll need to link
+		 * link the player ID to the player table to populate a player OBJECT 
+		 * which will be returned in the method we're calling below - ALYSSA
 		 */
-		Player currentPlayerTurn = gameDAO.getActivePlayer(gameCode);
+		
+		Player currentPlayerTurn = currentGame.getActivePlayer();
 		model.put("currentPlayerTurn", currentPlayerTurn);
 		
-		if (isRollingDie != null) {
+		/* when the page loads, we need to see if the die has been clicked on - the default
+		 * value is no, of course, so the first if clause will only execute after a player
+		 * has clicked on the die - ALYSSA
+		 */
+		if (isRollingDie != null && isChoosingSpace != null) {
 			dieRoll = Dice.getDiceRoll();
-			currentPlayerSpace = currentPlayerTurn.getReachableSpacesFromRoll(diceRoll);
+			
+		} else if {
+			
+		} else if {
+			
+		} else {
+			return "gameboard";
 		}
-		
-		return "gameboard";
+
 	}
 		
 	// store current game in session instead of db (but still create it upon
@@ -75,13 +91,6 @@ public class GameboardController {
 	@RequestMapping(path="/gameboard", method=RequestMethod.POST)
 	public String displayGameboardWithPlayers(ModelMap model, HttpSession session,
 			HttpServletRequest request) {
-		
-		// TODO method here for pulling activePlayerID from db
-				
-		@SuppressWarnings("unchecked")
-		List<Player> playersInGame = (List<Player>) session.getAttribute("playersInGame"); 
-		
-		// Player currentPlayer = playerDAO.getPlayerById(1L);
 		
 		// TODO method here for updating activePlayerID in db
 		
