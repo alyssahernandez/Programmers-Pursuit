@@ -49,6 +49,7 @@ public class JDBCCategoryDAO implements CategoryDAO {
 		return categoryFromSpace;
 	}
 	
+	//TODO: Use a JDBCQuestionDAO method to populate the Category with a List of questions. Maybe unnecessary with our DB-everything approach, but might be. 
 	@Override
 	public List<Category> getCategoriesByGameId(Game game) 
 	{
