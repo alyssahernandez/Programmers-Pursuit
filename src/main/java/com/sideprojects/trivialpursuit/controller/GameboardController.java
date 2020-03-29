@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
+import com.sideprojects.trivialpursuit.model.Space;
+import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 
@@ -34,11 +36,15 @@ public class GameboardController {
 	// session.setAttribute(CART_KEY, cart);
 	// ShoppingCart cart = (ShoppingCart)session.getAttribute(CART_KEY);
 
+	// GET method is simply loading the game state
 	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.GET)
 	public String displayGameboard(
 			ModelMap model,
-
+			@RequestParam(name = "isRollingDie", required = false) Boolean isRollingDie,
 			@PathVariable String gameCode) {
+		
+		int dieRoll;
+		int currentPlayerSpace;
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		model.put("currentGame", currentGame);
@@ -46,8 +52,19 @@ public class GameboardController {
 		List<Player> playersInGame = playerDAO.getAllPlayersInAGame(currentGame.getGameID());
 		model.put("playersInGame", playersInGame);
 		
-		Player currentPlayerTurn = playerDAO.getActivePlayer();
+		/* TODO the game table is where the active_player_id is stored, so we need a method
+		 * that takes in a game code as a parameter and returns a PLAYER object - note: the
+		 * SQL method will return a player ID so you'll need to link the player ID to the
+		 * player table to populate a player OBJECT which will be returned in the method
+		 * we're calling below - ALYSSA
+		 */
+		Player currentPlayerTurn = gameDAO.getActivePlayer(gameCode);
+		model.put("currentPlayerTurn", currentPlayerTurn);
 		
+		if (isRollingDie != null) {
+			dieRoll = Dice.getDiceRoll();
+			currentPlayerSpace = currentPlayerTurn.getReachableSpacesFromRoll(diceRoll);
+		}
 		
 		return "gameboard";
 	}

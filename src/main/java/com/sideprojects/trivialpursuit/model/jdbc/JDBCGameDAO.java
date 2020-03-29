@@ -56,7 +56,7 @@ public class JDBCGameDAO implements GameDAO {
 		Game game = new Game();
 		if (rowSet.next())
 		{
-			game.setGameID(rowSet.getLong("game_id"));
+			game.setGameID(rowSet.getInt("game_id"));
 			game.setActive(rowSet.getBoolean("active"));
 			game.setGameCode(gameCode); 
 			game.setWinnerId(rowSet.getInt("winner_id"));
