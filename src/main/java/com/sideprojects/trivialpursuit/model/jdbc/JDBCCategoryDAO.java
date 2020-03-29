@@ -1,5 +1,8 @@
 package com.sideprojects.trivialpursuit.model.jdbc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -22,13 +25,20 @@ public class JDBCCategoryDAO implements CategoryDAO {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
+	
+	// TODO: I think we'd need a Space/Gameboard table to make this work (as well as a category_space table), wouldn't we?
+	// A game's categories (2, 3, or 6 in total) will be tied to 7-19 spaces each.
+	// Unless I'm misunderstand what a "space" attribute in the category_game table is doing. Let me know if so!
+	
+	// TODO: Maybe pass a Space into this? (e.g. player.getLocation()), and reference the spaceId)
+	
 	@Override
 	public Category getCategoryFromSpace(int userChoiceSpaceID) {
 		
 		Category categoryFromSpace = new Category();
 		
 		String sqlGetCategoryFromSpace = "SELECT * FROM category JOIN category_game ON category_game.category_id "
-				+ "= category.category_id WHERE category_game.space = ?";
+										+ "= category.category_id WHERE category_game.space = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetCategoryFromSpace, userChoiceSpaceID);
 		
 		while(results.next()) {
@@ -38,16 +48,31 @@ public class JDBCCategoryDAO implements CategoryDAO {
 		
 		return categoryFromSpace;
 	}
-
+	
 	@Override
-	public Category getCategoryByGameId(Game game) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Category> getCategoriesByGameId(Game game) 
+	{
+		
+		List<Category> categories = new ArrayList<>();
+		String query = "SELECT * FROM category INNER JOIN category_game ON category.category_id = category_game.category_id " + 
+						"INNER JOIN game ON category_game.game_id = game.game_id WHERE game.game_id = ?";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(query, game.getGameID());
+		
+		while (results.next())
+		{
+			Category c = new Category();
+			c.setCategoryID(results.getInt("category_id"));
+			c.setCategoryName(results.getString("name"));
+			categories.add(c);
+		}
+		return categories;
 	}
+	
+	//TODO: Fill out method(s) below
 
 	@Override
 	public void setCategoryByGameId(Game game) {
-		// TODO Auto-generated method stub
 		
 	}
 	

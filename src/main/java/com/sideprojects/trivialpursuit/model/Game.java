@@ -6,40 +6,19 @@ import java.util.List;
 import java.util.Random;
 
 public class Game {
-	private int id;
+	private Integer id;
 	private String gameCode; 
 	private boolean active;
 	private Integer winnerId;
 	private List<Player> activePlayers;
+	private Player activePlayer;
 	private Gameboard gameboard;
 	private int nextPlayerUpIndex;
-	
-	public Player getNextPlayerUp()
-	{
-		// Throw Exception?
-		if (activePlayers == null)
-			return null;
-		
-		Player p = null;
-		
-		if (nextPlayerUpIndex < activePlayers.size())
-		{
-			p = activePlayers.get(nextPlayerUpIndex);
-			nextPlayerUpIndex++;
-		}
-		else
-		{
-			nextPlayerUpIndex = 0;
-			p = activePlayers.get(nextPlayerUpIndex);
-		}
-		
-		return p;
-	}
-	
+
 	public Game () { this.gameboard = new Gameboard(); }
 	
-	public int getGameID() {return id;}
-	public void setGameID(int gameID) {this.id = gameID;}
+	public Integer getGameID() {return id;}
+	public void setGameID(Integer gameID) {this.id = gameID;}
 	
 	// Not sure if getters/setters for gameboard are necessary quite yet; adding in case.  Setter certainly isn't if we're generating board in constructor.
 	// public void setGameboard(Gameboard gameboard) { this.gameboard = gameboard; }
@@ -59,6 +38,10 @@ public class Game {
 	public List<Player> getActivePlayers() { return activePlayers; }
 	public void setActivePlayers(List<Player> activePlayers) {this.activePlayers = determinePlayerOrder(activePlayers); }
 	
+	public Player getActivePlayer() { return activePlayer; }
+
+	public void setActivePlayer(Player activePlayer) { this.activePlayer = activePlayer; }
+	
 	public void getNewPlayer(Player player) { activePlayers.add(player); } // could also call getActivePlayers().add(player);
 	public void removeActivePlayer(Player player) { activePlayers.remove(player); } // could also just call getActivePlayers().remove(player);
 	
@@ -73,22 +56,44 @@ public class Game {
 	    return gameCode;
 	}
 	
+	// TODO: This either needs reworked or is redundant if we're pulling from DB on every iteration. 
+	// TODO: Generally, though, how do we say "Hey, you're next" and store that user's ID the DB, then pull it from DB? 
+	public Player getNextPlayerUp()
+	{
+		if (activePlayers == null)
+			return null;
+		
+		Player p = null;
+		
+		if (nextPlayerUpIndex < activePlayers.size())
+		{
+			p = activePlayers.get(nextPlayerUpIndex);
+			nextPlayerUpIndex++;
+		}
+		else
+		{
+			nextPlayerUpIndex = 0;
+			p = activePlayers.get(nextPlayerUpIndex);
+		}
+		
+		return p;
+	}
+	
 	// TODO: This needs major refactoring (pull out diceRolls given they'll be passed in based on user input), tho it doesn't seem we're currently utilizing a player order beyond lobby order of entry.
-	// TODO: Let me know what your thoughts are on the necessity of this, and I'll adjust accordingly. -- Brooks
 	public List<Player> determinePlayerOrder(List<Player> players)
 	{
 		// Players are ordered based on their dice roll (highest first)
-		for (Player p : players) { p.getDiceRoll(); }
+		for (Player p : players) { p.getNewDiceRoll(); }
 		Collections.sort(players);
 
 		int highRoll = 0;			
 		for (Player p : players)
-			if (p.getDiceRoll() > highRoll)
-				highRoll = p.getDiceRoll();
+			if (p.getLastDiceRoll() > highRoll)
+				highRoll = p.getLastDiceRoll();
 		
 		List<Player> playersToRollAgain = new ArrayList<>();
 		for (Player p : players)
-			if (p.getDiceRoll() == highRoll)
+			if (p.getLastDiceRoll() == highRoll)
 				playersToRollAgain.add(p);
 		
 		while (true)
@@ -97,14 +102,14 @@ public class Game {
 			{
 				highRoll = 0;
 				for (Player p : playersToRollAgain){
-					p.getDiceRoll();
-					if (p.getDiceRoll() > highRoll)
-						highRoll = p.getDiceRoll();
+					p.getNewDiceRoll();
+					if (p.getLastDiceRoll() > highRoll)
+						highRoll = p.getLastDiceRoll();
 				}
 				List<Player> toRemove = new ArrayList<>();
 				for (Player p : playersToRollAgain) 
 				{
-					if (p.getDiceRoll() == highRoll)
+					if (p.getNewDiceRoll() == highRoll)
 						continue;
 					else
 						toRemove.add(p);
@@ -129,4 +134,5 @@ public class Game {
 		}
 		return players;
 	}
+
 }

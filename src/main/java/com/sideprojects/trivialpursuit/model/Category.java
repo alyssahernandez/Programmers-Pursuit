@@ -5,14 +5,14 @@ import java.util.Random;
 
 //AC: all categorys will have these getters to get the ID and the name wherever we want to use them
 public class Category {
-	private int categoryID;
+	private Integer categoryID;
 	private String categoryName;
 	private List<Question> questions;
 	
 	public Category() { }
 	
-	public int getCategoryID() { return categoryID; }
-	public void setCategoryID(int categoryID) { this.categoryID = categoryID;}
+	public Integer getCategoryID() { return categoryID; }
+	public void setCategoryID(Integer categoryID) { this.categoryID = categoryID;}
 	
 	public String getCategoryName() { return categoryName;}
 	public void setCategoryName(String categoryName)  { this.categoryName = categoryName;}
@@ -40,7 +40,6 @@ public class Category {
 		}
 	}
 	
-	// TODO: Should probably create a "generateRandomNum" method in the couple of other classes that utilize a random integer, but actually makes sense here whereas it's arguable for the others.
 	public int generateRandomNumber() 
 	{
 		//TODO: null check on question list ("questions")

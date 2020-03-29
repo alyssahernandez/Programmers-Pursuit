@@ -75,9 +75,22 @@ public class GameboardController {
 		 */
 		if (isRollingDie == true) {
 			
+			// Maybe use currentPlayerTurn.getNewDiceRoll() here -- will update player's roll (can be retrieved & passed to View w/ player.getLastDiceRoll())
 			diceRollValue = Dice.getDiceRoll();
 			model.put("diceRollValue", diceRollValue);
 			
+			/*  TODO: Let me know your thoughts on the comments below, comments throughout other files (Player, Gameboard, Game, JDBCGameDAO, JDBCPlayerDAO) 
+			 
+			    1.  availableSpacesFromRoll = currentPlayerTurn.getReachableSpaces(currentGame.getGameboard());
+			   	2.  availableSpacesFromRoll = currentGame.getGameboard().getReachableSpaces(diceRollValue, currentPlayerTurn.getLocation().getId());
+			  
+			    ^^^ A couple of examples of how what's below could work (the examples asbove use a pair of methods to generate a List<Space>). See: files mentioned above.
+			    Let me know if you have other ideas, want anything changed around, don't think it'll be useful, etc.
+			    In order for #1 to work, currentPlayerTurn needs to have a dice roll set (see: note on like 78).  
+			    See: Player class for additional notes.
+			    We could store the game board and it's categorized spaces in the DB, too, which might make things easier overall.  Not sure.  
+				
+			*/
 			availableSpacesFromRoll = currentPlayerTurn.getReachableSpacesFromRollV2(diceRollValue);
 			model.put("availableSpacesFromRoll", availableSpacesFromRoll);
 			

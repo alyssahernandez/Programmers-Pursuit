@@ -24,87 +24,66 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template = new JdbcTemplate(dataSource);
 	}
 	
+	// TODO: Should we have a "RETURNING" statement @ end of query, returning the the players newly generated player_id (because the DB is serialized) to reference elsewhere?
+	@Override
+	public void createNewPlayer(String name) {
+		String insertPlayer = "INSERT INTO player (name) VALUES (?)";
+		template.update(insertPlayer, name);
+	}
+	
+	@Override
+	public void putPlayerListIntoGame(List<Player> players, int gameId)
+	{
+		for (Player p : players)
+		{
+			String sqlPutPlayerIntoGame = "INSERT INTO game_player (player_id, game_id) VALUES (?, ?)";
+			template.update(sqlPutPlayerIntoGame, p.getId(), gameId);
+		}
+	}
+
+	@Override
+	public void putPlayerIntoGame(int playerId, int gameId) {
+		String sqlPutPlayerIntoGame = "INSERT INTO game_player (player_id, game_id) VALUES (?, ?)";
+		template.update(sqlPutPlayerIntoGame, playerId, gameId);
+	}
+
+	
+	@Override
+	public void setPlayerPosition(Player player, Game game) {
+		String setPlayerPosition = "UPDATE game_player SET player_position = ? WHERE player_id = ? AND game_id = ?";
+		template.update(setPlayerPosition, player.getLocation().getId(), player.getId(), game.getGameID());
+	}
+	
+	//TODO:  Not all of these will be used or useful.  Fill out the ones that are needed.
+	
 	@Override
 	public void getPlayerByName(String name) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void setPlayerByName() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public Integer getPlayerPosition(Player player) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setPlayerPosition(Player player) {
-		// TODO Auto-generated method stub
-		
+	public void setPlayerByGameId(Game game) {
 	}
 
 	@Override
-	public void setPlayerPiesAttained(Integer piesAttained) {
-		// TODO Auto-generated method stub
-		
+	public void getPlayerById(Long id) {
 	}
 
 	@Override
-	public Integer getPlayerPiesAttained() {
-		// TODO Auto-generated method stub
+	public Player getPlayerByGameId(Game game) {
 		return null;
 	}
 
 	@Override
 	public List<Player> getAllPlayersInAGame(int gameID) {
-		List<Player> listAllPlayers = new ArrayList<>();                   
-		String sqlGetAllPlayers = "SELECT * FROM game_player JOIN player ON game_player.player_id "
-				+ "= player.player_id WHERE game_player.game_id = ?";
-		SqlRowSet results = template.queryForRowSet(sqlGetAllPlayers, gameID);
-		
-		while(results.next()) {
-			Player nextPlayer = new Player();
-			nextPlayer.setName(results.getString("name"));
-			nextPlayer.setId(results.getInt("player_id"));
-			listAllPlayers.add(nextPlayer);
-		}
-		
-		return listAllPlayers;
-	}
-
-	@Override
-	public void setPlayerByGameId(Game game) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void putPlayersIntoGame(int playerId, int gameId) {
-		String sqlPutPlayersIntoGame = "INSERT INTO game_player (player_id, game_id) VALUES (?, ?)";
-		template.update(sqlPutPlayersIntoGame, playerId, gameId);
-	}
-
-	@Override
-	//getNewPlayer()??
-	public void createNewPlayer(String name) {
-		String newPlayerId = "INSERT INTO player (name) VALUES (?)";
-		template.update(newPlayerId, name);
-	}
-
-	@Override
-	public void getPlayerById(Long id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Player getPlayerByGameId(Game game) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

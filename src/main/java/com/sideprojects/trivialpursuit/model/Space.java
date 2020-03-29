@@ -10,7 +10,7 @@ public class Space {
 	//TODO: Rework methods. JavaBeans need default (no argument) constructors, so we can't set our reachable spaces with an overloaded constructor. Use setId() to set spaceId where needed and have setAllReachableSpaces be set another way
 
 
-	private int id; // change to Long?
+	private Integer id; // change to Long?
 	private boolean isNode;
 	private boolean isRollAgain;
 	private boolean isFinalSpace;
@@ -18,8 +18,8 @@ public class Space {
 	// THIS IS A MAP OF 6 POSSIBLE DIE ROLLS AND THE INDEXES OF ALL REACHABLE SPACES BASED ON THAT ROLL
 	private Map<Integer, List<Integer>> reachableSpaces = new HashMap<Integer, List<Integer>>();	
 	
-	public int getId() {return id;}
-	public void setId(int spaceId) {this.id = spaceId;}
+	public Integer getId() {return id;}
+	public void setId(Integer spaceId) {this.id = spaceId;}
 	
 	public Category getCategory() {return category;}
 	public void setCategory(Category category) {this.category = category;}
@@ -36,7 +36,7 @@ public class Space {
 	// TODO: This is somewhat redundant given we're doing the same thing in Player, but keeping it in Player, too, removes the need for 
 	// the controller to call "player.location.getavailablespaces", instead simply calling player.getreachableSpaces() -- Brooks
 	// Note: we can also return a map via Jeff's getReachableSpaces() below.  This option is also available in Player. Again, we'll remove what we don't need.
-	public List<Integer> getReachableSpaces(int diceRoll) { return reachableSpaces.get(diceRoll); }
+	public List<Integer> getReachableSpaces(int diceRoll) { return getReachableSpaces().get(diceRoll); }
 	
 	//TODO: These are probably unnecessary now, but keeping them around in case (they're also referenced in Player, again just in case)
 	public Map<Integer, List<Integer>> getReachableSpaces() { return reachableSpaces;}
@@ -44,7 +44,6 @@ public class Space {
 	
 	public Space() {}
 	
-	//TODO: Rework methods. JavaBeans need default (no argument) constructors, so we can't set our reachable spaces with an overloaded constructor. Use setId() to set spaceId where needed and have setAllReachableSpaces be set another way
 	public Space(int spaceId) {
 		this.id = spaceId;
 		this.reachableSpaces = setAllReachableSpaces(spaceId);

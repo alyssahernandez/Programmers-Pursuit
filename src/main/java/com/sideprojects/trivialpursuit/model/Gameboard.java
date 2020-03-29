@@ -27,5 +27,19 @@ public class Gameboard {
 		
 		return output;
 	}
+	
+	// Also have a variation of this in the Player class.  Here, we would need to pass in the ID of a player's current space (player.getLocation.getId) and a dice roll.
+	public List<Space> getReachableSpaces(int diceRoll, int currentSpaceId) 
+	{
+		List<Space> availableSpaces = new ArrayList<>();
+		List<Integer> spaceIds = getSpaces().get(currentSpaceId).getReachableSpaces(diceRoll); 
+		
+		for (Integer id : spaceIds)
+		{
+			availableSpaces.add(getSpaces().get(id));
+		}
+		
+		return availableSpaces;
+	}
 
 }
