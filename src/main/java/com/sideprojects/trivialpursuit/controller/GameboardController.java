@@ -32,11 +32,6 @@ public class GameboardController {
 	@Autowired
 	GameDAO gameDAO;
 
-	// HttpSession session
-	// session.setAttribute(CART_KEY, cart);
-	// ShoppingCart cart = (ShoppingCart)session.getAttribute(CART_KEY);
-
-	// GET method is simply loading the current game state
 	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.GET)
 	public String displayGameboard(
 			ModelMap model,
@@ -44,18 +39,24 @@ public class GameboardController {
 			@RequestParam(name = "isChoosingSpace", required = false) Boolean isChoosingSpace,
 			@PathVariable String gameCode) {
 		
-		int dieRoll;
+		int diceRollValue = 0;
 		Space activePlayerSpace = null;
+		List<Space> availableSpacesFromRoll = null;
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		model.put("currentGame", currentGame);
 
-		/* every player object has a Space location, so we can call that in the jsp
-		* to get all players and their current spaces - we can then use each of their
-		* spaces and the space.getId() method to actually show it via CSS - ALYSSA
+		/* TODO FRONT-END: every player object has a Space location, so we can call 
+		 * that in the jsp to get all players and their current spaces - we can then 
+		 * use each of their spaces and the space.getId() method to actually show 
+		 * it via CSS - ALYSSA
 		*/
 		
-		List<Player> playersInGame = playerDAO.getAllPlayersInAGame(currentGame.getGameID());
+		/* TODO BACK-END: 
+		 * 
+		 */
+		
+		List<Player> playersInGame = currentGame.getAllPlayersInAGame();
 		model.put("playersInGame", playersInGame);
 		
 		/* TODO BACK-END: the game table is where the active_player_id is stored, so we need a method
@@ -72,27 +73,46 @@ public class GameboardController {
 		 * value is no, of course, so the first if clause will only execute after a player
 		 * has clicked on the die - ALYSSA
 		 */
-		if (isRollingDie != null && isChoosingSpace != null) {
-			dieRoll = Dice.getDiceRoll();
+		if (isRollingDie == true) {
 			
-		} else if {
+			diceRollValue = Dice.getDiceRoll();
+			model.put("diceRollValue", diceRollValue);
 			
-		} else if {
+			availableSpacesFromRoll = currentPlayerTurn.getReachableSpacesFromRollV2(diceRollValue);
+			model.put("availableSpacesFromRoll", availableSpacesFromRoll);
 			
+			/* TODO FRONT-END: the jsp file will need to check to see if the diceRollValue
+			 * is null - if it isn't, display text telling the user what their roll is.
+			 * if it is null, we'll keep the standard "player {name} it's your turn etc".
+			 * same thing with the availableSpacesFromRoll - if's null, nothing happens &
+			 * if it isn't null, the spaces available to the active player are displayed
+			 * - ALYSSA
+			 */
+			
+		} else if (isChoosingSpace == true) {
+			/* TODO FRONT-END: next week we're getting into JavaScript - we can use JS to
+			 * create pop-ups with the questions on them - ALYSSA
+			 */
 		} else {
+			
 			return "gameboard";
+			
 		}
+		
+		return "gameboard";
 
 	}
-		
-	// store current game in session instead of db (but still create it upon
-	// create game from main menu) - like the shopping cart
 	
 	@RequestMapping(path="/gameboard", method=RequestMethod.POST)
 	public String displayGameboardWithPlayers(ModelMap model, HttpSession session,
 			HttpServletRequest request) {
 		
-		// TODO method here for updating activePlayerID in db
+		/* TODO FRONT-END: the POST method is where we're updating the db from
+		 * a player's interactions with the forms (die roll & choosing spaces).
+		 * i'm unsure of how JavaScript interacts with POS. i think we can make
+		 * our pop-up window send an HTTP POST request with the player's answer
+		 * to the question, which we can then use here... we'll see - ALYSSA
+		 */
 		
 		return "redirect:/gameboard";
 	}
