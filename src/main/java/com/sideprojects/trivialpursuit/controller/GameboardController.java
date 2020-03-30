@@ -32,7 +32,7 @@ public class GameboardController {
 	@Autowired
 	GameDAO gameDAO;
 	
-	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.GET)
+	@RequestMapping(path="/gameboard", method=RequestMethod.GET)
 	public String displayGameboard() {
 			
 		return "redirect:/gameboard";
