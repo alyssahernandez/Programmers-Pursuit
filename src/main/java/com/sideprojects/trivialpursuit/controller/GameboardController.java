@@ -35,7 +35,7 @@ public class GameboardController {
 	@RequestMapping(path="/gameboard", method=RequestMethod.GET)
 	public String displayGameboard() {
 			
-		return "redirect:/gameboard";
+		return "/gameboard";
 		
 	}
 		
