@@ -1,6 +1,6 @@
 package com.sideprojects.trivialpursuit.controller;
 
-import org.eclipse.jdt.annotation.Nullable;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,9 +25,9 @@ public class MainMenuController {
 	
 	@RequestMapping(path="/", method=RequestMethod.POST)
 	public String createOrLoadGame(	
-		@RequestParam @Nullable String gameSearch,
-		@RequestParam @Nullable String playerName,
-		@RequestParam @Nullable String gameName,
+		@RequestParam(required=false) String gameSearch,
+		@RequestParam(required=false) String playerName,
+		@RequestParam(required=false) String gameName,
 		ModelMap moldelHolder,
 		RedirectAttributes flash) {
 		
