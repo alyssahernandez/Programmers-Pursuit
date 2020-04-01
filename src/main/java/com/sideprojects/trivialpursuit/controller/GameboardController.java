@@ -32,15 +32,19 @@ public class GameboardController {
 	@Autowired
 	GameDAO gameDAO;
 	
+	/* BASIC VIEW
+	
 	@RequestMapping(path="/gameboard", method=RequestMethod.GET)
 	public String displayGameboard() {
 			
 		return "/gameboard";
 		
 	}
+	
+	*/
 		
 
-	/* COMMENTING THIS OUT SO THE GAME COMPILES...
+	// COMMENTING THIS OUT SO THE GAME COMPILES...
 
 	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.GET)
 	public String displayGameboard(
@@ -50,23 +54,18 @@ public class GameboardController {
 			@PathVariable String gameCode) {
 		
 		int diceRollValue = 0;
-		Space activePlayerSpace = null;
 		List<Space> availableSpacesFromRoll = null;
 		
-		Game currentGame = gameDAO.getActiveGame(gameCode);
+		Game currentGame = gameDAO.getActiveGame(gameCode.toLowerCase());
 		model.put("currentGame", currentGame);
 
 		/* TODO FRONT-END: every player object has a Space location, so we can call 
 		 * that in the jsp to get all players and their current spaces - we can then 
 		 * use each of their spaces and the space.getId() method to actually show 
 		 * it via CSS - ALYSSA
+		*/
 		
-		
-		/* TODO BACK-END: 
-		 * 
-		 
-		
-		List<Player> playersInGame = currentGame.getAllPlayersInAGame();
+		List<Player> playersInGame = currentGame.getActivePlayers();
 		model.put("playersInGame", playersInGame);
 		
 		/* TODO BACK-END: the game table is where the active_player_id is stored, so we need a method
@@ -74,7 +73,7 @@ public class GameboardController {
 		 * SQL method etc should be done in the JDBCGameDAO file, so you'll need to link
 		 * link the player ID to the player table to populate a player OBJECT 
 		 * which will be returned in the method we're calling below - ALYSSA
-		 
+		 */
 		
 		Player currentPlayerTurn = currentGame.getActivePlayer();
 		model.put("currentPlayerTurn", currentPlayerTurn);
@@ -83,10 +82,12 @@ public class GameboardController {
 		 * value is no, of course, so the first if clause will only execute after a player
 		 * has clicked on the die - ALYSSA
 		 
+		 
 		if (isRollingDie == true) {
 			
 			// Maybe use currentPlayerTurn.getNewDiceRoll() here -- will update player's roll (can be retrieved & passed to View w/ player.getLastDiceRoll())
 			diceRollValue = Dice.getDiceRoll();
+			currentPlayerTurn.setDiceRoll(diceRollValue);
 			model.put("diceRollValue", diceRollValue);
 			
 			/*  TODO: Let me know your thoughts on the comments below, comments throughout other files (Player, Gameboard, Game, JDBCGameDAO, JDBCPlayerDAO) 
@@ -101,7 +102,7 @@ public class GameboardController {
 			    We could store the game board and it's categorized spaces in the DB, too, which might make things easier overall.  Not sure.  
 				
 			
-			availableSpacesFromRoll = currentPlayerTurn.getReachableSpacesFromRollV2(diceRollValue);
+			availableSpacesFromRoll = currentPlayerTurn.getReachableSpaces(currentGame.getGameboard());
 			model.put("availableSpacesFromRoll", availableSpacesFromRoll);
 			
 			/* TODO FRONT-END: the jsp file will need to check to see if the diceRollValue
@@ -116,17 +117,19 @@ public class GameboardController {
 			/* TODO FRONT-END: next week we're getting into JavaScript - we can use JS to
 			 * create pop-ups with the questions on them - ALYSSA
 			 
+			
 		} else {
 			
 			return "gameboard";
 			
 		}
 		
+		*/
+		
 		return "gameboard";
 
 	}
 	
-	*/
 	
 	@RequestMapping(path="/gameboard", method=RequestMethod.POST)
 	public String displayGameboardWithPlayers(ModelMap model, HttpSession session,

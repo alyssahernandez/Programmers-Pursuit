@@ -6,7 +6,7 @@ import java.util.Random;
 public class Player implements Comparable<Player> { //TODO: This is probably unnecessary for Alpha. The idea is to take advantage of Collections.sort to order players based on their initial dice roll (rolled to determine order)
 	private Integer playerId;
 	private String name;
-	private String color;
+	private long color;
 	private Space location;
 	private int diceRoll;
 	//TODO: Declare Pie Piece field(s) -- not sure if separate properties, a List of booleans, etc etc.
@@ -17,8 +17,8 @@ public class Player implements Comparable<Player> { //TODO: This is probably unn
 	public String getName() {return name; }
 	public void setName(String name) { this.name = name; }
 	
-	public String getColor() { return color; }
-	public void setColor(String color) { this.color = color; }
+	public long getColor() { return color; }
+	public void setColor(long color) { this.color = color; }
 	
 	public Space getLocation() { return location;}
 	public void setLocation(Space location) {this.location = location; }

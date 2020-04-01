@@ -219,3 +219,52 @@ INSERT INTO question (question, answer, category_id) VALUES ('What is the name o
 INSERT INTO game (game_code, active, winner_id, active_player_id) VALUES ('test', true, 1, 1); 	
 
 COMMIT;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEGIN TRANSACTION;
+
+ALTER TABLE game ALTER COLUMN winner_id DROP NOT NULL;
+ALTER TABLE game ALTER COLUMN active_player_id DROP NOT NULL;
+
+ALTER TABLE game ALTER COLUMN game_code TYPE varchar(8);
+
+ 
+
+INSERT INTO player (name, games_won, games_played) VALUES ('Joeseph', 1, 5); 
+INSERT INTO player (name, games_won, games_played) VALUES ('kawjdkadhad', 0, 1);
+
+INSERT INTO player (name, games_won, games_played) VALUES ('lemonface', 3, 4);
+INSERT INTO player (name, games_won, games_played) VALUES ('noodles', 0, 1);
+
+INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
+VALUES (2, 6, 1, 0, false, false, false, false, false, false);
+
+INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
+VALUES (2, 7, 2, 0, false, false, false, false, false, false);
+
+INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
+VALUES (2, 8, 3, 0, false, false, false, false, false, false);
+
+INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
+VALUES (2, 9, 4, 0, false, false, false, false, false, false);
+
+DELETE FROM player WHERE player_id >= 10;
+
+SELECT * FROM game_player JOIN player ON game_player.player_id = player.player_id WHERE game_player.game_id = 1;
+
+ROLLBACK;
