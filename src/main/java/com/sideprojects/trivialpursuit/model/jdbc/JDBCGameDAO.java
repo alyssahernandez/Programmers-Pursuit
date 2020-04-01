@@ -78,7 +78,7 @@ public class JDBCGameDAO implements GameDAO {
 			nextPlayer.setName(results.getString("name"));
 			nextPlayer.setId(results.getInt("player_id"));
 			nextPlayer.setLocation(game.getGameboard().getSpaces().get(results.getInt("player_position")));
-			nextPlayer.setColor(results.getString("player_color"));
+			nextPlayer.setColor(results.getLong("player_color"));
 			listAllPlayers.add(nextPlayer);
 		}
 		return listAllPlayers;
@@ -99,7 +99,7 @@ public class JDBCGameDAO implements GameDAO {
 			player.setId(results.getInt("player_id"));
 			player.setLocation(game.getGameboard().getSpaces().get(results.getInt("player_position")));
 			player.setName(results.getString("name"));
-			player.setColor(results.getString("player_color"));
+			player.setColor(results.getLong("player_color"));
 		}
 		return player;
 	}

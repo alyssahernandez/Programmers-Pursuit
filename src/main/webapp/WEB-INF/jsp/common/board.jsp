@@ -77,7 +77,22 @@
 			<div class="space ${ isNode } ${ category } ${ reachable }" id="${ spaceId }">
 			
 				<c:if test="${player1Pos == j}">
-					<div class="player-piece-small cat1"></div>
+					<div class="player-piece--small cat1"></div>
+				</c:if>
+				<c:if test="${player2Pos == j}">
+					<div class="player-piece--small cat1"></div>
+				</c:if>
+				<c:if test="${player3Pos == j}">
+					<div class="player-piece--small cat1"></div>
+				</c:if>
+				<c:if test="${player4Pos == j}">
+					<div class="player-piece--small cat1"></div>
+				</c:if>
+				<c:if test="${player5Pos == j}">
+					<div class="player-piece--small cat1"></div>
+				</c:if>
+				<c:if test="${player6Pos == j}">
+					<div class="player-piece--small cat1"></div>
 				</c:if>
 						
 			<!-- 
@@ -128,16 +143,25 @@
 			
 				<div class="space space__spoke-space ${ category }">
 
-					<c:if test="${player1Pos == j}">
-						<div class="player-piece-small cat1"></div>
-					</c:if>
-					
-					
-					<c:if test="${ j == 15 }">
-						<div class="player-piece--small cat1"></div>
-					</c:if>
-					
-					
+				<c:if test="${player1Pos == j}">
+					<div class="player-piece--small cat1"></div>
+				</c:if>
+				<c:if test="${player2Pos == j}">
+					<div class="player-piece--small cat1"></div>
+				</c:if>
+				<c:if test="${player3Pos == j}">
+					<div class="player-piece--small cat1"></div>
+				</c:if>
+				<c:if test="${player4Pos == j}">
+					<div class="player-piece--small cat1"></div>
+				</c:if>
+				<c:if test="${player5Pos == j}">
+					<div class="player-piece--small cat1"></div>
+				</c:if>
+				<c:if test="${player6Pos == j}">
+					<div class="player-piece--small cat1"></div>
+				</c:if>
+				
 				</div>	
 			</c:forEach>
 		
@@ -150,7 +174,22 @@
 
 	<div>
 		<c:if test="${player1Pos == 0}">
-			<div class="player-piece-small cat1"></div>
+			<div class="player-piece--small cat1"></div>
+		</c:if>
+		<c:if test="${player2Pos == 0}">
+			<div class="player-piece--small cat1"></div>
+		</c:if>
+		<c:if test="${player3Pos == 0}">
+			<div class="player-piece--small cat1"></div>
+		</c:if>
+		<c:if test="${player4Pos == 0}">
+			<div class="player-piece--small cat1"></div>
+		</c:if>
+		<c:if test="${player5Pos == 0}">
+			<div class="player-piece--small cat1"></div>
+		</c:if>
+		<c:if test="${player6Pos == 0}">
+			<div class="player-piece--small cat1"></div>
 		</c:if>
 	</div>
 
