@@ -35,9 +35,6 @@ public class JDBCGameDAO implements GameDAO {
 		template.update(newGameId, code, true);
 	}
 	
-	// TODO: Add game_code attribute to Game table in DB
-	// We also had another (unfinished) "getGameByCode()" query.  They do the exact same thing (tho I like that name better) Removed the other. -- Brooks
-	
 	@Override
 	public Game getActiveGame(String gameCode) {
 		String getGameQuery = "SELECT * FROM game WHERE game_code = ?";
@@ -103,7 +100,6 @@ public class JDBCGameDAO implements GameDAO {
 		}
 		return player;
 	}
-	
 	
 //	@Override
 //	public void setGameCode(Game game) {
