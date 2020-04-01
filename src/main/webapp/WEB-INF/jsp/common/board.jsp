@@ -1,11 +1,38 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<c:forEach var="player" items="${playersInGame}">
+	
+	<c:if test="${player.color == 1}">
+		<c:set var="player1Pos" value="${player.location.id}" />
+	</c:if>
+	<c:if test="${player.color == 2}">
+		<c:set var="player2Pos" value="${player.location.id}" />
+	</c:if>
+	<c:if test="${player.color == 3}">
+		<c:set var="player3Pos" value="${player.location.id}" />
+	</c:if>
+	<c:if test="${player.color == 4}">
+		<c:set var="player4Pos" value="${player.location.id}" />
+	</c:if>
+	<c:if test="${player.color == 5}">
+		<c:set var="player5Pos" value="${player.location.id}" />
+	</c:if>
+	<c:if test="${player.color == 6}">
+		<c:set var="player6Pos" value="${player.location.id}" />
+	</c:if>	
+	
+</c:forEach>
+
+
+
+
 <!-- THIS SECTION GENERATES THE OUTER RING OF SPACES WITH THE CORRECT INDEXES -->
-<div class="gameboard__ring">				
+<div class="gameboard__ring">
+				
 	<c:forEach var="i" begin="1" end="6">
 		<c:set var="begin" value="${ ((i * 2) - 1) * 6 }"/>
 		<c:forEach var="j" begin="${ begin }" end="${ begin + 6 }">
-	
+			
 			<c:set var="spaceId" value="${ j }"/>
 			
 			<c:set var="isNode" value=""/>
@@ -33,13 +60,12 @@
 					<c:set var="category" value="cat5"/>
 				</c:when>
 				<c:when test="${ j == 66 || j == 10 || j == 24 || j == 31 || j == 45 }">
-					<c:set var="category" value="cat6"/>
+					<c:set var="category" value="cat6"/> 
 				</c:when>
 				<c:otherwise>
 					<c:set var="category" value="catRollAgain"/>
 				</c:otherwise>
 			</c:choose>
-
 
 <!-- 					JEFF: TODO THIS IS DUMMY CODE FOR STYLISTIC PURPOSES; FIGURE OUT HOW TO TEST FOR REACHABILITY -->
 			<c:set var="reachable" value=""/>
@@ -49,10 +75,18 @@
 
 <!-- 				THIS ACTUALLY CREATES THE SPACE AS WELL AS ANY PLAYER TOKENS -->
 			<div class="space ${ isNode } ${ category } ${ reachable }" id="${ spaceId }">
-				<c:if test="${ j == 10 }">
-					<div class="player-piece--small cat2"></div>
-					<div class="player-piece--small cat3"></div>
+			
+				<c:if test="${player1Pos == j}">
+					<div class="player-piece-small cat1"></div>
 				</c:if>
+						
+			<!-- 
+			<c:if test="${ j ==  10}">
+				<div class="player-piece--small cat2"></div>
+				<div class="player-piece--small cat3"></div>
+			</c:if>
+			 -->
+			
 			</div>
 	
 		</c:forEach>
@@ -93,9 +127,17 @@
 			</c:choose>
 			
 				<div class="space space__spoke-space ${ category }">
+
+					<c:if test="${player1Pos == j}">
+						<div class="player-piece-small cat1"></div>
+					</c:if>
+					
+					
 					<c:if test="${ j == 15 }">
 						<div class="player-piece--small cat1"></div>
 					</c:if>
+					
+					
 				</div>	
 			</c:forEach>
 		
@@ -104,4 +146,12 @@
 </div>
 
 <!-- THIS IS THE CENTER SPACE -->
-<div class="gameboard__center space space__reachable" id="0"></div>
+<div class="gameboard__center space space__reachable" id="0">
+
+	<div>
+		<c:if test="${player1Pos == 0}">
+			<div class="player-piece-small cat1"></div>
+		</c:if>
+	</div>
+
+</div>

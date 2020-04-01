@@ -36,7 +36,7 @@ public class Game {
 	public void setActive(boolean active) {this.active = active;}
 	
 	public List<Player> getActivePlayers() { return activePlayers; }
-	public void setActivePlayers(List<Player> activePlayers) {this.activePlayers = determinePlayerOrder(activePlayers); }
+	public void setActivePlayers(List<Player> activePlayers) {this.activePlayers = activePlayers; }
 	
 	public Player getActivePlayer() { return activePlayer; }
 
