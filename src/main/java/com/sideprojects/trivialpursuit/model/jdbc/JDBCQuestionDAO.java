@@ -65,6 +65,6 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		return allQuestionsInCategory;
 	}
 	
-	public void setQuestionAsked() {} //TODO: update game_question table to NULL if question has been asked
+ 
 
 }

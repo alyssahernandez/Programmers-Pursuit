@@ -3,8 +3,8 @@ package com.sideprojects.trivialpursuit.model;
 import java.util.List;
 import java.util.Random;
 
-//AC: all categorys will have these getters to get the ID and the name wherever we want to use them
 public class Category {
+	
 	private Integer categoryID;
 	private String categoryName;
 	private List<Question> questions;
@@ -20,6 +20,7 @@ public class Category {
 	public List<Question> getQuestionList() { return questions;}
 	public void setQuestionList(List<Question> questions) { this.questions = questions; }
 	
+	// Need to pass in game object here (or reference this by game_id otherwise)
 	public Question getNewQuestion()
 	{ 	
 		if (questions.equals(null)) { return null; }
