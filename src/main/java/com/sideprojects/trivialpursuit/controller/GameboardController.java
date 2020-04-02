@@ -56,7 +56,7 @@ public class GameboardController {
 		int diceRollValue = 0;
 		List<Space> availableSpacesFromRoll = null;
 		
-		Game currentGame = gameDAO.getActiveGame(gameCode.toLowerCase());
+		Game currentGame = gameDAO.getActiveGame(gameCode);
 		model.put("currentGame", currentGame);
 
 		/* TODO FRONT-END: every player object has a Space location, so we can call 
@@ -75,7 +75,10 @@ public class GameboardController {
 		 * which will be returned in the method we're calling below - ALYSSA
 		 */
 		
-		Player currentPlayerTurn = currentGame.getActivePlayer();
+		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);
+//		 TODO THE IMPLEMENTATION ON THE NEXT LINE IS PREFERED BUT 
+//			IS NOT CURRENTLY FUNCTIONAL 
+//		Player currentPlayerTurn = currentGame.getActivePlayer();
 		model.put("currentPlayerTurn", currentPlayerTurn);
 		
 		/* when the page loads, we need to see if the die has been clicked on - the default

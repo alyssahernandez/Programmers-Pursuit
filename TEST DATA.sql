@@ -109,4 +109,20 @@ INSERT INTO game_question (game_id, question_id, asked) VALUES (2, 4, false);
 INSERT INTO game_question (game_id, question_id, asked) VALUES (2, 5, false);
 INSERT INTO game_question (game_id, question_id, asked) VALUES (2, 6, false);
 
+UPDATE game
+SET active_player_id = 1
+WHERE game_code = 'TEST1';
+
+UPDATE game
+SET active_player_id = 2
+WHERE game_code = 'TEST2';
+
+UPDATE game
+SET active_player_id = 3
+WHERE game_code = 'TEST3';
+
+UPDATE game
+SET active_player_id = 4
+WHERE game_code = 'TEST4';
+
 COMMIT;
