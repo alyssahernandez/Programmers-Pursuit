@@ -6,7 +6,7 @@ import java.util.Random;
 public class Player implements Comparable<Player> { //TODO: This is probably unnecessary for Alpha. The idea is to take advantage of Collections.sort to order players based on their initial dice roll (rolled to determine order)
 	private Integer playerId;
 	private String name;
-	private String color;
+	private long color;
 	private Space location;
 	private int diceRoll;
 	//TODO: Declare Pie Piece field(s) -- not sure if separate properties, a List of booleans, etc etc.
@@ -17,8 +17,8 @@ public class Player implements Comparable<Player> { //TODO: This is probably unn
 	public String getName() {return name; }
 	public void setName(String name) { this.name = name; }
 	
-	public String getColor() { return color; }
-	public void setColor(String color) { this.color = color; }
+	public long getColor() { return color; }
+	public void setColor(long color) { this.color = color; }
 	
 	public Space getLocation() { return location;}
 	public void setLocation(Space location) {this.location = location; }
@@ -45,6 +45,12 @@ public class Player implements Comparable<Player> { //TODO: This is probably unn
 		return availableSpaces;
 	}
 	
+	public List<Integer> getReachableSpacesV1() { return location.getReachableSpaces(diceRoll); }
+	public List<Integer> getReachableSpacesFromRollV1(int diceRoll) { return location.getReachableSpaces(diceRoll); }
+	
+	public List<Integer> getReachableSpacesV2() { return location.getReachableSpaces().get(diceRoll); }
+	public List<Integer> getReachableSpacesFromRollV2(int diceRoll) { return location.getReachableSpaces().get(diceRoll); }
+	
 	public int generateDiceRoll()
 	{
 		int minDiceRoll = 1;
@@ -65,15 +71,4 @@ public class Player implements Comparable<Player> { //TODO: This is probably unn
 		else 
 			return 0;
 	}
-	
-	//TODO: These methods are now largely redundant.  Only keeping these here in case we find we need them.  
-	public List<Integer> getReachableSpacesV1() { return location.getReachableSpaces(diceRoll); }
-	public List<Integer> getReachableSpacesFromRollV1(int diceRoll) { return location.getReachableSpaces(diceRoll); }
-	
-	// These utilizes Jeff's original "getReachableSpaceS()" method, which returns a map, just in case we want them.  - Brooks
-	public List<Integer> getReachableSpacesV2() { return location.getReachableSpaces().get(diceRoll); }
-	public List<Integer> getReachableSpacesFromRollV2(int diceRoll) { return location.getReachableSpaces().get(diceRoll); }
-
-	
-
 }

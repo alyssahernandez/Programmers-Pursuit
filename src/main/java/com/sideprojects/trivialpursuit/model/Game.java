@@ -36,14 +36,10 @@ public class Game {
 	public void setActive(boolean active) {this.active = active;}
 	
 	public List<Player> getActivePlayers() { return activePlayers; }
-	public void setActivePlayers(List<Player> activePlayers) {this.activePlayers = determinePlayerOrder(activePlayers); }
+	public void setActivePlayers(List<Player> activePlayers) {this.activePlayers = activePlayers; }
 	
 	public Player getActivePlayer() { return activePlayer; }
-
 	public void setActivePlayer(Player activePlayer) { this.activePlayer = activePlayer; }
-	
-	public void getNewPlayer(Player player) { activePlayers.add(player); } // could also call getActivePlayers().add(player);
-	public void removeActivePlayer(Player player) { activePlayers.remove(player); } // could also just call getActivePlayers().remove(player);
 	
 	// Generates a unique 6-digit hexadecimal code (e.g. B04R9A)
 	//TODO: Check if game code already exists via query. Upon our INSERT query for a newly created game, (returning game_id), generate this code. Query a SELECT to compare pre-existing game codes; if none exist, UPDATE/SET the game code based on game_id (it will be null initially).  Probably a better way to go about this.
@@ -75,10 +71,10 @@ public class Game {
 			nextPlayerUpIndex = 0;
 			p = activePlayers.get(nextPlayerUpIndex);
 		}
-		
 		return p;
 	}
 	
+	// TODO: Fix for BETA!
 	// TODO: This needs major refactoring (pull out diceRolls given they'll be passed in based on user input), tho it doesn't seem we're currently utilizing a player order beyond lobby order of entry.
 	public List<Player> determinePlayerOrder(List<Player> players)
 	{

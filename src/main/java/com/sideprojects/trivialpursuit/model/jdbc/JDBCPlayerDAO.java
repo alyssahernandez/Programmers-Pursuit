@@ -54,37 +54,5 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template.update(setPlayerPosition, player.getLocation().getId(), player.getId(), game.getGameID());
 	}
 	
-	//TODO:  Not all of these will be used or useful.  Fill out the ones that are needed.
-	
-	@Override
-	public void getPlayerByName(String name) {
-	}
-
-	@Override
-	public void setPlayerByName() {
-	}
-
-	@Override
-	public Integer getPlayerPosition(Player player) {
-		return null;
-	}
-
-	@Override
-	public void setPlayerByGameId(Game game) {
-	}
-
-	@Override
-	public void getPlayerById(Long id) {
-	}
-
-	@Override
-	public Player getPlayerByGameId(Game game) {
-		return null;
-	}
-
-	@Override
-	public List<Player> getAllPlayersInAGame(int gameID) {
-		return null;
-	}
 }
 

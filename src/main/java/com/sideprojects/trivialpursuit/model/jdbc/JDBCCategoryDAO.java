@@ -53,7 +53,6 @@ public class JDBCCategoryDAO implements CategoryDAO {
 	@Override
 	public List<Category> getCategoriesByGameId(Game game) 
 	{
-		
 		List<Category> categories = new ArrayList<>();
 		String query = "SELECT * FROM category INNER JOIN category_game ON category.category_id = category_game.category_id " + 
 						"INNER JOIN game ON category_game.game_id = game.game_id WHERE game.game_id = ?";
@@ -73,10 +72,8 @@ public class JDBCCategoryDAO implements CategoryDAO {
 	//TODO: Fill out method(s) below
 
 	@Override
-	public void setCategoryByGameId(Game game) {
+	public void setCategoryByGameId(Game game) 
+	{
 		
 	}
-	
-	
-
 }

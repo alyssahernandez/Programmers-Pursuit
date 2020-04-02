@@ -33,12 +33,7 @@ public class Space {
 	public boolean isFinalSpace() { return isFinalSpace; } 
 	public void setFinalSpace(boolean finalSpace) { this.isFinalSpace = finalSpace; }
 
-	// TODO: This is somewhat redundant given we're doing the same thing in Player, but keeping it in Player, too, removes the need for 
-	// the controller to call "player.location.getavailablespaces", instead simply calling player.getreachableSpaces() -- Brooks
-	// Note: we can also return a map via Jeff's getReachableSpaces() below.  This option is also available in Player. Again, we'll remove what we don't need.
 	public List<Integer> getReachableSpaces(int diceRoll) { return getReachableSpaces().get(diceRoll); }
-	
-	//TODO: These are probably unnecessary now, but keeping them around in case (they're also referenced in Player, again just in case)
 	public Map<Integer, List<Integer>> getReachableSpaces() { return reachableSpaces;}
 	public void setReachableSpaces(Map<Integer, List<Integer>> reachableSpaces) {this.reachableSpaces = reachableSpaces;}
 	
@@ -147,5 +142,6 @@ public class Space {
 		}
 		return secondarySpaces;
 	}
+	
 
 }

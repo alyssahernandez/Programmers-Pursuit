@@ -23,10 +23,10 @@ CREATE TABLE player
 CREATE TABLE game
 (
 	game_id serial PRIMARY KEY,
-	game_code varchar(4) not null,
+	game_code varchar(8) not null,
 	active boolean not null,
-	winner_id int not null,
-	active_player_id int not null
+	winner_id int,
+	active_player_id int
 	
 	--foriegn key from player for active player(s) and for the winner, not sure how exactly this is determined however. do we even 
 	--need a winner_id if player already has a "won" element?
@@ -110,8 +110,7 @@ CREATE TABLE game_question
         --bridge table to put questions in game session, also shuffles deck with ordinal, also if(asked){take out of session};
 );
 
---add categories, need concrete list of what we are doing, everything that is not questions and category set in JSTL DAO
-
+--This will be in the clean slate DB as categorys and questions never change. 
 INSERT INTO category (name) VALUES ('Java OOP');
 INSERT INTO category (name) VALUES ('SQL');
 INSERT INTO category (name) VALUES ('HTML/CSS');
@@ -119,6 +118,29 @@ INSERT INTO category (name) VALUES ('MVC');
 INSERT INTO category (name) VALUES ('JavaScript');
 INSERT INTO category (name) VALUES ('TDD');
 
+--these will stay becuase they will never change
+INSERT INTO question (question, answer, category_id) VALUES ('What are the three main concepts of OOP?', 
+                                                             'Inheritance, Encapsulation, Polymorphism',
+                                                             1);
+INSERT INTO question (question, answer, category_id) VALUES ('Which SQL statement is used to extract only records that fufill a specific condition?',
+                                                             'WHERE',
+                                                             2);
+INSERT INTO question (question, answer, category_id) VALUES ('What is the default direction of contents in a Flex Box?',
+                                                             'Row',
+                                                             3);
+INSERT INTO question (question, answer, category_id) VALUES ('Which Spring MVC annotation is used to tie a server url extension to a .jsp view?',
+                                                             '@RequestMapping',
+                                                             4);
+INSERT INTO question (question, answer, category_id) VALUES ('True or False, two or more JavaScript variables can have the same name.',
+                                                             'False',
+                                                             5);
+INSERT INTO question (question, answer, category_id) VALUES ('What is the name of the popular testing framework used in Tech Elevator?',
+                                                             'JUnit',
+                                                             6);
+
+
+--cant use since we wont always have 6 categories
+/*
 INSERT INTO category_space (category_id, space) VALUES(1, 1);
 INSERT INTO category_space (category_id, space) VALUES(1, 7);
 INSERT INTO category_space (category_id, space) VALUES(1, 13);
@@ -196,26 +218,6 @@ INSERT INTO category_space (category_id, space) VALUES(6, 54);
 INSERT INTO category_space (category_id, space) VALUES(6, 60);
 INSERT INTO category_space (category_id, space) VALUES(6, 66);
 INSERT INTO category_space (category_id, space) VALUES(6, 72);
-
-INSERT INTO question (question, answer, category_id) VALUES ('What are the three main concepts of OOP?', 
-                                                             'Inheritance, Encapsulation, Polymorphism',
-                                                             1);
-INSERT INTO question (question, answer, category_id) VALUES ('Which SQL statement is used to extract only records that fufill a specific condition?',
-                                                             'WHERE',
-                                                             2);
-INSERT INTO question (question, answer, category_id) VALUES ('What is the default direction of contents in a Flex Box?',
-                                                             'Row',
-                                                             3);
-INSERT INTO question (question, answer, category_id) VALUES ('Which Spring MVC annotation is used to tie a server url extension to a .jsp view?',
-                                                             '@RequestMapping',
-                                                             4);
-INSERT INTO question (question, answer, category_id) VALUES ('True or False, two or more JavaScript variables can have the same name.',
-                                                             'False',
-                                                             5);
-INSERT INTO question (question, answer, category_id) VALUES ('What is the name of the popular testing framework used in Tech Elevator?',
-                                                             'JUnit',
-                                                             6);
-
-INSERT INTO game (game_code, active, winner_id, active_player_id) VALUES ('test', true, 1, 1); 	
+*/
 
 COMMIT;
