@@ -23,10 +23,10 @@ CREATE TABLE player
 CREATE TABLE game
 (
 	game_id serial PRIMARY KEY,
-	game_code varchar(4) not null,
+	game_code varchar(8) not null,
 	active boolean not null,
-	winner_id int not null,
-	active_player_id int not null
+	winner_id int,
+	active_player_id int
 	
 	--foriegn key from player for active player(s) and for the winner, not sure how exactly this is determined however. do we even 
 	--need a winner_id if player already has a "won" element?
@@ -110,8 +110,7 @@ CREATE TABLE game_question
         --bridge table to put questions in game session, also shuffles deck with ordinal, also if(asked){take out of session};
 );
 
---add categories, need concrete list of what we are doing, everything that is not questions and category set in JSTL DAO
-
+--This will be in the clean slate DB as categorys and questions never change. 
 INSERT INTO category (name) VALUES ('Java OOP');
 INSERT INTO category (name) VALUES ('SQL');
 INSERT INTO category (name) VALUES ('HTML/CSS');
@@ -119,6 +118,29 @@ INSERT INTO category (name) VALUES ('MVC');
 INSERT INTO category (name) VALUES ('JavaScript');
 INSERT INTO category (name) VALUES ('TDD');
 
+--these will stay becuase they will never change
+INSERT INTO question (question, answer, category_id) VALUES ('What are the three main concepts of OOP?', 
+                                                             'Inheritance, Encapsulation, Polymorphism',
+                                                             1);
+INSERT INTO question (question, answer, category_id) VALUES ('Which SQL statement is used to extract only records that fufill a specific condition?',
+                                                             'WHERE',
+                                                             2);
+INSERT INTO question (question, answer, category_id) VALUES ('What is the default direction of contents in a Flex Box?',
+                                                             'Row',
+                                                             3);
+INSERT INTO question (question, answer, category_id) VALUES ('Which Spring MVC annotation is used to tie a server url extension to a .jsp view?',
+                                                             '@RequestMapping',
+                                                             4);
+INSERT INTO question (question, answer, category_id) VALUES ('True or False, two or more JavaScript variables can have the same name.',
+                                                             'False',
+                                                             5);
+INSERT INTO question (question, answer, category_id) VALUES ('What is the name of the popular testing framework used in Tech Elevator?',
+                                                             'JUnit',
+                                                             6);
+
+
+--cant use since we wont always have 6 categories
+/*
 INSERT INTO category_space (category_id, space) VALUES(1, 1);
 INSERT INTO category_space (category_id, space) VALUES(1, 7);
 INSERT INTO category_space (category_id, space) VALUES(1, 13);
@@ -196,75 +218,6 @@ INSERT INTO category_space (category_id, space) VALUES(6, 54);
 INSERT INTO category_space (category_id, space) VALUES(6, 60);
 INSERT INTO category_space (category_id, space) VALUES(6, 66);
 INSERT INTO category_space (category_id, space) VALUES(6, 72);
-
-INSERT INTO question (question, answer, category_id) VALUES ('What are the three main concepts of OOP?', 
-                                                             'Inheritance, Encapsulation, Polymorphism',
-                                                             1);
-INSERT INTO question (question, answer, category_id) VALUES ('Which SQL statement is used to extract only records that fufill a specific condition?',
-                                                             'WHERE',
-                                                             2);
-INSERT INTO question (question, answer, category_id) VALUES ('What is the default direction of contents in a Flex Box?',
-                                                             'Row',
-                                                             3);
-INSERT INTO question (question, answer, category_id) VALUES ('Which Spring MVC annotation is used to tie a server url extension to a .jsp view?',
-                                                             '@RequestMapping',
-                                                             4);
-INSERT INTO question (question, answer, category_id) VALUES ('True or False, two or more JavaScript variables can have the same name.',
-                                                             'False',
-                                                             5);
-INSERT INTO question (question, answer, category_id) VALUES ('What is the name of the popular testing framework used in Tech Elevator?',
-                                                             'JUnit',
-                                                             6);
-
-INSERT INTO game (game_code, active, winner_id, active_player_id) VALUES ('test', true, 1, 1); 	
+*/
 
 COMMIT;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-BEGIN TRANSACTION;
-
-ALTER TABLE game ALTER COLUMN winner_id DROP NOT NULL;
-ALTER TABLE game ALTER COLUMN active_player_id DROP NOT NULL;
-
-ALTER TABLE game ALTER COLUMN game_code TYPE varchar(8);
-
- 
-
-INSERT INTO player (name, games_won, games_played) VALUES ('Joeseph', 1, 5); 
-INSERT INTO player (name, games_won, games_played) VALUES ('kawjdkadhad', 0, 1);
-
-INSERT INTO player (name, games_won, games_played) VALUES ('lemonface', 3, 4);
-INSERT INTO player (name, games_won, games_played) VALUES ('noodles', 0, 1);
-
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (2, 6, 1, 0, false, false, false, false, false, false);
-
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (2, 7, 2, 0, false, false, false, false, false, false);
-
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (2, 8, 3, 0, false, false, false, false, false, false);
-
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (2, 9, 4, 0, false, false, false, false, false, false);
-
-DELETE FROM player WHERE player_id >= 10;
-
-SELECT * FROM game_player JOIN player ON game_player.player_id = player.player_id WHERE game_player.game_id = 1;
-
-ROLLBACK;
