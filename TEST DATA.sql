@@ -14,11 +14,11 @@ INSERT INTO player (player_id, name, games_won, games_played) VALUES (4, 'noodle
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
 VALUES (1, 1, 2, 0, false, false, false, false, false, false);
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (1, 2, 4, 0, false, false, false, false, false, false);
+VALUES (1, 2, 4, 12, false, false, false, false, false, false);
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (1, 3, 6, 0, false, false, false, false, false, false);
+VALUES (1, 3, 6, 53, false, false, false, false, false, false);
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (1, 4, 1, 0, false, false, false, false, false, false);
+VALUES (1, 4, 1, 53, false, false, false, false, false, false);
 
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
 VALUES (2, 1, 1, 0, false, false, false, false, false, false);

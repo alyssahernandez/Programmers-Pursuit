@@ -1,27 +1,27 @@
 package com.sideprojects.trivialpursuit.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
-
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sideprojects.trivialpursuit.model.Player;
-import com.sideprojects.trivialpursuit.model.PlayerDAO;
-import com.sideprojects.trivialpursuit.model.Space;
 import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
+import com.sideprojects.trivialpursuit.model.Gameboard;
+import com.sideprojects.trivialpursuit.model.Player;
+import com.sideprojects.trivialpursuit.model.PlayerDAO;
+import com.sideprojects.trivialpursuit.model.Space;
 
 @Controller 
 public class GameboardController {
@@ -79,6 +79,21 @@ public class GameboardController {
 //		 TODO THE IMPLEMENTATION ON THE NEXT LINE IS PREFERED BUT 
 //			IS NOT CURRENTLY FUNCTIONAL 
 //		Player currentPlayerTurn = currentGame.getActivePlayer();
+		
+		// THIS ATTACHES A RANDOM DIE ROLL TO THE CURRENT PLAYER BEFORE ADDING TO THE MODEL
+		// THIS IS FOR IMPLEMENTATION TESTING FOR THE TIME BEING AND NOT LIKELY TO BE THE 
+		// FINAL IMPLEMENTATION OF THIS FUNCTIONALITY
+		// - JEFF
+		int diceRoll = Dice.getDiceRoll();
+		currentPlayerTurn.setDiceRoll(diceRoll);
+		
+		// THIS PASSES REACHABLE SPACES TO THE MODEL BASED ON THE DIE ROLL; THIS WILL
+		// NEED TO BE ADJUSTED IF THE DIE ROLL IMPLEMENTATION IS CHANGES
+		// -JEFF
+		List<Integer> reachableSpaces = currentPlayerTurn.getLocation().getReachableSpaces(diceRoll);		
+		
+		model.put("reachableSpaces", reachableSpaces);
+		
 		model.put("currentPlayerTurn", currentPlayerTurn);
 		
 		/* when the page loads, we need to see if the die has been clicked on - the default

@@ -194,3 +194,11 @@
 	</div>
 
 </div>
+
+<!-- THIS IS TESTING STUFF - JEFF -->
+
+<%-- <c:out value="${ currentPlayerTurn.location.id }"/> --%>
+
+<%-- <c:forEach var="space" items="${ reachableSpaces }"> --%>
+<%-- 	<c:out value="${ space }"/> --%>
+<%-- </c:forEach> --%>
