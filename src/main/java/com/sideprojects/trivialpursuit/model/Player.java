@@ -76,7 +76,7 @@ public class Player implements Comparable<Player> // Comparable (or bubble sort)
 		return diceRoll;
 	}
 
-	// equals used in a JDBC method + will likely be used elsewhere as we get into Beta
+	// equals used in a JDBC method  & will likely be used elsewhere as we get into Beta - Brooks
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Player))
@@ -89,8 +89,7 @@ public class Player implements Comparable<Player> // Comparable (or bubble sort)
 		return this.getPlayerId().hashCode();
 	}
 	
-	// These will be useful for beta - Brooks
-	
+	// Will be used in beta for sorting (if no primary sorting algo) - Brooks
 	@Override
 	public int compareTo(Player p) {
 		if (this.getLastDiceRoll() > p.getLastDiceRoll())
