@@ -68,11 +68,11 @@ public class JDBCGameDAO implements GameDAO {
 			player.setLocation(game.getGameboard().getSpaces().get(results.getInt("player_position")));
 			player.setColor(results.getLong("player_color"));
 			player.setHasPie1(results.getBoolean("player_score_cat_1"));
-			player.setHasPie1(results.getBoolean("player_score_cat_2"));
-			player.setHasPie1(results.getBoolean("player_score_cat_3"));
-			player.setHasPie1(results.getBoolean("player_score_cat_4"));
-			player.setHasPie1(results.getBoolean("player_score_cat_5"));
-			player.setHasPie1(results.getBoolean("player_score_cat_6"));
+			player.setHasPie2(results.getBoolean("player_score_cat_2"));
+			player.setHasPie3(results.getBoolean("player_score_cat_3"));
+			player.setHasPie4(results.getBoolean("player_score_cat_4"));
+			player.setHasPie5(results.getBoolean("player_score_cat_5"));
+			player.setHasPie6(results.getBoolean("player_score_cat_6"));
 			listAllPlayers.add(player);
 		}
 		
@@ -95,11 +95,11 @@ public class JDBCGameDAO implements GameDAO {
 			player.setName(results.getString("name"));
 			player.setColor(results.getLong("player_color"));
 			player.setHasPie1(results.getBoolean("player_score_cat_1"));
-			player.setHasPie1(results.getBoolean("player_score_cat_2"));
-			player.setHasPie1(results.getBoolean("player_score_cat_3"));
-			player.setHasPie1(results.getBoolean("player_score_cat_4"));
-			player.setHasPie1(results.getBoolean("player_score_cat_5"));
-			player.setHasPie1(results.getBoolean("player_score_cat_6"));
+			player.setHasPie2(results.getBoolean("player_score_cat_2"));
+			player.setHasPie3(results.getBoolean("player_score_cat_3"));
+			player.setHasPie4(results.getBoolean("player_score_cat_4"));
+			player.setHasPie5(results.getBoolean("player_score_cat_5"));
+			player.setHasPie6(results.getBoolean("player_score_cat_6"));
 		}
 		return player;
 	}
