@@ -1,12 +1,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div class="hud__status--piece">
-	<div class="player-piece cat1">
-		<div class="player-piece__slice cat1"></div>
-		<div class="player-piece__slice"></div>
-		<div class="player-piece__slice cat3"></div>
-		<div class="player-piece__slice cat4"></div>
-		<div class="player-piece__slice"></div>
-		<div class="player-piece__slice"></div>
+
+	<c:set var="playerColor" value="${ currentPlayerTurn.color }"/>
+	
+
+
+	<div class="player-piece cat${ playerColor }">	
+		<c:forEach var="i" begin="1" end="6">
+			
+			<c:set var="filled" value=""/>
+			
+			<c:if test="">
+				<c:set var="filled" value="cat${ i }"/>
+			</c:if>
+		
+			<div class="player-piece__slice ${ filled }"></div>			
+		</c:forEach>		
 	</div>
 </div>

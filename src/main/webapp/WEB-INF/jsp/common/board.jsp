@@ -4,6 +4,7 @@
 	
 	<c:if test="${player.color == 1}">
 		<c:set var="player1Pos" value="${player.location.id}" />
+		<c:set var="player1Pos" value="${player.location.id}" />
 	</c:if>
 	<c:if test="${player.color == 2}">
 		<c:set var="player2Pos" value="${player.location.id}" />
@@ -67,12 +68,14 @@
 				</c:otherwise>
 			</c:choose>
 
-<!-- 					JEFF: TODO THIS IS DUMMY CODE FOR STYLISTIC PURPOSES; FIGURE OUT HOW TO TEST FOR REACHABILITY -->
+<!-- 			THIS HIGHLIGHTS A SPACE AS REACHABLE BASED ON THE CURRENT POSITION AND DIE ROLL -->
 			<c:set var="reachable" value=""/>
-			<c:if test="${ j == 18 }">
-				<c:set var="reachable" value="space__reachable"/>
-			</c:if>
-
+			<c:forEach var="id" items="${ reachableSpaces }">
+				<c:if test="${ j == id }">
+					<c:set var="reachable" value="space__reachable"/>
+				</c:if>
+			</c:forEach>
+			
 <!-- 				THIS ACTUALLY CREATES THE SPACE AS WELL AS ANY PLAYER TOKENS -->
 			<div class="space ${ isNode } ${ category } ${ reachable }" id="${ spaceId }">
 			
@@ -80,30 +83,23 @@
 					<div class="player-piece--small cat1"></div>
 				</c:if>
 				<c:if test="${player2Pos == j}">
-					<div class="player-piece--small cat1"></div>
+					<div class="player-piece--small cat2"></div>
 				</c:if>
 				<c:if test="${player3Pos == j}">
-					<div class="player-piece--small cat1"></div>
+					<div class="player-piece--small cat3"></div>
 				</c:if>
 				<c:if test="${player4Pos == j}">
-					<div class="player-piece--small cat1"></div>
+					<div class="player-piece--small cat4"></div>
 				</c:if>
 				<c:if test="${player5Pos == j}">
-					<div class="player-piece--small cat1"></div>
+					<div class="player-piece--small cat5"></div>
 				</c:if>
 				<c:if test="${player6Pos == j}">
-					<div class="player-piece--small cat1"></div>
+					<div class="player-piece--small cat6"></div>
 				</c:if>
-						
-			<!-- 
-			<c:if test="${ j ==  10}">
-				<div class="player-piece--small cat2"></div>
-				<div class="player-piece--small cat3"></div>
-			</c:if>
-			 -->
 			
 			</div>
-	
+			
 		</c:forEach>
 	</c:forEach>
 </div>
@@ -116,80 +112,95 @@
 			<c:set var="firstSpaceId" value="${ ((i - 1) * 12) + 1 }"/>
 			
 			<c:forEach var="j" begin="${ firstSpaceId }" end="${ firstSpaceId + 4 }">
-			
-			<!--  THIS SECTION CREATES THE COLORS ON THE INNER RING  -->
-			<c:set var="category" value=""/>
-			
-			<c:choose>				
-				<c:when test="${ j == 13 || j == 28 || j == 41 || j == 51 || j == 62 }">
-					<c:set var="category" value="cat1"/>
-				</c:when>
-				<c:when test="${ j == 25 || j == 40 || j == 53 || j == 63 || j == 2 }">
-					<c:set var="category" value="cat2"/>
-				</c:when>
-				<c:when test="${ j == 37 || j == 52 || j == 65 || j == 3 || j == 14 }">
-					<c:set var="category" value="cat3"/>
-				</c:when>
-				<c:when test="${ j == 49 || j == 64 || j == 5 || j == 15 || j == 26 }">
-					<c:set var="category" value="cat4"/>
-				</c:when>
-				<c:when test="${ j == 61 || j == 4 || j == 17 || j == 27 || j == 38 }">
-					<c:set var="category" value="cat5"/>
-				</c:when>
-				<c:when test="${ j == 1 || j == 16 || j == 29 || j == 39 || j == 50 }">
-					<c:set var="category" value="cat6"/>
-				</c:when>
-			</c:choose>
-			
-				<div class="space space__spoke-space ${ category }">
-
-				<c:if test="${player1Pos == j}">
-					<div class="player-piece--small cat1"></div>
-				</c:if>
-				<c:if test="${player2Pos == j}">
-					<div class="player-piece--small cat1"></div>
-				</c:if>
-				<c:if test="${player3Pos == j}">
-					<div class="player-piece--small cat1"></div>
-				</c:if>
-				<c:if test="${player4Pos == j}">
-					<div class="player-piece--small cat1"></div>
-				</c:if>
-				<c:if test="${player5Pos == j}">
-					<div class="player-piece--small cat1"></div>
-				</c:if>
-				<c:if test="${player6Pos == j}">
-					<div class="player-piece--small cat1"></div>
-				</c:if>
 				
+				<!--  THIS SECTION CREATES THE COLORS ON THE INNER RING  -->
+				<c:set var="category" value=""/>				
+				<c:choose>				
+					<c:when test="${ j == 13 || j == 28 || j == 41 || j == 51 || j == 62 }">
+						<c:set var="category" value="cat1"/>
+					</c:when>
+					<c:when test="${ j == 25 || j == 40 || j == 53 || j == 63 || j == 2 }">
+						<c:set var="category" value="cat2"/>
+					</c:when>
+					<c:when test="${ j == 37 || j == 52 || j == 65 || j == 3 || j == 14 }">
+						<c:set var="category" value="cat3"/>
+					</c:when>
+					<c:when test="${ j == 49 || j == 64 || j == 5 || j == 15 || j == 26 }">
+						<c:set var="category" value="cat4"/>
+					</c:when>
+					<c:when test="${ j == 61 || j == 4 || j == 17 || j == 27 || j == 38 }">
+						<c:set var="category" value="cat5"/>
+					</c:when>
+					<c:when test="${ j == 1 || j == 16 || j == 29 || j == 39 || j == 50 }">
+						<c:set var="category" value="cat6"/>
+					</c:when>
+				</c:choose>
+				
+<!-- 			THIS HIGHLIGHTS A SPACE AS REACHABLE BASED ON THE CURRENT POSITION AND DIE ROLL -->
+				<c:set var="reachable" value=""/>
+				<c:forEach var="id" items="${ reachableSpaces }">
+					<c:if test="${ j == id }">
+						<c:set var="reachable" value="space__reachable"/>
+					</c:if>
+				</c:forEach>				
+				
+<!-- 				THIS PUTS PIECES IN THE SPACE -->
+				<div class="space space__spoke-space ${ category } ${ reachable }">	
+					<c:if test="${player1Pos == j}">
+						<div class="player-piece--small cat1"></div>
+					</c:if>
+					<c:if test="${player2Pos == j}">
+						<div class="player-piece--small cat2"></div>
+					</c:if>
+					<c:if test="${player3Pos == j}">
+						<div class="player-piece--small cat3"></div>
+					</c:if>
+					<c:if test="${player4Pos == j}">
+						<div class="player-piece--small cat4"></div>
+					</c:if>
+					<c:if test="${player5Pos == j}">
+						<div class="player-piece--small cat5"></div>
+					</c:if>
+					<c:if test="${player6Pos == j}">
+						<div class="player-piece--small cat6"></div>
+					</c:if>				
 				</div>	
+				
 			</c:forEach>
 		
 		</div>						
 	</c:forEach>					
 </div>
 
+<!-- 			THIS HIGHLIGHTS THE CENTER SPACE AS REACHABLE BASED ON THE CURRENT POSITION AND DIE ROLL -->
+<c:set var="reachable" value=""/>
+<c:forEach var="id" items="${ reachableSpaces }">
+	<c:if test="${ id == 0 }">
+		<c:set var="reachable" value="space__reachable"/>
+	</c:if>
+</c:forEach>	
+
 <!-- THIS IS THE CENTER SPACE -->
-<div class="gameboard__center space space__reachable" id="0">
+<div class="gameboard__center space ${ reachable }" id="0">
 
 	<div>
 		<c:if test="${player1Pos == 0}">
 			<div class="player-piece--small cat1"></div>
 		</c:if>
 		<c:if test="${player2Pos == 0}">
-			<div class="player-piece--small cat1"></div>
+			<div class="player-piece--small cat2"></div>
 		</c:if>
 		<c:if test="${player3Pos == 0}">
-			<div class="player-piece--small cat1"></div>
+			<div class="player-piece--small cat3"></div>
 		</c:if>
 		<c:if test="${player4Pos == 0}">
-			<div class="player-piece--small cat1"></div>
+			<div class="player-piece--small cat4"></div>
 		</c:if>
 		<c:if test="${player5Pos == 0}">
-			<div class="player-piece--small cat1"></div>
+			<div class="player-piece--small cat5"></div>
 		</c:if>
 		<c:if test="${player6Pos == 0}">
-			<div class="player-piece--small cat1"></div>
+			<div class="player-piece--small cat6"></div>
 		</c:if>
 	</div>
 
