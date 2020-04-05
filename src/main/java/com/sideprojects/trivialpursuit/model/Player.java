@@ -103,6 +103,7 @@ public class Player implements Comparable<Player> // Comparable (or bubble sort)
 			return 0;
 	}
 	
+	// TODO: Do we need these, or no? Seemed like Alyssa was using the one that returns List<Space> above, and Jeff one of these. Lmk! - Brooks
 	public List<Integer> getReachableSpacesV1() { return location.getReachableSpaces(diceRoll); }
 	public List<Integer> getReachableSpacesFromRollV1(int diceRoll) { return location.getReachableSpaces(diceRoll); }
 	
