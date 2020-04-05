@@ -44,11 +44,13 @@ public class MainMenuController {
 		 * names of players that are typed into the create game
 		 * form - Alyssa
 		 */
+		
+//		THIS SECTION SEARCHES FOR AND RETURNS AN ACTIVE GAME; THE REDIRECT IN  - JEFF
 			Game activeGame = gameDAO.getActiveGame(gameSearch.toUpperCase());
 			
-			if (activeGame != null) {				
+			if (activeGame.getGameCode() != null) {				
 				moldelHolder.put("activeGame", activeGame);
-				return "redirect:/gameboard";
+				return "redirect:/gameboard/" + activeGame.getGameCode();
 			} else {
 				return "redirect:/";
 			}

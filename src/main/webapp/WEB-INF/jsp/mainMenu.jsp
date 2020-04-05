@@ -14,7 +14,10 @@
 
 		<label for="search"></label>
 		<input name="search" type="submit" value="Search" />
+	</form>
 
+<!-- 	TODO: THIS FORM NEEDS CONFIGURING - JEFF -->
+	<form action="#" method="POST">
 		<h4>Or please fill in the fields below to create a game:</h4>
 	
 		<label for="gameName"></label>
