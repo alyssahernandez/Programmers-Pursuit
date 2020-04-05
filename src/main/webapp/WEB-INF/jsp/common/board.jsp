@@ -3,23 +3,22 @@
 <c:forEach var="player" items="${playersInGame}">
 	
 	<c:if test="${player.color == 1}">
-		<c:set var="player1Pos" value="${player.location.id}" />
-		<c:set var="player1Pos" value="${player.location.id}" />
+		<c:set var="player1Pos" value="${player.location.spaceId}" />
 	</c:if>
 	<c:if test="${player.color == 2}">
-		<c:set var="player2Pos" value="${player.location.id}" />
+		<c:set var="player2Pos" value="${player.location.spaceId}" />
 	</c:if>
 	<c:if test="${player.color == 3}">
-		<c:set var="player3Pos" value="${player.location.id}" />
+		<c:set var="player3Pos" value="${player.location.spaceId}" />
 	</c:if>
 	<c:if test="${player.color == 4}">
-		<c:set var="player4Pos" value="${player.location.id}" />
+		<c:set var="player4Pos" value="${player.location.spaceId}" />
 	</c:if>
 	<c:if test="${player.color == 5}">
-		<c:set var="player5Pos" value="${player.location.id}" />
+		<c:set var="player5Pos" value="${player.location.spaceId}" />
 	</c:if>
 	<c:if test="${player.color == 6}">
-		<c:set var="player6Pos" value="${player.location.id}" />
+		<c:set var="player6Pos" value="${player.location.spaceId}" />
 	</c:if>	
 	
 </c:forEach>

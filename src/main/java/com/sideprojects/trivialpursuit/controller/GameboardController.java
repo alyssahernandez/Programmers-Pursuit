@@ -1,7 +1,6 @@
 package com.sideprojects.trivialpursuit.controller;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
-import com.sideprojects.trivialpursuit.model.Gameboard;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 import com.sideprojects.trivialpursuit.model.Space;
@@ -52,9 +50,6 @@ public class GameboardController {
 			@RequestParam(name = "isRollingDie", required = false) Boolean isRollingDie,
 			@RequestParam(name = "isChoosingSpace", required = false) Boolean isChoosingSpace,
 			@PathVariable String gameCode) {
-		
-		int diceRollValue = 0;
-		List<Space> availableSpacesFromRoll = null;
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		model.put("currentGame", currentGame);
