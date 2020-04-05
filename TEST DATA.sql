@@ -21,31 +21,31 @@ INSERT INTO game_player (game_id, player_id, player_color, player_position, play
 VALUES (1, 4, 1, 53, false, false, false, true, false, true);
 
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (2, 1, 1, 60, false, false, false, false, false, false);
+VALUES (2, 1, 1, 60, true, true, true, false, false, false);
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (2, 2, 3, 53, false, false, false, false, false, false);
+VALUES (2, 2, 3, 53, false, false, false, true, true, true);
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (2, 3, 5, 42, false, false, false, false, false, false);
+VALUES (2, 3, 5, 42, true, false, true, false, true, false);
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (2, 4, 2, 3, false, false, false, false, false, false);
+VALUES (2, 4, 2, 3, false, true, false, true, false, true);
 
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (3, 1, 2, 35, false, false, false, false, false, false);
+VALUES (3, 1, 2, 35, true, true, true, true, true, true);
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (3, 2, 4, 41, false, false, false, false, false, false);
+VALUES (3, 2, 4, 41, true, true, true, true, true, true);
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (3, 3, 6, 67, false, false, false, false, false, false);
+VALUES (3, 3, 6, 67, true, true, true, true, true, true);
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (3, 4, 3, 67, false, false, false, false, false, false);
+VALUES (3, 4, 3, 67, true, true, true, true, true, true);
 
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (4, 1, 1, 4, false, false, false, false, false, false);
+VALUES (4, 1, 1, 4, false, false, false, false, false, true);
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (4, 2, 3, 4, false, false, false, false, false, false);
+VALUES (4, 2, 3, 4, false, false, false, false, true, false);
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (4, 3, 5, 4, false, false, false, false, false, false);
+VALUES (4, 3, 5, 4, false, true, false, false, false, false);
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
-VALUES (4, 4, 1, 70, false, false, false, false, false, false);
+VALUES (4, 4, 1, 70, true, false, false, false, false, false);
 
 INSERT INTO category (name) VALUES ('Java OOP');
 INSERT INTO category (name) VALUES ('SQL');
@@ -61,19 +61,12 @@ INSERT INTO category_game (category_id, game_id) VALUES (4, 1);
 INSERT INTO category_game (category_id, game_id) VALUES (5, 1);
 INSERT INTO category_game (category_id, game_id) VALUES (6, 1);
 
-INSERT INTO category_game (category_id, game_id) VALUES (1, 2);
 INSERT INTO category_game (category_id, game_id) VALUES (2, 2);
-INSERT INTO category_game (category_id, game_id) VALUES (3, 2);
 INSERT INTO category_game (category_id, game_id) VALUES (4, 2);
-INSERT INTO category_game (category_id, game_id) VALUES (5, 2);
-INSERT INTO category_game (category_id, game_id) VALUES (6, 2);
 
 INSERT INTO category_game (category_id, game_id) VALUES (1, 3);
-INSERT INTO category_game (category_id, game_id) VALUES (2, 3);
 INSERT INTO category_game (category_id, game_id) VALUES (3, 3);
-INSERT INTO category_game (category_id, game_id) VALUES (4, 3);
 INSERT INTO category_game (category_id, game_id) VALUES (5, 3);
-INSERT INTO category_game (category_id, game_id) VALUES (6, 3);
 
 INSERT INTO question (question, answer, category_id) VALUES ('What are the three main concepts of OOP?', 
                                                              'Inheritance, Encapsulation, Polymorphism',

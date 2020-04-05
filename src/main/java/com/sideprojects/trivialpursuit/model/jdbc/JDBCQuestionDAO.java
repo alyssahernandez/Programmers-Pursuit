@@ -34,7 +34,7 @@ public class JDBCQuestionDAO implements QuestionDAO {
 	@Override
 	public Question getQuestionByCategory(Category category) {
 		
-		int categoryId = category.getCategoryID();
+		int categoryId = category.getCategoryId();
 		String sqlGetQuestionFromCategory = "SELECT * FROM question WHERE category_id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetQuestionFromCategory, categoryId);
 		
@@ -51,7 +51,7 @@ public class JDBCQuestionDAO implements QuestionDAO {
 	@Override
 	public List<Question> getQuestionsByCategory(Category category) {
 		
-		int categoryId = category.getCategoryID();
+		int categoryId = category.getCategoryId();
 		List<Question> allQuestionsInCategory = new ArrayList<>();
 		
 		String sqlGetQuestionFromCategory = "SELECT * FROM question WHERE category_id = ?";

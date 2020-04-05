@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sideprojects.trivialpursuit.model.Category;
+import com.sideprojects.trivialpursuit.model.CategoryDAO;
 import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
-import com.sideprojects.trivialpursuit.model.Space;
 
 @Controller 
 public class GameboardController {
@@ -29,6 +30,9 @@ public class GameboardController {
 	
 	@Autowired
 	GameDAO gameDAO;
+	
+	@Autowired
+	CategoryDAO categoryDAO;
 	
 	/* BASIC VIEW
 	
@@ -74,6 +78,9 @@ public class GameboardController {
 //		 TODO THE IMPLEMENTATION ON THE NEXT LINE IS PREFERED BUT 
 //			IS NOT CURRENTLY FUNCTIONAL 
 //		Player currentPlayerTurn = currentGame.getActivePlayer();
+		
+		List<Category> gameCategories = categoryDAO.getCategoriesByGameId(currentGame);
+		model.put("gameCategories", gameCategories);
 		
 		// THIS ATTACHES A RANDOM DIE ROLL TO THE CURRENT PLAYER BEFORE ADDING TO THE MODEL
 		// THIS IS FOR IMPLEMENTATION TESTING FOR THE TIME BEING AND NOT LIKELY TO BE THE 

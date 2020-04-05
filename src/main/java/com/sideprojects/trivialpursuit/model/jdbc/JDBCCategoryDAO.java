@@ -42,7 +42,7 @@ public class JDBCCategoryDAO implements CategoryDAO {
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetCategoryFromSpace, userChoiceSpaceID);
 		
 		while(results.next()) {
-			categoryFromSpace.setCategoryID(results.getInt("category_id"));
+			categoryFromSpace.setCategoryId(results.getInt("category_id"));
 			categoryFromSpace.setCategoryName(results.getString("name"));
 		}
 		
@@ -62,7 +62,7 @@ public class JDBCCategoryDAO implements CategoryDAO {
 		while (results.next())
 		{
 			Category c = new Category();
-			c.setCategoryID(results.getInt("category_id"));
+			c.setCategoryId(results.getInt("category_id"));
 			c.setCategoryName(results.getString("name"));
 			categories.add(c);
 		}
