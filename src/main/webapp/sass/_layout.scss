@@ -3,12 +3,16 @@ body {
 }
 
 header {
-    height: 5%;
+    height: 7%;
     background-color: $color-secondary-1-0;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 main {
-    height: 93%;
+    height: 91%;
     background-image: linear-gradient(to bottom right, $color-primary-2, $color-primary-3);
 
     display: flex;

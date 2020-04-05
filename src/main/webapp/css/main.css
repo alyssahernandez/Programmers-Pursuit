@@ -19,10 +19,18 @@ html {
     @param {Length} $circle-size - Large circle size
     @param {Length} $item-size - Single item size
 */
+h1 {
+  text-align: center;
+  color: #eee;
+  text-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
+  font-size: 3rem;
+  margin-left: 2rem;
+}
+
 h2 {
   text-align: center;
   color: #eee;
-  font-size: 4.5rem;
+  font-size: 4rem;
   font-weight: 500;
   text-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
 }
@@ -32,12 +40,21 @@ body {
 }
 
 header {
-  height: 5%;
+  height: 7%;
   background-color: #0026F1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 main {
-  height: 93%;
+  height: 91%;
   background-image: -webkit-gradient(linear, left top, right bottom, from(#07BAFF), to(#0078A6));
   background-image: linear-gradient(to bottom right, #07BAFF, #0078A6);
   display: -webkit-box;
