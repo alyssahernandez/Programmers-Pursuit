@@ -10,8 +10,9 @@
 		<c:forEach var="i" begin="1" end="6">
 			
 			<c:set var="filled" value=""/>
+			<c:set var="piece" value="pie${ i }"/>
 			
-			<c:if test="">
+			<c:if test="${ currentPlayerTurn[piece] }">
 				<c:set var="filled" value="cat${ i }"/>
 			</c:if>
 		
