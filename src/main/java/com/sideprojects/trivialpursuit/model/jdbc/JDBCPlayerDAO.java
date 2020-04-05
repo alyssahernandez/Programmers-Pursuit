@@ -58,8 +58,5 @@ public class JDBCPlayerDAO implements PlayerDAO
 		String setPlayerPosition = "UPDATE game_player SET player_position = ? WHERE player_id = ? AND game_id = ?";
 		template.update(setPlayerPosition, position, player_id, game_id);
 	}
-	
-	// TODO: Pass in an Integer or something based on form input? 
-	public void updatePlayerPosition(Game game) {}
 }
 
