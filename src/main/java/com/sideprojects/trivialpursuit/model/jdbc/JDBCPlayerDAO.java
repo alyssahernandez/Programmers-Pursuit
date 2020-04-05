@@ -24,7 +24,6 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template = new JdbcTemplate(dataSource);
 	}
 	
-	// TODO: Should we have a "RETURNING" statement @ end of query, returning the the players newly generated player_id (because the DB is serialized) to reference elsewhere?
 	@Override
 	public void createNewPlayer(String name) {
 		String insertPlayer = "INSERT INTO player (name) VALUES (?)";
@@ -32,27 +31,35 @@ public class JDBCPlayerDAO implements PlayerDAO
 	}
 	
 	@Override
-	public void putPlayerListIntoGame(List<Player> players, int gameId)
+	public void putPlayerListIntoGame(List<Player> players, Game game)
 	{
+		Integer gameId = game.getGameID();
 		for (Player p : players)
 		{
 			String sqlPutPlayerIntoGame = "INSERT INTO game_player (player_id, game_id) VALUES (?, ?)";
-			template.update(sqlPutPlayerIntoGame, p.getId(), gameId);
+			template.update(sqlPutPlayerIntoGame, p.getPlayerId(), game.getGameID());
 		}
 	}
 
 	@Override
-	public void putPlayerIntoGame(int playerId, int gameId) {
+	public void putPlayerIntoGame(int playerId, Game game) {
 		String sqlPutPlayerIntoGame = "INSERT INTO game_player (player_id, game_id) VALUES (?, ?)";
-		template.update(sqlPutPlayerIntoGame, playerId, gameId);
+		template.update(sqlPutPlayerIntoGame, playerId, game.getGameID());
 	}
 
 	
 	@Override
-	public void setPlayerPosition(Player player, Game game) {
+	public void setPlayerPosition(Game game) {
+		
+		Integer position = game.getActivePlayer().getLocation().getSpaceId();
+		Integer player_id = game.getActivePlayer().getPlayerId();
+		Integer game_id = game.getGameID();
+		
 		String setPlayerPosition = "UPDATE game_player SET player_position = ? WHERE player_id = ? AND game_id = ?";
-		template.update(setPlayerPosition, player.getLocation().getId(), player.getId(), game.getGameID());
+		template.update(setPlayerPosition, position, player_id, game_id);
 	}
 	
+	// TODO: Pass in an Integer or something based on form input? 
+	public void updatePlayerPosition(Game game) {}
 }
 

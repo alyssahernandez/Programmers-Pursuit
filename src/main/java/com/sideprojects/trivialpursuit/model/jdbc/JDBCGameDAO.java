@@ -46,11 +46,12 @@ public class JDBCGameDAO implements GameDAO {
 		}
 		
 		List<Player> activePlayers = getAllPlayersInAGame(game);
+		Player activePlayer = getActivePlayer(game);
 		game.setActivePlayers(activePlayers);
+		game.setActivePlayer(activePlayer);
 		return game;
 	}
 	
-	//TODO: Update these next two & any other methods that pull a Player to also include their category score / Pies (need to update Player class)
 	//TODO: These should be in the JDBCPlayerDAO/PlayerDAO.
 	@Override
 	public List<Player> getAllPlayersInAGame(Game game) 
@@ -61,18 +62,23 @@ public class JDBCGameDAO implements GameDAO {
 		SqlRowSet results = template.queryForRowSet(sqlGetAllPlayers, game.getGameID());
 		
 		while(results.next()) {
-			Player nextPlayer = new Player();
-			nextPlayer.setName(results.getString("name"));
-			nextPlayer.setId(results.getInt("player_id"));
-			nextPlayer.setLocation(game.getGameboard().getSpaces().get(results.getInt("player_position")));
-			nextPlayer.setColor(results.getLong("player_color"));
-			listAllPlayers.add(nextPlayer);
+			Player player = new Player();
+			player.setName(results.getString("name"));
+			player.setPlayerId(results.getInt("player_id"));
+			player.setLocation(game.getGameboard().getSpaces().get(results.getInt("player_position")));
+			player.setColor(results.getLong("player_color"));
+			player.setHasPie1(results.getBoolean("player_score_cat_1"));
+			player.setHasPie1(results.getBoolean("player_score_cat_2"));
+			player.setHasPie1(results.getBoolean("player_score_cat_3"));
+			player.setHasPie1(results.getBoolean("player_score_cat_4"));
+			player.setHasPie1(results.getBoolean("player_score_cat_5"));
+			player.setHasPie1(results.getBoolean("player_score_cat_6"));
+			listAllPlayers.add(player);
 		}
 		
 		return listAllPlayers;
 	}
 	
-	//TODO: Let me know if this works for you, Alyssa. If yes, delete this; if not, let me know what's needed.  - Brooks
 	@Override
 	public Player getActivePlayer(Game game)
 	{
@@ -84,11 +90,39 @@ public class JDBCGameDAO implements GameDAO {
 		SqlRowSet results = template.queryForRowSet(query, game.getGameID());
 		if (results.next())
 		{
-			player.setId(results.getInt("player_id"));
+			player.setPlayerId(results.getInt("player_id"));
 			player.setLocation(game.getGameboard().getSpaces().get(results.getInt("player_position")));
 			player.setName(results.getString("name"));
 			player.setColor(results.getLong("player_color"));
+			player.setHasPie1(results.getBoolean("player_score_cat_1"));
+			player.setHasPie1(results.getBoolean("player_score_cat_2"));
+			player.setHasPie1(results.getBoolean("player_score_cat_3"));
+			player.setHasPie1(results.getBoolean("player_score_cat_4"));
+			player.setHasPie1(results.getBoolean("player_score_cat_5"));
+			player.setHasPie1(results.getBoolean("player_score_cat_6"));
 		}
 		return player;
 	}
+	
+	@Override
+	public void setActivePlayer(Game game, boolean isCorrectAnswer)
+	{
+		Integer player_id = null;
+		
+		if (isCorrectAnswer)
+			player_id = game.getActivePlayer().getPlayerId();
+		else 
+		{
+			int activePlayerIndex = game.getActivePlayers().indexOf(game.getActivePlayer());
+			if (activePlayerIndex < game.getActivePlayers().size() - 1)
+				player_id = game.getActivePlayers().get(activePlayerIndex + 1).getPlayerId();
+			else
+				player_id = game.getActivePlayers().get(0).getPlayerId();
+		}
+		
+		String query = "UPDATE game_player SET active_player_id = ? WHERE game_id = ?";
+		template.update(query, player_id, game.getGameID());
+	}
+	
+
 }

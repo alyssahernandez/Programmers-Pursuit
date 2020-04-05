@@ -9,9 +9,9 @@ public interface PlayerDAO {
 
 	public void createNewPlayer(String name);
 	
-	public void setPlayerPosition(Player player, Game game); 
+	public void setPlayerPosition(Game game); 
 	
-	void putPlayerIntoGame(int playerId, int gameId);
+	void putPlayerIntoGame(int playerId, Game game);
 
-	void putPlayerListIntoGame(List<Player> players, int gameId);
+	void putPlayerListIntoGame(List<Player> players, Game game);
 }

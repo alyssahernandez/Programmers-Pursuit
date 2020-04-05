@@ -6,44 +6,44 @@ import java.util.List;
 import java.util.Map;
 
 public class Space {
-	
-	//TODO: Rework methods. JavaBeans need default (no argument) constructors, so we can't set our reachable spaces with an overloaded constructor. Use setId() to set spaceId where needed and have setAllReachableSpaces be set another way
 
-
-	private Integer id; // change to Long?
-	private boolean isNode;
-	private boolean isRollAgain;
-	private boolean isFinalSpace;
+	private Integer spaceId; 
+	private Boolean hasPie;
+	private Boolean isRollAgain;
+	private Boolean isCenter;
 	private Category category;
 	// THIS IS A MAP OF 6 POSSIBLE DIE ROLLS AND THE INDEXES OF ALL REACHABLE SPACES BASED ON THAT ROLL
-	private Map<Integer, List<Integer>> reachableSpaces = new HashMap<Integer, List<Integer>>();	
+	public Map<Integer, List<Integer>> reachableSpaces = new HashMap<Integer, List<Integer>>();	
 	
-	public Integer getId() {return id;}
-	public void setId(Integer spaceId) {this.id = spaceId;}
+	// Gets & Sets
+	public Integer getSpaceId() {return spaceId;}
+	public void setSpaceId(Integer spaceId) {this.spaceId = spaceId;}
 	
 	public Category getCategory() {return category;}
 	public void setCategory(Category category) {this.category = category;}
 	
-	public boolean isNode() { return isNode;}
-	public void setNode(boolean isNode) {this.isNode = isNode;}
+	public Boolean hasPie() { return hasPie;}
+	public void setNode(Boolean hasPie) {this.hasPie = hasPie;}
 
-	public boolean isRollAgain() {return isRollAgain;}
-	public void setRollAgain(boolean isRollAgain) {this.isRollAgain = isRollAgain;}
+	public Boolean isRollAgain() {return isRollAgain;}
+	public void setRollAgain(Boolean isRollAgain) {this.isRollAgain = isRollAgain;}
 	
-	public boolean isFinalSpace() { return isFinalSpace; } 
-	public void setFinalSpace(boolean finalSpace) { this.isFinalSpace = finalSpace; }
+	public Boolean isCenter() { return isCenter; } 
+	public void setIsCenter(Boolean isCenter) { this.isCenter = isCenter; }
 
 	public List<Integer> getReachableSpaces(int diceRoll) { return getReachableSpaces().get(diceRoll); }
 	public Map<Integer, List<Integer>> getReachableSpaces() { return reachableSpaces;}
 	public void setReachableSpaces(Map<Integer, List<Integer>> reachableSpaces) {this.reachableSpaces = reachableSpaces;}
 	
-	public Space() {}
+	//CTORs:
+	public Space () {}
 	
 	public Space(int spaceId) {
-		this.id = spaceId;
+		this.spaceId = spaceId;
 		this.reachableSpaces = setAllReachableSpaces(spaceId);
 	}
 	
+	// Methods:
 	
 	// THIS SETS *ALL* REACHABLE SPACES BASED ON AN ID
 	private Map<Integer, List<Integer>> setAllReachableSpaces(int spaceId) {
@@ -142,6 +142,4 @@ public class Space {
 		}
 		return secondarySpaces;
 	}
-	
-
 }

@@ -3,34 +3,58 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Player implements Comparable<Player> { //TODO: This is probably unnecessary for Alpha. The idea is to take advantage of Collections.sort to order players based on their initial dice roll (rolled to determine order)
+public class Player implements Comparable<Player> // Comparable (or bubble sort) to be used for Beta to determine player order -- Brooks
+{ 
 	private Integer playerId;
 	private String name;
-	private long color;
+	private Long color;
 	private Space location;
+	private Boolean pie1;
+	private Boolean pie2;
+	private Boolean pie3;
+	private Boolean pie4;
+	private Boolean pie5;
+	private Boolean pie6;
 	private int diceRoll;
-	//TODO: Declare Pie Piece field(s) -- not sure if separate properties, a List of booleans, etc etc.
-	
-	public Integer getId() { return playerId; }
-	public void setId(Integer playerId) { this.playerId = playerId; }
+
+	// Getters & Setters:
+	public Integer getPlayerId() { return playerId; }
+	public void setPlayerId(Integer playerId) { this.playerId = playerId; }
 		
 	public String getName() {return name; }
 	public void setName(String name) { this.name = name; }
 	
-	public long getColor() { return color; }
-	public void setColor(long color) { this.color = color; }
+	public Long getColor() { return color; }
+	public void setColor(Long color) { this.color = color; }
 	
 	public Space getLocation() { return location;}
 	public void setLocation(Space location) {this.location = location; }
 	
-	public int getNewDiceRoll() { return generateDiceRoll(); }
+	public int getNewDiceRoll() {  return diceRoll = generateDiceRoll(); }
 	public int getLastDiceRoll() { return diceRoll; } 
 	public void setDiceRoll(int diceRoll) { this.diceRoll = diceRoll; } 
 	
-	//TODO: A variation of this is also in the Gameboard class (and could also go in Game class). Let me know what's easiest for Controller team.
-	// I'm not sure how to go about this in the Player class without passing in a gameboard object (which contains the List of spaces (with user-determined categories/questions) that we're accessing & generates their IDs, which is what Jeff's method that returns a List<Integer> (and this method by extension) relies on.
-	// In the controller, you would pass in game.getGameboard() into this method.
-	// I'll get to it later, but I also want to make Gameboard an Iterable, so that we can just call:  for (Space s : gameboard) wherever needed / if needed.
+	public Boolean hasPie1() { return pie1;}
+	public void setHasPie1(Boolean pie1) { this.pie1 = pie1;}
+	
+	public Boolean hasPie2() { return pie2;}
+	public void setHasPie2(Boolean pie2) { this.pie2 = pie2;}
+	
+	public Boolean hasPie3() { return pie3;}
+	public void setHasPie3(Boolean pie3) { this.pie3 = pie3;}
+	
+	public Boolean hasPie4() { return pie4;}
+	public void setHasPie4(Boolean pie4) { this.pie4 = pie4;}
+	
+	public Boolean hasPie5() { return pie5;}
+	public void setHasPie5(Boolean pie5) { this.pie5 = pie5;}
+	
+	public Boolean hasPie6() { return pie6;}
+	public void setHasPie6(Boolean pie6) { this.pie6 = pie6;}
+	
+	public Boolean hasAllPies() { return hasPie1() && hasPie2() && hasPie3() && hasPie4() && hasPie5() && hasPie6(); }
+	
+	// Non-getter/setter methods:
 	
 	public List<Space> getReachableSpaces(Gameboard gameboard) // could also pass in a Game object and call game.getGameboard() within. 
 	{
@@ -45,12 +69,6 @@ public class Player implements Comparable<Player> { //TODO: This is probably unn
 		return availableSpaces;
 	}
 	
-	public List<Integer> getReachableSpacesV1() { return location.getReachableSpaces(diceRoll); }
-	public List<Integer> getReachableSpacesFromRollV1(int diceRoll) { return location.getReachableSpaces(diceRoll); }
-	
-	public List<Integer> getReachableSpacesV2() { return location.getReachableSpaces().get(diceRoll); }
-	public List<Integer> getReachableSpacesFromRollV2(int diceRoll) { return location.getReachableSpaces().get(diceRoll); }
-	
 	public int generateDiceRoll()
 	{
 		int minDiceRoll = 1;
@@ -60,8 +78,21 @@ public class Player implements Comparable<Player> { //TODO: This is probably unn
 		return diceRoll;
 	}
 
-	//TODO: Per the comment @ top near the interface implementation, this is not needed for now (nor the method in Game.java)
-	// Comparing players based on dice roll to determine an initial order (accounting for ties occurs in Game.determinePlayerOrder()). Granted, this isn't the best use of Comparable by any stretch, but I'm lazy and don't want to write a sorting algorithm. 
+	// equals used in a JDBC method + will likely be used elsewhere as we get into Beta
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Player))
+			return false;
+		Player p = (Player) obj;
+		return this.getPlayerId() == p.getPlayerId();
+	}
+	@Override
+	public int hashCode() {
+		return this.getPlayerId().hashCode();
+	}
+	
+	// These will be useful for beta - Brooks
+	
 	@Override
 	public int compareTo(Player p) {
 		if (this.getLastDiceRoll() > p.getLastDiceRoll())
@@ -71,4 +102,11 @@ public class Player implements Comparable<Player> { //TODO: This is probably unn
 		else 
 			return 0;
 	}
+	
+	public List<Integer> getReachableSpacesV1() { return location.getReachableSpaces(diceRoll); }
+	public List<Integer> getReachableSpacesFromRollV1(int diceRoll) { return location.getReachableSpaces(diceRoll); }
+	
+	public List<Integer> getReachableSpacesV2() { return location.getReachableSpaces().get(diceRoll); }
+	public List<Integer> getReachableSpacesFromRollV2(int diceRoll) { return location.getReachableSpaces().get(diceRoll); }
+
 }

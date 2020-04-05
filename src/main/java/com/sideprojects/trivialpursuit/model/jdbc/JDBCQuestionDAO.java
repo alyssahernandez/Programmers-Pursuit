@@ -2,6 +2,7 @@ package com.sideprojects.trivialpursuit.model.jdbc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.sql.DataSource;
 
@@ -25,9 +26,12 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
+	//TODO: Method for selecting all questions based on variable amount of user-chosen categories. Signature: public List<Question> gameQuestions(Integer... category_Ids)
+	//TODO: Method for inserting those questions into game_question table
+	//TODO: Method for selecting questions from game_question table (SELECT * FROM game_question WHERE category_id = ? AND asked = false)
+	//TODO: If we only want to store a single Question in our game (rather than constantly creating 1500 Question objects)... 
+		//  ...then a Method for selecting a single question from those in game_question table, utilizing method from second-to-last TODO.
 	@Override
-	// Modified slightly.
-	// This is likely unnecessary as we're storing Questions as a List in Category class/objs -- for now! Let me know your thoughts as there may be a better approach. For now, the query below seems apt.
 	public Question getQuestionByCategory(Category category) {
 		
 		int categoryId = category.getCategoryID();
@@ -61,10 +65,13 @@ public class JDBCQuestionDAO implements QuestionDAO {
 			questionFromCategory.setAnswer(results.getString("answer"));
 			allQuestionsInCategory.add(questionFromCategory);
 		}
-		
 		return allQuestionsInCategory;
 	}
 	
- 
-
+	// TODO: Controller: When a "getQuestion()" method is called in Controller, subsequently call the update JDBC for that particular question. - Brooks
+	public void setQuestionAsked(Game game, Question question)
+	{
+		String query = "UPDATE game_question SET asked = true WHERE game_id = ? AND question_id = ?";
+		jdbcTemplate.update(query, game.getGameID(), question.getQuestionID());
+	}
 }
