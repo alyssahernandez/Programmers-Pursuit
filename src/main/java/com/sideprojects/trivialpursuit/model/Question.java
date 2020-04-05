@@ -1,6 +1,5 @@
 package com.sideprojects.trivialpursuit.model;
 
-//AC: all questions will have these getters to get the ID, the String question, and the String answer wherever you want them
 public class Question {
 	private Integer questionID;
 	private Integer categoryID;
