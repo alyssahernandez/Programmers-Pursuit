@@ -15,9 +15,10 @@ public class Game {
 	private Player activePlayer;
 	private Gameboard gameboard;
 	
-	// TODO: Should we store this as a list of questions, or just pull a single question given we're doing a full DB pull on every interaction?
+	// TODO: Should we store questions as a list of questions, 
+	// or just as a single question given we're doing a full DB pull on every interaction? 
 	// I previously had List<Question> in the Category class, but I think it makes more sense here. 
-	// All ways are doable, just lmk -- Brooks
+	// All ways are doable (in terms of class it should be in && List<Question> vs Question), just lmk -- Brooks
 	private Question question;
 	private List<Question> questions;
 

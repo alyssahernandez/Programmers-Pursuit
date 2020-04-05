@@ -62,9 +62,7 @@ public class Player implements Comparable<Player> // Comparable (or bubble sort)
 		List<Integer> spaceIds = getLocation().getReachableSpaces(getLastDiceRoll()); 
 		
 		for (Integer id : spaceIds)
-		{
 			availableSpaces.add(gameboard.getSpaces().get(id));
-		}
 		
 		return availableSpaces;
 	}
