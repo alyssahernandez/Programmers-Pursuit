@@ -20,7 +20,7 @@ public class Gameboard {
 		
 		for (int i = 0; i <= SPACE_COUNT; i++)
 		{
-			Space space = new Space();
+			Space space = new Space(i);
 			space.setId(i);
 			output.add(space);
 		}

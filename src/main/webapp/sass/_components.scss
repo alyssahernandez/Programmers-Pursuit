@@ -38,10 +38,11 @@
     }
 
     &--small {
-        width: 1rem;
-        height: 1rem;
+        width: 1.5rem;
+        height: 1.5rem;
         border-radius: 50%;
         box-shadow: $shadow;
+        border: 1px solid $color-black;
     }
 }
 

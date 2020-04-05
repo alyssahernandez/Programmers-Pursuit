@@ -481,11 +481,12 @@ footer {
 }
 
 .player-piece--small {
-  width: 1rem;
-  height: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 50%;
   -webkit-box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
           box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
+  border: 1px solid #000;
 }
 
 .cat1 {
