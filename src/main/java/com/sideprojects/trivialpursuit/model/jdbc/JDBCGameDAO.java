@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Player;
+import com.sideprojects.trivialpursuit.model.PlayerDAO;
 
 @Component
 public class JDBCGameDAO implements GameDAO {
@@ -120,9 +121,7 @@ public class JDBCGameDAO implements GameDAO {
 				player_id = game.getActivePlayers().get(0).getPlayerId();
 		}
 		
-		String query = "UPDATE game_player SET active_player_id = ? WHERE game_id = ?";
+		String query = "UPDATE game SET active_player_id = ? WHERE game_id = ?";
 		template.update(query, player_id, game.getGameID());
 	}
-	
-
 }
