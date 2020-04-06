@@ -44,13 +44,11 @@ public class GameboardController {
 	}
 	
 	*/
-		
-
-	// COMMENTING THIS OUT SO THE GAME COMPILES...
 
 	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.GET)
 	public String displayGameboard(
 			ModelMap model,
+			HttpSession session,
 			@RequestParam(name = "isRollingDie", required = false) Boolean isRollingDie,
 			@RequestParam(name = "isChoosingSpace", required = false) Boolean isChoosingSpace,
 			@PathVariable String gameCode) {
@@ -86,8 +84,16 @@ public class GameboardController {
 		// THIS IS FOR IMPLEMENTATION TESTING FOR THE TIME BEING AND NOT LIKELY TO BE THE 
 		// FINAL IMPLEMENTATION OF THIS FUNCTIONALITY
 		// - JEFF
-		int diceRoll = Dice.getDiceRoll();
-		currentPlayerTurn.setDiceRoll(diceRoll);
+		
+		int diceRoll = 0;
+		
+		if (isRollingDie != null && isRollingDie == true) {
+			diceRoll = Dice.getDiceRoll();
+			currentPlayerTurn.setDiceRoll(diceRoll);
+			isRollingDie = false;
+		} else if (isRollingDie == null || isRollingDie == false) {
+			// something? nothing? TBD - ALYSSA
+		}
 		
 		// THIS PASSES REACHABLE SPACES TO THE MODEL BASED ON THE DIE ROLL; THIS WILL
 		// NEED TO BE ADJUSTED IF THE DIE ROLL IMPLEMENTATION IS CHANGES
@@ -154,6 +160,8 @@ public class GameboardController {
 	@RequestMapping(path="/gameboard", method=RequestMethod.POST)
 	public String displayGameboardWithPlayers(ModelMap model, HttpSession session,
 			HttpServletRequest request) {
+		
+		
 		
 		/* TODO FRONT-END: the POST method is where we're updating the db from
 		 * a player's interactions with the forms (die roll & choosing spaces).
