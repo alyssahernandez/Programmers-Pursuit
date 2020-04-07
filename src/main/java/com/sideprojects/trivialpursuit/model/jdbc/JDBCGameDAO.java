@@ -25,11 +25,19 @@ public class JDBCGameDAO implements GameDAO {
 		template = new JdbcTemplate(dataSource);
 	}
 	
+	/*
+		TODO: 
+			- After talking w/ Kiran, 95% sure that createNewGame() going to need a "RETURNING game_id" statement @ end 
+			- if our homepage will be setting anything but the gamecode -- categories, players, etc. -- on the same form. 
+			- We'll need an immediate reference to the game_id in the controller 
+			- (which is only created upon insertion into DB) to update game_player, game_category, game_question, etc.
+				- Brooks
+	*/
 	@Override
-	public void createNewGame(String code) {
+	public void createNewGame(String gameCode) {
 		
 		String newGameId = "INSERT INTO game (game_code, active) VALUES (?, ?)";
-		template.update(newGameId, code, true);
+		template.update(newGameId, gameCode, true);
 	}
 	
 	@Override
@@ -57,7 +65,7 @@ public class JDBCGameDAO implements GameDAO {
 	@Override
 	public List<Player> getAllPlayersInAGame(Game game) 
 	{
-		List<Player> listAllPlayers = new ArrayList<>();                   
+		List<Player> players = new ArrayList<>();                   
 		String sqlGetAllPlayers = "SELECT * FROM game_player JOIN player ON game_player.player_id "
 				+ "= player.player_id WHERE game_player.game_id = ?";
 		SqlRowSet results = template.queryForRowSet(sqlGetAllPlayers, game.getGameID());
@@ -74,10 +82,10 @@ public class JDBCGameDAO implements GameDAO {
 			player.setPie4(results.getBoolean("player_score_cat_4"));
 			player.setPie5(results.getBoolean("player_score_cat_5"));
 			player.setPie6(results.getBoolean("player_score_cat_6"));
-			listAllPlayers.add(player);
+			players.add(player);
 		}
 		
-		return listAllPlayers;
+		return players;
 	}
 	
 	@Override

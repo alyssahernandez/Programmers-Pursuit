@@ -79,7 +79,7 @@ public class GameboardController {
 //			IS NOT CURRENTLY FUNCTIONAL 
 //		Player currentPlayerTurn = currentGame.getActivePlayer();
 		
-		List<Category> gameCategories = categoryDAO.getCategoriesByGameId(currentGame);
+		List<Category> gameCategories = categoryDAO.getCategoriesByGame(currentGame);
 		model.put("gameCategories", gameCategories);
 		
 		// THIS ATTACHES A RANDOM DIE ROLL TO THE CURRENT PLAYER BEFORE ADDING TO THE MODEL
