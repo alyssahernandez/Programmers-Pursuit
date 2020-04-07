@@ -21,8 +21,8 @@
 <div>
 	<h4>Or please fill in the fields below to create a game:</h4>
 	
-	<c:url var="createGame" value="/create"/>
-	<form action="${createGame }" method="GET" >
+	<c:url var="createGameURL" value="/create"/>
+	<form action="${createGameURL }" method="GET" >
 	
 	<input type="submit" value="Create Game"/>
 	

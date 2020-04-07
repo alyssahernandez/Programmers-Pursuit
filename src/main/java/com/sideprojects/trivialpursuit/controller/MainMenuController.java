@@ -1,6 +1,8 @@
 package com.sideprojects.trivialpursuit.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -52,8 +54,16 @@ public class MainMenuController {
 			
 			
 	@RequestMapping(path="/create", method=RequestMethod.GET)
-	public String createGame(ModelMap map) {
+	public String displayCreateGameForm() {
 		return "createGame";
+	}
+	
+	@RequestMapping(path="/create", method=RequestMethod.POST)
+	public String createGame(
+			@RequestParam String gameCode,
+			@RequestParam List<String> activePlayers
+			) {
+		return "redirect:/gameboard/${gamecode}";
 	}
 	
 			
