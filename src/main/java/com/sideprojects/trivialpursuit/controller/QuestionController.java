@@ -32,7 +32,7 @@ public class QuestionController {
 	{
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);
-		List<Category> gameCategories = categoryDAO.getCategoriesByGameId(currentGame);
+		List<Category> gameCategories = categoryDAO.getCategoriesByGame(currentGame);
 
 		model.put("currentGame", currentGame);
 		model.put("currentPlayerTurn", currentPlayerTurn);
