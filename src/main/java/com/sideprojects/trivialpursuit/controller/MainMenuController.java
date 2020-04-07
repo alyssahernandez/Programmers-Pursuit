@@ -20,7 +20,7 @@ public class MainMenuController {
 
 	@RequestMapping(path="/", method=RequestMethod.GET)
 	public String displayMainMenu() {
-			return "mainMenu";
+		return "mainMenu";
 	}
 	
 	@RequestMapping(path="/", method=RequestMethod.POST)
@@ -30,13 +30,6 @@ public class MainMenuController {
 		@RequestParam(required=false) String gameName,
 		ModelMap moldelHolder,
 		RedirectAttributes flash) {
-		
-		/* next week we should be learning the javascript
-		 * we need to create a pop-up form when a player
-		 * clicks create game instead of searching for one,
-		 * so i'm not sure which of this code will need to
-		 * be rewritten - Alyssa
-		 */
 			
 		
 		/* TODO from the main menu, we need to create
@@ -52,8 +45,17 @@ public class MainMenuController {
 				moldelHolder.put("activeGame", activeGame);
 				return "redirect:/gameboard/" + activeGame.getGameCode();
 			} else {
-				return "redirect:/";
+				flash.addFlashAttribute("message", "Game Not Found");
+				return "mainMain";
 			}
+	}
+			
+			
+	@RequestMapping(path="/create", method=RequestMethod.GET)
+	public String createGame(ModelMap map) {
+		return "createGame";
+	}
+	
 			
 		
 		/* else if (playerName != null && gameName != null) {
@@ -78,5 +80,5 @@ public class MainMenuController {
 		*/
 
 	//	return "redirect:/";
-	}
 }
+
