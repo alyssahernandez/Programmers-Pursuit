@@ -20,17 +20,12 @@
 <!-- 	TODO: THIS FORM NEEDS CONFIGURING - JEFF -->
 <div>
 	<h4>Or please fill in the fields below to create a game:</h4>
-	<c:url var="createGameURL" value="/create"/>
-	<form action="${createGameUrl }" method="GET">
-		
 	
-		<!-- <label for="gameName"></label>
-		<input name="gameName" type="text" placeholder="Enter Game Code..." />
-		
-		<label for="playerName"></label>
-		<input name="playerName" type="text" placeholder="Enter Player Name..." />
-		 -->
-		<input type="submit" />
+	<c:url var="createGame" value="/create"/>
+	<form action="${createGame }" method="GET" >
+	
+	<input type="submit" value="Create Game"/>
+	
 	</form>
 	
 </div>
