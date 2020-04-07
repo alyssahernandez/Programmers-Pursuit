@@ -150,7 +150,6 @@ public class GameboardController {
 
 	}
 	
-	
 	@RequestMapping(path="/gameboard", method=RequestMethod.POST)
 	public String displayGameboardWithPlayers(ModelMap model, HttpSession session,
 			HttpServletRequest request) {
