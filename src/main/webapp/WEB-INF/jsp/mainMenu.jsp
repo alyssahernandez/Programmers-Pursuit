@@ -15,18 +15,17 @@
 		<label for="search"></label>
 		<input name="search" type="submit" value="Search" />
 	</form>
+</div>
 
 <!-- 	TODO: THIS FORM NEEDS CONFIGURING - JEFF -->
-	<form action="#" method="POST">
-		<h4>Or please fill in the fields below to create a game:</h4>
+<div>
+	<h4>Or please fill in the fields below to create a game:</h4>
 	
-		<label for="gameName"></label>
-		<input name="gameName" type="text" placeholder="Enter Game Code..." />
-		
-		<label for="playerName"></label>
-		<input name="playerName" type="text" placeholder="Enter Player Name..." />
-		
-		<input name="submit" type="submit" value="Create Game" />
+	<c:url var="createGameURL" value="/create"/>
+	<form action="${createGameURL }" method="GET" >
+	
+	<input type="submit" value="Create Game"/>
+	
 	</form>
 	
 </div>

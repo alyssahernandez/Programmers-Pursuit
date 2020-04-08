@@ -28,6 +28,10 @@ main {
 
     flex: 3 1 0;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     // THESE ARE THE SETTINGS FOR THE BOARD SIZING; ADJUST THESE WHEN DEALING WITH RESPONSIVE
     $number-of-ring-spaces: 42;
     $number-of-spokes: 6;
@@ -128,6 +132,45 @@ main {
 
         &--category {
 
+        }
+    }
+}
+
+.question-form {
+    background-image: linear-gradient(to bottom right, $color-grey-light-1, $color-grey-light-2);
+    width: 80%;
+    padding: 2rem 3rem;
+    box-shadow: $shadow;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__answer {
+        margin: 2rem 3rem;
+        width: 50%;
+        padding: 1rem 2rem;
+    }
+
+    &__button {
+        width: 30%;
+        background-color: $color-primary-0;
+        color: $color-grey-dark-1;
+        padding: 1rem 2rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 100px;
+
+        transition: all .2s;
+
+        &:hover {
+            transform: translateY(-.5rem);
+            box-shadow: $shadow-small;
+        }
+
+        &:active {
+            transform: translateY(-.25rem);
         }
     }
 }

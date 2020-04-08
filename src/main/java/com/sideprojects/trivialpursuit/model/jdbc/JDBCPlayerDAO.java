@@ -24,14 +24,28 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template = new JdbcTemplate(dataSource);
 	}
 	
-	@Override
-	public void createNewPlayer(String name) {
-		String insertPlayer = "INSERT INTO player (name) VALUES (?)";
-		template.update(insertPlayer, name);
-	}
+	//TODO: Include game_player insertion method within createPlayers method to do everything at once.  
 	
 	@Override
-	public void putPlayerListIntoGame(List<Player> players, Game game)
+	public void createPlayers(List<String> playerNames) {
+		
+		String insertPlayer = "INSERT INTO player (name, games_won, games_played) VALUES (?, 0, 0)";
+		for (String playerName : playerNames)
+			template.update(insertPlayer, playerName);
+	}
+	
+	// TODO: This probably isn't needed (Kiran is passing in a List<Player> from homepage), but could be used down the line.
+	@Override
+	public void createPlayer(String playerName) {
+		
+		String insertPlayer = "INSERT INTO player (name, games_won, games_played) VALUES (?, 0, 0)";
+		template.update(insertPlayer, playerName);
+	}
+	
+	// As commented in JDBCGameDAO, we will likely need a "RETURNING game_id" statement appended to end of the "createGame()" method 
+	// given the game creation + players will be part of the same form. 
+	@Override
+	public void putPlayersIntoGame(Game game, List<Player> players)
 	{
 		Integer gameId = game.getGameID();
 		for (Player p : players)
@@ -40,13 +54,6 @@ public class JDBCPlayerDAO implements PlayerDAO
 			template.update(sqlPutPlayerIntoGame, p.getPlayerId(), game.getGameID());
 		}
 	}
-
-	@Override
-	public void putPlayerIntoGame(int playerId, Game game) {
-		String sqlPutPlayerIntoGame = "INSERT INTO game_player (player_id, game_id) VALUES (?, ?)";
-		template.update(sqlPutPlayerIntoGame, playerId, game.getGameID());
-	}
-
 	
 	// TODO: Could also pass in an integer to jibe with form input (rather than updating activePlayer's position in the Controller, which this method assumes is happening):
 	// setPlayerPosition(Game game, Integer newPosition), 
@@ -60,5 +67,7 @@ public class JDBCPlayerDAO implements PlayerDAO
 		String setPlayerPosition = "UPDATE game_player SET player_position = ? WHERE player_id = ? AND game_id = ?";
 		template.update(setPlayerPosition, position, player_id, game_id);
 	}
+	
+
 }
 

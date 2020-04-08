@@ -26,52 +26,99 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
-	//TODO: Method for selecting all questions based on variable amount of user-chosen categories. Signature: public List<Question> gameQuestions(Integer... category_Ids)
-	//TODO: Method for inserting those questions into game_question table
-	//TODO: Method for selecting questions from game_question table (SELECT * FROM game_question WHERE category_id = ? AND asked = false)
-	//TODO: If we only want to store a single Question in our game (rather than constantly creating 1500 Question objects)... 
-		//  ...then a Method for selecting a single question from those in game_question table, utilizing method from second-to-last TODO.
-	@Override
-	public Question getQuestionByCategory(Category category) {
-		
-		int categoryId = category.getCategoryId();
-		String sqlGetQuestionFromCategory = "SELECT * FROM question WHERE category_id = ?";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetQuestionFromCategory, categoryId);
-		
-		Question questionFromCategory = new Question();
-		if (results.next()) {
-			questionFromCategory.setQuestionID(results.getInt("question_id"));
-			questionFromCategory.setCategoryID(results.getInt("category_id"));
-			questionFromCategory.setQuestion(results.getString("question"));
-			questionFromCategory.setAnswer(results.getString("answer"));
-		}
-		return questionFromCategory;
-	}
+	/* TODO:
+		  - Note: getUnaskedQuestionByCategory() relies on categorized spaces (either via Java algo or associative table in DB) 
+				- Because Space 0 will be a form to select a category, passing an Integer seems easiest.
+				- For all other spaces, in Controller simply pass activePlayer.getLocation().getCategory().getCategoryID();
+				- The alternative is two additional methods doing the exact same thing, which instead pass in just a game (and get category_Id by activePlayer.getLocation()..^^^)
+	*/ 
+	// This will become private if we decide to go with a single Question object rather than List<Question> - Brooks
 	
 	@Override
-	public List<Question> getQuestionsByCategory(Category category) {
+	public List<Question> getUnaskedQuestionsByCategory(Game game, Integer category_id)
+	{
+		List<Question> questions = new ArrayList<>();
+		String query = "SELECT * FROM question INNER JOIN game_question ON (question.question_id = game_question.question_id) " + 
+						"WHERE game_question.game_id = ? AND question.category_id = ? AND game_question.asked = false";
+		SqlRowSet rowSet = jdbcTemplate.queryForRowSet(query, game.getGameID(), category_id);
 		
-		int categoryId = category.getCategoryId();
-		List<Question> allQuestionsInCategory = new ArrayList<>();
-		
-		String sqlGetQuestionFromCategory = "SELECT * FROM question WHERE category_id = ?";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetQuestionFromCategory, categoryId);
-		
-		while(results.next()) {
-			Question questionFromCategory = new Question();
-			questionFromCategory.setQuestionID(results.getInt("question_id"));
-			questionFromCategory.setCategoryID(results.getInt("category_id"));
-			questionFromCategory.setQuestion(results.getString("question"));
-			questionFromCategory.setAnswer(results.getString("answer"));
-			allQuestionsInCategory.add(questionFromCategory);
+		while (rowSet.next())
+		{
+			Question question = new Question();
+			question.setAnswer(rowSet.getString("answer"));
+			question.setCategoryID(rowSet.getInt("category_id"));
+			question.setQuestion(rowSet.getString("question"));
+			question.setQuestionID(rowSet.getInt("question_id"));
+			questions.add(question);
 		}
-		return allQuestionsInCategory;
+		return questions;
 	}
 	
-	// TODO: Controller: When a "getQuestion()" method is called in Controller, subsequently call the update JDBC for that particular question. - Brooks
+	// Utilizes method above to return a single, randomly selected question & updates the DB to "asked" so that it can't be selected again.
+	// As mentioned above, pass in game + game.getActivePlayer().getLocation().getCategory().getCategoryId(); - Brooks
+	public Question getUnaskedQuestionByCategory(Game game, Integer category_id)
+	{
+		Question question = null;
+		List<Question> questions = getUnaskedQuestionsByCategory(game, category_id);
+		if (questions == null || questions.size() == 0)
+			return null;
+		
+		int questionIndex = getQuestionIndex(questions);
+		question = questions.get(questionIndex);
+		setQuestionAsked(game, question);
+		return question;
+	}
+	
+	// Uses private "getQuestionsByCategory()" method below to set questions in game_question. This is what will be used in Controller @ Kiran. - Brooks
+	@Override
+	public void setGameQuestions(Game game, List<Integer> category_IDs)
+	{
+		List<Question> questions = getQuestionsByCategory(category_IDs);
+		String query = "INSERT INTO game_question (game_id, question_id, asked) VALUES (?, ?, false)";
+		
+		for (Question q : questions)
+			jdbcTemplate.update(query, game.getGameID(), q.getQuestionID());
+	}
+	
+	// When a specific question is pulled, use this to set asked = true (so that we don't use it again) - Brooks
+	@Override
 	public void setQuestionAsked(Game game, Question question)
 	{
 		String query = "UPDATE game_question SET asked = true WHERE game_id = ? AND question_id = ?";
 		jdbcTemplate.update(query, game.getGameID(), question.getQuestionID());
+	}
+	
+	// Gets questions by a list of category_id's to store in game_question. Method remains private as it's only used here. - Brooks
+	private List<Question> getQuestionsByCategory(List<Integer> category_IDs)
+	{
+		List<Question> questions = new ArrayList<>();
+		String sqlGetQuestionFromCategory = "SELECT * FROM question WHERE category_id = ?";
+		
+		for (Integer cat_id : category_IDs)
+		{
+			SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetQuestionFromCategory, cat_id);
+			
+			while (results.next()) 
+			{
+				Question questionFromCategory = new Question();
+				questionFromCategory.setQuestionID(results.getInt("question_id"));
+				questionFromCategory.setCategoryID(results.getInt("category_id"));
+				questionFromCategory.setQuestion(results.getString("question"));
+				questionFromCategory.setAnswer(results.getString("answer"));
+				questions.add(questionFromCategory);
+			}
+		}
+		return questions;
+	}
+	
+	
+	// Helper method to get a random index to reference from a List<Question> (to select a random question rather pulling directly from DB, which have the same order every time)
+	private int getQuestionIndex(List<Question> questions)
+	{
+		int minQuestionIndex = 0;
+		int maxQuestionIndex = questions.size() - 1;
+		Random r = new Random();
+		int questionIndex = r.nextInt((maxQuestionIndex - minQuestionIndex) + 1) + minQuestionIndex;
+		return questionIndex;
 	}
 }

@@ -89,7 +89,7 @@ public class GameboardController {
 //			IS NOT CURRENTLY FUNCTIONAL 
 //		Player currentPlayerTurn = currentGame.getActivePlayer();
 		
-		List<Category> gameCategories = categoryDAO.getCategoriesByGameId(currentGame);
+		List<Category> gameCategories = categoryDAO.getCategoriesByGame(currentGame);
 		model.put("gameCategories", gameCategories);
 		
 		// THIS ATTACHES A RANDOM DIE ROLL TO THE CURRENT PLAYER BEFORE ADDING TO THE MODEL
@@ -160,16 +160,13 @@ public class GameboardController {
 
 	}
 	
-	
 	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.POST)
 	public String displayGameboardWithPlayers(ModelMap model,
 			HttpSession session,
 			// HttpServletRequest request,
 			@RequestParam(name = "isChoosingSpace", required = false) Boolean isChoosingSpace) {
 		
-		Player currentPlayerTurn = (Player)session.getAttribute(CURRENT_PLAYER_KEY);
-		
-		
+	//	Player currentPlayerTurn = (Player)session.getAttribute(CURRENT_PLAYER_KEY);
 		
 		
 		/* TODO FRONT-END: the POST method is where we're updating the db from

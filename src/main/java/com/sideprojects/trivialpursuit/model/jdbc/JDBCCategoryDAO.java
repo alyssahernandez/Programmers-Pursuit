@@ -24,14 +24,60 @@ public class JDBCCategoryDAO implements CategoryDAO {
 	public JDBCCategoryDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
+	
+	@Override
+	public List<Category> getCategoriesByGame(Game game) 
+	{
+		List<Category> categories = new ArrayList<>();
+		String query = "SELECT * FROM category INNER JOIN category_game ON category.category_id = category_game.category_id " + 
+						"INNER JOIN game ON category_game.game_id = game.game_id WHERE game.game_id = ?";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(query, game.getGameID());
+		
+		while (results.next())
+		{
+			Category c = new Category();
+			c.setCategoryId(results.getInt("category_id"));
+			c.setCategoryName(results.getString("name"));
+			categories.add(c);
+		}
 
+		// TODO: Lines 71-79 may be more effectively implemented in the Controller/front-end
+		// We still want a list that contains 6 categories, even if only 2 or 3 are chosen (for the legend, generating categorized spaces, etc)
+		// For an active player on space 0 (which presents the "problem" of doing this here), 
+		// to display questions, either filter the list or store original category selections in the session 
+		// This is as opposed to displaying "java" 3 for a 2-category game whenever someone lands on space 0 -- not ideal!
+		// - Brooks
+		
+		List<Category> copy = new ArrayList<>();
+		for (Category c : categories)
+			copy.add(c);
+		
+		if (categories.size() == 3) 
+			categories.addAll(copy);
+		else if (categories.size() == 2)
+			for (int i = 0; i < 2; i++)
+				categories.addAll(copy);
+
+		return categories;
+	}
 	
-	// TODO: I think we'd need a Space/Gameboard table to make this work (as well as a category_space table), wouldn't we?
-	// A game's categories (2, 3, or 6 in total) will be tied to 7-19 spaces each.
-	// Unless I'm misunderstand what a "space" attribute in the category_game table is doing. Let me know if so!
+	//TODO: If category selection is on same form as entering game code + players, this will likely need a "RETURNING game_id" appended to end of query. - Brooks
+	@Override
+	public void setCategoriesByGameId(Game game, List<Integer> category_IDs) 
+	{
+		String query = "INSERT INTO category_game (game_id, category_id) VALUES (?, ?)";
+		
+		for (Integer cat_id : category_IDs)
+			jdbcTemplate.update(query, game.getGameID(), cat_id);
+	}
 	
-	// TODO: Maybe pass a Space into this? (e.g. player.getLocation()), and reference the spaceId)
 	
+	// TODO: Given we're allowing for 2/3/6 categories, getCategoryFromSpace() won't work at present
+	// The category of some spaces will differ depending on the # of categories chosen.  
+	// If we update DB to handle space associations for 2/3/6-category games, this will work lovelyly. 
+	// On that note, keeping it around for now - Brooks
+
 	@Override
 	public Category getCategoryFromSpace(int userChoiceSpaceID) {
 		
@@ -47,33 +93,5 @@ public class JDBCCategoryDAO implements CategoryDAO {
 		}
 		
 		return categoryFromSpace;
-	}
-	
-	//TODO: Use a JDBCQuestionDAO method to populate the Category with a List of questions. Maybe unnecessary with our DB-everything approach, but might be. 
-	@Override
-	public List<Category> getCategoriesByGameId(Game game) 
-	{
-		List<Category> categories = new ArrayList<>();
-		String query = "SELECT * FROM category INNER JOIN category_game ON category.category_id = category_game.category_id " + 
-						"INNER JOIN game ON category_game.game_id = game.game_id WHERE game.game_id = ?";
-		
-		SqlRowSet results = jdbcTemplate.queryForRowSet(query, game.getGameID());
-		
-		while (results.next())
-		{
-			Category c = new Category();
-			c.setCategoryId(results.getInt("category_id"));
-			c.setCategoryName(results.getString("name"));
-			categories.add(c);
-		}
-		return categories;
-	}
-	
-	//TODO: Fill out method(s) below
-
-	@Override
-	public void setCategoryByGameId(Game game) 
-	{
-		
 	}
 }
