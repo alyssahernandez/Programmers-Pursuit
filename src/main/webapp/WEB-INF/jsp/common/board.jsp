@@ -1,5 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<script>
+
+function submit() {
+	document.getElementById("formForSpaceChoice").submit();
+}
+
+</script>
+
 <c:forEach var="player" items="${playersInGame}">
 	
 	<c:if test="${player.color == 1}">
@@ -70,10 +78,34 @@
 <!-- 			THIS HIGHLIGHTS A SPACE AS REACHABLE BASED ON THE CURRENT POSITION AND DIE ROLL -->
 			<c:set var="reachable" value=""/>
 			<c:forEach var="id" items="${ reachableSpaces }">
-				<c:if test="${ j == id }">
+				<c:if test="${ j == id.spaceId }">
 					<c:set var="reachable" value="space__reachable"/>
 				</c:if>
 			</c:forEach>
+
+			
+<!-- THIS IS THE FORM FOR CHOOSING THE CORRECT SPACE - WORK IN PROGRESS - ALYSSA -->
+
+			<c:set var="reachable" value=""/>			
+			<c:url value="/gameboard/${gameCode}" var="chooseSpaceForm" />
+			
+			<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice">
+			
+				<c:forEach var="id" items="${ reachableSpaces }">
+				<c:if test="${ j == id.spaceId }">
+					<c:set var="reachable" value="space__reachable"/>
+					
+					<label for="${spaceOption.spaceId }" class="">
+						<input type="radio" onclick=”javascript:submit()” name="spaceChoice" value="${id.spaceId}">${id.spaceId}
+					</label>					
+					
+				</c:if>				
+				
+				</c:forEach>
+				
+				<!-- <button type="submit">Choose Space</button> -->
+	
+			</form>
 			
 <!-- 				THIS ACTUALLY CREATES THE SPACE AS WELL AS ANY PLAYER TOKENS -->
 			<div class="space ${ isNode } ${ category } ${ reachable }" id="${ spaceId }">
@@ -138,7 +170,7 @@
 <!-- 			THIS HIGHLIGHTS A SPACE AS REACHABLE BASED ON THE CURRENT POSITION AND DIE ROLL -->
 				<c:set var="reachable" value=""/>
 				<c:forEach var="id" items="${ reachableSpaces }">
-					<c:if test="${ j == id }">
+					<c:if test="${ j == id.spaceId }">
 						<c:set var="reachable" value="space__reachable"/>
 					</c:if>
 				</c:forEach>				
@@ -174,7 +206,7 @@
 <!-- 			THIS HIGHLIGHTS THE CENTER SPACE AS REACHABLE BASED ON THE CURRENT POSITION AND DIE ROLL -->
 <c:set var="reachable" value=""/>
 <c:forEach var="id" items="${ reachableSpaces }">
-	<c:if test="${ id == 0 }">
+	<c:if test="${ id.spaceId == 0 }">
 		<c:set var="reachable" value="space__reachable"/>
 	</c:if>
 </c:forEach>	

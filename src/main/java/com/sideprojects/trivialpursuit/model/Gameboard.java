@@ -20,13 +20,36 @@ public class Gameboard {
 		List<Space> output = new ArrayList<Space>();
 		
 		//TODO: generate categories
-		//TODO: update booleans (isRollAgain, isNode, etc.); don't need to generate categories for this.
 		for (int i = 0; i <= SPACE_COUNT; i++)
 		{
 			Space space = new Space(i);
+			
+			if (i == 0) {
+				space.setIsCenter(true);
+			}
+			
+			if (i == 8 || i == 11 || i == 20 || i == 23 ||
+					i == 32 || i == 35 || i == 44 || i == 47 ||
+					i == 56 || i == 59 || i == 68 || i == 71) {
+				
+				space.setRollAgain(true);
+			}
+			
+			if (i == 6 || i == 18 || i == 30 || i == 42 || i == 54 || i == 66) {
+				space.setNode(true);
+			}
+			
+			/*
+			 * TODO BACK-END: the spaces are attached to the gameboard here. please 
+			 * find a way to attach the categories to spaces in this method.
+			 */
+			
+			
+			
 			output.add(space);
 		}
 		
 		return output;
 	}
+	
 }
