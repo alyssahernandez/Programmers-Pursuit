@@ -112,7 +112,7 @@ public class JDBCQuestionDAO implements QuestionDAO {
 	}
 	
 	
-	// Selects random question from List of available questions (asked=false)
+	// Helper method to get a random index to reference from a List<Question> (to select a random question rather pulling directly from DB, which have the same order every time)
 	private int getQuestionIndex(List<Question> questions)
 	{
 		int minQuestionIndex = 0;
