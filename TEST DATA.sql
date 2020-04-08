@@ -68,6 +68,13 @@ INSERT INTO category_game (category_id, game_id) VALUES (1, 3);
 INSERT INTO category_game (category_id, game_id) VALUES (3, 3);
 INSERT INTO category_game (category_id, game_id) VALUES (5, 3);
 
+INSERT INTO category_game (category_id, game_id) VALUES (1, 4);
+INSERT INTO category_game (category_id, game_id) VALUES (2, 4);
+INSERT INTO category_game (category_id, game_id) VALUES (3, 4);
+INSERT INTO category_game (category_id, game_id) VALUES (4, 4);
+INSERT INTO category_game (category_id, game_id) VALUES (5, 4);
+INSERT INTO category_game (category_id, game_id) VALUES (6, 4);
+
 INSERT INTO question (question, answer, category_id) VALUES ('What are the three main concepts of OOP?', 
                                                              'Inheritance, Encapsulation, Polymorphism',
                                                              1);
