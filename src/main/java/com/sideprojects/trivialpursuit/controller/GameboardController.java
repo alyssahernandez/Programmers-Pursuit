@@ -97,7 +97,7 @@ public class GameboardController {
 			
 		} else {
 			isChoosingSpace = true;
-			model.put("isChoosingSpace", isChoosingSpace);
+			session.setAttribute("isChoosingSpace", isChoosingSpace);
 		}
 		
 		List<Category> gameCategories = categoryDAO.getCategoriesByGame(currentGame);

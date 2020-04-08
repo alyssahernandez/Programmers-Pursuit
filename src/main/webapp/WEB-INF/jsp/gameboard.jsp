@@ -25,21 +25,6 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-	
-	<!-- THIS IS A TEMPORARY PLACEMENT FOR THE CHOOSING A SPACE FORM. THIS IS NOT WHERE
-	IT WILL LIVE - JUST TESTING FOR FUNCTIONALITY -->
-	<div>
-		
-		<c:choose>
-		    <c:when test="${choosingSpace == true}">
-		      <button type="submit" form="formForSpaceChoice">Choose Space</button>
-		    </c:when>
-		    <c:otherwise>
-		      <button type="submit" form="formForSpaceChoice" disabled>Choose Space</button>
-		    </c:otherwise>
-   		</c:choose>
-	
-	</div>
 
 <!-- 		THIS SECTION HAS BOTH THE CURRENT DIE ROLL AND A PICTURE OF THE CURRENT PLAYER'S FULL SCORE STATUS -->
 	<div class="hud__status">		
