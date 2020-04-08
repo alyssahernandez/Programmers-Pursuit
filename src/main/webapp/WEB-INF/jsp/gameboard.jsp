@@ -15,7 +15,15 @@
 <div class="hud">
 <!-- 	THIS IS WHERE THE CURRENT PLAYER INSTRUCTIONS WILL GO -->
 	<div class="hud__message">
-		<h2><c:out value="${ currentPlayerTurn.name }"/>, you rolled a <c:out value="${ currentPlayerTurn.lastDiceRoll }"/>.<br>Where do you want to move?</h2>
+	
+		<c:choose>
+			<c:when test="${currentPlayerTurn.lastDiceRoll == 0 }" >
+				<h2><c:out value="${ currentPlayerTurn.name }"/>, it's your turn.<br>Roll the die.</h2>		
+			</c:when>
+			<c:otherwise>
+				<h2><c:out value="${ currentPlayerTurn.name }"/>, you rolled a <c:out value="${ currentPlayerTurn.lastDiceRoll }"/>.<br>Where do you want to move?</h2>
+			</c:otherwise>
+		</c:choose>
 	</div>
 
 <!-- 		THIS SECTION HAS BOTH THE CURRENT DIE ROLL AND A PICTURE OF THE CURRENT PLAYER'S FULL SCORE STATUS -->

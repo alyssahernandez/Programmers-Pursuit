@@ -17,5 +17,6 @@
  			
 </form>
 	
+	<!-- TODO Jeff:  -->
 	<img src="/trivial-pursuit/img/dice${ currentPlayerTurn.lastDiceRoll }.png">
 </div>

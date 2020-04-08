@@ -22,6 +22,7 @@ import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 
+
 @Controller 
 public class GameboardController {
 	
@@ -33,6 +34,9 @@ public class GameboardController {
 	
 	@Autowired
 	CategoryDAO categoryDAO;
+	
+	private static final String CURRENT_PLAYER_KEY = "currentPlayerTurn";
+	private static final String GAME_KEY = "currentGame";
 	
 	/* BASIC VIEW
 	
@@ -50,7 +54,6 @@ public class GameboardController {
 			ModelMap model,
 			HttpSession session,
 			@RequestParam(name = "isRollingDie", required = false) Boolean isRollingDie,
-			@RequestParam(name = "isChoosingSpace", required = false) Boolean isChoosingSpace,
 			@PathVariable String gameCode) {
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
@@ -72,7 +75,16 @@ public class GameboardController {
 		 * which will be returned in the method we're calling below - ALYSSA
 		 */
 		
-		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);
+		
+		Player currentPlayerTurn = (Player)session.getAttribute(CURRENT_PLAYER_KEY);
+		
+		if (currentPlayerTurn == null) {
+			currentPlayerTurn = gameDAO.getActivePlayer(currentGame);
+			model.put("currentPlayerTurn", currentPlayerTurn);
+			session.setAttribute(CURRENT_PLAYER_KEY, currentPlayerTurn);
+		}
+
+		
 //		 TODO THE IMPLEMENTATION ON THE NEXT LINE IS PREFERED BUT 
 //			IS NOT CURRENTLY FUNCTIONAL 
 //		Player currentPlayerTurn = currentGame.getActivePlayer();
@@ -85,15 +97,17 @@ public class GameboardController {
 		// FINAL IMPLEMENTATION OF THIS FUNCTIONALITY
 		// - JEFF
 		
-		int diceRoll = 0;
-		
-		if (isRollingDie != null && isRollingDie == true) {
-			diceRoll = Dice.getDiceRoll();
-			currentPlayerTurn.setDiceRoll(diceRoll);
-			isRollingDie = false;
-		} else if (isRollingDie == null || isRollingDie == false) {
-			// something? nothing? TBD - ALYSSA
-		}
+//		int diceRoll = currentPlayerTurn.getLastDiceRoll();
+//		
+//		if (diceRoll == 0) {
+//		
+//			if (isRollingDie != null && isRollingDie == true) {
+				int diceRoll = Dice.getDiceRoll();
+				currentPlayerTurn.setDiceRoll(diceRoll);
+//				isRollingDie = false;
+//			}
+//			
+//		}
 		
 		// THIS PASSES REACHABLE SPACES TO THE MODEL BASED ON THE DIE ROLL; THIS WILL
 		// NEED TO BE ADJUSTED IF THE DIE ROLL IMPLEMENTATION IS CHANGES
@@ -104,19 +118,9 @@ public class GameboardController {
 		
 		model.put("currentPlayerTurn", currentPlayerTurn);
 		
-		/* when the page loads, we need to see if the die has been clicked on - the default
-		 * value is no, of course, so the first if clause will only execute after a player
-		 * has clicked on the die - ALYSSA
+		/* 
 		 
-		 
-		if (isRollingDie == true) {
-			
-			// Maybe use currentPlayerTurn.getNewDiceRoll() here -- will update player's roll (can be retrieved & passed to View w/ player.getLastDiceRoll())
-			diceRollValue = Dice.getDiceRoll();
-			currentPlayerTurn.setDiceRoll(diceRollValue);
-			model.put("diceRollValue", diceRollValue);
-			
-			/*  TODO: Let me know your thoughts on the comments below, comments throughout other files (Player, Gameboard, Game, JDBCGameDAO, JDBCPlayerDAO) 
+		  TODO: Let me know your thoughts on the comments below, comments throughout other files (Player, Gameboard, Game, JDBCGameDAO, JDBCPlayerDAO) 
 			 
 			    1.  availableSpacesFromRoll = currentPlayerTurn.getReachableSpaces(currentGame.getGameboard());
 			   	2.  availableSpacesFromRoll = currentGame.getGameboard().getReachableSpaces(diceRollValue, currentPlayerTurn.getLocation().getId());
@@ -157,9 +161,14 @@ public class GameboardController {
 	}
 	
 	
-	@RequestMapping(path="/gameboard", method=RequestMethod.POST)
-	public String displayGameboardWithPlayers(ModelMap model, HttpSession session,
-			HttpServletRequest request) {
+	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.POST)
+	public String displayGameboardWithPlayers(ModelMap model,
+			HttpSession session,
+			// HttpServletRequest request,
+			@RequestParam(name = "isChoosingSpace", required = false) Boolean isChoosingSpace) {
+		
+		Player currentPlayerTurn = (Player)session.getAttribute(CURRENT_PLAYER_KEY);
+		
 		
 		
 		
