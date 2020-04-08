@@ -54,6 +54,7 @@ public class GameboardController {
 			ModelMap model,
 			HttpSession session,
 			@RequestParam(name = "isRollingDie", required = false) Boolean isRollingDie,
+			// @RequestParam(name = "isChoosingSpace", required = false) Boolean isChoosingSpace,
 			@PathVariable String gameCode) {
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
@@ -80,6 +81,8 @@ public class GameboardController {
 //			IS NOT CURRENTLY FUNCTIONAL 
 //		Player currentPlayerTurn = currentGame.getActivePlayer();
 		
+		boolean isChoosingSpace;
+		
 		int diceRoll = currentPlayerTurn.getLastDiceRoll();
 		
 		if (diceRoll == 0) {
@@ -89,10 +92,13 @@ public class GameboardController {
 				currentPlayerTurn.setDiceRoll(diceRoll);
 				List<Space> reachableSpaces = currentPlayerTurn.getReachableSpaces(currentGame.getGameboard());
 				model.put("reachableSpaces", reachableSpaces);
-				isRollingDie = false;
+				isRollingDie = false;				
 			}
 			
-		}		
+		} else {
+			isChoosingSpace = true;
+			model.put("isChoosingSpace", isChoosingSpace);
+		}
 		
 		List<Category> gameCategories = categoryDAO.getCategoriesByGame(currentGame);
 		model.put("gameCategories", gameCategories);
@@ -113,7 +119,6 @@ public class GameboardController {
 	public String displayGameboardWithPlayers(ModelMap model,
 			HttpSession session,
 			@RequestParam(name = "spaceChoice", required = false) String spaceChoice,
-			// @RequestParam(name = "isChoosingSpace", required = false) Boolean isChoosingSpace,
 			@PathVariable String gameCode) {
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
@@ -125,7 +130,7 @@ public class GameboardController {
 			playerDAO.setPlayerPosition(currentGame);
 		}
 		
-		return "redirect:/gameboard";
+		return "redirect:/gameboard/{gameCode}";
 	}
 	
 	

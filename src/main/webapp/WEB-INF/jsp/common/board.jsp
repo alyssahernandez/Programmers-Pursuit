@@ -1,13 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<script>
-
-function submit() {
-	document.getElementById("formForSpaceChoice").submit();
-}
-
-</script>
-
 <c:forEach var="player" items="${playersInGame}">
 	
 	<c:if test="${player.color == 1}">
@@ -95,8 +87,8 @@ function submit() {
 				<c:if test="${ j == id.spaceId }">
 					<c:set var="reachable" value="space__reachable"/>
 					
-					<label for="${spaceOption.spaceId }" class="">
-						<input type="radio" onclick=”javascript:submit()” name="spaceChoice" value="${id.spaceId}">${id.spaceId}
+					<label for="${spaceOption.spaceId }">
+						<input type="radio" name="spaceChoice" value="${id.spaceId}">${id.spaceId}
 					</label>					
 					
 				</c:if>				
