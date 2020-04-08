@@ -67,37 +67,30 @@
 				</c:otherwise>
 			</c:choose>
 
-<!-- 			THIS HIGHLIGHTS A SPACE AS REACHABLE BASED ON THE CURRENT POSITION AND DIE ROLL -->
+<!-- 			THIS HIGHLIGHTS A SPACE AS REACHABLE BASED ON THE CURRENT POSITION AND DIE ROLL 
 			<c:set var="reachable" value=""/>
 			<c:forEach var="id" items="${ reachableSpaces }">
 				<c:if test="${ j == id.spaceId }">
 					<c:set var="reachable" value="space__reachable"/>
 				</c:if>
 			</c:forEach>
+-->
 
 			
 <!-- THIS IS THE FORM FOR CHOOSING THE CORRECT SPACE - WORK IN PROGRESS - ALYSSA -->
 
+			<!-- select on all spaces - when page loads, query for all spaces -
+			add event handler - if form isn't null, submit() on click 
+			event.target.querySelector('form') - if result is not null/undef ^^-->
 			<c:set var="reachable" value=""/>			
 			<c:url value="/gameboard/${gameCode}" var="chooseSpaceForm" />
 			
-			<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice">
-			
 				<c:forEach var="id" items="${ reachableSpaces }">
-				<c:if test="${ j == id.spaceId }">
-					<c:set var="reachable" value="space__reachable"/>
-					
-					<label for="${spaceOption.spaceId }">
-						<input type="radio" name="spaceChoice" value="${id.spaceId}">${id.spaceId}
-					</label>					
-					
-				</c:if>				
+					<c:if test="${ j == id.spaceId }">
+						<c:set var="reachable" value="space__reachable"/>						
+					</c:if>			
 				
 				</c:forEach>
-				
-				<!-- <button type="submit">Choose Space</button> -->
-	
-			</form>
 			
 <!-- 				THIS ACTUALLY CREATES THE SPACE AS WELL AS ANY PLAYER TOKENS -->
 			<div class="space ${ isNode } ${ category } ${ reachable }" id="${ spaceId }">
@@ -120,6 +113,15 @@
 				<c:if test="${player6Pos == j}">
 					<div class="player-piece--small cat6"></div>
 				</c:if>
+			
+				<!-- get by ID form ID - js submit() -->
+				<c:if test="${not empty reachable }">
+					<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
+							style="display:none">		
+						<input type="hidden" value="${id.spaceId}"/>
+					</form>
+				</c:if>
+		
 			
 			</div>
 			
@@ -169,6 +171,14 @@
 				
 <!-- 				THIS PUTS PIECES IN THE SPACE -->
 				<div class="space space__spoke-space ${ category } ${ reachable }">	
+				
+					<c:if test="${not empty reachable }">
+						<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
+								style="display:none">		
+						<input type="hidden" value="${id.spaceId}"/>
+						</form>
+					</c:if>
+				
 					<c:if test="${player1Pos == j}">
 						<div class="player-piece--small cat1"></div>
 					</c:if>
@@ -206,6 +216,13 @@
 <!-- THIS IS THE CENTER SPACE -->
 <div class="gameboard__center space ${ reachable }" id="0">
 
+	<c:if test="${not empty reachable }">
+		<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-0"
+				style="display:none">		
+			<input type="hidden" value="${id.spaceId}"/>
+		</form>
+	</c:if>
+
 	<div>
 		<c:if test="${player1Pos == 0}">
 			<div class="player-piece--small cat1"></div>
@@ -228,3 +245,30 @@
 	</div>
 
 </div>
+
+<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', () => {
+		
+		console.log("about to bind spaces");
+		
+		let spaces = document.querySelectorAll('.space');
+		
+		spaces.forEach( (space) => {
+			space.addEventListener('click', (event) => {
+				
+				console.log("clicked on a space");
+				
+				const form = event.target.querySelector('form');
+				
+				if (form) {
+					
+					console.log("about to submit form");
+					
+					form.submit();
+				}
+				
+			});
+		});
+		
+	});
+</script>
