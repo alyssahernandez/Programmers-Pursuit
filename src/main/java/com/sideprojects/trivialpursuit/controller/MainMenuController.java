@@ -1,6 +1,7 @@
 package com.sideprojects.trivialpursuit.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
+import com.sideprojects.trivialpursuit.model.Player;
+import com.sideprojects.trivialpursuit.model.PlayerDAO;
+
 
 @Controller
 public class MainMenuController {
 	
 	@Autowired
 	GameDAO gameDAO;
+	
+	@Autowired
+	PlayerDAO playerDAO;
 
 	@RequestMapping(path="/", method=RequestMethod.GET)
 	public String displayMainMenu() {
@@ -61,8 +68,32 @@ public class MainMenuController {
 	@RequestMapping(path="/create", method=RequestMethod.POST)
 	public String createGame(
 			@RequestParam String gameCode,
-			@RequestParam List<String> activePlayers
+			@RequestParam String playerOne, @RequestParam(required=false) String playerTwo,
+			@RequestParam String playerThree, @RequestParam String playerFour,
+			@RequestParam String playerFive, @RequestParam String playerSix
 			) {
+		
+		List<String> playerNames = new ArrayList<>();
+		playerNames.add(playerOne);
+		playerNames.add(playerTwo);
+		playerNames.add(playerThree);
+		playerNames.add(playerFour);
+		playerNames.add(playerFive);
+		playerNames.add(playerSix);
+		
+		List<Player> players = new ArrayList<>();
+		
+		for(String name: playerNames) {
+			
+		}
+		
+		
+		if(playerTwo != null) {
+			Player player = new Player();
+			player.setName(playerTwo);
+			players.add(player);
+		}
+		
 		return "redirect:/gameboard/${gamecode}";
 	}
 	
