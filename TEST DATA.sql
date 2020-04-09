@@ -6,10 +6,10 @@ INSERT INTO game (game_id, game_code, active) VALUES (2, 'TEST2', false);
 INSERT INTO game (game_id, game_code, active) VALUES (3, 'TEST3', false);
 INSERT INTO game (game_id, game_code, active) VALUES (4, 'TEST4', false);
 
-INSERT INTO player (player_id, name, games_won, games_played) VALUES (1,'Joeseph', 1, 5); 
-INSERT INTO player (player_id, name, games_won, games_played) VALUES (2,'kawjdkadhad', 0, 1);
-INSERT INTO player (player_id, name, games_won, games_played) VALUES (3, 'lemonface', 3, 4);
-INSERT INTO player (player_id, name, games_won, games_played) VALUES (4, 'noodles', 0, 1);
+INSERT INTO player (player_id, name) VALUES (1,'Joeseph'); 
+INSERT INTO player (player_id, name) VALUES (2,'kawjdkadhad');
+INSERT INTO player (player_id, name) VALUES (3, 'lemonface');
+INSERT INTO player (player_id, name) VALUES (4, 'noodles');
 
 INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6) 
 VALUES (1, 1, 2, 0, true, false, true, false, false, false);
