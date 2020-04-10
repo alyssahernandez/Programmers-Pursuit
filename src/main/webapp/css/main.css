@@ -99,217 +99,221 @@ main {
   left: 50%;
   width: 2.5rem;
   height: 2.5rem;
-  margin: -1.25rem;
 }
 
 .gameboard__ring > *:nth-of-type(1) {
-  -webkit-transform: rotate(0deg) translate(26rem);
-          transform: rotate(0deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(0deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(0deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(2) {
-  -webkit-transform: rotate(8.57143deg) translate(26rem);
-          transform: rotate(8.57143deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(8.57143deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(8.57143deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(3) {
-  -webkit-transform: rotate(17.14286deg) translate(26rem);
-          transform: rotate(17.14286deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(17.14286deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(17.14286deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(4) {
-  -webkit-transform: rotate(25.71429deg) translate(26rem);
-          transform: rotate(25.71429deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(25.71429deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(25.71429deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(5) {
-  -webkit-transform: rotate(34.28571deg) translate(26rem);
-          transform: rotate(34.28571deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(34.28571deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(34.28571deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(6) {
-  -webkit-transform: rotate(42.85714deg) translate(26rem);
-          transform: rotate(42.85714deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(42.85714deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(42.85714deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(7) {
-  -webkit-transform: rotate(51.42857deg) translate(26rem);
-          transform: rotate(51.42857deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(51.42857deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(51.42857deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(8) {
-  -webkit-transform: rotate(60deg) translate(26rem);
-          transform: rotate(60deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(60deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(60deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(9) {
-  -webkit-transform: rotate(68.57143deg) translate(26rem);
-          transform: rotate(68.57143deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(68.57143deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(68.57143deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(10) {
-  -webkit-transform: rotate(77.14286deg) translate(26rem);
-          transform: rotate(77.14286deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(77.14286deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(77.14286deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(11) {
-  -webkit-transform: rotate(85.71429deg) translate(26rem);
-          transform: rotate(85.71429deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(85.71429deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(85.71429deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(12) {
-  -webkit-transform: rotate(94.28571deg) translate(26rem);
-          transform: rotate(94.28571deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(94.28571deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(94.28571deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(13) {
-  -webkit-transform: rotate(102.85714deg) translate(26rem);
-          transform: rotate(102.85714deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(102.85714deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(102.85714deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(14) {
-  -webkit-transform: rotate(111.42857deg) translate(26rem);
-          transform: rotate(111.42857deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(111.42857deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(111.42857deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(15) {
-  -webkit-transform: rotate(120deg) translate(26rem);
-          transform: rotate(120deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(120deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(120deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(16) {
-  -webkit-transform: rotate(128.57143deg) translate(26rem);
-          transform: rotate(128.57143deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(128.57143deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(128.57143deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(17) {
-  -webkit-transform: rotate(137.14286deg) translate(26rem);
-          transform: rotate(137.14286deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(137.14286deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(137.14286deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(18) {
-  -webkit-transform: rotate(145.71429deg) translate(26rem);
-          transform: rotate(145.71429deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(145.71429deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(145.71429deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(19) {
-  -webkit-transform: rotate(154.28571deg) translate(26rem);
-          transform: rotate(154.28571deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(154.28571deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(154.28571deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(20) {
-  -webkit-transform: rotate(162.85714deg) translate(26rem);
-          transform: rotate(162.85714deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(162.85714deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(162.85714deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(21) {
-  -webkit-transform: rotate(171.42857deg) translate(26rem);
-          transform: rotate(171.42857deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(171.42857deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(171.42857deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(22) {
-  -webkit-transform: rotate(180deg) translate(26rem);
-          transform: rotate(180deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(180deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(180deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(23) {
-  -webkit-transform: rotate(188.57143deg) translate(26rem);
-          transform: rotate(188.57143deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(188.57143deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(188.57143deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(24) {
-  -webkit-transform: rotate(197.14286deg) translate(26rem);
-          transform: rotate(197.14286deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(197.14286deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(197.14286deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(25) {
-  -webkit-transform: rotate(205.71429deg) translate(26rem);
-          transform: rotate(205.71429deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(205.71429deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(205.71429deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(26) {
-  -webkit-transform: rotate(214.28571deg) translate(26rem);
-          transform: rotate(214.28571deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(214.28571deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(214.28571deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(27) {
-  -webkit-transform: rotate(222.85714deg) translate(26rem);
-          transform: rotate(222.85714deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(222.85714deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(222.85714deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(28) {
-  -webkit-transform: rotate(231.42857deg) translate(26rem);
-          transform: rotate(231.42857deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(231.42857deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(231.42857deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(29) {
-  -webkit-transform: rotate(240deg) translate(26rem);
-          transform: rotate(240deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(240deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(240deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(30) {
-  -webkit-transform: rotate(248.57143deg) translate(26rem);
-          transform: rotate(248.57143deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(248.57143deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(248.57143deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(31) {
-  -webkit-transform: rotate(257.14286deg) translate(26rem);
-          transform: rotate(257.14286deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(257.14286deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(257.14286deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(32) {
-  -webkit-transform: rotate(265.71429deg) translate(26rem);
-          transform: rotate(265.71429deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(265.71429deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(265.71429deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(33) {
-  -webkit-transform: rotate(274.28571deg) translate(26rem);
-          transform: rotate(274.28571deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(274.28571deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(274.28571deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(34) {
-  -webkit-transform: rotate(282.85714deg) translate(26rem);
-          transform: rotate(282.85714deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(282.85714deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(282.85714deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(35) {
-  -webkit-transform: rotate(291.42857deg) translate(26rem);
-          transform: rotate(291.42857deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(291.42857deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(291.42857deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(36) {
-  -webkit-transform: rotate(300deg) translate(26rem);
-          transform: rotate(300deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(300deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(300deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(37) {
-  -webkit-transform: rotate(308.57143deg) translate(26rem);
-          transform: rotate(308.57143deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(308.57143deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(308.57143deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(38) {
-  -webkit-transform: rotate(317.14286deg) translate(26rem);
-          transform: rotate(317.14286deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(317.14286deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(317.14286deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(39) {
-  -webkit-transform: rotate(325.71429deg) translate(26rem);
-          transform: rotate(325.71429deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(325.71429deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(325.71429deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(40) {
-  -webkit-transform: rotate(334.28571deg) translate(26rem);
-          transform: rotate(334.28571deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(334.28571deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(334.28571deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(41) {
-  -webkit-transform: rotate(342.85714deg) translate(26rem);
-          transform: rotate(342.85714deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(342.85714deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(342.85714deg) translate(25rem);
 }
 
 .gameboard__ring > *:nth-of-type(42) {
-  -webkit-transform: rotate(351.42857deg) translate(26rem);
-          transform: rotate(351.42857deg) translate(26rem);
+  -webkit-transform: translate(-50%, -50%) rotate(351.42857deg) translate(25rem);
+          transform: translate(-50%, -50%) rotate(351.42857deg) translate(25rem);
+}
+
+.gameboard__spokes {
+  width: 100%;
+  height: 100%;
 }
 
 .gameboard__spokes > * {
@@ -318,38 +322,37 @@ main {
   top: 50%;
   left: 50%;
   width: 26rem;
-  height: 26rem;
-  margin: -13rem;
+  height: 2.5rem;
 }
 
 .gameboard__spokes > *:nth-of-type(1) {
-  -webkit-transform: rotate(0deg) translate(13rem);
-          transform: rotate(0deg) translate(13rem);
+  -webkit-transform: translate(-50%, -50%) rotate(0deg) translate(12.5rem);
+          transform: translate(-50%, -50%) rotate(0deg) translate(12.5rem);
 }
 
 .gameboard__spokes > *:nth-of-type(2) {
-  -webkit-transform: rotate(60deg) translate(13rem);
-          transform: rotate(60deg) translate(13rem);
+  -webkit-transform: translate(-50%, -50%) rotate(60deg) translate(12.5rem);
+          transform: translate(-50%, -50%) rotate(60deg) translate(12.5rem);
 }
 
 .gameboard__spokes > *:nth-of-type(3) {
-  -webkit-transform: rotate(120deg) translate(13rem);
-          transform: rotate(120deg) translate(13rem);
+  -webkit-transform: translate(-50%, -50%) rotate(120deg) translate(12.5rem);
+          transform: translate(-50%, -50%) rotate(120deg) translate(12.5rem);
 }
 
 .gameboard__spokes > *:nth-of-type(4) {
-  -webkit-transform: rotate(180deg) translate(13rem);
-          transform: rotate(180deg) translate(13rem);
+  -webkit-transform: translate(-50%, -50%) rotate(180deg) translate(12.5rem);
+          transform: translate(-50%, -50%) rotate(180deg) translate(12.5rem);
 }
 
 .gameboard__spokes > *:nth-of-type(5) {
-  -webkit-transform: rotate(240deg) translate(13rem);
-          transform: rotate(240deg) translate(13rem);
+  -webkit-transform: translate(-50%, -50%) rotate(240deg) translate(12.5rem);
+          transform: translate(-50%, -50%) rotate(240deg) translate(12.5rem);
 }
 
 .gameboard__spokes > *:nth-of-type(6) {
-  -webkit-transform: rotate(300deg) translate(13rem);
-          transform: rotate(300deg) translate(13rem);
+  -webkit-transform: translate(-50%, -50%) rotate(300deg) translate(12.5rem);
+          transform: translate(-50%, -50%) rotate(300deg) translate(12.5rem);
 }
 
 .gameboard__spokes--spoke {
