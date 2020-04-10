@@ -38,11 +38,13 @@ main {
     $space-size: 2.5rem;
     $spoke-width: 26rem;
     $spoke-height: 2.5rem;
-    $ring-size: 50rem;
+    $ring-size: 52rem;
     $spoke-ring-size: $ring-size / 2;
 
     &__ring {
         @include on-circle($item-count: $number-of-ring-spaces, $circle-size: $ring-size, $item-height: $space-size, $item-width: $space-size); 
+
+        z-index: 1000;
     }
 
     &__spokes {
@@ -57,6 +59,8 @@ main {
             display: flex;
             justify-content: space-evenly;
             align-items: center;
+
+            z-index: 500;
         }
     }
 
@@ -72,6 +76,8 @@ main {
         left: 50%;
 
         transform: translate(-50%, -50%);
+
+        z-index: 1000;
     }
 }
 
