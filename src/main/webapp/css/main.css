@@ -526,6 +526,35 @@ footer {
   background-color: #FFB600;
 }
 
+#dieImg {
+  display: none;
+}
+
+#rollDie {
+  width: 100%;
+  background-color: #00ADEF;
+  color: #222;
+  padding: 2rem 3rem;
+  font-size: 2rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 100px;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+#rollDie:hover {
+  -webkit-transform: translateY(-0.5rem);
+          transform: translateY(-0.5rem);
+  -webkit-box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
+          box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+#rollDie:active {
+  -webkit-transform: translateY(-0.25rem);
+          transform: translateY(-0.25rem);
+}
+
 .space {
   color: #eee;
   display: -webkit-box;
@@ -549,7 +578,7 @@ footer {
 }
 
 .space__reachable {
-  border: 3px solid red;
+  border: none;
 }
 
 .player-piece {

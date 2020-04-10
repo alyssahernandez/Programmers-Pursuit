@@ -11,6 +11,7 @@ public class Game {
 	private Boolean active;
 	private Integer winnerId;
 	private Integer activePlayerId;
+	private Integer activePlayerRoll;
 	private List<Player> activePlayers;
 	private Player activePlayer;
 	private Gameboard gameboard;
@@ -49,6 +50,14 @@ public class Game {
 	
 	public Integer getActivePlayerId() { return activePlayerId; }
 	public void setActivePlayerId(Integer activePlayerid) { this.activePlayerId = activePlayerid; }
+	
+	public Integer getActivePlayerRoll() {
+		return activePlayerRoll;
+	}
+
+	public void setActivePlayerRoll(Integer activePlayerRoll) {
+		this.activePlayerRoll = activePlayerRoll;
+	}
 	
 	//TODO: Remove one of these pairs of gets/sets depending on whether we go with List<Question> or Question (see above) -- Brooks
 	public Question getQuestion() { return question;}
