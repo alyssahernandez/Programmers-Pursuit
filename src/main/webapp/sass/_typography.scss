@@ -1,9 +1,14 @@
 h1 {
-    text-align: center;
     color: $color-grey-light-1;
     text-shadow: $shadow-small;
     font-size: 3rem;
     margin-left: 2rem;
+}
+
+h1 a {
+    text-decoration: none;
+    color: $color-grey-light-1;
+    text-shadow: $shadow-small;
 }
 
 h2 {

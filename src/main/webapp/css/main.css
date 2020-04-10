@@ -20,11 +20,16 @@ html {
     @param {Length} $item-size - Single item size
 */
 h1 {
-  text-align: center;
   color: #eee;
   text-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
   font-size: 3rem;
   margin-left: 2rem;
+}
+
+h1 a {
+  text-decoration: none;
+  color: #eee;
+  text-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
 }
 
 h2 {

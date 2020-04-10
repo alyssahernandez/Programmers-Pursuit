@@ -78,7 +78,6 @@ html {
       left: 50%;
       width:  $item-width;
       height: $item-height;
-      // margin: -($item-size / 2);
     
       $angle: (360 / $item-count);
       $rot: 0;
