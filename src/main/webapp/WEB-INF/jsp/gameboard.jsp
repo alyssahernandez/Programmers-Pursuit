@@ -17,11 +17,11 @@
 	<div class="hud__message">
 	
 		<c:choose>
-			<c:when test="${currentPlayerTurn.lastDiceRoll == 0 }" >
+			<c:when test="${currentPlayerTurn.diceRoll == 0 }" >
 				<h2><c:out value="${ currentPlayerTurn.name }"/>, it's your turn.<br>Roll the die.</h2>		
 			</c:when>
 			<c:otherwise>
-				<h2><c:out value="${ currentPlayerTurn.name }"/>, you rolled a <c:out value="${ currentPlayerTurn.lastDiceRoll }"/>.<br>Where do you want to move?</h2>
+				<h2><c:out value="${ currentPlayerTurn.name }"/>, you rolled a <c:out value="${ currentPlayerTurn.diceRoll }"/>.<br>Where do you want to move?</h2>
 			</c:otherwise>
 		</c:choose>
 	</div>

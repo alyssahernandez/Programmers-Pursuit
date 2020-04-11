@@ -29,13 +29,13 @@ import com.sideprojects.trivialpursuit.model.Space;
 public class GameboardController {
 	
 	@Autowired
-	PlayerDAO playerDAO;
+	private PlayerDAO playerDAO;
 	
 	@Autowired
-	GameDAO gameDAO;
+	private GameDAO gameDAO;
 	
 	@Autowired
-	CategoryDAO categoryDAO;
+	private CategoryDAO categoryDAO;
 	
 	private static final String CURRENT_PLAYER_KEY = "currentPlayerTurn";
 	private static final String GAME_KEY = "currentGame";
@@ -61,20 +61,24 @@ public class GameboardController {
 
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
+		model.put("currentGame", currentGame);
+		
 		List<Player> playersInGame = currentGame.getActivePlayers();
-		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);
-		List<Category> gameCategories = categoryDAO.getCategoriesByGame(currentGame);
+		model.put("playersInGame", playersInGame);
+		
+		Player currentPlayerTurn = currentGame.getActivePlayer();
+		model.put("currentPlayerTurn", currentPlayerTurn);
+		
+		List<Category> gameCategories = currentGame.getCategories();
+		model.put("gameCategories", gameCategories);
 
 		int diceRoll = currentGame.getActivePlayerRoll();
 		currentPlayerTurn.setDiceRoll(diceRoll);
+		
 		List<Space> reachableSpaces = currentPlayerTurn.getReachableSpaces(currentGame.getGameboard());
+		model.put("reachableSpaces", reachableSpaces);
 		
 
-		model.put("currentGame", currentGame);		
-		model.put("playersInGame", playersInGame);				
-		model.put("currentPlayerTurn", currentPlayerTurn);
-		model.put("gameCategories", gameCategories);
-		model.put("reachableSpaces", reachableSpaces);
 
 		
 		return "gameboard";

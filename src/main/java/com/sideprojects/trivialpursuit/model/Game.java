@@ -22,6 +22,9 @@ public class Game {
 	private List<Question> questions;
 
 	public Game () { this.gameboard = new Gameboard(); }
+	public Game(List<Category> categories) {
+		this.gameboard = new Gameboard(categories);
+	}
 	
 	// Getters & Setters
 	public Integer getGameID() {return gameId;}

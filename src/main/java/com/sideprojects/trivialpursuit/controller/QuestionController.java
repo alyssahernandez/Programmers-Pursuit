@@ -19,10 +19,10 @@ import com.sideprojects.trivialpursuit.model.Player;
 public class QuestionController {
 	
 	@Autowired
-	GameDAO gameDAO;
+	private GameDAO gameDAO;
 	
 	@Autowired
-	CategoryDAO categoryDAO;
+	private CategoryDAO categoryDAO;
 
 	@RequestMapping(path="/question/{gameCode}", method=RequestMethod.GET)
 	public String displayQuestion(
