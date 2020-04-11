@@ -8,9 +8,9 @@ import java.util.Map;
 public class Space {
 
 	private Integer spaceId; 
-	private Boolean hasPie;
-	private Boolean isRollAgain;
-	private Boolean isCenter;
+	private boolean hasPie;
+	private boolean isRollAgain;
+	private boolean isCenter;
 	private Category category;
 	// THIS IS A MAP OF 6 POSSIBLE DIE ROLLS AND THE INDEXES OF ALL REACHABLE SPACES BASED ON THAT ROLL
 	public Map<Integer, List<Integer>> reachableSpaces = new HashMap<Integer, List<Integer>>();	
@@ -22,14 +22,14 @@ public class Space {
 	public Category getCategory() {return category;}
 	public void setCategory(Category category) {this.category = category;}
 	
-	public Boolean hasPie() { return hasPie;}
-	public void setNode(Boolean hasPie) {this.hasPie = hasPie;}
+	public boolean hasPie() { return hasPie;}
+	public void setNode(boolean hasPie) {this.hasPie = hasPie;}
 
-	public Boolean isRollAgain() {return isRollAgain;}
-	public void setRollAgain(Boolean isRollAgain) {this.isRollAgain = isRollAgain;}
+	public boolean isRollAgain() {return isRollAgain;}
+	public void setRollAgain(boolean isRollAgain) {this.isRollAgain = isRollAgain;}
 	
-	public Boolean isCenter() { return isCenter; } 
-	public void setIsCenter(Boolean isCenter) { this.isCenter = isCenter; }
+	public boolean isCenter() { return isCenter; } 
+	public void setIsCenter(boolean isCenter) { this.isCenter = isCenter; }
 
 	public List<Integer> getReachableSpaces(int diceRoll) { return getReachableSpaces().get(diceRoll); }
 	public Map<Integer, List<Integer>> getReachableSpaces() { return reachableSpaces;}

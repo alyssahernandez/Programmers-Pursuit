@@ -58,14 +58,20 @@ public class Gameboard {
 			// game.getCategories, pull w/ JDBC, etc). - Brooks
 			if (i == 0) {
 				space.setIsCenter(true);
+			} else {
+				space.setIsCenter(false);
 			}
 
 			if (i % 12 == 8 || i % 12 == 11) {
 				space.setRollAgain(true);
+			} else {
+				space.setRollAgain(false);
 			}
 
 			if ((i - 6) % 12 == 0) {
 				space.setNode(true);
+			} else {
+				space.setNode(false);
 			}
 
 			if (categories != null) {

@@ -37,7 +37,7 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		
 		int questionIndex = getQuestionIndex(questions);
 		question = questions.get(questionIndex);
-		setQuestionAsked(game, question);
+		// setQuestionAsked(game, question);
 		return question;
 	}
 	
@@ -56,9 +56,9 @@ public class JDBCQuestionDAO implements QuestionDAO {
 						"WHERE game_question.game_id = ? AND question.category_id = ? AND game_question.asked = false";
 		SqlRowSet rowSet = jdbcTemplate.queryForRowSet(query, game.getGameID(), category_id);
 		
+		Question question = new Question();
 		while (rowSet.next())
 		{
-			Question question = new Question();
 			question.setAnswer(rowSet.getString("answer"));
 			question.setCategoryID(rowSet.getInt("category_id"));
 			question.setQuestion(rowSet.getString("question"));
@@ -115,10 +115,16 @@ public class JDBCQuestionDAO implements QuestionDAO {
 	// Helper method to get a random index to reference from a List<Question> (to select a random question rather pulling directly from DB, which have the same order every time)
 	private int getQuestionIndex(List<Question> questions)
 	{
-		int minQuestionIndex = 0;
-		int maxQuestionIndex = questions.size() - 1;
-		Random r = new Random();
-		int questionIndex = r.nextInt((maxQuestionIndex - minQuestionIndex) + 1) + minQuestionIndex;
+		
+		int questionIndex = 0;
+		
+		if (questions.size() > 1) {		
+			int minQuestionIndex = 0;
+			int maxQuestionIndex = questions.size() - 1;
+			Random r = new Random();
+			questionIndex = r.nextInt((maxQuestionIndex - minQuestionIndex) + 1) + minQuestionIndex;		
+		}
+		
 		return questionIndex;
 	}
 }
