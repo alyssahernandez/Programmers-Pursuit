@@ -36,16 +36,22 @@ main {
     $number-of-ring-spaces: 42;
     $number-of-spokes: 6;
     $space-size: 2.5rem;
-    $spoke-size: 26rem;
+    $spoke-width: 26rem;
+    $spoke-height: 2.5rem;
     $ring-size: 52rem;
     $spoke-ring-size: $ring-size / 2;
 
     &__ring {
-        @include on-circle($item-count: $number-of-ring-spaces, $circle-size: $ring-size, $item-size: $space-size); 
+        @include on-circle($item-count: $number-of-ring-spaces, $circle-size: $ring-size, $item-height: $space-size, $item-width: $space-size); 
+
+        z-index: 1000;
     }
 
     &__spokes {
-        @include on-circle($item-count: $number-of-spokes, $circle-size: $spoke-ring-size, $item-size: $spoke-size); 
+        @include on-circle($item-count: $number-of-spokes, $circle-size: $spoke-ring-size, $item-height: $spoke-height, $item-width: $spoke-width);
+
+        width: 100%;
+        height: 100%;
 
         &--spoke {
             padding: 0 1rem 0 2rem;
@@ -53,6 +59,8 @@ main {
             display: flex;
             justify-content: space-evenly;
             align-items: center;
+
+            z-index: 500;
         }
     }
 
@@ -68,6 +76,8 @@ main {
         left: 50%;
 
         transform: translate(-50%, -50%);
+
+        z-index: 1000;
     }
 }
 

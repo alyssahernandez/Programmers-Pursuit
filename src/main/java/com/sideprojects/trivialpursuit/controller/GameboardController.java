@@ -53,18 +53,31 @@ public class GameboardController {
 	public String displayGameboard(
 			ModelMap model,
 			HttpSession session,
-			@RequestParam(name = "isRollingDie", required = false) Boolean isRollingDie,
+			//@RequestParam(name = "isRollingDie", required = false) Boolean isRollingDie,
 			// @RequestParam(name = "isChoosingSpace", required = false) Boolean isChoosingSpace,
 			@PathVariable String gameCode) {
 		
+
+
+		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
-		model.put("currentGame", currentGame);
-		
 		List<Player> playersInGame = currentGame.getActivePlayers();
-		model.put("playersInGame", playersInGame);		
-		
 		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);
+		List<Category> gameCategories = categoryDAO.getCategoriesByGame(currentGame);
+
+		int diceRoll = currentGame.getActivePlayerRoll();
+		currentPlayerTurn.setDiceRoll(diceRoll);
+		List<Space> reachableSpaces = currentPlayerTurn.getReachableSpaces(currentGame.getGameboard());
+		
+
+		model.put("currentGame", currentGame);		
+		model.put("playersInGame", playersInGame);				
 		model.put("currentPlayerTurn", currentPlayerTurn);
+		model.put("gameCategories", gameCategories);
+		model.put("reachableSpaces", reachableSpaces);
+
+		
+		return "gameboard";
 		
 		/* THE USE OF SESSIONS IS STILL UP IN THE AIR. - ALYSSA
 		
@@ -76,19 +89,18 @@ public class GameboardController {
 			session.setAttribute(CURRENT_PLAYER_KEY, currentPlayerTurn);
 		} */
 
-		
-//		 TODO THE IMPLEMENTATION ON THE NEXT LINE IS PREFERED BUT 
-//			IS NOT CURRENTLY FUNCTIONAL 
-//		Player currentPlayerTurn = currentGame.getActivePlayer();
+
+		/*
+		// JEFF: THE BELOW IMPLEMENTATION IS NO LONGER RELEVANT, AS WE'RE
+		// CREATING AND STORING THE CURRENT ROLL IN THE DB
 		
 		boolean isChoosingSpace;
 		
-		int diceRoll = currentPlayerTurn.getDiceRoll();
+		int diceRoll = currentPlayerTurn.getLastDiceRoll();
 		
 		if (diceRoll == 0) {
 		
-			if (isRollingDie != null && isRollingDie == true) {
-				diceRoll = Dice.getDiceRoll();
+			if (isRollingDie != null && isRollingDie == true) {/				diceRoll = Dice.getDiceRoll();
 				currentPlayerTurn.setDiceRoll(diceRoll);
 				List<Space> reachableSpaces = currentPlayerTurn.getReachableSpaces(currentGame.getGameboard());
 				model.put("reachableSpaces", reachableSpaces);
@@ -99,20 +111,8 @@ public class GameboardController {
 			isChoosingSpace = true;
 			session.setAttribute("isChoosingSpace", isChoosingSpace);
 		}
-		
-		List<Category> gameCategories = categoryDAO.getCategoriesByGame(currentGame);
-		model.put("gameCategories", gameCategories);
-		
-		// THIS PASSES REACHABLE SPACES TO THE MODEL BASED ON THE DIE ROLL; THIS WILL
-		// NEED TO BE ADJUSTED IF THE DIE ROLL IMPLEMENTATION IS CHANGES
-		// -JEFF
-		// List<Integer> reachableSpaces = currentPlayerTurn.getLocation().getReachableSpaces(diceRoll);		
+		*/
 	
-		
-		model.put("currentPlayerTurn", currentPlayerTurn);
-		
-		return "gameboard";
-
 	}
 	
 	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.POST)
@@ -132,13 +132,4 @@ public class GameboardController {
 		
 		return "redirect:/gameboard/{gameCode}";
 	}
-	
-	
-	
-
-	//AC: my guess is that there will be a form on the jsp that the use will enter the space they want to 
-	//go to based on the space methods, which will be the only (???) input needed from the user. from that form
-	//there will be an int 1-76 to be passed into the getQuestionFromInt DAO method
-
-	
 }

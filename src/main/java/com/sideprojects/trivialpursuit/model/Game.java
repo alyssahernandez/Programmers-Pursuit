@@ -49,7 +49,6 @@ public class Game {
 	public Integer getActivePlayerId() { return activePlayerId; }
 	public void setActivePlayerId(Integer activePlayerid) { this.activePlayerId = activePlayerid; }
 	
-	//TODO: Remove one of these pairs of gets/sets (Question/List<Q>) depending on whether we go with List<Question> or Question (see above) -- Brooks
 	public Question getQuestion() { return question;}
 	public void setQuestion(Question question) { this.question = question; }
 	

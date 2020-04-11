@@ -14,7 +14,6 @@ public class Gameboard {
 	
 	public List<Space> getSpaces() { return spaces; }
 	public void setSpaces(List<Space> spaces) {	this.spaces = spaces;}
-	
 
 	public List<Category> getCategories() { return categories; }
 	public void setCategories(List<Category> categories) { this.categories = categories; }
