@@ -37,14 +37,14 @@ public class JDBCGameDAO implements GameDAO {
 	public void createNewGame(String gameCode) {
 		
 		String newGameId = "INSERT INTO game (game_code, active) VALUES (?, ?)";
-		template.update(newGameId, gameCode, true);
+		template.update(newGameId, gameCode.toUpperCase(), true);
 	}
 	
 	@Override
 	public Game getActiveGame(String gameCode) {
 		String getGameQuery = "SELECT * FROM game WHERE game_code = ?";
 		SqlRowSet rowSet = template.queryForRowSet(getGameQuery, gameCode);
-		
+
 		Game game = new Game();
 		if (rowSet.next())
 		{
@@ -52,10 +52,15 @@ public class JDBCGameDAO implements GameDAO {
 			game.setActive(rowSet.getBoolean("active"));
 			game.setGameCode(gameCode); 
 			game.setWinnerId(rowSet.getInt("winner_id"));
+			game.setActivePlayerRoll(rowSet.getInt("active_player_roll"));
+			game.setActivePlayerId(rowSet.getInt("active_player_id"));
 		}
+		else
+			return null;
 		
 		List<Player> activePlayers = getAllPlayersInAGame(game);
 		Player activePlayer = getActivePlayer(game);
+		activePlayer.setDiceRoll(game.getActivePlayerRoll());
 		game.setActivePlayers(activePlayers);
 		game.setActivePlayer(activePlayer);
 		return game;
@@ -92,7 +97,7 @@ public class JDBCGameDAO implements GameDAO {
 	public Player getActivePlayer(Game game)
 	{
 		Player player = new Player();
-		String query = "SELECT player.*, game_player.* FROM player " + 
+		String query = "SELECT player.*, game_player.*, game.active_player_roll FROM player " + 
 				"INNER JOIN game_player ON (player.player_id = game_player.player_id) " + 
 				"INNER JOIN game ON (game_player.game_id = game.game_id) WHERE game.game_id = ? AND player.player_id = game.active_player_id";
 		
@@ -109,6 +114,7 @@ public class JDBCGameDAO implements GameDAO {
 			player.setPie4(results.getBoolean("player_score_cat_4"));
 			player.setPie5(results.getBoolean("player_score_cat_5"));
 			player.setPie6(results.getBoolean("player_score_cat_6"));
+			player.setDiceRoll(results.getInt("active_player_roll"));
 		}
 		return player;
 	}

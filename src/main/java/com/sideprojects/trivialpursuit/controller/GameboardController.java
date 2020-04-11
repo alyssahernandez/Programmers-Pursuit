@@ -83,7 +83,7 @@ public class GameboardController {
 		
 		boolean isChoosingSpace;
 		
-		int diceRoll = currentPlayerTurn.getLastDiceRoll();
+		int diceRoll = currentPlayerTurn.getDiceRoll();
 		
 		if (diceRoll == 0) {
 		

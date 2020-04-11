@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Player implements Comparable<Player> // Comparable (or bubble sort) to be used for Beta to determine player order -- Brooks
+public class Player 
 { 
 	private Integer playerId;
 	private String name;
@@ -15,7 +15,7 @@ public class Player implements Comparable<Player> // Comparable (or bubble sort)
 	private Boolean pie4;
 	private Boolean pie5;
 	private Boolean pie6;
-	private int diceRoll;
+	private Integer diceRoll;
 
 	// Getters & Setters:
 	public Integer getPlayerId() { return playerId; }
@@ -30,9 +30,8 @@ public class Player implements Comparable<Player> // Comparable (or bubble sort)
 	public Space getLocation() { return location;}
 	public void setLocation(Space location) {this.location = location; }
 	
-	public int getNewDiceRoll() {  return diceRoll = generateDiceRoll(); }
-	public int getLastDiceRoll() { return diceRoll; } 
-	public void setDiceRoll(int diceRoll) { this.diceRoll = diceRoll; } 
+	public int getDiceRoll() { return diceRoll; } 
+	public void setDiceRoll(Integer diceRoll) { this.diceRoll = diceRoll; } 
 	
 	public boolean isPie1() { return pie1;}
 	public void setPie1(boolean pie1) { this.pie1 = pie1;}
@@ -59,7 +58,7 @@ public class Player implements Comparable<Player> // Comparable (or bubble sort)
 	public List<Space> getReachableSpaces(Gameboard gameboard) // could also pass in a Game object and call game.getGameboard() within. 
 	{
 		List<Space> availableSpaces = new ArrayList<>();
-		List<Integer> spaceIds = getLocation().getReachableSpaces(getLastDiceRoll()); 
+		List<Integer> spaceIds = getLocation().getReachableSpaces(getDiceRoll()); 
 		
 		for (Integer id : spaceIds)
 			availableSpaces.add(gameboard.getSpaces().get(id));
@@ -67,20 +66,13 @@ public class Player implements Comparable<Player> // Comparable (or bubble sort)
 		return availableSpaces;
 	}
 	
-	public int generateDiceRoll()
-	{
-		int minDiceRoll = 1;
-		int maxDiceRoll = 6;
-		Random r = new Random();
-		diceRoll = r.nextInt((maxDiceRoll - minDiceRoll) + 1) + minDiceRoll;
-		return diceRoll;
-	}
-
 	// equals used in a JDBC method  & will likely be used elsewhere as we get into Beta - Brooks
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Player))
+		if ((obj == null) || (!(obj instanceof Player)))
 			return false;
+		if (super.equals(obj))
+			return true;
 		Player p = (Player) obj;
 		return this.getPlayerId() == p.getPlayerId();
 	}
@@ -88,15 +80,5 @@ public class Player implements Comparable<Player> // Comparable (or bubble sort)
 	public int hashCode() {
 		return this.getPlayerId().hashCode();
 	}
-	
-	// Will be used in beta for sorting (if no primary sorting algo) - Brooks
-	@Override
-	public int compareTo(Player p) {
-		if (this.getLastDiceRoll() > p.getLastDiceRoll())
-			return -1;
-		else if (this.getLastDiceRoll() < p.getLastDiceRoll())
-			return 1;
-		else 
-			return 0;
-	}
+
 }

@@ -26,14 +26,28 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
+	// Utilizes getUnaskedQuestionsByCat() method below to return a single, randomly selected question & updates the DB to "asked" so that it can't be selected again.
+	// TODO: From Controller, pass in:  game object + active_player.space.cat.cat_id
+	public Question getUnaskedQuestionByCategory(Game game, Integer category_id)
+	{
+		Question question = null;
+		List<Question> questions = getUnaskedQuestionsByCategory(game, category_id);
+		if (questions == null || questions.size() == 0)
+			return null;
+		
+		int questionIndex = getQuestionIndex(questions);
+		question = questions.get(questionIndex);
+		setQuestionAsked(game, question);
+		return question;
+	}
+	
 	/* TODO:
 		  - Note: getUnaskedQuestionByCategory() relies on categorized spaces (either via Java algo or associative table in DB) 
 				- Because Space 0 will be a form to select a category, passing an Integer seems easiest.
-				- For all other spaces, in Controller simply pass activePlayer.getLocation().getCategory().getCategoryID();
+				- For all other spaces, in Controller, simply pass activePlayer.getLocation().getCategory().getCategoryID();
 				- The alternative is two additional methods doing the exact same thing, which instead pass in just a game (and get category_Id by activePlayer.getLocation()..^^^)
 	*/ 
 	// This will become private if we decide to go with a single Question object rather than List<Question> - Brooks
-	
 	@Override
 	public List<Question> getUnaskedQuestionsByCategory(Game game, Integer category_id)
 	{
@@ -54,20 +68,6 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		return questions;
 	}
 	
-	// Utilizes method above to return a single, randomly selected question & updates the DB to "asked" so that it can't be selected again.
-	// As mentioned above, pass in game + game.getActivePlayer().getLocation().getCategory().getCategoryId(); - Brooks
-	public Question getUnaskedQuestionByCategory(Game game, Integer category_id)
-	{
-		Question question = null;
-		List<Question> questions = getUnaskedQuestionsByCategory(game, category_id);
-		if (questions == null || questions.size() == 0)
-			return null;
-		
-		int questionIndex = getQuestionIndex(questions);
-		question = questions.get(questionIndex);
-		setQuestionAsked(game, question);
-		return question;
-	}
 	
 	// Uses private "getQuestionsByCategory()" method below to set questions in game_question. This is what will be used in Controller @ Kiran. - Brooks
 	@Override

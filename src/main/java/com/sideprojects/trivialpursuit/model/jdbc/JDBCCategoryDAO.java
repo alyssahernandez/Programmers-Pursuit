@@ -41,14 +41,8 @@ public class JDBCCategoryDAO implements CategoryDAO {
 			c.setCategoryName(results.getString("name"));
 			categories.add(c);
 		}
-
-		// TODO: Lines 71-79 may be more effectively implemented in the Controller/front-end
-		// We still want a list that contains 6 categories, even if only 2 or 3 are chosen (for the legend, generating categorized spaces, etc)
-		// For an active player on space 0 (which presents the "problem" of doing this here), 
-		// to display questions, either filter the list or store original category selections in the session 
-		// This is as opposed to displaying "java" 3 for a 2-category game whenever someone lands on space 0 -- not ideal!
-		// - Brooks
 		
+		// ensures that we have 6 items in our List of categories (even duplicates).
 		List<Category> copy = new ArrayList<>();
 		for (Category c : categories)
 			copy.add(c);
@@ -70,28 +64,5 @@ public class JDBCCategoryDAO implements CategoryDAO {
 		
 		for (Integer cat_id : category_IDs)
 			jdbcTemplate.update(query, game.getGameID(), cat_id);
-	}
-	
-	
-	// TODO: Given we're allowing for 2/3/6 categories, getCategoryFromSpace() won't work at present
-	// The category of some spaces will differ depending on the # of categories chosen.  
-	// If we update DB to handle space associations for 2/3/6-category games, this will work lovelyly. 
-	// On that note, keeping it around for now - Brooks
-
-	@Override
-	public Category getCategoryFromSpace(int userChoiceSpaceID) {
-		
-		Category categoryFromSpace = new Category();
-		
-		String sqlGetCategoryFromSpace = "SELECT * FROM category JOIN category_game ON category_game.category_id "
-										+ "= category.category_id WHERE category_game.space = ?";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetCategoryFromSpace, userChoiceSpaceID);
-		
-		while(results.next()) {
-			categoryFromSpace.setCategoryId(results.getInt("category_id"));
-			categoryFromSpace.setCategoryName(results.getString("name"));
-		}
-		
-		return categoryFromSpace;
 	}
 }

@@ -24,17 +24,8 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template = new JdbcTemplate(dataSource);
 	}
 	
-	//TODO: Include game_player insertion method within createPlayers method to do everything at once.  
 	
-	@Override
-	public void createPlayers(List<String> playerNames) {
-		
-		String insertPlayer = "INSERT INTO player (name, games_won, games_played) VALUES (?, 0, 0)";
-		for (String playerName : playerNames)
-			template.update(insertPlayer, playerName);
-	}
-	
-	// TODO: This probably isn't needed (Kiran is passing in a List<Player> from homepage), but could be used down the line.
+	// TODO: 99% sure we need a RETURNING statement here, returning Player_id, so we can insert into game_player without a refresh.
 	@Override
 	public void createPlayer(String playerName) {
 		
@@ -42,8 +33,17 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template.update(insertPlayer, playerName);
 	}
 	
-	// As commented in JDBCGameDAO, we will likely need a "RETURNING game_id" statement appended to end of the "createGame()" method 
-	// given the game creation + players will be part of the same form. 
+	//TODO: Include game_player insertion method within createPlayers method to do everything at once. 
+	//TODO: this may be unnecessary?  Not sure yet. - Brooks
+	@Override
+	public void createPlayers(List<String> players) {
+		
+		String insertPlayer = "INSERT INTO player (name, games_won, games_played) VALUES (?, 0, 0)";
+		for (String playerName : players)
+			template.update(insertPlayer, playerName);
+	}
+
+	//TODO: This could/should probably be a List<String> or List<Integer> (where Integer = player_id). 
 	@Override
 	public void putPlayersIntoGame(Game game, List<Player> players)
 	{
