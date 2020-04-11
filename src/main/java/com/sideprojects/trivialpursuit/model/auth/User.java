@@ -1,4 +1,4 @@
-package com.sideprojects.trivialpursuit.auth;
+package com.sideprojects.trivialpursuit.model.auth;
 
 public class User 
 {

@@ -1,4 +1,4 @@
-package com.sideprojects.trivialpursuit.auth;
+package com.sideprojects.trivialpursuit.model.auth;
 
 import java.util.ArrayList;
 import java.util.List;
