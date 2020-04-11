@@ -60,12 +60,6 @@ public class JDBCGameDAO implements GameDAO {
 			game.setActivePlayerId(rowSet.getInt("active_player_id"));
 		}
 		
-		List<Player> activePlayers = getAllPlayersInAGame(game);
-		Player activePlayer = getActivePlayer(game);
-		activePlayer.setDiceRoll(game.getActivePlayerRoll());
-		game.setActivePlayers(activePlayers);
-		game.setActivePlayer(activePlayer);
-		
 		/* BACK-END: The way this is currently working, when we instantiate a game
 		 * object, the constructor creates a new gameboard. If you look in 
 		 * the gameboard.java file, you'll see that upon instantiation, the
@@ -80,9 +74,15 @@ public class JDBCGameDAO implements GameDAO {
 		
 		List<Category> categoriesInGame = categoryDAO.getCategoriesByGame(game);
 		game.setCategories(categoriesInGame);
-		Game actualGame = game;
+		game.createGameboard(categoriesInGame);
+
+		List<Player> activePlayers = getAllPlayersInAGame(game);
+		Player activePlayer = getActivePlayer(game);
+		activePlayer.setDiceRoll(game.getActivePlayerRoll());
+		game.setActivePlayers(activePlayers);
+		game.setActivePlayer(activePlayer);
 		
-		return actualGame;
+		return game;
 	}
 	
 	//TODO: These should be in the JDBCPlayerDAO/PlayerDAO.

@@ -21,10 +21,13 @@ public class Game {
 	private Question question;
 	private List<Question> questions;
 
-	public Game () { this.gameboard = new Gameboard(); }
-	public Game(List<Category> categories) {
-		this.gameboard = new Gameboard(categories);
+	public Game () { 
+		
 	}
+	
+//	public Game(List<Category> categories) {
+//		this.gameboard = new Gameboard(categories);
+//	}
 	
 	// Getters & Setters
 	public Integer getGameID() {return gameId;}
@@ -63,6 +66,11 @@ public class Game {
 	
 	public List<Category> getCategories() { return categories; }
 	public void setCategories(List<Category> categories) { this.categories = categories; }
+	
+	//
+	public void createGameboard(List<Category> categoriesInGame) {
+		this.gameboard = new Gameboard(categoriesInGame);
+	}
 	
 	// Generates a unique 6-digit hexadecimal code (e.g. B04R9A)
 	private String generateGameCode()

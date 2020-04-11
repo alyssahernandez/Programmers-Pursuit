@@ -23,7 +23,8 @@ public class Gameboard {
 	// TODO: In JDBC, we'll have to create a gameboard object, then call game.setGameboard() rather than generate a gameboard in game constructor
 	// - Brooks
 	
-	public Gameboard() { spaces = generateSpaces(); }
+	public Gameboard() { spaces = generateSpaces(); } 
+	
 	public Gameboard(List<Category> categories) {
 		this.categories = categories;
 		spaces = generateSpaces();
