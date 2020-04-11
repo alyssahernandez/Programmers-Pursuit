@@ -60,18 +60,6 @@ public class JDBCGameDAO implements GameDAO {
 			game.setActivePlayerId(rowSet.getInt("active_player_id"));
 		}
 		
-		/* BACK-END: The way this is currently working, when we instantiate a game
-		 * object, the constructor creates a new gameboard. If you look in 
-		 * the gameboard.java file, you'll see that upon instantiation, the
-		 * spaces are assigned categories based on the categories in that
-		 * specific gameboard object. However, the List<Category> is never
-		 * populated in the gameboard object. I'm inserting it here to solve 
-		 * the problem temporarily so I can continue working on the controller.
-		 * It's currently giving me a NPE, so I can't do anything. Fix it 
-		 * however you want; this is just for functionality. Please also note
-		 * I had to add a second constructor to both the Game.java class and
-		 * the Gameboard.java class. - ALYSSA */
-		
 		List<Category> categoriesInGame = categoryDAO.getCategoriesByGame(game);
 		game.setCategories(categoriesInGame);
 		game.createGameboard(categoriesInGame);
@@ -141,11 +129,13 @@ public class JDBCGameDAO implements GameDAO {
 	@Override
 	public void setActivePlayer(Game game, boolean isCorrectAnswer)
 	{
-		Integer player_id = null;
+		Player activePlayer = game.getActivePlayer();
+		Integer player_id = activePlayer.getPlayerId();
 		
-		if (isCorrectAnswer)
-			player_id = game.getActivePlayer().getPlayerId();
-		else 
+		String query2 = "UPDATE game_player SET player_position = ?, player_score_cat_1 = ?, player_score_cat_2 = ?, player_score_cat_3 = ?, player_score_cat_4 = ?, player_score_cat_5 = ?, player_score_cat_6 = ? WHERE game_id = ? AND player_id = ?";
+		template.update(query2, activePlayer.getLocation().getSpaceId(), activePlayer.isPie1(), activePlayer.isPie2(), activePlayer.isPie3(), activePlayer.isPie4(), activePlayer.isPie5(), activePlayer.isPie6(), activePlayer, player_id);
+
+		if (!(isCorrectAnswer))
 		{
 			int activePlayerIndex = game.getActivePlayers().indexOf(game.getActivePlayer());
 			if (activePlayerIndex < game.getActivePlayers().size() - 1)

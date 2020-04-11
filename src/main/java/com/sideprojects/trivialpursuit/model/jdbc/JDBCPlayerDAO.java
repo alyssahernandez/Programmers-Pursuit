@@ -55,19 +55,6 @@ public class JDBCPlayerDAO implements PlayerDAO
 		}
 	}
 	
-	// TODO: Could also pass in an integer to jibe with form input (rather than updating activePlayer's position in the Controller, which this method assumes is happening):
-	// setPlayerPosition(Game game, Integer newPosition), 
-	@Override
-	public void setPlayerPosition(Game game, Player activePlayer) {
-		
-		Integer position = activePlayer.getLocation().getSpaceId();
-		Integer player_id = activePlayer.getPlayerId();
-		Integer game_id = game.getGameID();
-		
-		String setPlayerPosition = "UPDATE game_player SET player_position = ? WHERE player_id = ? AND game_id = ?";
-		template.update(setPlayerPosition, position, player_id, game_id);
-	}
-	
 
 }
 
