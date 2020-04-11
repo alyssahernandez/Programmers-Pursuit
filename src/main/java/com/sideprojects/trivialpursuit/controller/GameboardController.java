@@ -78,7 +78,7 @@ public class GameboardController {
 			currentPlayerTurn.setLocation(updatedPlayerSpace);
 			playerDAO.setPlayerPosition(currentGame, currentPlayerTurn);
 		}
-		
+				
 		return "redirect:/question/{gameCode}";
 	}
 }
