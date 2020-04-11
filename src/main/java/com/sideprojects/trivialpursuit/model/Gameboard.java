@@ -24,7 +24,7 @@ public class Gameboard {
 	// - Brooks
 	
 	public Gameboard() { spaces = generateSpaces(); }
-	public Gameboard(List<Category> categoriesInGame) { spaces = generateSpaces(); }
+	public Gameboard(List<Category> categoriesInGame) { this.categories = categoriesInGame; spaces = generateSpaces(); }
 	
 	// THIS GENERATES ALL 73 SPACES AND STORES THEM AS A LIST IN THE GAMEBOARD OBJECT
 	private List<Space> generateSpaces() {
@@ -45,12 +45,14 @@ public class Gameboard {
 			if ((i - 6) % 12 == 0) 
 				space.setNode(true);
 			
-			Set<Category> cats = new HashSet<>();
-			for (Category c : categories)
-				cats.add(c);
+
 			
 			if (categories != null)
 			{
+				Set<Category> cats = new HashSet<>();
+				for (Category c : categories)
+					cats.add(c);
+				
 				if (cats.size() == 6)	
 				{
 					if (i == 1 || i == 10 || i == 16 || i == 24 || i == 29 || i == 31 || i == 39 || i == 45 || i == 50 || i == 66)
