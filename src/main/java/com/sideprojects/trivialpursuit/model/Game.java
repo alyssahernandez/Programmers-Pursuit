@@ -23,10 +23,6 @@ public class Game {
 
 	public Game () {}
 	
-//	public Game(List<Category> categories) {
-//		this.gameboard = new Gameboard(categories);
-//	}
-	
 	// Getters & Setters
 	public Integer getGameID() {return gameId;}
 	public void setGameID(Integer gameID) {this.gameId = gameID;}
@@ -65,7 +61,6 @@ public class Game {
 	public List<Category> getCategories() { return categories; }
 	public void setCategories(List<Category> categories) { this.categories = categories; }
 	
-	//
 	public void createGameboard(List<Category> categoriesInGame) {
 		this.gameboard = new Gameboard(categoriesInGame);
 	}

@@ -24,7 +24,12 @@ public class Gameboard {
 	// - Brooks
 	
 	public Gameboard() { spaces = generateSpaces(); }
-	public Gameboard(List<Category> categoriesInGame) { spaces = generateSpaces(); }
+	
+	public Gameboard(List<Category> categoriesInGame) { 
+		this.categories = categoriesInGame;
+		spaces = generateSpaces(); 
+		
+	}
 	
 	// THIS GENERATES ALL 73 SPACES AND STORES THEM AS A LIST IN THE GAMEBOARD OBJECT
 	private List<Space> generateSpaces() {
@@ -45,14 +50,14 @@ public class Gameboard {
 			if ((i - 6) % 12 == 0) 
 				space.setNode(true);
 			
-			Set<Category> cats = new HashSet<>();
-			for (Category c : categories)
-				cats.add(c);
 			
-			if (categories != null)
-			{
-				if (cats.size() == 6)	
-				{
+			if (categories != null) {
+				
+				Set<Category> cats = new HashSet<>();
+				for (Category c : categories)
+					cats.add(c);
+				
+				if (cats.size() == 6) {
 					if (i == 1 || i == 10 || i == 16 || i == 24 || i == 29 || i == 31 || i == 39 || i == 45 || i == 50 || i == 66)
 						space.setCategory(categories.get(0));
 					else if (i == 2 || i == 18 || i == 25 || i == 34 || i == 40 || i == 48 || i == 53 || i == 55 || i == 63 || i == 69)
@@ -76,6 +81,8 @@ public class Gameboard {
 						space.setCategory(categories.get(1));
 					else if (i == 6 || i == 12 || i == 13 ||i == 15 || i == 17 || i == 19 || i == 22 || i == 26 || i == 28 || i == 33 || i == 42 || i == 48 || i == 49 || i == 51 || i == 53 || i == 55 || i == 58 || i == 62 || i == 64 || i == 69)
 						space.setCategory(categories.get(2));
+					
+					output.add(space);
 				}
 				else if (cats.size() == 2)
 				{
@@ -83,6 +90,8 @@ public class Gameboard {
 						space.setCategory(categories.get(0));
 					else if (i == 2 || i == 4 || i == 6 || i == 9 || i == 12 || i == 13 || i == 15 || i == 17 || i == 19 || i == 22 || i == 26 || i == 28 || i == 30 || i == 33 || i == 36 || i == 37 || i == 39 || i == 41 || i == 43 || i == 46 || i == 50 || i == 52 || i == 54 || i == 57 || i == 60 || i == 61 || i == 63 || i == 65 || i == 67 || i == 70)
 						space.setCategory(categories.get(1));
+					
+					output.add(space);
 				}
 				else
 					return null;
