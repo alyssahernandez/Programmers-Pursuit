@@ -18,7 +18,7 @@ public class Category {
 		if (super.equals(obj))
 			return true;
 		Category c = (Category) obj;
-		return this.getCategoryId() == c.getCategoryId()
+		return this.getCategoryId() == c.getCategoryId();
 	}
 	@Override
 	public int hashCode() {

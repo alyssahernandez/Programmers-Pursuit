@@ -24,6 +24,7 @@ public class Gameboard {
 	// - Brooks
 	
 	public Gameboard() { spaces = generateSpaces(); }
+	public Gameboard(List<Category> categoriesInGame) { spaces = generateSpaces(); }
 	
 	// THIS GENERATES ALL 73 SPACES AND STORES THEM AS A LIST IN THE GAMEBOARD OBJECT
 	private List<Space> generateSpaces() {

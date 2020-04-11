@@ -21,9 +21,7 @@ public class Game {
 	private Question question;
 	private List<Question> questions;
 
-	public Game () { 
-		
-	}
+	public Game () {}
 	
 //	public Game(List<Category> categories) {
 //		this.gameboard = new Gameboard(categories);
