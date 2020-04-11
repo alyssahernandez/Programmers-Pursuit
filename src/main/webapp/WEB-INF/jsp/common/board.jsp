@@ -118,7 +118,7 @@
 				<c:if test="${not empty reachable }">
 					<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
 							style="display:none">		
-						<input type="hidden" value="${id.spaceId}"/>
+						<input type="hidden" name="spaceChoice" value="${j}"/>
 					</form>
 				</c:if>
 		
@@ -175,7 +175,7 @@
 					<c:if test="${not empty reachable }">
 						<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
 								style="display:none">		
-						<input type="hidden" value="${id.spaceId}"/>
+						<input type="hidden" name="spaceChoice" value="${j}"/>
 						</form>
 					</c:if>
 				
@@ -219,7 +219,7 @@
 	<c:if test="${not empty reachable }">
 		<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-0"
 				style="display:none">		
-			<input type="hidden" value="${id.spaceId}"/>
+			<input type="hidden" name="spaceChoice" value="0"/>
 		</form>
 	</c:if>
 

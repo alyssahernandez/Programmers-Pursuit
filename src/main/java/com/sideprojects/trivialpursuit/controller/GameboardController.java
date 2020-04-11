@@ -34,12 +34,6 @@ public class GameboardController {
 	@Autowired
 	private GameDAO gameDAO;
 	
-	@Autowired
-	private CategoryDAO categoryDAO;
-	
-	private static final String CURRENT_PLAYER_KEY = "currentPlayerTurn";
-	private static final String GAME_KEY = "currentGame";
-	
 	/* BASIC VIEW
 	
 	@RequestMapping(path="/gameboard", method=RequestMethod.GET)
@@ -122,16 +116,16 @@ public class GameboardController {
 	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.POST)
 	public String displayGameboardWithPlayers(ModelMap model,
 			HttpSession session,
-			@RequestParam(name = "spaceChoice", required = false) String spaceChoice,
+			@RequestParam(name = "spaceChoice", required = false) Integer spaceChoice,
 			@PathVariable String gameCode) {
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);
 		
 		if (spaceChoice != null) {
-			Space updatedPlayerSpace = currentGame.getGameboard().getSpaces().get(Integer.parseInt(spaceChoice));
+			Space updatedPlayerSpace = currentGame.getGameboard().getSpaces().get(spaceChoice);
 			currentPlayerTurn.setLocation(updatedPlayerSpace);
-			playerDAO.setPlayerPosition(currentGame);
+			playerDAO.setPlayerPosition(currentGame, currentPlayerTurn);
 		}
 		
 		return "redirect:/gameboard/{gameCode}";

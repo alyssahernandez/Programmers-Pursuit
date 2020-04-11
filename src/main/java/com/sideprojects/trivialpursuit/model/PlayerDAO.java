@@ -10,6 +10,6 @@ public interface PlayerDAO {
 	
 	void putPlayersIntoGame(Game game, List<Player> players);
 	
-	public void setPlayerPosition(Game game); 
+	public void setPlayerPosition(Game game, Player activePlayer); 
 
 }
