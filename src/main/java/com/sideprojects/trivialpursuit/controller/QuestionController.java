@@ -14,6 +14,9 @@ import com.sideprojects.trivialpursuit.model.CategoryDAO;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Player;
+import com.sideprojects.trivialpursuit.model.Question;
+import com.sideprojects.trivialpursuit.model.QuestionDAO;
+import com.sideprojects.trivialpursuit.model.Space;
 
 @Controller
 public class QuestionController {
@@ -23,20 +26,32 @@ public class QuestionController {
 	
 	@Autowired
 	private CategoryDAO categoryDAO;
+	
+	@Autowired
+	private QuestionDAO questionDAO;
 
 	@RequestMapping(path="/question/{gameCode}", method=RequestMethod.GET)
 	public String displayQuestion(
 			ModelMap model,
 			@PathVariable String gameCode
-			) 
-	{
+			) {
 		Game currentGame = gameDAO.getActiveGame(gameCode);
-		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);
-		List<Category> gameCategories = categoryDAO.getCategoriesByGame(currentGame);
-
 		model.put("currentGame", currentGame);
+		
+		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);
 		model.put("currentPlayerTurn", currentPlayerTurn);
-		model.put("gameCategories", gameCategories);
+		
+		Space currentPlayerSpace = currentPlayerTurn.getLocation();
+		
+		// List<Category> gameCategories = categoryDAO.getCategoriesByGame(currentGame);
+		// model.put("gameCategories", gameCategories);
+		
+		String category =  
+				currentPlayerSpace.getCategory().getCategoryName();
+		
+		model.put("category", category);
+		
+
 
 		return "question";
 	}
