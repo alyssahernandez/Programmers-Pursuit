@@ -29,6 +29,7 @@ public class Gameboard {
 		this.categories = categories;
 	}
 
+
 // TODO: We're going to have to pass List<Category> into Gameboard constructor
 // TODO: Or, remove generate spaces from constructor, and pass List<Category> into generateSpaces() method.
 // TODO: In JDBC, we'll have to create a gameboard object, then call game.setGameboard() rather than generate a gameboard in game constructor
@@ -45,6 +46,7 @@ public class Gameboard {
 	}
 
 // THIS GENERATES ALL 73 SPACES AND STORES THEM AS A LIST IN THE GAMEBOARD OBJECT
+
 	private List<Space> generateSpaces() {
 
 		List<Space> output = new ArrayList<Space>();
@@ -55,14 +57,20 @@ public class Gameboard {
 			// TODO: Space 0 will be handled uniquely: no category assigned. Select categorized question in Controller based on form input (reference game.getCategories, pull w/ JDBC, etc). - Brooks
 			if (i == 0) {
 				space.setIsCenter(true);
+			} else {
+				space.setIsCenter(false);
 			}
 
 			if (i % 12 == 8 || i % 12 == 11) {
 				space.setRollAgain(true);
+			} else {
+				space.setRollAgain(false);
 			}
 
 			if ((i - 6) % 12 == 0) {
 				space.setNode(true);
+			} else {
+				space.setNode(false);
 			}
 
 			if (categories != null) {

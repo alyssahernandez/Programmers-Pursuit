@@ -72,13 +72,18 @@ public class GameboardController {
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);
+		Space updatedPlayerSpace = null;
 		
 		if (spaceChoice != null) {
-			Space updatedPlayerSpace = currentGame.getGameboard().getSpaces().get(spaceChoice);
+			updatedPlayerSpace = currentGame.getGameboard().getSpaces().get(spaceChoice);
 			currentPlayerTurn.setLocation(updatedPlayerSpace);
 			playerDAO.setPlayerPosition(currentGame, currentPlayerTurn);
 		}
 		
+		if (updatedPlayerSpace.isRollAgain()) {
+			return "redirect:/gameboard/{gameCode}";
+		}
+				
 		return "redirect:/question/{gameCode}";
 	}
 }
