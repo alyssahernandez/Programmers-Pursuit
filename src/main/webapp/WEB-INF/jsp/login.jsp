@@ -2,6 +2,10 @@
 
 <c:import url="/WEB-INF/jsp/common/header.jsp" />
 
+<div>
+	<h1>Welcome Back!</h1>
+</div>
+
 <c:url var="loginUrl" value="/login"/>
 <form action="${loginUrl}" method="POST">
     <div class="form-group">

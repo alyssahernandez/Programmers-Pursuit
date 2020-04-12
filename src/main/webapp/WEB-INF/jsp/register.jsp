@@ -3,6 +3,11 @@
 
 <c:import url="/WEB-INF/jsp/common/header.jsp" />
 
+
+<div>
+	<h1>Welcome! Please Sign Up!</h1>
+</div>
+
 <c:url var="registerUrl" value="/register" />
 <form:form action="${registerUrl }" method="POST" modelAttribute="user">
 

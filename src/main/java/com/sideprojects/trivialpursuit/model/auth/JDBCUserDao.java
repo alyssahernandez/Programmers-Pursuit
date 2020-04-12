@@ -37,7 +37,6 @@ public class JDBCUserDao implements UserDao {
      *
      * @param userName the user name to give the new user
      * @param password the user's password
-     * @param role the user's role
      * @return the new user
      */
     @Override
@@ -46,7 +45,7 @@ public class JDBCUserDao implements UserDao {
         String hashedPassword = passwordHasher.computeHash(password, salt);
         String saltString = new String(Base64.encode(salt));
         long newId = jdbcTemplate.queryForObject(
-                "INSERT INTO users(username, password, salt, role) VALUES (?, ?, ?) RETURNING id", Long.class,
+                "INSERT INTO users(username, password, salt) VALUES (?, ?, ?) RETURNING id", Long.class,
                 userName, hashedPassword, saltString);
 
         User newUser = new User();
