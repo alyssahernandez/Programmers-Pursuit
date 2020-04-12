@@ -63,7 +63,7 @@ public class JDBCGameDAO implements GameDAO {
 		
 		List<Category> categoriesInGame = categoryDAO.getCategoriesByGame(game);
 		game.setCategories(categoriesInGame);
-		game.createGameboard(categoriesInGame);
+		game.createGameboard(categoriesInGame); // TODO: Could do this within Gameboard class once setCategories() is called.
 
 		List<Player> activePlayers = getAllPlayersInAGame(game);
 		Player activePlayer = getActivePlayer(game);

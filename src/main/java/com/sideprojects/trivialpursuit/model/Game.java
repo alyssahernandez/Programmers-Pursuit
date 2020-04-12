@@ -2,37 +2,28 @@ package com.sideprojects.trivialpursuit.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
-public class Game {
+public class Game 
+{
 	private Integer gameId;
 	private Integer winnerId;
 	private Integer activePlayerId;
 	private Integer activePlayerRoll;
 	private String gameCode; 
 	private Boolean active;
-	private List<Player> activePlayers;
+	private Question question;
 	private Player activePlayer;
 	private Gameboard gameboard;
+	private List<Player> activePlayers;
 	private List<Category> categories;
-	
-	// TODO: Single Question or List<Question>?? LMK @ Controller - Brooks
-	private Question question;
-	private List<Question> questions;
-
-	public Game () {}
 	
 	// Getters & Setters
 	public Integer getGameID() {return gameId;}
 	public void setGameID(Integer gameID) {this.gameId = gameID;}
-	
-	public Gameboard getGameboard() { return gameboard; }
-	public void setGameboard(Gameboard gameboard) { this.gameboard = gameboard; } 
-	
-	public String getNewGameCode() { return gameCode = generateGameCode(); }
-	public String getGameCode() { return gameCode; }
-	public void setGameCode(String gameCode) { this.gameCode = gameCode.toUpperCase(); } // genGameCode() probably shouldn't be in the setter.
 	
 	public int getWinnerId() { return winnerId; }
 	public void setWinnerId(int winnerID) { this.winnerId = winnerID; }
@@ -52,18 +43,23 @@ public class Game {
 	public Question getQuestion() { return question;}
 	public void setQuestion(Question question) { this.question = question; }
 	
-	public List<Question> getQuestions() { return questions; }
-	public void setQuestions(List<Question> questions) { this.questions = questions; }
-	
 	public Integer getActivePlayerRoll() { return activePlayerRoll; }
 	public void setActivePlayerRoll(Integer activePlayerRoll) { this.activePlayerRoll = activePlayerRoll; }
 	
 	public List<Category> getCategories() { return categories; }
+	public List<Category> getUniqueCategories() { return new ArrayList<Category>(new HashSet<Category>(categories)); }
 	public void setCategories(List<Category> categories) { this.categories = categories; }
 	
-	public void createGameboard(List<Category> categoriesInGame) {
-		this.gameboard = new Gameboard(categoriesInGame);
-	}
+	public Gameboard getGameboard() { return gameboard; }
+	public void setGameboard(Gameboard gameboard) { this.gameboard = gameboard; } 
+	
+	//TODO: Rather than pass in List<category>, just pass in "categories" to Gameboard constructor
+	public void createGameboard(List<Category> categoriesInGame) { this.gameboard = new Gameboard(categoriesInGame); }
+	
+	public String getGameCode() { return gameCode; }
+	public String getNewGameCode() { return gameCode = generateGameCode(); }
+	public void setGameCode(String gameCode) { this.gameCode = gameCode.toUpperCase(); } // genGameCode() probably shouldn't be in the setter.
+
 	
 	// Generates a unique 6-digit hexadecimal code (e.g. B04R9A)
 	private String generateGameCode()
@@ -71,8 +67,8 @@ public class Game {
 		String zeros = "000000";
 	    Random r = new Random();
 	    String s = String.format("%06x", r.nextInt(0x1000000));
-	    gameCode = (zeros.substring(s.length()) + s).toUpperCase();
-	    return gameCode;
+	    String game_code = (zeros.substring(s.length()) + s).toUpperCase();
+	    return game_code;
 	}
 	
 	// TODO: Rework this for beta -- it's not useful at present (can't have setDiceRoll() in here + parts will need to be in Controller)
@@ -132,7 +128,4 @@ public class Game {
 		}
 		return players;
 	}
-
-
-
 }

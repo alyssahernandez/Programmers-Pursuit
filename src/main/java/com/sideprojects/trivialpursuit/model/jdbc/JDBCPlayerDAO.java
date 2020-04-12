@@ -23,7 +23,6 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template = new JdbcTemplate(dataSource);
 	}
 	
-	
 	// TODO: 99% sure we need a RETURNING statement here, returning Player_id, so we can insert into game_player without a refresh.
 	@Override
 	public void createPlayer(String playerName) {
@@ -32,8 +31,8 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template.update(insertPlayer, playerName);
 	}
 	
-	//TODO: Include game_player insertion method within createPlayers method to do everything at once. 
-	//TODO: this may be unnecessary?  Not sure yet. - Brooks
+	//TODO: This is probably not going to be used. Make that determination and remove it if unused. - Brooks
+	//TODO: If used, include game_player insertion method within createPlayers method to do everything at once. - Brooks 
 	@Override
 	public void createPlayers(List<String> players) {
 		
@@ -42,7 +41,7 @@ public class JDBCPlayerDAO implements PlayerDAO
 			template.update(insertPlayer, playerName);
 	}
 
-	//TODO: This could/should probably be a List<String> or List<Integer> (where Integer = player_id). 
+	//TODO: Could (and probably should) pass in a List<Integer> (holding player_ids returned from ^^). 
 	@Override
 	public void putPlayersIntoGame(Game game, List<Player> players)
 	{
@@ -67,6 +66,7 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template.update(setPlayerPosition, position, player_id, game_id);
 	}
 	
+	//TODO: Could move this to JDBCGameDAO, privatize, and call in the setActivePlayer() method (pulling the conditional from Controller & putting in jdbc)
 	@Override
 	public void givePlayerPiePiece (int spaceId, Game game) {
 		

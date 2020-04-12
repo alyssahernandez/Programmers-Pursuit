@@ -51,6 +51,7 @@ public class QuestionController {
 		Space currentPlayerSpace = currentPlayerTurn.getLocation();
 		model.put("currentPlayerSpace", currentPlayerSpace);
 				
+		// TODO: I made a "game.getUniqueCategories()" method that you could call instead of using a DAO & HashSetting the categories here. - Brooks
 		List<Category> gameCategories = categoryDAO.getCategoriesByGame(currentGame);
 		Set<Category> hashedCategories = new HashSet<>(gameCategories);
 		model.put("hashedCategories", hashedCategories);
@@ -100,9 +101,11 @@ public class QuestionController {
 			return "redirect:/question";
 		}
 		
-		boolean isAnswerCorrect = answer.equals(questionDAO.getUnaskedQuestionByCategory(currentGame,
+		// Changed to equalsIgnoreCase - Brooks
+		boolean isAnswerCorrect = answer.equalsIgnoreCase(questionDAO.getUnaskedQuestionByCategory(currentGame,
 				categoryId).getAnswer());
 		
+		// I could call givePlayerPiePiece() in setActivePlayer(), including this conditional with it. You'd just have to call setActivePlayer() as you did below. Would shorten a couple of files. Lmk. - Brooks
 		if (currentPlayerSpace.hasPie() && isAnswerCorrect) {
 			
 			playerDAO.givePlayerPiePiece(currentPlayerSpace.getSpaceId(), currentGame);

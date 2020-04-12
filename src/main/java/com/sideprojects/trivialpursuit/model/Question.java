@@ -6,8 +6,6 @@ public class Question {
 	private String question;
 	private String answer;
 	
-	public Question() {}
-	
 	public Integer getQuestionID() {return questionID;}
 	public void setQuestionID(Integer questionID) {this.questionID = questionID;}
 	

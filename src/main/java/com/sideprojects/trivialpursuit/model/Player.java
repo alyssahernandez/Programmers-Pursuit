@@ -9,7 +9,6 @@ public class Player
 	private Long color;
 	private Space location;
 	private String name;
-
 	private boolean pie1;
 	private boolean pie2;
 	private boolean pie3;
@@ -55,7 +54,7 @@ public class Player
 	
 	// Non-getter/setter methods:
 	
-	public List<Space> getReachableSpaces(Gameboard gameboard) // could also pass in a Game object and call game.getGameboard() within. 
+	public List<Space> getReachableSpaces(Gameboard gameboard) 
 	{
 		List<Space> availableSpaces = new ArrayList<>();
 		List<Integer> spaceIds = getLocation().getReachableSpaces(getDiceRoll()); 
@@ -66,7 +65,6 @@ public class Player
 		return availableSpaces;
 	}
 	
-	// equals used in a JDBC method  & will likely be used elsewhere as we get into Beta - Brooks
 	@Override
 	public boolean equals(Object obj) {
 		if ((obj == null) || (!(obj instanceof Player)))

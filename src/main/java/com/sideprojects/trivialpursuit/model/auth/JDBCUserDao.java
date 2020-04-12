@@ -26,7 +26,7 @@ public class JDBCUserDao implements UserDao
         String hashedPassword = passwordHasher.computeHash(password, salt);
         String saltString = new String(Base64.encode(salt));
         long newId = jdbcTemplate.queryForObject(
-                "INSERT INTO player (name, password, salt) VALUES (?, ?, ?) RETURNING id", Long.class, userName,
+                "INSERT INTO player (name, password_hash, salt) VALUES (?, ?, ?) RETURNING user_id", Long.class, userName,
                 hashedPassword, saltString);
 
         User newUser = new User();
