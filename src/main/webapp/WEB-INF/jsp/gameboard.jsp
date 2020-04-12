@@ -17,23 +17,41 @@
 	<div class="hud__message">
 	
 		<c:choose>
-			<c:when test="${currentPlayerTurn.diceRoll == 0 }" >
-				<h2><c:out value="${ currentPlayerTurn.name }"/>, it's your turn.<br>Roll the die.</h2>		
+			
+			<c:when test="${currentPlayerTurn.allPies }">
+	
+				<h2><c:out value="${ currentPlayerTurn.name }"/>, you won!<br>Congratulations.</h2>
+				
 			</c:when>
+			
 			<c:otherwise>
-				<h2><c:out value="${ currentPlayerTurn.name }"/>, you rolled a <c:out value="${ currentPlayerTurn.diceRoll }"/>.<br>Where do you want to move?</h2>
+			
+				<c:choose>
+					<c:when test="${currentPlayerTurn.diceRoll == 0 }" >
+						<h2><c:out value="${ currentPlayerTurn.name }"/>, it's your turn.<br>Roll the die.</h2>		
+					</c:when>
+					<c:otherwise>
+						<h2><c:out value="${ currentPlayerTurn.name }"/>, you rolled a <c:out value="${ currentPlayerTurn.diceRoll }"/>.<br>Where do you want to move?</h2>
+					</c:otherwise>
+				</c:choose>
+				
 			</c:otherwise>
+			
 		</c:choose>
+		
 	</div>
 
 <!-- 		THIS SECTION HAS BOTH THE CURRENT DIE ROLL AND A PICTURE OF THE CURRENT PLAYER'S FULL SCORE STATUS -->
-	<div class="hud__status">		
-		<c:import url="${ pieceURL }" />
-		<c:import url="${ dieURL }" />		
-	</div>
+
+	<c:if test="${!currentPlayerTurn.allPies }">
+		<div class="hud__status">		
+			<c:import url="${ pieceURL }" />
+			<c:import url="${ dieURL }" />		
+		</div>
 
 <!-- 	THIS IS THE LEGEND SECTION -->
-	<c:import url="${ legendURL }" />
+		<c:import url="${ legendURL }" />
+	</c:if>
 </div>
 		
 <c:import url="/WEB-INF/jsp/common/footer.jsp" />
