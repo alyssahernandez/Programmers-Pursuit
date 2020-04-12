@@ -6,6 +6,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.bouncycastle.util.encoders.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
@@ -14,10 +15,12 @@ public class JDBCUserDao implements UserDao
     private JdbcTemplate jdbcTemplate;
     private PasswordHasher passwordHasher;
 
+    @Autowired
     public JDBCUserDao(DataSource dataSource, PasswordHasher passwordHasher) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         this.passwordHasher = passwordHasher;
     }
+   
 
     //TODO: Combine this with player? Already wrote the INSERT -- no need to make a "User" class, I don't think.
     @Override
