@@ -1,15 +1,14 @@
 package com.sideprojects.trivialpursuit.model.jdbc;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import com.sideprojects.trivialpursuit.model.Category;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
@@ -67,5 +66,30 @@ public class JDBCPlayerDAO implements PlayerDAO
 		String setPlayerPosition = "UPDATE game_player SET player_position = ? WHERE player_id = ? AND game_id = ?";
 		template.update(setPlayerPosition, position, player_id, game_id);
 	}
+	
+	@Override
+	public void givePlayerPiePiece (int spaceId, Game game) {
+		
+		int playerId = game.getActivePlayer().getPlayerId();
+		String pie_cat = "";
+		
+		  if (spaceId == 6) {
+			  pie_cat = "player_score_cat_1";
+		  } else if (spaceId == 18) {
+			  pie_cat = "player_score_cat_2";
+		  } else if (spaceId == 30) {
+			  pie_cat = "player_score_cat_3";
+		  } else if (spaceId == 42) {
+			  pie_cat = "player_score_cat_4";
+		  } else if (spaceId == 54) {
+			  pie_cat = "player_score_cat_5";
+		  } else if (spaceId == 66) {
+			  pie_cat = "player_score_cat_6";
+		  }
+		  
+		String givePlayerPiePiece = String.format("UPDATE game_player SET %s = true WHERE player_id = ? AND game_id = ?", pie_cat);
+		template.update(givePlayerPiePiece, playerId, game.getGameID());	
+	}
+	
 }
 

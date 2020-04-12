@@ -12,4 +12,7 @@ public interface PlayerDAO {
 	
 	public void setPlayerPosition(Game game, Player activePlayer);
 
+	void givePlayerPiePiece(int spaceId, Game game); 
+
+
 }

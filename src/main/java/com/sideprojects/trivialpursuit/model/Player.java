@@ -1,21 +1,21 @@
 package com.sideprojects.trivialpursuit.model;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Player 
 { 
 	private Integer playerId;
-	private String name;
+	private Integer diceRoll;
 	private Long color;
 	private Space location;
-	private Boolean pie1;
-	private Boolean pie2;
-	private Boolean pie3;
-	private Boolean pie4;
-	private Boolean pie5;
-	private Boolean pie6;
-	private Integer diceRoll;
+	private String name;
+
+	private boolean pie1;
+	private boolean pie2;
+	private boolean pie3;
+	private boolean pie4;
+	private boolean pie5;
+	private boolean pie6;
 
 	// Getters & Setters:
 	public Integer getPlayerId() { return playerId; }
@@ -51,7 +51,7 @@ public class Player
 	public boolean isPie6() { return pie6;}
 	public void setPie6(boolean pie6) { this.pie6 = pie6;}
 	
-	public boolean isAllPies() { return isPie1() && isPie2() && isPie3() && isPie4() && isPie5() && isPie6(); }
+	public boolean getAllPies() { return isPie1() && isPie2() && isPie3() && isPie4() && isPie5() && isPie6(); }
 	
 	// Non-getter/setter methods:
 	

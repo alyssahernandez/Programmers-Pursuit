@@ -17,6 +17,7 @@ import com.sideprojects.trivialpursuit.model.CategoryDAO;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Player;
+import com.sideprojects.trivialpursuit.model.PlayerDAO;
 import com.sideprojects.trivialpursuit.model.Question;
 import com.sideprojects.trivialpursuit.model.QuestionDAO;
 import com.sideprojects.trivialpursuit.model.Space;
@@ -32,6 +33,9 @@ public class QuestionController {
 	
 	@Autowired
 	private QuestionDAO questionDAO;
+	
+	@Autowired
+	private PlayerDAO playerDAO;
 
 	@RequestMapping(path="/question/{gameCode}", method=RequestMethod.GET)
 	public String displayQuestion(
@@ -66,6 +70,7 @@ public class QuestionController {
 			@PathVariable String gameCode,
 			@RequestParam(name = "categoryChoice", required = false) Integer categoryChoiceId,
 			@RequestParam(name = "questionChosen", required = false, defaultValue = "false") String chosenCenterSpaceCategory,
+			@RequestParam(name = "answer", required = false) String answer,
 			ModelMap model) {
 		
 		model.put("hasChosenCenterSpaceCategory", chosenCenterSpaceCategory);
@@ -79,12 +84,35 @@ public class QuestionController {
 		Space currentPlayerSpace = currentPlayerTurn.getLocation();
 		model.put("currentPlayerSpace", currentPlayerSpace);
 		
+		Integer categoryId = null;
+		
+		if (categoryChoiceId != null) {
+			categoryId = categoryChoiceId;
+		} else {
+			categoryId = currentPlayerSpace.getCategory().getCategoryId();
+		}
+		
 		if (currentPlayerSpace.isCenter() && categoryChoiceId != null && chosenCenterSpaceCategory.equals("true")) {
 			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
 					categoryChoiceId);
 			model.put("question", question);
+			
 			return "redirect:/question";
 		}
+		
+		boolean isAnswerCorrect = answer.equals(questionDAO.getUnaskedQuestionByCategory(currentGame,
+				categoryId).getAnswer());
+		
+		if (currentPlayerSpace.hasPie() && isAnswerCorrect) {
+			
+			playerDAO.givePlayerPiePiece(currentPlayerSpace.getSpaceId(), currentGame);
+							
+		}
+		
+		chosenCenterSpaceCategory = "false";
+		categoryChoiceId = null;
+		
+		gameDAO.setActivePlayer(currentGame, isAnswerCorrect);
 		
 		return "redirect:/gameboard/" + currentGame.getGameCode();
 	}
