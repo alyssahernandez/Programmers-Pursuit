@@ -15,6 +15,7 @@ public class Player
 	private Boolean pie4;
 	private Boolean pie5;
 	private Boolean pie6;
+	private boolean allPies;
 	private Integer diceRoll;
 
 	// Getters & Setters:
@@ -51,7 +52,7 @@ public class Player
 	public boolean isPie6() { return pie6;}
 	public void setPie6(boolean pie6) { this.pie6 = pie6;}
 	
-	public boolean isAllPies() { return isPie1() && isPie2() && isPie3() && isPie4() && isPie5() && isPie6(); }
+	public boolean getAllPies() { return isPie1() && isPie2() && isPie3() && isPie4() && isPie5() && isPie6(); }
 	
 	// Non-getter/setter methods:
 	

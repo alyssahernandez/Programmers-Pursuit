@@ -66,6 +66,7 @@ public class QuestionController {
 			@PathVariable String gameCode,
 			@RequestParam(name = "categoryChoice", required = false) Integer categoryChoiceId,
 			@RequestParam(name = "questionChosen", required = false, defaultValue = "false") String chosenCenterSpaceCategory,
+			@RequestParam(name = "answer", required = false) String answer,
 			ModelMap model) {
 		
 		model.put("hasChosenCenterSpaceCategory", chosenCenterSpaceCategory);
@@ -83,8 +84,22 @@ public class QuestionController {
 			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
 					categoryChoiceId);
 			model.put("question", question);
+			
 			return "redirect:/question";
 		}
+		
+		boolean isAnswerCorrect = answer.equals(questionDAO.getUnaskedQuestionByCategory(currentGame,
+				categoryChoiceId).getAnswer());
+		
+		if (currentPlayerSpace.hasPie() && isAnswerCorrect) {
+			// add pie piece to db
+			
+			if (currentPlayerTurn.isAllPies()) {
+				return "redirect:/gameboard/{gameCode}";
+			}
+		}
+		
+		gameDAO.setActivePlayer(currentGame, isAnswerCorrect);
 		
 		return "redirect:/gameboard/" + currentGame.getGameCode();
 	}
