@@ -9,12 +9,12 @@ public class Player
 	private Long color;
 	private Space location;
 	private String name;
-	private boolean pie1;
-	private boolean pie2;
-	private boolean pie3;
-	private boolean pie4;
-	private boolean pie5;
-	private boolean pie6;
+	private Boolean pie1;
+	private Boolean pie2;
+	private Boolean pie3;
+	private Boolean pie4;
+	private Boolean pie5;
+	private Boolean pie6;
 
 	// Getters & Setters:
 	public Integer getPlayerId() { return playerId; }
@@ -33,22 +33,22 @@ public class Player
 	public void setDiceRoll(Integer diceRoll) { this.diceRoll = diceRoll; } 
 	
 	public boolean isPie1() { return pie1;}
-	public void setPie1(boolean pie1) { this.pie1 = pie1;}
+	public void setPie1(Boolean pie1) { this.pie1 = pie1;}
 	
 	public boolean isPie2() { return pie2;}
-	public void setPie2(boolean pie2) { this.pie2 = pie2;}
+	public void setPie2(Boolean pie2) { this.pie2 = pie2;}
 	
 	public boolean isPie3() { return pie3;}
-	public void setPie3(boolean pie3) { this.pie3 = pie3;}
+	public void setPie3(Boolean pie3) { this.pie3 = pie3;}
 	
 	public boolean isPie4() { return pie4;}
-	public void setPie4(boolean pie4) { this.pie4 = pie4;}
+	public void setPie4(Boolean pie4) { this.pie4 = pie4;}
 	
 	public boolean isPie5() { return pie5;}
-	public void setPie5(boolean pie5) { this.pie5 = pie5;}
+	public void setPie5(Boolean pie5) { this.pie5 = pie5;}
 	
 	public boolean isPie6() { return pie6;}
-	public void setPie6(boolean pie6) { this.pie6 = pie6;}
+	public void setPie6(Boolean pie6) { this.pie6 = pie6;}
 	
 	public boolean getAllPies() { return isPie1() && isPie2() && isPie3() && isPie4() && isPie5() && isPie6(); }
 	

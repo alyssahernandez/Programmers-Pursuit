@@ -1,7 +1,6 @@
 BEGIN TRANSACTION;
 
 DROP TABLE IF EXISTS category_game;
-DROP TABLE IF EXISTS category_space;
 DROP TABLE IF EXISTS game_question;
 DROP TABLE IF EXISTS game_player;
 DROP TABLE IF EXISTS question;
@@ -27,7 +26,9 @@ CREATE TABLE game
 	active boolean not null,
 	winner_id int,
 	active_player_id int,
-	active_player_roll int
+	active_player_roll int,
+	active_player_answering_question boolean,
+	active_player_category_selected_center boolean
 	
 	--foriegn key from player for active player(s) and for the winner, not sure how exactly this is determined however. do we even 
 	--need a winner_id if player already has a "won" element?

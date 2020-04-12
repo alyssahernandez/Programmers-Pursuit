@@ -46,6 +46,7 @@ public class JDBCGameDAO implements GameDAO {
 		template.update(newGameId, gameCode.toUpperCase(), true);
 	}
 	
+	//TODO: include "AND active = true" in query
 	@Override
 	public Game getActiveGame(String gameCode) {
 		String getGameQuery = "SELECT * FROM game WHERE game_code = ?";
@@ -55,7 +56,7 @@ public class JDBCGameDAO implements GameDAO {
 		if (rowSet.next()) {
 			game.setGameID(rowSet.getInt("game_id"));
 			game.setActive(rowSet.getBoolean("active"));
-			game.setGameCode(gameCode); 
+			game.setGameCode(gameCode.toUpperCase()); 
 			game.setWinnerId(rowSet.getInt("winner_id"));
 			game.setActivePlayerRoll(rowSet.getInt("active_player_roll"));
 			game.setActivePlayerId(rowSet.getInt("active_player_id"));
@@ -151,5 +152,18 @@ public class JDBCGameDAO implements GameDAO {
 		Player activePlayer = game.getActivePlayer();
 		String query = "UPDATE game SET active_player_roll = ? WHERE game_id = ?";
 		template.update(query, activePlayer.getDiceRoll(), game.getGameID());
+	}
+	
+	public void setIsAnsweringQuestion(Game game, Boolean isAnsweringQuestion)
+	{
+		String query = "UPDATE game SET active_player_answering_question = ? WHERE game_id = ?";
+		template.update(query, isAnsweringQuestion, game.getGameID());
+	}
+	
+	// This is for the center space
+	public void setHasSelectedCategory(Game game, Boolean hasSelectedCategory)
+	{
+		String query = "UPDATE game SET active_player_category_selected_center = ? WHERE game_id = ?";
+		template.update(query, hasSelectedCategory, game.getGameID());
 	}
 }

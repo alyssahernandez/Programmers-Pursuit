@@ -50,6 +50,7 @@ public class JDBCGameDaoTests {
 	@Before
 	public void setup() {
 		gameDao = new JDBCGameDAO(dataSource);
+		
 	}
 	
 	@After
@@ -70,7 +71,6 @@ public class JDBCGameDaoTests {
 		Game game = new Game();
 		gameDao.createNewGame(gameCode);
 		
-		
 		JdbcTemplate template = new JdbcTemplate(dataSource);
 		SqlRowSet results = template.queryForRowSet(query);
 		
@@ -84,17 +84,39 @@ public class JDBCGameDaoTests {
 		Assert.assertEquals(gameCode, game.getGameCode());
 		Assert.assertEquals(true, game.isActive());
 	}
-
+	
+	// TODO: Will need to reference a lot of other JDBCs (several being utilized in the getActiveGame() method) in order for this to not throw a NPE.
+	
 	@Test
 	public void getActiveGameTest()
 	{
-		String gameCode = "TEST";
+		String gameCode = "TESTING";
 		gameDao.createNewGame(gameCode);
 		Game game = gameDao.getActiveGame(gameCode);
 
 		Assert.assertEquals(gameCode, game.getGameCode());
-		Assert.assertEquals(true, game.isActive());
+		//Assert.assertEquals(true, game.isActive());
 	}
+	
+	@Test
+	public void setActivePlayerDiceRollTest()
+	{
+		String query = "UPDATE game SET active_player_roll = 5 WHERE game_id = 1";
+		JdbcTemplate template = new JdbcTemplate(dataSource);
+		template.update(query);
+		
+		String select = "SELECT active_player_roll FROM game WHERE game_id = 1";
+		SqlRowSet rowSet = template.queryForRowSet(select);
+		
+		int diceRoll = 0;
+		
+		if (rowSet.next())
+			diceRoll = rowSet.getInt("active_player_roll");
+		
+		Assert.assertEquals(5, diceRoll);
+	}
+	
+	
 	
 	/*
 	@Test

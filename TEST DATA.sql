@@ -1,10 +1,11 @@
 --TEST DATA
+
 BEGIN TRANSACTION;
 
-INSERT INTO game (game_id, game_code, active, active_player_roll) VALUES (1, 'TEST1', true, 2);
-INSERT INTO game (game_id, game_code, active, active_player_roll) VALUES (2, 'TEST2', false, 3);
-INSERT INTO game (game_id, game_code, active, active_player_roll) VALUES (3, 'TEST3', false, 4);
-INSERT INTO game (game_id, game_code, active, active_player_roll) VALUES (4, 'TEST4', false, 5);
+INSERT INTO game (game_id, game_code, active, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES (1, 'TEST1', true, 2, false, false);
+INSERT INTO game (game_id, game_code, active, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES (2, 'TEST2', false, 3, false, false);
+INSERT INTO game (game_id, game_code, active, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES (3, 'TEST3', false, 4, false, false);
+INSERT INTO game (game_id, game_code, active, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES (4, 'TEST4', false, 5, false, false);
 
 INSERT INTO player (player_id, name) VALUES (1,'Joeseph'); 
 INSERT INTO player (player_id, name) VALUES (2,'kawjdkadhad');

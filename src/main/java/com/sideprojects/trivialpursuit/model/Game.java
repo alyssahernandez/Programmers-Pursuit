@@ -15,6 +15,8 @@ public class Game
 	private Integer activePlayerRoll;
 	private String gameCode; 
 	private Boolean active;
+	private Boolean isActivePlayerAnsweringQuestion;
+	private Boolean hasActivePlayerSelectedCategory;
 	private Question question;
 	private Player activePlayer;
 	private Gameboard gameboard;
@@ -28,8 +30,14 @@ public class Game
 	public int getWinnerId() { return winnerId; }
 	public void setWinnerId(int winnerID) { this.winnerId = winnerID; }
 	
-	public Boolean isActive() {return active;}
+	public boolean isActive() {return active;}
 	public void setActive(Boolean active) {this.active = active;}
+	
+	public boolean getIsActivePlayerAnsweringQuestion() { return isActivePlayerAnsweringQuestion; }
+	public void setIsActivePlayerAnsweringQuestion(Boolean isActivePlayerAnsweringQuestion) { this.isActivePlayerAnsweringQuestion = isActivePlayerAnsweringQuestion; }
+	
+	public boolean getHasActivePlayerSelectedCategory() { return hasActivePlayerSelectedCategory; }
+	public void setHasActivePlayerSelectedCategory(Boolean hasActivePlayerSelectedCategory) { this.hasActivePlayerSelectedCategory = hasActivePlayerSelectedCategory; }
 	
 	public List<Player> getActivePlayers() { return activePlayers; }
 	public void setActivePlayers(List<Player> activePlayers) {this.activePlayers = activePlayers; }
@@ -128,4 +136,5 @@ public class Game
 		}
 		return players;
 	}
+	
 }

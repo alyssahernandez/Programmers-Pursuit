@@ -5,15 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Space {
-
-	private Integer spaceId;
+public class Space 
+{	
 	private boolean hasPie;
 	private boolean isRollAgain;
 	private boolean isCenter;
+	private Integer spaceId;
 	private Category category;
-	// THIS IS A MAP OF 6 POSSIBLE DIE ROLLS AND THE INDEXES OF ALL REACHABLE SPACES BASED ON THAT ROLL
-	public Map<Integer, List<Integer>> reachableSpaces = new HashMap<Integer, List<Integer>>();	
+	private Map<Integer, List<Integer>> reachableSpaces = new HashMap<Integer, List<Integer>>(); // Key = possible dice rolls, Value = an list of avaiable space IDs associated with the dice roll
 	
 	// Gets & Sets
 	public Integer getSpaceId() {return spaceId;}
