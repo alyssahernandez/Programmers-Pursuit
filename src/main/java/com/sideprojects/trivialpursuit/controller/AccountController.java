@@ -62,7 +62,7 @@ public class AccountController {
             flash.addFlashAttribute("message", "Please fix the following errors:");
             return "redirect:/register";
         }
-        auth.register(user.getUsername(), user.getPassword(), user.getRole());
+        auth.register(user.getUsername(), user.getPassword());
         return "redirect:/";
     }
 

@@ -67,17 +67,9 @@ public class SessionAuthProvider implements AuthProvider {
     }
 
     @Override
-    public void register(String username, String password, String role) {
-        dao.saveUser(username, password, role);
+    public void register(String username, String password) {
+        dao.saveUser(username, password);
     }
 
-    @Override
-    public boolean userHasRole(String[] roles) {
-        User currentUser = getCurrentUser();
-        if (currentUser != null && roles != null) {
-            return Arrays.asList(roles).contains(currentUser.getRole());
-        } else {
-            return false;
-        }
-    }
+
 }
