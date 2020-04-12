@@ -9,5 +9,7 @@ public interface PlayerDAO {
 	public void createPlayer(String playerName);
 	
 	void putPlayersIntoGame(Game game, List<Player> players);
+	
+	public void setPlayerPosition(Game game, Player activePlayer);
 
 }

@@ -16,6 +16,7 @@ import com.sideprojects.trivialpursuit.model.Category;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
+import com.sideprojects.trivialpursuit.model.Space;
 
 @Component
 public class JDBCGameDAO implements GameDAO {
@@ -130,21 +131,42 @@ public class JDBCGameDAO implements GameDAO {
 	public void setActivePlayer(Game game, boolean isCorrectAnswer)
 	{
 		Player activePlayer = game.getActivePlayer();
-		Integer player_id = activePlayer.getPlayerId();
+		Space playerLocation = activePlayer.getLocation();
 		
-		String query2 = "UPDATE game_player SET player_position = ?, player_score_cat_1 = ?, player_score_cat_2 = ?, player_score_cat_3 = ?, player_score_cat_4 = ?, player_score_cat_5 = ?, player_score_cat_6 = ? WHERE game_id = ? AND player_id = ?";
-		template.update(query2, activePlayer.getLocation().getSpaceId(), activePlayer.isPie1(), activePlayer.isPie2(), activePlayer.isPie3(), activePlayer.isPie4(), activePlayer.isPie5(), activePlayer.isPie6(), activePlayer, player_id);
+		if (playerLocation.hasPie() && isCorrectAnswer)
+		{
+			if (playerLocation.getPieId() == 1)
+				activePlayer.setPie1(true);
+			else if (playerLocation.getPieId() == 2)
+				activePlayer.setPie1(true);
+			else if (playerLocation.getPieId() == 3)
+				activePlayer.setPie1(true);
+			else if (playerLocation.getPieId() == 4)
+				activePlayer.setPie1(true);
+			else if (playerLocation.getPieId() == 5)
+				activePlayer.setPie1(true);
+			else if (playerLocation.getPieId() == 6)
+				activePlayer.setPie1(true);
+		}
+		
+		String query1 = "UPDATE game_player SET player_position = ?, player_score_cat_1 = ?, player_score_cat_2 = ?, player_score_cat_3 = ?, player_score_cat_4 = ?, player_score_cat_5 = ?, player_score_cat_6 = ? WHERE game_id = ? AND player_id = ?";
+		template.update(query1, activePlayer.getLocation().getSpaceId(), activePlayer.isPie1(), activePlayer.isPie2(), activePlayer.isPie3(), activePlayer.isPie4(), activePlayer.isPie5(), activePlayer.isPie6(), activePlayer, player_id);
 
 		if (!(isCorrectAnswer))
 		{
 			int activePlayerIndex = game.getActivePlayers().indexOf(game.getActivePlayer());
 			if (activePlayerIndex < game.getActivePlayers().size() - 1)
-				player_id = game.getActivePlayers().get(activePlayerIndex + 1).getPlayerId();
+				activePlayer = game.getActivePlayers().get(activePlayerIndex + 1);
 			else
-				player_id = game.getActivePlayers().get(0).getPlayerId();
+				activePlayer = game.getActivePlayers().get(0);
 		}
 		
-		String query = "UPDATE game SET active_player_id = ? WHERE game_id = ?";
-		template.update(query, player_id, game.getGameID());
+		String query2 = "UPDATE game SET active_player_id = ?, active_player_roll = ? WHERE game_id = ?";
+		template.update(query2, activePlayer.getPlayerId(), game.getGameID(), activePlayer.get);
+	}
+	
+	public void setActivePlayerDiceRoll(Player activePlayer)
+	{
+		String query = "UPDATE game SET active_player_roll = ? WHERE game_id = "
 	}
 }

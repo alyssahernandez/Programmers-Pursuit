@@ -9,7 +9,7 @@ public class Player
 	private String name;
 	private Long color;
 	private Space location;
-	private boolean pie1;
+	private Boolean pie1;
 	private Boolean pie2;
 	private Boolean pie3;
 	private Boolean pie4;

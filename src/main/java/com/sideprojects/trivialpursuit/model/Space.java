@@ -7,7 +7,8 @@ import java.util.Map;
 
 public class Space {
 
-	private Integer spaceId; 
+	private Integer spaceId;
+	private Integer pieId;
 	private boolean hasPie;
 	private boolean isRollAgain;
 	private boolean isCenter;
@@ -30,6 +31,9 @@ public class Space {
 	
 	public boolean isCenter() { return isCenter; } 
 	public void setIsCenter(boolean isCenter) { this.isCenter = isCenter; }
+	
+	public Integer getPieId() { return pieId; }
+	public void setPieId(Integer pieId) { this.pieId = pieId; }
 
 	public List<Integer> getReachableSpaces(int diceRoll) { return getReachableSpaces().get(diceRoll); }
 	public Map<Integer, List<Integer>> getReachableSpaces() { return reachableSpaces;}
@@ -142,4 +146,5 @@ public class Space {
 		}
 		return secondarySpaces;
 	}
+
 }
