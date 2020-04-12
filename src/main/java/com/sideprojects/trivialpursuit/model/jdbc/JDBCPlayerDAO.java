@@ -1,15 +1,14 @@
 package com.sideprojects.trivialpursuit.model.jdbc;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import com.sideprojects.trivialpursuit.model.Category;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
@@ -68,6 +67,31 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template.update(setPlayerPosition, position, player_id, game_id);
 	}
 	
+	@Override
+	public void givePlayerPiePiece (int spaceId, Game game) {
+		int catNumber = 0;
 
+		  if (spaceId == 6) {
+			  catNumber = 1;
+		  } else if (spaceId == 18) {
+			  catNumber = 2;
+		  } else if (spaceId == 30) {
+			  catNumber = 3;
+		  } else if (spaceId == 42) {
+			  catNumber = 4;
+		  } else if (spaceId == 54) {
+			  catNumber = 5;
+		  } else if (spaceId == 66) {
+			  catNumber = 6;
+      }
+
+		String givePlayerPiePiece = "UPDATE game_player SET player_score_cat_? = true WHERE player_id = ? AND "
+				+ "game_id = ?";
+		template.update(givePlayerPiePiece, catNumber, game.getGameID());
+		
+		
+		
+	}
+	
 }
 
