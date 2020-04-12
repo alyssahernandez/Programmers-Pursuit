@@ -28,15 +28,6 @@ public class GameboardController {
 	
 	@Autowired
 	private GameDAO gameDAO;
-	
-	/* BASIC VIEW
-	
-	@RequestMapping(path="/gameboard", method=RequestMethod.GET)
-	public String displayGameboard() {
-			
-		return "/gameboard";
-		
-	} */
 
 	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.GET)
 	public String displayGameboard(
