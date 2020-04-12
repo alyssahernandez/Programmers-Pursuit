@@ -43,15 +43,20 @@
 
 <!-- 		THIS SECTION HAS BOTH THE CURRENT DIE ROLL AND A PICTURE OF THE CURRENT PLAYER'S FULL SCORE STATUS -->
 
-	<c:if test="${!currentPlayerTurn.allPies }">
-		<div class="hud__status">		
-			<c:import url="${ pieceURL }" />
-			<c:import url="${ dieURL }" />		
-		</div>
+
+	<div class="hud__status">		
+		<c:import url="${ pieceURL }" />
+		
+		<c:if test="${!currentPlayerTurn.allPies }">
+			<c:import url="${ dieURL }" />	
+		</c:if>
+			
+	</div>
 
 <!-- 	THIS IS THE LEGEND SECTION -->
-		<c:import url="${ legendURL }" />
-	</c:if>
+
+	<c:import url="${ legendURL }" />
+
 </div>
 		
 <c:import url="/WEB-INF/jsp/common/footer.jsp" />

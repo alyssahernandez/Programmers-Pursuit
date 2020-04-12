@@ -69,7 +69,10 @@ public class JDBCPlayerDAO implements PlayerDAO
 	
 	@Override
 	public void givePlayerPiePiece (int spaceId, Game game) {
+		
+		int playerId = game.getActivePlayerId();
 		int catNumber = 0;
+		
 
 		  if (spaceId == 6) {
 			  catNumber = 1;
@@ -83,11 +86,13 @@ public class JDBCPlayerDAO implements PlayerDAO
 			  catNumber = 5;
 		  } else if (spaceId == 66) {
 			  catNumber = 6;
-      }
+		  }
+		  
+		  String playerCatNum = "player_score_cat_" + catNumber;
 
-		String givePlayerPiePiece = "UPDATE game_player SET player_score_cat_? = true WHERE player_id = ? AND "
+		String givePlayerPiePiece = "UPDATE game_player SET ? = true WHERE player_id = ? AND "
 				+ "game_id = ?";
-		template.update(givePlayerPiePiece, catNumber, game.getGameID());
+		template.update(givePlayerPiePiece, playerCatNum, playerId, game.getGameID());
 		
 		
 		

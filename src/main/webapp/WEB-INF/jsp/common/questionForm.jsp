@@ -26,8 +26,8 @@
 				<c:otherwise>
 				
 					<form action="${ questionFormURL }" class="question-form" method="POST">
-						<label class="question-form__text" for="question">${question }</label>
-						<input class="question-form__answer" name="question" type="text" placeholder="Enter your answer here..."/>
+						<label class="question-form__text" for="answer">${question.question }</label>
+						<input class="question-form__answer" name="answer" type="text" placeholder="Enter your answer here..."/>
 						
 						<input class="question-form__button" type="submit" value="Submit Answer"/>
 					</form>

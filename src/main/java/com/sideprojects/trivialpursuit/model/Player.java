@@ -10,11 +10,11 @@ public class Player
 	private Long color;
 	private Space location;
 	private boolean pie1;
-	private Boolean pie2;
-	private Boolean pie3;
-	private Boolean pie4;
-	private Boolean pie5;
-	private Boolean pie6;
+	private boolean pie2;
+	private boolean pie3;
+	private boolean pie4;
+	private boolean pie5;
+	private boolean pie6;
 	private boolean allPies;
 	private Integer diceRoll;
 
