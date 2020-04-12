@@ -64,18 +64,9 @@ public class Gameboard {
 			if ((i - 6) % 12 == 0) { space.setNode(true); }
 			else { space.setNode(false); }
 			
-			if (i == 6) { space.setPieId(1); }
-			else if (i == 18) { space.setPieId(2); }
-			else if (i == 30) { space.setPieId(3); }
-			else if (i == 42) { space.setPieId(4); }
-			else if (i == 54) { space.setPieId(5); }
-			else if (i == 66) { space.setPieId(6); }
-			
 			if (categories != null) 
 			{
-				Set<Category> cats = new HashSet<>();
-				for (Category c : categories)
-					cats.add(c);
+				Set<Category> cats = new HashSet<>(categories);
 
 				if (cats.size() == 6) {
 					if (i == 1 || i == 10 || i == 16 || i == 24 || i == 29 || i == 31 || i == 39 || i == 45 || i == 50

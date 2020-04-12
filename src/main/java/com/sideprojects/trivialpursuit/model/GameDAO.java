@@ -13,4 +13,6 @@ public interface GameDAO {
 	public Player getActivePlayer(Game game);	
 	
 	public void setActivePlayer(Game game, boolean isCorrectAnswer);
+	
+	public void setActivePlayerDiceRoll(Game game);
 }

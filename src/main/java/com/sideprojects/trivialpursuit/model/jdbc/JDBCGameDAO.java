@@ -145,6 +145,7 @@ public class JDBCGameDAO implements GameDAO {
 		template.update(query, activePlayer.getPlayerId(), game.getGameID());
 	}
 	
+	@Override
 	public void setActivePlayerDiceRoll(Game game)
 	{
 		Player activePlayer = game.getActivePlayer();
