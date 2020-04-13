@@ -5,20 +5,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Gameboard {
-
-	
-	
+public class Gameboard 
+{		
 	private static final int SPACE_COUNT = 72;
+	
 	private List<Space> spaces;
 	private List<Category> categories;
-
+	
+	// Gets & sets
 	public List<Space> getSpaces() { return spaces; }
 	public void setSpaces(List<Space> spaces) { this.spaces = spaces; }
 
 	public List<Category> getCategories() { return categories; }
 	public void setCategories(List<Category> categories) { this.categories = categories; }
 
+	// Constructors
 	public Gameboard() { spaces = generateSpaces(); }
 	
 	public Gameboard(List<Category> categoriesInGame) {
@@ -26,6 +27,8 @@ public class Gameboard {
 		spaces = generateSpaces();
 	}
 
+	// Methods
+	
 	// Generates the gameboard's spaces & categorizes them
 	private List<Space> generateSpaces() 
 	{

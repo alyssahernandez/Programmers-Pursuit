@@ -9,9 +9,11 @@ import org.bouncycastle.util.encoders.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
-public class JDBCUserDao implements UserDao
-{
+@Component
+public class JDBCUserDao implements UserDao {
+
     private JdbcTemplate jdbcTemplate;
     private PasswordHasher passwordHasher;
 
@@ -21,59 +23,71 @@ public class JDBCUserDao implements UserDao
         this.passwordHasher = passwordHasher;
     }
    
-
-    //TODO: Combine this with player? Already wrote the INSERT -- no need to make a "User" class, I don't think.
     @Override
-    public User saveUser(String userName, String password) {
+    public User saveUser(String userName, String password, String role) {
         byte[] salt = passwordHasher.generateRandomSalt();
         String hashedPassword = passwordHasher.computeHash(password, salt);
         String saltString = new String(Base64.encode(salt));
         long newId = jdbcTemplate.queryForObject(
-                "INSERT INTO player (name, password_hash, salt) VALUES (?, ?, ?) RETURNING user_id", Long.class, userName,
-                hashedPassword, saltString);
+                "INSERT INTO users(username, password, salt, role) VALUES (?, ?, ?, ?) RETURNING id", Long.class,
+                userName, hashedPassword, saltString, role);
 
         User newUser = new User();
         newUser.setId(newId);
         newUser.setUsername(userName);
+        newUser.setRole(role);
 
         return newUser;
     }
 
     @Override
-    public boolean isUsernameAndPasswordValid(String userName, String password) {
-        String sqlSearchForUser = "SELECT * FROM player WHERE UPPER(name) = '" + userName.toUpperCase() + "'";
+    public void changePassword(User user, String newPassword) {
+        byte[] salt = passwordHasher.generateRandomSalt();
+        String hashedPassword = passwordHasher.computeHash(newPassword, salt);
+        String saltString = new String(Base64.encode(salt));
 
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSearchForUser);
+        jdbcTemplate.update("UPDATE users SET password=?, salt=? WHERE id=?", hashedPassword, saltString, user.getId());
+    }
+
+    @Override
+    public User getValidUserWithPassword(String userName, String password) {
+        String sqlSearchForUser = "SELECT * FROM users WHERE UPPER(username) = ?";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSearchForUser, userName.toUpperCase());
         if (results.next()) {
             String storedSalt = results.getString("salt");
             String storedPassword = results.getString("password");
             String hashedPassword = passwordHasher.computeHash(password, Base64.decode(storedSalt));
-            return storedPassword.equals(hashedPassword);
+            if (storedPassword.equals(hashedPassword)) {
+                return mapResultToUser(results);
+            } else {
+                return null;
+            }
         } else {
-            return false;
+            return null;
         }
     }
 
-    // TODO: Assuming we do combine this with Player, this would be getAllPlayers(), which we already have.
     @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<User>();
-        String sqlSelectAllUsers = "SELECT id, name FROM player";
+        String sqlSelectAllUsers = "SELECT id, username, role FROM users";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSelectAllUsers);
 
         while (results.next()) {
-            User user = new User();
-            user.setId(results.getLong("player_id"));
-            user.setUsername(results.getString("name"));
+            User user = mapResultToUser(results);
             users.add(user);
         }
 
         return users;
     }
 
-	@Override
-	public User getUser(String userName, String password) {
-		return null;
-	}
-
+    private User mapResultToUser(SqlRowSet results) {
+        User user = new User();
+        user.setId(results.getLong("id"));
+        user.setUsername(results.getString("username"));
+        user.setRole(results.getString("role"));
+        return user;
+    }
+    
 }

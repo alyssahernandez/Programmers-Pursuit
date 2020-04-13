@@ -10,14 +10,18 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 import org.bouncycastle.util.encoders.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PasswordHasher
 {
     private static final int KEY_LENGTH = 128;
     private static final int WORK_FACTOR = 100000;
 
     private SecureRandom random;
-
+    
+   
     public PasswordHasher() {
         random = new SecureRandom();
     }

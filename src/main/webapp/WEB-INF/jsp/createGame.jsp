@@ -27,15 +27,21 @@
 	<label for="numberOfPlayers">How Many Players:</label>
 	
 	<div>
-		<label for="numberOfPlayers"></label>
-		<input type="radio" name="twoPlayers" value="2"/>
+		<label for="playerTwo"></label>
+		<input type="text" name="playerTwo" placeholder="Name"/>
 		
+		<label for="playerThree"></label>
+		<input type="text" name="playerThree" placeholder="Name"/>
 		
-		<input type="radio" name="threePlayers" value="3"/>
-		<label for="threePlayers"></label>
+		<label for="playerFour"></label>
+		<input type="text" name="playerFour" placeholder="Name"/>
 		
-		<input type="radio" name="fourPlayers" value="4"/>
-		<label for="fourPlayers"></label>
+		<label for="playerFive"></label>
+		<input type="text" name="playerFive" placeholder="Name"/>
+		
+		<label for="playerSix"></label>
+		<input type="text" name="playerSix" placeholder="Name">
+		
 	</div>
 </form>
 

@@ -17,6 +17,9 @@ import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 
+import com.sideprojects.trivialpursuit.model.auth.AuthProvider;
+import com.sideprojects.trivialpursuit.model.auth.User;
+
 
 @Controller
 public class MainMenuController {
@@ -26,9 +29,13 @@ public class MainMenuController {
 	
 	@Autowired
 	PlayerDAO playerDAO;
+	
+	@Autowired
+	private AuthProvider auth;
 
 	@RequestMapping(path="/", method=RequestMethod.GET)
-	public String displayMainMenu() {
+	public String displayMainMenu(ModelMap map) {
+		map.put("user", auth.getCurrentUser());
 		return "mainMenu";
 	}
 	
@@ -81,18 +88,13 @@ public class MainMenuController {
 		playerNames.add(playerFive);
 		playerNames.add(playerSix);
 		
-		List<Player> players = new ArrayList<>();
-		
-		for(String name: playerNames) {
-			
-		}
+		playerDAO.createPlayers(playerNames);
 		
 		
-		if(playerTwo != null) {
-			Player player = new Player();
-			player.setName(playerTwo);
-			players.add(player);
-		}
+		/*
+		 * if(playerTwo != null) { Player player = new Player();
+		 * player.setName(playerTwo); players.add(player); }
+		 */
 		
 		return "redirect:/gameboard/${gamecode}";
 	}

@@ -60,6 +60,8 @@ public class JDBCGameDAO implements GameDAO {
 			game.setWinnerId(rowSet.getInt("winner_id"));
 			game.setActivePlayerRoll(rowSet.getInt("active_player_roll"));
 			game.setActivePlayerId(rowSet.getInt("active_player_id"));
+			game.setIsActivePlayerAnsweringQuestion(rowSet.getBoolean("active_player_answering_question"));
+			game.setHasActivePlayerSelectedCategory(rowSet.getBoolean("active_player_category_selected_center"));
 		}
 		
 		List<Category> categoriesInGame = categoryDAO.getCategoriesByGame(game);
