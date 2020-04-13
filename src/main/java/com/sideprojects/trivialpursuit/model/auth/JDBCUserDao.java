@@ -22,20 +22,19 @@ public class JDBCUserDao implements UserDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         this.passwordHasher = passwordHasher;
     }
-   
+
     @Override
-    public User saveUser(String userName, String password, String role) {
+    public User saveUser(String userName, String password) {
         byte[] salt = passwordHasher.generateRandomSalt();
         String hashedPassword = passwordHasher.computeHash(password, salt);
         String saltString = new String(Base64.encode(salt));
         long newId = jdbcTemplate.queryForObject(
-                "INSERT INTO users(username, password, salt, role) VALUES (?, ?, ?, ?) RETURNING id", Long.class,
-                userName, hashedPassword, saltString, role);
+                "INSERT INTO users(username, password, salt) VALUES (?, ?, ?) RETURNING id", Long.class,
+                userName, hashedPassword, saltString);
 
         User newUser = new User();
         newUser.setId(newId);
         newUser.setUsername(userName);
-        newUser.setRole(role);
 
         return newUser;
     }
@@ -86,7 +85,7 @@ public class JDBCUserDao implements UserDao {
         User user = new User();
         user.setId(results.getLong("id"));
         user.setUsername(results.getString("username"));
-        user.setRole(results.getString("role"));
+
         return user;
     }
     

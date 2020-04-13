@@ -3,6 +3,11 @@
 
 <c:import url="/WEB-INF/jsp/common/header.jsp" />
 
+
+<div>
+	<h1>Welcome! Please Sign Up!</h1>
+</div>
+
 <c:url var="registerUrl" value="/register" />
 <form:form action="${registerUrl }" method="POST" modelAttribute="user">
 
@@ -24,28 +29,7 @@
 	<form:errors path="passwordMatching" cssClass="bg-danger" />
 	</div>
 
-    <fieldset>
-        <legend>Role</legend>
-        <form:errors path="role" cssClass="bg-danger"/>
-        <div class="radio">
-            <label>
-                <form:radiobutton path="role" value="user" checked="checked"/>
-                User
-            </label>
-        </div>
-        <div class="radio">
-            <label>
-                <form:radiobutton path="role" value="admin"/>
-                Administrator
-            </label>
-        </div>
-        <div class="radio">
-            <label>
-                <form:radiobutton path="role" value="editor"/>
-                Editor
-            </label>
-        </div>
-    </fieldset>
+    
 	<button type="submit" class="btn btn-default">Save User</button>
 </form:form>
 
