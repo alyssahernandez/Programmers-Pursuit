@@ -1,6 +1,5 @@
 h1 {
     color: $color-grey-light-1;
-    text-shadow: $shadow-small;
     font-size: 3rem;
     margin-left: 2rem;
 }
@@ -8,15 +7,13 @@ h1 {
 h1 a {
     text-decoration: none;
     color: $color-grey-light-1;
-    text-shadow: $shadow-small;
 }
 
 h2 {
     text-align: center;
-    color: $color-grey-light-1;
+    color: $color-grey-dark-2;
     font-size: 4rem;
     font-weight: 500;
-    text-shadow: $shadow;
 }
 
 .question-form__text {

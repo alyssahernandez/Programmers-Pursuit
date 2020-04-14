@@ -13,7 +13,7 @@
 			<c:set var="piece" value="pie${ i }"/>
 			
 			<c:if test="${ currentPlayerTurn[piece] }">
-				<c:set var="filled" value="cat${ i }"/>
+				<c:set var="filled" value="cat${ i }-alt"/>
 			</c:if>
 		
 			<div class="player-piece__slice ${ filled }"></div>			
