@@ -21,8 +21,6 @@ import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 
-import com.sideprojects.trivialpursuit.model.auth.AuthProvider;
-import com.sideprojects.trivialpursuit.model.auth.User;
 
 
 @Controller
@@ -34,13 +32,9 @@ public class MainMenuController {
 	@Autowired
 	PlayerDAO playerDAO;
 	
-	@Autowired
-	private AuthProvider auth;
-	
 
 	@RequestMapping(path="/", method=RequestMethod.GET)
 	public String displayMainMenu(ModelMap map) {
-		map.put("user", auth.getCurrentUser());
 		return "mainMenu";
 	}
 	
