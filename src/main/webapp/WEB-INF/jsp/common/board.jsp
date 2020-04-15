@@ -180,22 +180,22 @@
 					</c:if>
 				
 					<c:if test="${player1Pos == j}">
-						<div class="player-piece--small cat1"></div>
+						<div class="player-piece--small cat1-alt"></div>
 					</c:if>
 					<c:if test="${player2Pos == j}">
-						<div class="player-piece--small cat2"></div>
+						<div class="player-piece--small cat2-alt"></div>
 					</c:if>
 					<c:if test="${player3Pos == j}">
-						<div class="player-piece--small cat3"></div>
+						<div class="player-piece--small cat3-alt"></div>
 					</c:if>
 					<c:if test="${player4Pos == j}">
-						<div class="player-piece--small cat4"></div>
+						<div class="player-piece--small cat4-alt"></div>
 					</c:if>
 					<c:if test="${player5Pos == j}">
-						<div class="player-piece--small cat5"></div>
+						<div class="player-piece--small cat5-alt"></div>
 					</c:if>
 					<c:if test="${player6Pos == j}">
-						<div class="player-piece--small cat6"></div>
+						<div class="player-piece--small cat6-alt"></div>
 					</c:if>				
 				</div>	
 				
@@ -225,50 +225,23 @@
 
 	<div>
 		<c:if test="${player1Pos == 0}">
-			<div class="player-piece--small cat1"></div>
+			<div class="player-piece--small cat1-alt"></div>
 		</c:if>
 		<c:if test="${player2Pos == 0}">
-			<div class="player-piece--small cat2"></div>
+			<div class="player-piece--small cat2-alt"></div>
 		</c:if>
 		<c:if test="${player3Pos == 0}">
-			<div class="player-piece--small cat3"></div>
+			<div class="player-piece--small cat3-alt"></div>
 		</c:if>
 		<c:if test="${player4Pos == 0}">
-			<div class="player-piece--small cat4"></div>
+			<div class="player-piece--small cat4-alt"></div>
 		</c:if>
 		<c:if test="${player5Pos == 0}">
-			<div class="player-piece--small cat5"></div>
+			<div class="player-piece--small cat5-alt"></div>
 		</c:if>
 		<c:if test="${player6Pos == 0}">
-			<div class="player-piece--small cat6"></div>
+			<div class="player-piece--small cat6-alt"></div>
 		</c:if>
 	</div>
 
 </div>
-
-<script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', () => {
-		
-		console.log("about to bind spaces");
-		
-		let spaces = document.querySelectorAll('.space');
-		
-		spaces.forEach( (space) => {
-			space.addEventListener('click', (event) => {
-				
-				console.log("clicked on a space");
-				
-				const form = event.target.querySelector('form');
-				
-				if (form) {
-					
-					console.log("about to submit form");
-					
-					form.submit();
-				}
-				
-			});
-		});
-		
-	});
-</script>

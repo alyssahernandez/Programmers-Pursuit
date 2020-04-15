@@ -23,8 +23,6 @@
 		<c:import url="${ pieceURL }" />
 	</div>
 
-<!-- 	THIS IS THE LEGEND SECTION -->
-	<c:import url="${ legendURL }" />
 </div>
 		
 <c:import url="/WEB-INF/jsp/common/footer.jsp" />

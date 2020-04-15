@@ -18,6 +18,20 @@ function highlightAvailableSpaces() {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    // THIS SETS UP THE CLICK FUNCTIONALITY FOR ALL SPACES
+    const spaces = document.querySelectorAll('.space');
+    spaces.forEach( (space) => {
+        space.addEventListener('click', (event) => {            
+            console.log("clicked on a space");            
+            const form = event.target.querySelector('form');            
+            if (form) {                
+                console.log("about to submit form");                
+                form.submit();
+            }            
+        });
+    });
+
+    // THIS SETS UP THE DIE ROLL BUTTON
     const dieRollButton = document.getElementById('rollDie');
     const dieImg = document.getElementById('dieImg');
     dieRollButton.addEventListener('click', () => {

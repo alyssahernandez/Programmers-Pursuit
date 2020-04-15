@@ -13,14 +13,20 @@ header {
 
 .navbar-right {
     width: 25%;
+    height: 100%;
     list-style: none;
 
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-end;
 
     & li {
         font-size: 2rem;
         font-weight: 700;
+        padding: 0 3rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
         
         & a {
             color: $color-grey-light-1;
@@ -170,7 +176,7 @@ main {
 }
 
 .question-form {
-    background-image: linear-gradient(to bottom right, $color-grey-light-1, $color-grey-light-2);
+    background-color: $color-grey-light-2;
     width: 80%;
     padding: 2rem 3rem;
     box-shadow: $shadow;
@@ -187,8 +193,8 @@ main {
 
     &__button {
         width: 30%;
-        background-color: $color-grey-light-2;
-        color: $color-grey-dark-1;
+        background-color: $color-aqua-2;
+        color: $color-grey-light-1;
         padding: 1rem 2rem;
         font-size: 1.5rem;
         font-weight: 700;
@@ -200,10 +206,14 @@ main {
         &:hover {
             transform: translateY(-.5rem);
             box-shadow: $shadow-small;
+            background-color: $color-aqua-1;
+            color: $color-grey-dark-2;
         }
-
-        &:active {
+    
+        &:active,
+        &:focus {
             transform: translateY(-.25rem);
+            outline: none;
         }
     }
 }
