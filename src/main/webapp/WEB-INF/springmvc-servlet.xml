@@ -48,6 +48,12 @@
 		<property name="password" value="postgres1" />
 	</bean>
 	
+	<bean id="auth0Config" class="com.sideprojects.trivialpursuit.model.auth.AppConfig">
+		<property name="domain" value="dev-3pru6zrv.auth0.com"></property>
+		<property name="clientId" value="0mWzxq2llBlbc7a3up2rOISQV96i847w"></property>
+		<property name="clientSecret" value="8KCBnXpiGUyqjxhX1WEGMSYI76-fesU5qh8OuP7g_vnE_dcdmH9TdKyQFt6ID1aj"></property>
+	</bean>
+	
 	
     <!-- enable the configuration of transactional behavior based on annotations -->
     
