@@ -18,10 +18,10 @@
 			<ul class="navbar-right">
                 <c:choose>
                     <c:when test="${empty appCurrentUser}">
+<%--                         <c:url var="registerUrl" value="/register"/> --%>
+<%--                         <li><a href="${registerUrl}">Register</a></li> --%>
                         <c:url var="loginUrl" value="/login"/>
-                        <li><a href="${loginUrl}">Login</a></li>
-                        <c:url var="registerUrl" value="/register"/>
-                        <li><a href="${registerUrl}">Register</a></li>
+                        <li id="login"><a href="${loginUrl}">Login</a></li>
                     </c:when>
                     <c:otherwise>
                         <li><a href="/"><c:out value="${appCurrentUser.username}" /></a></li>
