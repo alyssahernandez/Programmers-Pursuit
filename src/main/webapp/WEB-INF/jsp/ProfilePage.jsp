@@ -3,7 +3,7 @@
 <c:import url="/WEB-INF/jsp/common/header.jsp" />
 
 
-<h1>This is the Profile Page</h1>
+<h2>This is the Profile Page</h2>
 
 
 <c:import url="/WEB-INF/jsp/common/footer.jsp" />
