@@ -40,7 +40,7 @@ public class MainMenuController {
 	
 	//// AUTH0 CONTROLLER TO REDIRECT TO THE USERS PROFILE PAGE
 	
-	@RequestMapping(value = "/portal/home", method = RequestMethod.GET)
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	protected String home(final Map<String, Object> model, final HttpServletRequest req) {
 	    String accessToken = (String) SessionUtils.get(req, "accessToken");
 	    String idToken = (String) SessionUtils.get(req, "idToken");
@@ -49,8 +49,9 @@ public class MainMenuController {
 	    } else if (idToken != null) {
 	        model.put("userId", idToken);
 	    }
-	    return "home";
+	    return "ProfilePage";
 	}
+	
 	
 	@RequestMapping(path="/", method=RequestMethod.POST)
 	public String createOrLoadGame(	

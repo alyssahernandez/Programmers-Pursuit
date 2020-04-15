@@ -31,7 +31,7 @@ public class CallbackController {
 	      //call DAO method and try to load userID with the id token
 	      //if it works put the user id into the session
 	      //if it doesnt work then call DAO method to create new user param(id)
-	      return "redirect:/";
+	      return "redirect:/profile";
 	  } catch (IdentityVerificationException e) {
 	      return "redirect:/login";
 	  }
