@@ -108,6 +108,95 @@ main {
           justify-content: center;
 }
 
+.homepage {
+  height: 100vh;
+  padding: 3%;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(75, 101, 132, 0.95)), color-stop(70%, rgba(75, 101, 132, 0.95)), to(rgba(0, 0, 0, 0.95))), url(../img/hero.jpg);
+  background-image: linear-gradient(to bottom, rgba(75, 101, 132, 0.95), rgba(75, 101, 132, 0.95) 70%, rgba(0, 0, 0, 0.95)), url(../img/hero.jpg);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.homepage__title {
+  color: #d1d8e0;
+  font-size: 8rem;
+  margin: 0 0 1rem 0;
+}
+
+.homepage__subtitle {
+  color: #d1d8e0;
+  margin-bottom: 4rem;
+}
+
+.homepage__bracket {
+  color: #eb3b5a;
+  font-weight: 700;
+}
+
+.homepage__content {
+  font-size: 2rem;
+  color: #d1d8e0;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.homepage__login {
+  margin-top: 4rem;
+  width: 18rem;
+  background-color: #0fb9b1;
+  color: #d1d8e0;
+  padding: 1.5rem 2.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 100px;
+  text-decoration: none;
+  text-align: center;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+.homepage__login:hover {
+  -webkit-transform: translateY(-0.5rem);
+          transform: translateY(-0.5rem);
+  -webkit-box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
+          box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
+  background-color: #2bcbba;
+  color: #4b6584;
+}
+
+.homepage__login:active, .homepage__login:focus {
+  -webkit-transform: translateY(-0.25rem);
+          transform: translateY(-0.25rem);
+  outline: none;
+}
+
+.homepage__about-us {
+  text-decoration: none;
+  color: #d1d8e0;
+  font-size: 2rem;
+  font-weight: 700;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  position: absolute;
+  bottom: 3rem;
+  right: 2rem;
+}
+
 .gameboard {
   height: 100%;
   width: 100%;
@@ -656,6 +745,7 @@ footer {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
+  border: 1px solid #d1d8e0;
 }
 
 .cat1 {

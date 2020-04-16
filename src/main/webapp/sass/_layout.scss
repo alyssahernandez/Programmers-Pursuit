@@ -45,6 +45,88 @@ main {
     justify-content: center;
 }
 
+.homepage {
+
+    height: 100vh;
+    padding: 3%;
+
+    background-image: linear-gradient(to bottom, rgba($color-grey-dark-2, .95), rgba($color-grey-dark-2, .95) 70%, rgba($color-black, .95)), url(../img/hero.jpg);
+    background-position: center;
+    background-size: cover;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__title {
+        color: $color-grey-light-1;
+        font-size: 8rem;
+        margin: 0 0 1rem 0;
+    }
+
+    &__subtitle {
+        color: $color-grey-light-1;
+        margin-bottom: 4rem;
+    }
+
+    &__bracket {
+        color: $color-red-2;
+        font-weight: 700;
+    }
+
+    &__content {
+        font-size: 2rem;
+        color: $color-grey-light-1;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    &__login {
+        margin-top: 4rem;
+        width: 18rem;
+        background-color: $color-aqua-2;
+        color: $color-grey-light-1;
+        padding: 1.5rem 2.5rem;
+        font-size: 2rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 100px;
+        text-decoration: none;
+        text-align: center;
+    
+        transition: all .2s;
+    
+        &:hover {
+            transform: translateY(-.5rem);
+            box-shadow: $shadow-small;
+            background-color: $color-aqua-1;
+            color: $color-grey-dark-2;
+        }
+    
+        &:active,
+        &:focus {
+            transform: translateY(-.25rem);
+            outline: none;
+        }
+    }
+
+    &__about-us {
+        text-decoration: none;
+        color: $color-grey-light-1;
+        font-size: 2rem;
+        font-weight: 700;
+
+        align-self: flex-end;
+
+        position: absolute;
+        bottom: 3rem;
+        right: 2rem;
+    }
+}
+
 .gameboard {
     height: 100%;
     width: 100%;
