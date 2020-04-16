@@ -16,12 +16,18 @@
 	<body>
 		<div class="homepage">
 			<h1 class="homepage__title">Programmers' Pursuit</h1>
-			<h2 class="homepage__subtitle">Brought to you by	 Philly Cohort 0</h2>
+			<h2 class="homepage__subtitle">Brought to you by Philly Cohort<span class="homepage__bracket">[</span><span class="homepage__zero">0</span><span class="homepage__bracket">]</span></h2>
 			
 <!-- 			<p class="homepage__content">Lorem ipsum dolor sit amet, consul tractatos ut nam, duis  -->
 <!-- 				dicant ad vim. Mea eruditi temporibus id. Quo eu nostro accusamus theophrastus. Mel  -->
 <!-- 				exerci postea mandamus in, mei meliore phaedrum consequuntur ei, quo at nulla laboramus.  -->
 <!-- 				Veri quando dolorum vim ad. -->
+<!-- 			</p> -->
+		
+<!-- 			<p class="homepage__content">Cum no velit expetenda voluptatum, omnium suscipit repudiandae et vim, ne mel enim  -->
+<!-- 				quaeque indoctum. Eam mundi elitr et, quas brute at vel. Vide rationibus no vis, ad  -->
+<!-- 				veniam bonorum facilisi sit, periculis iracundia definitiones qui cu. Doming vulputate  -->
+<!-- 				vim ut, exerci altera ad nec, mei petentium adversarium ea. -->
 <!-- 			</p> -->
 			
 			<c:url var="loginUrl" value="/login"/>

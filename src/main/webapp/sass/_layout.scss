@@ -72,6 +72,11 @@ main {
         margin-bottom: 4rem;
     }
 
+    &__bracket {
+        color: $color-red-2;
+        font-weight: 700;
+    }
+
     &__content {
         font-size: 2rem;
         color: $color-grey-light-1;

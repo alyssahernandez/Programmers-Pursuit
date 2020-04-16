@@ -142,6 +142,11 @@ main {
   margin-bottom: 4rem;
 }
 
+.homepage__bracket {
+  color: #eb3b5a;
+  font-weight: 700;
+}
+
 .homepage__content {
   font-size: 2rem;
   color: #d1d8e0;
