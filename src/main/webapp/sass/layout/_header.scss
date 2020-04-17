@@ -28,11 +28,19 @@
 }
 
 #profile {
-    background-color: $color-aqua-2;
+    background-color: $color-aqua-1;
 
     transition: all .2s;
 
+    & a { color: $color-grey-dark-2; }
+
     &:hover {
-        background-color: $color-aqua-1;
+        background-color: $color-aqua-2;
+
+        & a {
+            color: $color-grey-light-1;
+
+            transition: all .2s;
+        }
     }
 }

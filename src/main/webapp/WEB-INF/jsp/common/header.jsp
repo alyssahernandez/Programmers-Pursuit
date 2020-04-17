@@ -9,6 +9,9 @@
 		
 		<c:url var="stylesheetHref" value="/css/main.css" />
 		<link rel="stylesheet" href="${stylesheetHref}">
+		
+		<c:url var="jsURL" value="/js/script.js" />
+		<script src="${ jsURL }"></script>
 	</head>
 	<body>
 		<header class="header">

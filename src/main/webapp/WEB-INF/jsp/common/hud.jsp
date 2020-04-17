@@ -5,6 +5,8 @@
 <c:url var = "legendURL" value="common/legend.jsp" />
 
 <div class="hud">
+
+<!-- 	MESSAGE SECTION -->
 	<div class="hud__message u-center-text">	
 		<c:choose>			
 			<c:when test="${currentPlayerTurn.allPies }">	
@@ -23,13 +25,17 @@
 		</c:choose>		
 	</div>
 
-	<div class="hud__status">		
-		<c:import url="${ pieceURL }" />		
-		<c:if test="${!currentPlayerTurn.allPies }">
-			<c:import url="${ dieURL }" />	
-		</c:if>			
+<!-- 	STATUS SECTION -->
+	<div class="hud__status">
+		<c:import url="${ pieceURL }" />	
+		<c:if test="${ questionHUD }">	
+			<c:import url="${ dieURL }" />
+		</c:if>	
 	</div>
 
-	<c:import url="${ legendURL }" />
+<!-- LEGEND SECTION -->
+	<c:if test="${ questionHUD }">
+		<c:import url="${ legendURL }" />
+	</c:if>
 
 </div>
