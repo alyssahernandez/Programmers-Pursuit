@@ -1,0 +1,38 @@
+.header {
+    height: $header-height;
+    background-color: $color-indigo-2;
+
+    padding-left: 2rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__right-nav {
+        height: 100%;
+
+        list-style: none;
+
+        display: flex;
+        justify-content: flex-end;
+
+        &--link {
+            height: 100%;
+            padding: 0 3rem;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+
+#profile {
+    background-color: $color-aqua-2;
+
+    transition: all .2s;
+
+    &:hover {
+        background-color: $color-aqua-1;
+    }
+}

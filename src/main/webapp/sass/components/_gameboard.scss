@@ -1,0 +1,60 @@
+.gameboard {
+    height: 100%;
+    width: 100%;
+
+    position: relative;
+
+    flex: 3 1 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // THESE ARE THE SETTINGS FOR THE BOARD SIZING; ADJUST THESE WHEN DEALING WITH RESPONSIVE
+    $number-of-ring-spaces: 42;
+    $number-of-spokes: 6;
+    $space-size: 2.5rem;
+    $spoke-width: 26rem;
+    $spoke-height: 2.5rem;
+    $ring-size: 50rem;
+    $spoke-ring-size: $ring-size / 2;
+
+    &__ring {
+        @include on-circle($item-count: $number-of-ring-spaces, $circle-size: $ring-size, $item-height: $space-size, $item-width: $space-size); 
+
+        z-index: 1000;
+    }
+
+    &__spokes {
+        @include on-circle($item-count: $number-of-spokes, $circle-size: $spoke-ring-size, $item-height: $spoke-height, $item-width: $spoke-width);
+
+        width: 100%;
+        height: 100%;
+
+        &--spoke {
+            padding: 0 1rem 0 2rem;
+
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+
+            z-index: 500;
+        }
+    }
+
+    &__center {
+        height: $space-size * 2;
+        width: $space-size * 2;    
+
+        background-color: $color-grey-dark-1 !important;
+        border-radius: 50%;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+
+        z-index: 1000;
+    }
+}

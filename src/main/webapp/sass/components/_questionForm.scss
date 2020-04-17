@@ -1,0 +1,16 @@
+.question-form {
+    background-color: $color-grey-light-2;
+    width: 80%;
+    padding: 2rem 3rem;
+    box-shadow: $shadow;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__answer {
+        margin: 2rem 3rem;
+        width: 50%;
+        padding: 1rem 2rem;
+    }
+}
