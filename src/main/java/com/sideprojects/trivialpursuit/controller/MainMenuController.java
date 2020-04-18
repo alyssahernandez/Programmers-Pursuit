@@ -50,7 +50,7 @@ public class MainMenuController {
 	    } else if (idToken != null) {
 	        model.put("userId", idToken);
 	    }
-	    return "profilePage";
+	    return "ProfilePage";
 	}
 	
 	
