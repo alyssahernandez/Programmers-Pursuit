@@ -12,7 +12,8 @@ function rollDie(button, img) {
 function highlightAvailableSpaces() {
     const reachableSpaces = document.querySelectorAll('.space__reachable');
     reachableSpaces.forEach((space) => {
-        space.style.border = '3px solid #4b7bec';
+        space.style.border = '1px solid #0fb9b1';
+        space.style.boxShadow = '0 0 .5rem #0fb9b1';
     })
 }
 

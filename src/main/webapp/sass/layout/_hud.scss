@@ -1,0 +1,18 @@
+.hud {
+    background-color: $color-grey-light-2;
+    height: 100%;
+    padding: 2rem;
+
+    flex: 2 1 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    &__status {
+        padding: 1rem;
+
+        display: flex;
+        justify-content: space-evenly;    
+    }
+}

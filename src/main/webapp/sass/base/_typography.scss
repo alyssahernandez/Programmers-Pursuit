@@ -1,0 +1,54 @@
+body {
+    font-family: $font-primary;
+}
+
+a {
+    text-decoration: none;
+    color: $color-grey-light-1;
+}
+
+ul {
+    list-style: none;
+}
+
+.title {
+    color: $color-grey-light-1;
+    font-size: 8rem;
+}
+
+.subtitle {    
+    color: $color-grey-light-1;
+    font-size: 4rem;
+}
+
+.homepage-link {
+    text-decoration: none;
+    color: $color-grey-light-1;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.homepage-bracket {
+    color: $color-red-2;
+    font-weight: 700;
+}
+
+.header-main {
+    font-size: 3rem;
+}
+
+.header-link {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.hud-message {
+    color: $color-grey-light-1;
+    font-size: 4rem;
+}
+
+.question-text {
+    color: $color-grey-light-1;
+    font-size: 3rem;
+    font-weight: 600;
+}

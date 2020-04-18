@@ -1,0 +1,22 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    // This defines what 1rem is
+    font-size: 62.5%; //1 rem = 10xpx; 10px/16px = 62.5%
+}
+
+body {
+    box-sizing: border-box;
+    height: 100vh; // THIS SETS THE ENTIRE APP TO BE 100% OF THE VIEWPORT HEIGHT
+}
+
+::selection {
+    background-color: $color-aqua-2;
+    color: $color-grey-light-1;
+}
