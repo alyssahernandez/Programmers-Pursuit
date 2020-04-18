@@ -20,18 +20,19 @@
     }
 
     &__details {
+        padding: 3% 2%;
+
         display: flex;
         flex-direction: column;
-    }
-
-    &__bio {
-
+        justify-content: space-evenly;
     }
 
     &__links {
+        width: 20%;
 
-        &--link {
+        align-self: flex-end;
 
-        }
+        display: flex;
+        justify-content: space-evenly;
     }
 }

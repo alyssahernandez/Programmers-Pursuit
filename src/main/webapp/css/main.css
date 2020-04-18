@@ -96,7 +96,16 @@ ul {
 
 .team-member-name {
   color: #d1d8e0;
-  font-size: 2rem;
+  font-size: 2.5rem;
+}
+
+.team-member-bio {
+  color: #d1d8e0;
+  font-size: 1.5rem;
+}
+
+.team-member-link {
+  font-size: 1.5rem;
 }
 
 .u-center-text {
@@ -629,8 +638,17 @@ ul {
 }
 
 .team-member__details {
+  padding: 3% 2%;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.team-member__links {
+  width: 20%;
+  align-self: flex-end;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .homepage {
