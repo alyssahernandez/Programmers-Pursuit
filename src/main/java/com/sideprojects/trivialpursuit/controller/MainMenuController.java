@@ -2,6 +2,7 @@ package com.sideprojects.trivialpursuit.controller;
 
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +50,7 @@ public class MainMenuController {
 	    } else if (idToken != null) {
 	        model.put("userId", idToken);
 	    }
-	    return "ProfilePage";
+	    return "profilePage";
 	}
 	
 	

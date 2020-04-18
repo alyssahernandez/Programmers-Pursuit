@@ -72,7 +72,6 @@ public class Gameboard
 							|| i == 66) {
 						space.setCategory(categories.get(5));
 					}
-					output.add(space);
 				} 
 				
 				//TODO #1: Fix category assignment for 3-category game.  No idea why it's not working?
@@ -92,7 +91,6 @@ public class Gameboard
 							|| i == 58 || i == 62 || i == 64 || i == 69) {
 						space.setCategory(categories.get(2));
 					}
-					output.add(space);
 				} 
 				else if (cats.size() == 2) 
 				{
@@ -107,10 +105,10 @@ public class Gameboard
                             || i == 66) {
 						space.setCategory(categories.get(1));
 					}
-					output.add(space);
 				} 
-				else return null;
+				output.add(space);
 			}
+			else return null;
 		}
 		return output;
 	}

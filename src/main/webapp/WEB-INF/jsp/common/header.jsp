@@ -8,11 +8,13 @@
 		<title>Programmers' Pursuit</title>
 		
 		<c:url var="stylesheetHref" value="/css/main.css" />
-		<c:url var="scriptSrc" value="/js/script.js" />
 		<link rel="stylesheet" href="${stylesheetHref}">
-		<script src="${ scriptSrc }"></script>
+		
+		<c:url var="jsURL" value="/js/script.js" />
+		<script src="${ jsURL }"></script>
 	</head>
 	<body>
+<<<<<<< HEAD
 		<header>
 			<h1><a href="<c:url value="/" />">Programmers' Pursuit</a></h1>
 			<ul class="navbar-right">
@@ -33,6 +35,17 @@
                         </li>
                     </c:otherwise>
 				</c:choose>
+=======
+		<header class="header">
+
+            <c:url var="homepageURL" value="/"/>
+            <h1 class="header-main"><a href="${ homepageURL }">Programmers' Pursuit</a></h1>
+            
+			<ul class="header__right-nav">
+                <c:url var="profileURL" value="/profile"/>
+                <li class="header__right-nav--link link header-link" id="profile"><a href="${profileURL}">Profile</a></li>
+>>>>>>> 6b51d0bd70dd0c0bc7dd2de09fd3a8b739023dea
             </ul>
+            
 		</header>
-		<main>
+		<main class="main-content">

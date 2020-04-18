@@ -78,29 +78,4 @@ public class Player
 	public int hashCode() {
 		return this.getPlayerId().hashCode();
 	}
-	
-    public static void main(String[] args) {
-    	
-    	int brianBooksRead = 106;
-    	int sallyBooksRead = 94;
-    	
-    	int sallyBooksPerWeek = 7;
-    	int brianBooksPerWeek = 2;
-    	
-    	int weekCount = 0;
-    	List<String> s = new ArrayList<>();
-    	
-    	String x = "Hello";
-    	while (sallyBooksRead < brianBooksRead)
-    	{
-    		sallyBooksRead += sallyBooksPerWeek;
-    		brianBooksRead += brianBooksPerWeek;
-    		weekCount++;
-    	}
-    	
-    	s.add(x + 4123);
-    	for (String z : s) { System.out.println(z); }
-    	System.out.println(weekCount);
-    }
-
 }
