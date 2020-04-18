@@ -45,10 +45,24 @@ ul {
 .hud-message {
     color: $color-grey-light-1;
     font-size: 4rem;
+    
+    &--rolled {
+        display: none;
+    }
 }
 
 .question-text {
     color: $color-grey-light-1;
     font-size: 3rem;
     font-weight: 600;
+}
+
+.about-header {
+    color: $color-grey-dark-2;
+    font-size: 4rem;
+}
+
+.team-member-name {
+    color: $color-grey-light-1;
+    font-size: 2rem;
 }

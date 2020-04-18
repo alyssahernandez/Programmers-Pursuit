@@ -7,22 +7,21 @@
 <div class="hud">
 
 <!-- 	MESSAGE SECTION -->
-	<div class="hud__message u-center-text">	
-		<c:choose>			
-			<c:when test="${currentPlayerTurn.allPies }">	
-				<h2 class="hud-message"><c:out value="${ currentPlayerTurn.name }"/>, you won!<br>Congratulations.</h2>
-			</c:when>
-			<c:otherwise>			
-				<c:choose>
-					<c:when test="${currentPlayerTurn.diceRoll == 0 }" >
-						<h2 class="hud-message"><c:out value="${ currentPlayerTurn.name }"/>, it's your turn.<br>Roll the die.</h2>		
-					</c:when>
-					<c:otherwise>
-						<h2 class="hud-message"><c:out value="${ currentPlayerTurn.name }"/>, you rolled a <c:out value="${ currentPlayerTurn.diceRoll }"/>.<br>Where do you want to move?</h2>
-					</c:otherwise>
-				</c:choose>				
-			</c:otherwise>			
-		</c:choose>		
+	<div class="hud__message u-center-text">
+		<h2 class="hud-message hud-message--primary">
+			<c:choose>
+				<c:when test="${ currentPlayerTurn.allPies }">
+					<c:out value="${ currentPlayerTurn.name }" />, you won!
+				</c:when>
+				<c:otherwise>
+					<c:out value="${ currentPlayerTurn.name }" />, it's your turn.
+				</c:otherwise>
+			</c:choose>
+		</h2>
+
+		<h2 class="hud-message hud-message--rolled">
+			<c:out value="${ currentPlayerTurn.name }" />, you rolled a <c:out value="${ currentPlayerTurn.diceRoll }"/>.<br>Where do you want to move?
+		</h2>
 	</div>
 
 <!-- 	STATUS SECTION -->

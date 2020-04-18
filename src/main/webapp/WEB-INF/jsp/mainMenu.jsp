@@ -24,7 +24,8 @@
 			<a href="${loginUrl}" class="button">Login</a>
 			
 			<div class="homepage__links">
-				<a href="#" class="homepage-link">About the Team</a>
+				<c:url var="aboutUsURL" value="/about"/>
+				<a href="${ aboutUsURL }" class="homepage-link">About the Team</a>
 			</div>
 		</main>
 	</body>

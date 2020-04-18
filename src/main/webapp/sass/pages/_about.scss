@@ -1,0 +1,37 @@
+.about {
+    padding: 1%;
+}
+
+.team {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    width: 35%;
+    margin: 1%;
+
+    display: flex;
+
+    &__headshot {
+        width: 30%;
+        height: auto;
+    }
+
+    &__details {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__bio {
+
+    }
+
+    &__links {
+
+        &--link {
+
+        }
+    }
+}

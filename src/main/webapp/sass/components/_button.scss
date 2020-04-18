@@ -10,8 +10,7 @@
 
     transition: all .2s;
 
-    &:hover,
-    &:visited {
+    &:hover {
         transform: translateY(-.5rem);
         box-shadow: $shadow-small;
         background-color: $color-aqua-2;
