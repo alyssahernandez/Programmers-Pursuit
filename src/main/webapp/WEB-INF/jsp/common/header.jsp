@@ -25,7 +25,7 @@
                     </c:when>
                     <c:otherwise>
                         <li><a href="/"><c:out value="${appCurrentUser.username}" /></a></li>
-                        <c:url var="logoffUrl" value="/logoff"/>
+                        <c:url var="logoffUrl" value="/logout"/>
                         <li>
                             <form action="${logoffUrl}" method="POST" class="navbar-form">
                                 <button type="submit" class="btn btn-primary">Log Off</button>
