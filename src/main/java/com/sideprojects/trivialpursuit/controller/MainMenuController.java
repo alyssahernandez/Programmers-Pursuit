@@ -4,6 +4,9 @@ package com.sideprojects.trivialpursuit.controller;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,13 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.auth0.SessionUtils;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 
-import com.sideprojects.trivialpursuit.model.auth.AuthProvider;
-import com.sideprojects.trivialpursuit.model.auth.User;
 
 
 @Controller
@@ -31,14 +33,26 @@ public class MainMenuController {
 	@Autowired
 	PlayerDAO playerDAO;
 	
-	@Autowired
-	private AuthProvider auth;
 
 	@RequestMapping(path="/", method=RequestMethod.GET)
 	public String displayMainMenu(ModelMap map) {
-		map.put("user", auth.getCurrentUser());
 		return "mainMenu";
 	}
+	
+	//// AUTH0 CONTROLLER TO REDIRECT TO THE USERS PROFILE PAGE
+	
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	protected String home(final Map<String, Object> model, final HttpServletRequest req) {
+	    String accessToken = (String) SessionUtils.get(req, "accessToken");
+	    String idToken = (String) SessionUtils.get(req, "idToken");
+	    if (accessToken != null) {
+	        model.put("userId", accessToken);
+	    } else if (idToken != null) {
+	        model.put("userId", idToken);
+	    }
+	    return "profilePage";
+	}
+	
 	
 	@RequestMapping(path="/", method=RequestMethod.POST)
 	public String createOrLoadGame(	

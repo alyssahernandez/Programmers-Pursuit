@@ -1,33 +1,32 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<c:import url="/WEB-INF/jsp/common/header.jsp" />
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="UTF-8">
+	    
+		<title>Programmers' Pursuit</title>
+		
+		<c:url var="stylesheetHref" value="/css/main.css" />
+		<c:url var="scriptSrc" value="/js/script.js" />
+		<link rel="stylesheet" href="${stylesheetHref}">
+		<script src="${ scriptSrc }"></script>
+	</head>
+	<body>
+		<main class="homepage">
+			<div class="homepage__titles u-center-text u-margin-bottom-big">
+				<h1 class="title">Programmers' Pursuit</h1>
+				<h2 class="subtitle">Brought to you by Philly Cohort<span class="homepage-bracket">[</span><span class="homepage-zero">0</span><span class="homepage-bracket">]</span></h2>
+			</div>
 
-<!-- div for displaying search game/create game options -->
-<div>
-
-	<h4>Please enter an active game code to join:</h4>
-	<c:url var="mainMenuURL" value="/"/>
-	<form action="${mainMenuURL }" method="POST">
-		<label for="gameSearch"></label>
-		<input name="gameSearch" type="text" placeholder="Enter Game Code..." />
-
-		<label for="search"></label>
-		<input name="search" type="submit" value="Search" />
-	</form>
-</div>
-
-<!-- 	TODO: THIS FORM NEEDS CONFIGURING - JEFF -->
-<div>
-	<h4>Or please fill in the fields below to create a game:</h4>
-	
-	<c:url var="createGameURL" value="/create"/>
-	<form action="${createGameURL }" method="GET" >
-	
-	<input type="submit" value="Create Game"/>
-	
-	</form>
-	
-</div>
-
-<c:import url="/WEB-INF/jsp/common/footer.jsp" />
+			<c:url var="loginUrl" value="/login"/>
+			<a href="${loginUrl}" class="button">Login</a>
+			
+			<div class="homepage__links">
+				<c:url var="aboutUsURL" value="/about"/>
+				<a href="${ aboutUsURL }" class="homepage-link">About the Team</a>
+			</div>
+		</main>
+	</body>
+</html>

@@ -1,0 +1,27 @@
+.homepage {
+    height: 100vh;
+    padding: 3%;
+
+    background-image: linear-gradient(to bottom, rgba($color-grey-dark-2, .95), rgba($color-grey-dark-2, .95) 70%, rgba($color-black, .95)), url(../img/hero.jpg);
+    background-position: center;
+    background-size: cover;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__links {
+        align-self: flex-end;
+
+        position: absolute;
+        bottom: 3rem;
+        right: 2rem;
+
+        &:not(:last-child) {
+            margin-right: 2rem;
+        }
+    }
+}

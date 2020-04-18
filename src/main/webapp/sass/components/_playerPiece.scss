@@ -1,0 +1,24 @@
+.player-piece {
+    flex-basis: 18rem;
+    padding: 1.5rem;
+    box-shadow: $shadow;
+
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-content: center;
+
+    &__slice {
+        width: 2rem;
+        height: 2rem;
+        margin: .5rem 1rem;
+        background-color: $color-grey-light-1;
+    }
+
+    &--small {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50%;
+        border: 1px solid $color-grey-light-1;
+    }
+}
