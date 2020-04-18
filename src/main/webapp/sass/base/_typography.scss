@@ -39,10 +39,16 @@ ul {
 
 .header-link {
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .hud-message {
     color: $color-grey-light-1;
     font-size: 4rem;
+}
+
+.question-text {
+    color: $color-grey-light-1;
+    font-size: 3rem;
+    font-weight: 600;
 }

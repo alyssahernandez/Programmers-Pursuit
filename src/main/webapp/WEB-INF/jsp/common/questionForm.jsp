@@ -28,9 +28,9 @@
 		</c:when>	
 		<c:otherwise>	
 			<form action="${ questionFormURL }" class="question-form" method="POST">
-				<label class="question-form__text" for="answer">${question.question }</label>
+				<label class="question-text u-center-text" for="answer">${question.question }</label>
 				<input class="question-form__answer" name="answer" type="text" placeholder="Enter your answer here..."/>					
-				<input class="question-form__button" type="submit" value="Submit Answer"/>
+				<input class="button" type="submit" value="Submit Answer"/>
 			</form>	
 		</c:otherwise>	
 	</c:choose>

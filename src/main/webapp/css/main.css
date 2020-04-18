@@ -71,12 +71,18 @@ ul {
 
 .header-link {
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .hud-message {
   color: #d1d8e0;
   font-size: 4rem;
+}
+
+.question-text {
+  color: #d1d8e0;
+  font-size: 3rem;
+  font-weight: 600;
 }
 
 .u-center-text {
@@ -495,10 +501,6 @@ ul {
 .space__spoke-space {
   width: 2.5rem;
   height: 2.5rem;
-}
-
-.space__reachable {
-  border: none;
 }
 
 .footer {
