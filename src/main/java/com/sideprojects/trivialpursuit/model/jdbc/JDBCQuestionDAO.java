@@ -44,7 +44,7 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		return question;
 	}
 	
-	// TODO: getUnaskedQuestion() ^^ above to display question. Use this to pull it back out to compare an answer (tho I think storing the question in session makes more sense) - Brooks
+	// TODO: getUnaskedQuestion() ^^ above to pull new question. Use this to pull it back out.
 	// TODO: Test the query
 	public Question getCurrentQuestion(Game game)
 	{
@@ -67,8 +67,15 @@ public class JDBCQuestionDAO implements QuestionDAO {
 			possibleAnswers.add(rowSet.getString("answer_choice_d"));
 			question.setPossibleAnswers(possibleAnswers);
 		}
-		setQuestionAsked(game, question); // TODO: Comment out / Uncomment this as needed until we have enough questions in DB that it won't affect test gameplay
 		return question;
+	}
+	
+	// TODO: Call in Controller POST. 
+	// Updates the current question the current question so that we don't pull it again.
+	public void setQuestionAsked(Game game, Question question)
+	{
+		String query = "UPDATE game_question SET asked = true, is_current_question = false WHERE game_id = ? AND question_id = ?";
+		jdbcTemplate.update(query, game.getGameID(), question.getQuestionID());
 	}
 	
 	// TODO: May need to pass in something other than a list depending on how Kiran does form input
@@ -112,7 +119,6 @@ public class JDBCQuestionDAO implements QuestionDAO {
 	
 	// This is called inside of setGameQuestions()
 	// TODO: May need to pass in something other than a list depending on how Kiran does form input
-	
 	// Gets questions by a list of category_id's to store in game_question.
 	private List<Question> getQuestionsByCategory(List<Integer> category_IDs)
 	{
@@ -140,13 +146,6 @@ public class JDBCQuestionDAO implements QuestionDAO {
 			}
 		}
 		return questions;
-	}
-	
-	// Updates the current question the current question so that we don't pull it again.
-	private void setQuestionAsked(Game game, Question question)
-	{
-		String query = "UPDATE game_question SET asked = true, is_current_question = false WHERE game_id = ? AND question_id = ?";
-		jdbcTemplate.update(query, game.getGameID(), question.getQuestionID());
 	}
 	
 	// Helper method to retrieve a random question from a List<Question> based on the list's size (because questions are pulled from the DB in the same order every time -- we want unique games)

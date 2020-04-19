@@ -16,6 +16,8 @@ import com.auth0.IdentityVerificationException;
 import com.auth0.SessionUtils;
 import com.auth0.Tokens;
 
+
+
 @Controller
 public class CallbackController {
 
@@ -39,4 +41,5 @@ public class CallbackController {
 	      return "redirect:/login";
 	  }
 	}
+
 }
