@@ -44,8 +44,7 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		return question;
 	}
 	
-	// TODO: getUnaskedQuestion() ^^ above to pull new question. Use this to pull it back out.
-	// TODO: Test the query
+	// Retrieves the current question (called after getUnaskedQuestionByCategory(), which pulls & initially sets the current question)
 	public Question getCurrentQuestion(Game game)
 	{
 		Question question = new Question();
@@ -70,8 +69,8 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		return question;
 	}
 	
-	// TODO: Call in Controller POST. 
 	// Updates the current question the current question so that we don't pull it again.
+	@Override
 	public void setQuestionAsked(Game game, Question question)
 	{
 		String query = "UPDATE game_question SET asked = true, is_current_question = false WHERE game_id = ? AND question_id = ?";

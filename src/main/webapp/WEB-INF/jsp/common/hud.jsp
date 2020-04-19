@@ -10,7 +10,7 @@
 	<div class="hud__message u-center-text">
 		<h2 class="hud-message hud-message--primary">
 			<c:choose>
-				<c:when test="${ currentPlayerTurn.allPies }">
+				<c:when test="${ currentPlayerTurn.allPies && !currentGame.active}">
 					<c:out value="${ currentPlayerTurn.name }" />, you won!
 				</c:when>
 				<c:otherwise>
