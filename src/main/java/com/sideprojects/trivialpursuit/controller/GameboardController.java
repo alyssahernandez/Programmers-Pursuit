@@ -46,8 +46,12 @@ public class GameboardController {
 		List<Category> gameCategories = currentGame.getCategories();
 		model.put("gameCategories", gameCategories);
 
+		/* TODO: dice roll method needs to be tweaked - ALYSSA
 		int diceRoll = currentGame.getActivePlayerRoll();
 		currentPlayerTurn.setDiceRoll(diceRoll);
+		currentGame.setActivePlayerRoll(diceRoll);
+		gameDAO.setActivePlayerDiceRoll(currentGame);
+		*/
 		
 		List<Space> reachableSpaces = currentPlayerTurn.getReachableSpaces(currentGame.getGameboard());
 		model.put("reachableSpaces", reachableSpaces);
@@ -67,6 +71,12 @@ public class GameboardController {
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);
 		Space updatedPlayerSpace = null;
+		
+		// TODO: revisit dice roll - ALYSSA
+		int diceRoll = Dice.getDiceRoll();
+		currentPlayerTurn.setDiceRoll(diceRoll);
+		currentGame.setActivePlayerRoll(diceRoll);
+		gameDAO.setActivePlayerDiceRoll(currentGame);
 		
 		if (spaceChoice != null) {
 			updatedPlayerSpace = currentGame.getGameboard().getSpaces().get(spaceChoice);

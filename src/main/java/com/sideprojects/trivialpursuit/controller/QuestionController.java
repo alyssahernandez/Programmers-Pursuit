@@ -140,8 +140,12 @@ public class QuestionController {
 					
 	        gameDAO.setHasSelectedCategory(currentGame, false);
 	        gameDAO.setIsAnsweringQuestion(currentGame, false);
+	        
+	        // TODO: another place the dice roll method needs to be tweaked - ALYSSA
 	        int diceRoll = Dice.getDiceRoll();
 	        currentGame.setActivePlayerRoll(diceRoll);
+	        currentPlayerTurn.setDiceRoll(diceRoll);
+	        
 	        gameDAO.setActivePlayerDiceRoll(currentGame);
 	        
 			return "redirect:/gameboard/" + currentGame.getGameCode();
