@@ -174,7 +174,7 @@ public class QuestionController {
 	        currentGame.setActivePlayerRoll(diceRoll);
 	        currentPlayerTurn.setDiceRoll(diceRoll);
 	        
-	        gameDAO.setActivePlayerDiceRoll(currentGame);
+	        gameDAO.setActivePlayerDiceRoll(currentGame, diceRoll);
 	        
 			return "redirect:/gameboard/" + currentGame.getGameCode();
         

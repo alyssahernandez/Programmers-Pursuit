@@ -149,11 +149,11 @@ public class JDBCGameDAO implements GameDAO {
 	}
 	
 	@Override
-	public void setActivePlayerDiceRoll(Game game)
+	public void setActivePlayerDiceRoll(Game game, int diceRoll)
 	{
-		Player activePlayer = game.getActivePlayer();
+		// Player activePlayer = game.getActivePlayer();
 		String query = "UPDATE game SET active_player_roll = ? WHERE game_id = ?";
-		template.update(query, activePlayer.getDiceRoll(), game.getGameID());
+		template.update(query, diceRoll, game.getGameID());
 	}
 	
 	public void setIsAnsweringQuestion(Game game, Boolean isAnsweringQuestion)
