@@ -1,0 +1,57 @@
+//////////////////////
+// COLOR //
+//////////////////////
+$color-red-1: #fc5c65;
+$color-red-2: #eb3b5a;
+
+$color-orange-1: #fd9644;
+$color-orange-2: #fa8231;
+
+$color-yellow-1: #fed330;
+$color-yellow-2: #f7b731;
+
+$color-green-1: #26de81;
+$color-green-2: #20bf6b;
+
+$color-aqua-1: #2bcbba;
+$color-aqua-2: #0fb9b1;
+
+$color-blue-1: #45aaf2;
+$color-blue-2: #2d98da;
+
+$color-indigo-1: #4b7bec;
+$color-indigo-2: #3867d6;
+
+$color-purple-1: #a55eea;
+$color-purple-2: #8854d0;
+
+$color-grey-light-1: #d1d8e0;
+$color-grey-light-2: #a5b1c2;
+
+$color-grey-dark-1: #778ca3;
+$color-grey-dark-2: #4b6584;
+
+$color-black: #000;
+$color-white: #fff;
+
+//////////////////////
+// FONT //
+//////////////////////
+$font-primary: 'Roboto', sans-serif;
+$default-font-size: 1.6rem;
+$button-font-size: 2.5rem;
+$button-font-weight: 700;
+
+//////////////////////
+// SHADOW //
+//////////////////////
+$shadow: 0 2rem 2rem rgba(0,0,0,0.2);
+$shadow-small: 0 1rem 1rem rgba(0,0,0,0.2);
+$shadow-large: 0 3rem 3rem rgba(0,0,0,0.2);
+
+//////////////////////
+// LAYOUT //
+//////////////////////
+$main-height: 90%; // JUST CHANGE THIS ONE; THE OTHER TWO ARE DERIVED
+$header-height: ((100 - $main-height) / 5) * 4;
+$footer-height: (100 - $main-height) / 5;

@@ -50,6 +50,9 @@ public class QuestionController {
 		
 		Space currentPlayerSpace = currentPlayerTurn.getLocation();
 		model.put("currentPlayerSpace", currentPlayerSpace);
+		
+		boolean questionHUD = false;
+		model.put("questionHUD", questionHUD);
 				
 		// TODO: I made a "game.getUniqueCategories()" method that you could call instead of using a DAO & HashSetting the categories here. - Brooks
 		List<Category> gameCategories = categoryDAO.getCategoriesByGame(currentGame);

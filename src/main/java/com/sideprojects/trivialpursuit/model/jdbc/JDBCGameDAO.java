@@ -151,7 +151,7 @@ public class JDBCGameDAO implements GameDAO {
 		//TODO: Remove active_player_id from game, change this query to update game_player.is_turn
 		String update1 = "UPDATE game SET active_player_id = ? WHERE game_id = ?";
 		template.update(update1, activePlayer.getPlayerId(), game.getGameID());
-		String update2 = "UPDATE game_player SET is_answering_question_center = false, has_selected_category_center = false WHERE game_id = ? AND player_id = ?";
+		String update2 = "UPDATE game_player SET is_turn = true, is_answering_question_center = false, has_selected_category_center = false WHERE game_id = ? AND player_id = ?";
 		template.update(update2, game.getGameID(), activePlayer.getPlayerId());
 	}
 	
@@ -160,10 +160,10 @@ public class JDBCGameDAO implements GameDAO {
 	{
 		Player activePlayer = game.getActivePlayer();
 		
-		//TODO: String query = "UPDATE game_player SET player_dice_roll = ? WHERE player_id = ? AND game_id = ?";
-		//TODO: template.update(query, activePlayer.getDiceRoll(), activePlayer.getPlayerId(), game.getGameID());
-		String query = "UPDATE game SET active_player_roll = ? WHERE game_id = ?";
-		template.update(query, activePlayer.getDiceRoll(), game.getGameID());
+		String query = "UPDATE game_player SET player_roll = ? WHERE player_id = ? AND game_id = ?";
+		template.update(query, activePlayer.getDiceRoll(), activePlayer.getPlayerId(), game.getGameID());
+		String query2 = "UPDATE game SET active_player_roll = ? WHERE game_id = ?";
+		template.update(query2, activePlayer.getDiceRoll(), game.getGameID());
 	}
 	
 	public void setIsAnsweringQuestion(Game game, Boolean isAnsweringQuestion)

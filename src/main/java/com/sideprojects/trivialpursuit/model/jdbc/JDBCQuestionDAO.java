@@ -44,19 +44,7 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		return question;
 	}
 	
-	// TODO: May need to pass in something other than a list depending on how Kiran does form input
-	// Uses private "getQuestionsByCategory()" method below to set questions in game_question. //TODO: This is what will be used in Controller @ Kiran. - Brooks
-	@Override
-	public void setGameQuestions(Game game, List<Integer> category_IDs)
-	{
-		List<Question> questions = getQuestionsByCategory(category_IDs);
-		String query = "INSERT INTO game_question (game_id, question_id, asked) VALUES (?, ?, false)";
-		
-		for (Question q : questions)
-			jdbcTemplate.update(query, game.getGameID(), q.getQuestionID());
-	}
-	
-	// TODO: getUnaskedQuestion() ^^ above to display question. Use this to pull it back out to compare an answer (tho I think the question should go in session!) - Brooks
+	// TODO: getUnaskedQuestion() ^^ above to display question. Use this to pull it back out to compare an answer (tho I think storing the question in session makes more sense) - Brooks
 	// TODO: Test the query
 	public Question getCurrentQuestion(Game game)
 	{
@@ -79,39 +67,20 @@ public class JDBCQuestionDAO implements QuestionDAO {
 			possibleAnswers.add(rowSet.getString("answer_choice_d"));
 			question.setPossibleAnswers(possibleAnswers);
 		}
-		setQuestionAsked(game, question); // TODO: Uncomment this
+		setQuestionAsked(game, question); // TODO: Comment out / Uncomment this as needed until we have enough questions in DB that it won't affect test gameplay
 		return question;
 	}
 	
 	// TODO: May need to pass in something other than a list depending on how Kiran does form input
-	// TODO: Call this inside of setGameQuestions()
-	// Gets questions by a list of category_id's to store in game_question.
-	private List<Question> getQuestionsByCategory(List<Integer> category_IDs)
+	// Uses private "getQuestionsByCategory()" method below to set questions in game_question. //TODO: This is what will be used in Controller @ Kiran. - Brooks
+	@Override
+	public void setGameQuestions(Game game, List<Integer> category_IDs)
 	{
-		List<Question> questions = new ArrayList<>();
-		String sqlGetQuestionFromCategory = "SELECT * FROM question WHERE category_id = ?";
+		List<Question> questions = getQuestionsByCategory(category_IDs);
+		String query = "INSERT INTO game_question (game_id, question_id, asked) VALUES (?, ?, false)";
 		
-		for (Integer cat_id : category_IDs)
-		{
-			SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlGetQuestionFromCategory, cat_id);
-			
-			while (rowSet.next()) 
-			{
-				Question question = new Question();
-				List<String> possibleAnswers = new ArrayList<>();
-				question.setAnswer(rowSet.getString("correct_answer"));
-				question.setCategoryID(rowSet.getInt("category_id"));
-				question.setQuestion(rowSet.getString("question"));
-				question.setQuestionID(rowSet.getInt("question_id"));
-				possibleAnswers.add(rowSet.getString("answer_choice_a"));
-				possibleAnswers.add(rowSet.getString("answer_choice_b"));
-				possibleAnswers.add(rowSet.getString("answer_choice_c"));
-				possibleAnswers.add(rowSet.getString("answer_choice_d"));
-				question.setPossibleAnswers(possibleAnswers);
-				questions.add(question);
-			}
-		}
-		return questions;
+		for (Question q : questions)
+			jdbcTemplate.update(query, game.getGameID(), q.getQuestionID());
 	}
 	
 	// Pulls a list of unasked questions, from which we'll pull a single question in getUnaskedQuestion above.
@@ -141,15 +110,46 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		return questions;
 	}
 	
-	//TODO: Set "is_current_question = false"
-	// Updates the pulled question to "asked" in the DB so that we don't pull it again.
+	// This is called inside of setGameQuestions()
+	// TODO: May need to pass in something other than a list depending on how Kiran does form input
+	
+	// Gets questions by a list of category_id's to store in game_question.
+	private List<Question> getQuestionsByCategory(List<Integer> category_IDs)
+	{
+		List<Question> questions = new ArrayList<>();
+		String sqlGetQuestionFromCategory = "SELECT * FROM question WHERE category_id = ?";
+		
+		for (Integer cat_id : category_IDs)
+		{
+			SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlGetQuestionFromCategory, cat_id);
+			
+			while (rowSet.next()) 
+			{
+				Question question = new Question();
+				List<String> possibleAnswers = new ArrayList<>();
+				question.setAnswer(rowSet.getString("correct_answer"));
+				question.setCategoryID(rowSet.getInt("category_id"));
+				question.setQuestion(rowSet.getString("question"));
+				question.setQuestionID(rowSet.getInt("question_id"));
+				possibleAnswers.add(rowSet.getString("answer_choice_a"));
+				possibleAnswers.add(rowSet.getString("answer_choice_b"));
+				possibleAnswers.add(rowSet.getString("answer_choice_c"));
+				possibleAnswers.add(rowSet.getString("answer_choice_d"));
+				question.setPossibleAnswers(possibleAnswers);
+				questions.add(question);
+			}
+		}
+		return questions;
+	}
+	
+	// Updates the current question the current question so that we don't pull it again.
 	private void setQuestionAsked(Game game, Question question)
 	{
 		String query = "UPDATE game_question SET asked = true, is_current_question = false WHERE game_id = ? AND question_id = ?";
 		jdbcTemplate.update(query, game.getGameID(), question.getQuestionID());
 	}
 	
-	// Helper method to get a random index to reference from a List<Question> (to select a random question, given our List<Question> pulled from DB will have the same order every time)
+	// Helper method to retrieve a random question from a List<Question> based on the list's size (because questions are pulled from the DB in the same order every time -- we want unique games)
 	private int getQuestionIndex(List<Question> questions)
 	{	
 		int questionIndex = 0;

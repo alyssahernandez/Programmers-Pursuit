@@ -51,6 +51,9 @@ public class GameboardController {
 		
 		List<Space> reachableSpaces = currentPlayerTurn.getReachableSpaces(currentGame.getGameboard());
 		model.put("reachableSpaces", reachableSpaces);
+		
+		boolean questionHUD = true;
+		model.put("questionHUD", questionHUD);
 			
 		return "gameboard";
 	
