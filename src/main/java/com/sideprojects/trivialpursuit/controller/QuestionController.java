@@ -68,6 +68,9 @@ public class QuestionController {
 			model.put("question", question);
 		} */
 		
+		// TODO: See: questionDAO.getCurrentQuestion(currentGame);
+		// getUnaskedQuestion() must be called before that works, obviously. - Brooks
+		
 		
 		if (!currentPlayerSpace.isCenter()) {
 				// && !(currentGame.getIsActivePlayerAnsweringQuestion())) { - GOES HERE IF Q IS IN DB - ALYSSA
@@ -119,23 +122,11 @@ public class QuestionController {
 		}
 		
 		if (answer != null) {
-			/* another place where we should store the active question because there is nothing
-			to compare it to right now - ALYSSA
-			boolean isAnswerCorrect = answer.equalsIgnoreCase(activeQuestion).getAnswer());
-			*/
 			
 			// TODO: @Alyssa: Updated this to make sure it works. Do whatever with it!
 			Question currentQuestion = questionDAO.getCurrentQuestion(currentGame);
 			boolean isAnswerCorrect = answer.equalsIgnoreCase(currentQuestion.getAnswer());
 			questionDAO.setQuestionAsked(currentGame, currentQuestion);
-			
-			/*
-			if (answer.equalsIgnoreCase("Inheritance, Encapsulation, Polymorphism") || answer.equalsIgnoreCase("WHERE") || 
-					answer.equalsIgnoreCase("Row") || answer.equalsIgnoreCase("@RequestMapping") || 
-					answer.equalsIgnoreCase("False") || answer.equalsIgnoreCase("JUnit")) {
-				isAnswerCorrect = true;
-			}
-			*/
 			
 			if (currentPlayerSpace.hasPie() && isAnswerCorrect) {			
 				playerDAO.givePlayerPiePiece(currentPlayerSpace.getSpaceId(), currentGame);	
@@ -162,23 +153,17 @@ public class QuestionController {
 				currentGame.setActive(false);
 			}  
 		
-		
 		// I could call givePlayerPiePiece() in setActivePlayer(), including this conditional with it. You'd just have to call setActivePlayer() as you did below. Would shorten a couple of files. Lmk. - Brooks
-
 			
 			chosenCenterSpaceCategory = "false";
 			categoryChoiceId = null;
 			
 			gameDAO.setActivePlayer(currentGame, isAnswerCorrect);
-					
+			
 	        gameDAO.setHasSelectedCategory(currentGame, false);
 	        gameDAO.setIsAnsweringQuestion(currentGame, false);
 	        
-	        // TODO: another place the dice roll method needs to be tweaked - ALYSSA
-	        int diceRoll = Dice.getDiceRoll();
-	        currentGame.setActivePlayerRoll(diceRoll);
-	        currentPlayerTurn.setDiceRoll(diceRoll);
-	        
+	        int diceRoll = Dice.getDiceRoll();        
 	        gameDAO.setActivePlayerDiceRoll(currentGame, diceRoll);
 	        
 			return "redirect:/gameboard/" + currentGame.getGameCode();

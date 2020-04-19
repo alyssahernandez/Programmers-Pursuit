@@ -72,6 +72,10 @@ public class GameboardController {
 		}
 		
 		if (updatedPlayerSpace.isRollAgain()) {
+			
+	        int diceRoll = Dice.getDiceRoll();        
+	        gameDAO.setActivePlayerDiceRoll(currentGame, diceRoll);
+			
 			return "redirect:/gameboard/{gameCode}";
 		}
 				

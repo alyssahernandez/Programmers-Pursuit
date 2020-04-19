@@ -73,7 +73,9 @@ public class JDBCQuestionDAO implements QuestionDAO {
 	@Override
 	public void setQuestionAsked(Game game, Question question)
 	{
-		String query = "UPDATE game_question SET asked = true, is_current_question = false WHERE game_id = ? AND question_id = ?";
+		
+		 String query = "UPDATE game_question SET is_current_question = false WHERE game_id = ? AND question_id = ?";
+		//String query = "UPDATE game_question SET asked = true, is_current_question = false WHERE game_id = ? AND question_id = ?";
 		jdbcTemplate.update(query, game.getGameID(), question.getQuestionID());
 	}
 	

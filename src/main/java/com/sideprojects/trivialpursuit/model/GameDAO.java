@@ -21,4 +21,5 @@ public interface GameDAO {
 	public void setHasSelectedCategory(Game game, Boolean hasSelectedCategory);
 	
 	public void setIsGameActive(Game game, Boolean isActive);
+	
 }
