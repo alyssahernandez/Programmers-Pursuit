@@ -1,6 +1,7 @@
 package com.sideprojects.trivialpursuit.controller;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,9 +29,11 @@ public class CallbackController {
 	      Tokens tokens = controller.handle(req, res);
 	      SessionUtils.set(req, "accessToken", tokens.getAccessToken());
 	      SessionUtils.set(req, "idToken", tokens.getIdToken());
+	      
 	      //call DAO method and try to load userID with the id token
 	      //if it works put the user id into the session
 	      //if it doesnt work then call DAO method to create new user param(id)
+	      
 	      return "redirect:/profile";
 	  } catch (IdentityVerificationException e) {
 	      return "redirect:/login";

@@ -23,6 +23,7 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template = new JdbcTemplate(dataSource);
 	}
 	
+	// TODO: We're going to have to do this based on user_id. This will need reworked. - Brooks
 	// TODO: 99% sure we need a RETURNING statement here, returning Player_id, so we can insert into game_player without a refresh.
 	@Override
 	public void createPlayer(String playerName) {

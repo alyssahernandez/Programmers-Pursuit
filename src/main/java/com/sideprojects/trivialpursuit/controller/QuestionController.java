@@ -61,7 +61,8 @@ public class QuestionController {
 					currentPlayerSpace.getCategory().getCategoryId());
 			model.put("question", question);
 		}
-		
+
+		// TODO: Call question.getPossibleAnswers() to return a list of possible answers to display on form - Brooks
 
 		return "question";
 	}
@@ -101,9 +102,7 @@ public class QuestionController {
 			return "redirect:/question";
 		}
 		
-		// Changed to equalsIgnoreCase - Brooks
-		boolean isAnswerCorrect = answer.equalsIgnoreCase(questionDAO.getUnaskedQuestionByCategory(currentGame,
-				categoryId).getAnswer());
+		boolean isAnswerCorrect = answer.equalsIgnoreCase(questionDAO.getCurrentQuestion(currentGame).getAnswer());
 		
 		// I could call givePlayerPiePiece() in setActivePlayer(), including this conditional with it. You'd just have to call setActivePlayer() as you did below. Would shorten a couple of files. Lmk. - Brooks
 		if (currentPlayerSpace.hasPie() && isAnswerCorrect) {

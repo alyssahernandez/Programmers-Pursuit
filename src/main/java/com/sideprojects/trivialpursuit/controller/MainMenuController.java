@@ -41,13 +41,16 @@ public class MainMenuController {
 	//// AUTH0 CONTROLLER TO REDIRECT TO THE USERS PROFILE PAGE
 	
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	protected String home(final Map<String, Object> model, final HttpServletRequest req) {
+	protected String home(final Map<String, Object> model, final HttpServletRequest req, ModelMap map) {
 	    String accessToken = (String) SessionUtils.get(req, "accessToken");
 	    String idToken = (String) SessionUtils.get(req, "idToken");
 	    if (accessToken != null) {
 	        model.put("userId", accessToken);
+	        map.put("userId", accessToken);
 	    } else if (idToken != null) {
 	        model.put("userId", idToken);
+	        map.put("userId", idToken);
+	        
 	    }
 	    return "ProfilePage";
 	}
