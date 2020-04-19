@@ -19,4 +19,6 @@ public interface GameDAO {
 	public void setIsAnsweringQuestion(Game game, Boolean isAnsweringQuestion);
 	
 	public void setHasSelectedCategory(Game game, Boolean hasSelectedCategory);
+	
+	public void setIsGameActive(Game game, Boolean isActive);
 }

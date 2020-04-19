@@ -69,22 +69,28 @@ public class QuestionController {
 		} */
 		
 		
-		if (!currentPlayerSpace.isCenter() || currentGame.getHasActivePlayerSelectedCategory()) {
+		if (!currentPlayerSpace.isCenter()) {
 				// && !(currentGame.getIsActivePlayerAnsweringQuestion())) { - GOES HERE IF Q IS IN DB - ALYSSA
 			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
 					currentPlayerSpace.getCategory().getCategoryId());
 			model.put("question", question);
 			gameDAO.setIsAnsweringQuestion(currentGame, true);
-		} 
+			// gameDAO.setHasSelectedCategory(currentGame, false);
+		} else if (currentGame.getHasActivePlayerSelectedCategory()) {
+			
+			/* NEED TO STORE ACTIVE QUESTION IN DB TO RETRIEVE 
+			*/
+			
+			gameDAO.setIsAnsweringQuestion(currentGame, true);
+		}
 		
-
 		return "question";
 	}
 	
 	@RequestMapping(path="/question/{gameCode}", method=RequestMethod.POST)
 	public String submitQuestion(
 			@PathVariable String gameCode,
-			@RequestParam(name = "categoryChoice", required = false) Integer categoryChoiceId,
+			@RequestParam(name = "categoryChoiceId", required = false) Integer categoryChoiceId,
 			@RequestParam(name = "chosenCenterSpaceCategory", required = false, defaultValue = "false") String chosenCenterSpaceCategory,
 			@RequestParam(name = "answer", required = false) String answer,
 			ModelMap model) {
@@ -94,25 +100,28 @@ public class QuestionController {
 		Space currentPlayerSpace = currentPlayerTurn.getLocation();		
 		Integer categoryId = null;
 		
-		/* 
 		if (categoryChoiceId != null) {
 			categoryId = categoryChoiceId;
-		} else {
-			categoryId = currentPlayerSpace.getCategory().getCategoryId();
-		} */
+		}
 		
 		if (currentPlayerSpace.isCenter() && categoryChoiceId != null && chosenCenterSpaceCategory.equals("true")) {
-			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
-					categoryId);
-			model.put("question", question);
 			
-			return "redirect:/question";
+			gameDAO.setHasSelectedCategory(currentGame, true);
+			currentGame.setHasActivePlayerSelectedCategory(true);
+			
+			/* Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
+					categoryId);
+			 store active question in db
+
+			 */ 
+			
+			return "redirect:/question/" + currentGame.getGameCode();
 		}
 		
 		if (answer != null) {
 			/* another place where we should store the active question because there is nothing
 			to compare it to right now - ALYSSA
-			boolean isAnswerCorrect = answer.equalsIgnoreCase(question).getAnswer());
+			boolean isAnswerCorrect = answer.equalsIgnoreCase(activeQuestion).getAnswer());
 			*/
 			
 			boolean isAnswerCorrect = false;
@@ -122,12 +131,31 @@ public class QuestionController {
 					answer.equalsIgnoreCase("False") || answer.equalsIgnoreCase("JUnit")) {
 				isAnswerCorrect = true;
 			}
-					
-	
 			
 			if (currentPlayerSpace.hasPie() && isAnswerCorrect) {			
-				playerDAO.givePlayerPiePiece(currentPlayerSpace.getSpaceId(), currentGame);							
+				playerDAO.givePlayerPiePiece(currentPlayerSpace.getSpaceId(), currentGame);	
+				
+				// optimize this later - ALYSSA
+				if (currentPlayerSpace.getSpaceId() == 6) {
+					currentPlayerTurn.setPie1(true);
+				} else if (currentPlayerSpace.getSpaceId() == 18) {
+					currentPlayerTurn.setPie2(true);
+				} else if (currentPlayerSpace.getSpaceId() == 30) {
+					currentPlayerTurn.setPie3(true);
+				} else if (currentPlayerSpace.getSpaceId() == 42) {
+					currentPlayerTurn.setPie4(true);
+				} else if (currentPlayerSpace.getSpaceId() == 54) {
+					currentPlayerTurn.setPie5(true);
+				} else if (currentPlayerSpace.getSpaceId() == 66) {
+					currentPlayerTurn.setPie6(true);
+				}
+				
 			}
+			
+			if (currentPlayerSpace.isCenter() && isAnswerCorrect && currentPlayerTurn.getAllPies()) {				
+				gameDAO.setIsGameActive(currentGame, false);
+				currentGame.setActive(false);
+			}  
 		
 		
 		// I could call givePlayerPiePiece() in setActivePlayer(), including this conditional with it. You'd just have to call setActivePlayer() as you did below. Would shorten a couple of files. Lmk. - Brooks
@@ -153,7 +181,7 @@ public class QuestionController {
 		}
 		
 		
-		return "redirect:/gameboard/" + currentGame.getGameCode();
+		return "redirect:/question/" + currentGame.getGameCode();
 	}
 		
 }

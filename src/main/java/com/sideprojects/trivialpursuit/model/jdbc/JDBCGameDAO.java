@@ -162,6 +162,11 @@ public class JDBCGameDAO implements GameDAO {
 		template.update(query, isAnsweringQuestion, game.getGameID());
 	}
 	
+	public void setIsGameActive(Game game, Boolean isActive) {
+        String query = "UPDATE game SET active = ? WHERE game_id = ?";
+        template.update(query, isActive, game.getGameID());
+	}
+	
 	// This is for the center space
 	public void setHasSelectedCategory(Game game, Boolean hasSelectedCategory)
 	{
