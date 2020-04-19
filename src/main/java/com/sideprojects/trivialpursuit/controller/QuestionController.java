@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sideprojects.trivialpursuit.model.Category;
 import com.sideprojects.trivialpursuit.model.CategoryDAO;
+import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Player;
@@ -54,16 +55,27 @@ public class QuestionController {
 		boolean questionHUD = false;
 		model.put("questionHUD", questionHUD);
 				
-		// TODO: I made a "game.getUniqueCategories()" method that you could call instead of using a DAO & HashSetting the categories here. - Brooks
-		List<Category> gameCategories = categoryDAO.getCategoriesByGame(currentGame);
-		Set<Category> hashedCategories = new HashSet<>(gameCategories);
-		model.put("hashedCategories", hashedCategories);
+		List<Category> gameCategories = currentGame.getUniqueCategories();
+		model.put("gameCategories", gameCategories);
 		
-		if (!currentPlayerSpace.isCenter() && !currentPlayerSpace.isRollAgain()) {
+		/* I think we talked about this, but we should definitely store the current question
+		 * being asked in the DB so the user can't refresh and get a new question or whatever.
+		 * Then we can pull the current question - Not sure that I would mark the question
+		 * as "asked" until it's been answered. The following if block would be if-else if - ALYSSA
+		 * 
+		if (currentGame.getIsActivePlayerAnsweringQuestion()) {
+			Question question = CURRENT QUESTION FROM DB
+			model.put("question", question);
+		} */
+		
+		
+		if (!currentPlayerSpace.isCenter() || currentGame.getHasActivePlayerSelectedCategory()) {
+				// && !(currentGame.getIsActivePlayerAnsweringQuestion())) { - GOES HERE IF Q IS IN DB - ALYSSA
 			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
 					currentPlayerSpace.getCategory().getCategoryId());
 			model.put("question", question);
-		}
+			gameDAO.setIsAnsweringQuestion(currentGame, true);
+		} 
 		
 
 		return "question";
@@ -73,52 +85,69 @@ public class QuestionController {
 	public String submitQuestion(
 			@PathVariable String gameCode,
 			@RequestParam(name = "categoryChoice", required = false) Integer categoryChoiceId,
-			@RequestParam(name = "questionChosen", required = false, defaultValue = "false") String chosenCenterSpaceCategory,
+			@RequestParam(name = "chosenCenterSpaceCategory", required = false, defaultValue = "false") String chosenCenterSpaceCategory,
 			@RequestParam(name = "answer", required = false) String answer,
 			ModelMap model) {
 		
-		model.put("hasChosenCenterSpaceCategory", chosenCenterSpaceCategory);
-		
-		Game currentGame = gameDAO.getActiveGame(gameCode);
-		model.put("currentGame", currentGame);
-		
-		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);
-		model.put("currentPlayerTurn", currentPlayerTurn);
-		
-		Space currentPlayerSpace = currentPlayerTurn.getLocation();
-		model.put("currentPlayerSpace", currentPlayerSpace);
-		
+		Game currentGame = gameDAO.getActiveGame(gameCode);		
+		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);		
+		Space currentPlayerSpace = currentPlayerTurn.getLocation();		
 		Integer categoryId = null;
 		
+		/* 
 		if (categoryChoiceId != null) {
 			categoryId = categoryChoiceId;
 		} else {
 			categoryId = currentPlayerSpace.getCategory().getCategoryId();
-		}
+		} */
 		
 		if (currentPlayerSpace.isCenter() && categoryChoiceId != null && chosenCenterSpaceCategory.equals("true")) {
 			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
-					categoryChoiceId);
+					categoryId);
 			model.put("question", question);
 			
 			return "redirect:/question";
 		}
 		
-		// Changed to equalsIgnoreCase - Brooks
-		boolean isAnswerCorrect = answer.equalsIgnoreCase(questionDAO.getUnaskedQuestionByCategory(currentGame,
-				categoryId).getAnswer());
+		if (answer != null) {
+			/* another place where we should store the active question because there is nothing
+			to compare it to right now - ALYSSA
+			boolean isAnswerCorrect = answer.equalsIgnoreCase(question).getAnswer());
+			*/
+			
+			boolean isAnswerCorrect = false;
+					
+			if (answer.equalsIgnoreCase("Inheritance, Encapsulation, Polymorphism") || answer.equalsIgnoreCase("WHERE") || 
+					answer.equalsIgnoreCase("Row") || answer.equalsIgnoreCase("@RequestMapping") || 
+					answer.equalsIgnoreCase("False") || answer.equalsIgnoreCase("JUnit")) {
+				isAnswerCorrect = true;
+			}
+					
+	
+			
+			if (currentPlayerSpace.hasPie() && isAnswerCorrect) {			
+				playerDAO.givePlayerPiePiece(currentPlayerSpace.getSpaceId(), currentGame);							
+			}
+		
 		
 		// I could call givePlayerPiePiece() in setActivePlayer(), including this conditional with it. You'd just have to call setActivePlayer() as you did below. Would shorten a couple of files. Lmk. - Brooks
-		if (currentPlayerSpace.hasPie() && isAnswerCorrect) {
+
 			
-			playerDAO.givePlayerPiePiece(currentPlayerSpace.getSpaceId(), currentGame);
-							
+			chosenCenterSpaceCategory = "false";
+			categoryChoiceId = null;
+			
+			gameDAO.setActivePlayer(currentGame, isAnswerCorrect);
+					
+	        gameDAO.setHasSelectedCategory(currentGame, false);
+	        gameDAO.setIsAnsweringQuestion(currentGame, false);
+	        int diceRoll = Dice.getDiceRoll();
+	        currentGame.setActivePlayerRoll(diceRoll);
+	        gameDAO.setActivePlayerDiceRoll(currentGame);
+	        
+			return "redirect:/gameboard/" + currentGame.getGameCode();
+        
 		}
 		
-		chosenCenterSpaceCategory = "false";
-		categoryChoiceId = null;
-		
-		gameDAO.setActivePlayer(currentGame, isAnswerCorrect);
 		
 		return "redirect:/gameboard/" + currentGame.getGameCode();
 	}
