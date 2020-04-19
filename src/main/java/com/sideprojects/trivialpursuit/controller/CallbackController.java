@@ -15,6 +15,8 @@ import com.auth0.IdentityVerificationException;
 import com.auth0.SessionUtils;
 import com.auth0.Tokens;
 
+
+
 @Controller
 public class CallbackController {
 
@@ -32,12 +34,10 @@ public class CallbackController {
 	      //if it works put the user id into the session
 	      //if it doesnt work then call DAO method to create new user param(id)
 	      
-	     
-	      
 	      return "redirect:/profile";
 	  } catch (IdentityVerificationException e) {
 	      return "redirect:/login";
 	  }
 	}
-	
+
 }
