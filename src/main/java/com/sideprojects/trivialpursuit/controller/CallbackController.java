@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.auth0.IdentityVerificationException;
 import com.auth0.SessionUtils;
 import com.auth0.Tokens;
+import com.auth0.json.mgmt.users.User;
 
 
 
@@ -33,7 +34,7 @@ public class CallbackController {
 	      //call DAO method and try to load userID with the id token
 	      //if it works put the user id into the session
 	      //if it doesnt work then call DAO method to create new user param(id)
-	      
+	 
 	      return "redirect:/profile";
 	  } catch (IdentityVerificationException e) {
 	      return "redirect:/login";
