@@ -1,3 +1,4 @@
+
 package com.sideprojects.trivialpursuit.model.jdbc;
 
 import java.util.ArrayList;
@@ -174,3 +175,4 @@ public class JDBCGameDAO implements GameDAO {
 		template.update(query, hasSelectedCategory, game.getGameID());
 	}
 }
+

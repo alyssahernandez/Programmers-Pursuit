@@ -14,11 +14,12 @@ public interface GameDAO {
 	
 	public void setActivePlayer(Game game, boolean isCorrectAnswer);
 	
+	public void setActivePlayerDiceRoll(Game game, int diceRoll);
+	
 	public void setIsAnsweringQuestion(Game game, Boolean isAnsweringQuestion);
 	
 	public void setHasSelectedCategory(Game game, Boolean hasSelectedCategory);
 	
 	public void setIsGameActive(Game game, Boolean isActive);
 	
-	public void setActivePlayerDiceRoll(Game game, int diceRoll);
 }

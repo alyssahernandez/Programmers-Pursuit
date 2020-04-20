@@ -25,18 +25,18 @@ import com.sideprojects.trivialpursuit.model.Space;
 
 @Controller
 public class QuestionController {
-	
-	@Autowired
-	private GameDAO gameDAO;
-	
-	@Autowired
-	private CategoryDAO categoryDAO;
-	
-	@Autowired
-	private QuestionDAO questionDAO;
-	
-	@Autowired
-	private PlayerDAO playerDAO;
+    
+    @Autowired
+    private GameDAO gameDAO;
+    
+    @Autowired
+    private CategoryDAO categoryDAO;
+    
+    @Autowired
+    private QuestionDAO questionDAO;
+    
+    @Autowired
+    private PlayerDAO playerDAO;
 
 	@RequestMapping(path="/question/{gameCode}", method=RequestMethod.GET)
 	public String displayQuestion(
@@ -62,15 +62,13 @@ public class QuestionController {
 		 * being asked in the DB so the user can't refresh and get a new question or whatever.
 		 * Then we can pull the current question - Not sure that I would mark the question
 		 * as "asked" until it's been answered. The following if block would be if-else if - ALYSSA
-		 * 
+		 */ 
 		if (currentGame.getIsActivePlayerAnsweringQuestion()) {
-			Question question = CURRENT QUESTION FROM DB
+			Question question = questionDAO.getCurrentQuestion(currentGame);
 			model.put("question", question);
-		} */
+		}
 		
-		
-		if (!currentPlayerSpace.isCenter()) {
-				// && !(currentGame.getIsActivePlayerAnsweringQuestion())) { - GOES HERE IF Q IS IN DB - ALYSSA
+		if (!currentPlayerSpace.isCenter() && !(currentGame.getIsActivePlayerAnsweringQuestion())) {
 			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
 					currentPlayerSpace.getCategory().getCategoryId());
 			model.put("question", question);
@@ -78,8 +76,8 @@ public class QuestionController {
 			// gameDAO.setHasSelectedCategory(currentGame, false);
 		} else if (currentGame.getHasActivePlayerSelectedCategory()) {
 			
-			/* NEED TO STORE ACTIVE QUESTION IN DB TO RETRIEVE 
-			*/
+			Question question = questionDAO.getCurrentQuestion(currentGame);
+			model.put("question", question);
 			
 			gameDAO.setIsAnsweringQuestion(currentGame, true);
 		}
@@ -109,28 +107,20 @@ public class QuestionController {
 			gameDAO.setHasSelectedCategory(currentGame, true);
 			currentGame.setHasActivePlayerSelectedCategory(true);
 			
-			/* Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
+			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
 					categoryId);
-			 store active question in db
-
-			 */ 
+			
+			questionDAO.setQuestionAsked(currentGame, question);
 			
 			return "redirect:/question/" + currentGame.getGameCode();
 		}
 		
 		if (answer != null) {
-			/* another place where we should store the active question because there is nothing
-			to compare it to right now - ALYSSA
-			boolean isAnswerCorrect = answer.equalsIgnoreCase(activeQuestion).getAnswer());
-			*/
 			
-			boolean isAnswerCorrect = false;
-					
-			if (answer.equalsIgnoreCase("Inheritance, Encapsulation, Polymorphism") || answer.equalsIgnoreCase("WHERE") || 
-					answer.equalsIgnoreCase("Row") || answer.equalsIgnoreCase("@RequestMapping") || 
-					answer.equalsIgnoreCase("False") || answer.equalsIgnoreCase("JUnit")) {
-				isAnswerCorrect = true;
-			}
+			// TODO: @Alyssa: Updated this to make sure it works. Do whatever with it!
+			Question currentQuestion = questionDAO.getCurrentQuestion(currentGame);
+			boolean isAnswerCorrect = answer.equalsIgnoreCase(currentQuestion.getAnswer());
+			questionDAO.setQuestionAsked(currentGame, currentQuestion);
 			
 			if (currentPlayerSpace.hasPie() && isAnswerCorrect) {			
 				playerDAO.givePlayerPiePiece(currentPlayerSpace.getSpaceId(), currentGame);	
@@ -157,15 +147,13 @@ public class QuestionController {
 				currentGame.setActive(false);
 			}  
 		
-		
 		// I could call givePlayerPiePiece() in setActivePlayer(), including this conditional with it. You'd just have to call setActivePlayer() as you did below. Would shorten a couple of files. Lmk. - Brooks
-
 			
 			chosenCenterSpaceCategory = "false";
 			categoryChoiceId = null;
 			
 			gameDAO.setActivePlayer(currentGame, isAnswerCorrect);
-					
+			
 	        gameDAO.setHasSelectedCategory(currentGame, false);
 	        gameDAO.setIsAnsweringQuestion(currentGame, false);
 	        

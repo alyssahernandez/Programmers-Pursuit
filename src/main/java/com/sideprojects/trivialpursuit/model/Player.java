@@ -15,6 +15,8 @@ public class Player
 	private Boolean pie4;
 	private Boolean pie5;
 	private Boolean pie6;
+	private Boolean isAnsweringQuestion;
+	private Boolean hasSelectedCategoryCenter;
 
 	// Getters & Setters:
 	public Integer getPlayerId() { return playerId; }
@@ -50,9 +52,15 @@ public class Player
 	public boolean isPie6() { return pie6;}
 	public void setPie6(Boolean pie6) { this.pie6 = pie6;}
 	
+	public Boolean getIsAnsweringQuestion() { return isAnsweringQuestion; }
+	public void setIsAnsweringQuestion(Boolean isAnsweringQuestion) { this.isAnsweringQuestion = isAnsweringQuestion; }
+	
+	public Boolean getHasSelectedCategoryCenter() { return hasSelectedCategoryCenter; }
+	public void setHasSelectedCategoryCenter(Boolean hasSelectedCategoryCenter) { this.hasSelectedCategoryCenter = hasSelectedCategoryCenter; }
+	
 	public boolean getAllPies() { return isPie1() && isPie2() && isPie3() && isPie4() && isPie5() && isPie6(); }
 	
-	// Non-getter/setter methods:
+	// Methods:
 	
 	public List<Space> getReachableSpaces(Gameboard gameboard) 
 	{
@@ -78,4 +86,5 @@ public class Player
 	public int hashCode() {
 		return this.getPlayerId().hashCode();
 	}
+	
 }
