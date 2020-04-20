@@ -110,6 +110,7 @@ public class QuestionController {
 			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
 					categoryId);
 			
+			//TODO: Note @ Alyssa: This is what is/was causing the center space to not display a question. We only need to call it once an answer is given, otherwise there won't be a "current question"
 			//questionDAO.setQuestionAsked(currentGame, question);
 			
 			return "redirect:/question/" + currentGame.getGameCode();
