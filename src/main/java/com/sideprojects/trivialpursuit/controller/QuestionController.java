@@ -62,18 +62,13 @@ public class QuestionController {
 		 * being asked in the DB so the user can't refresh and get a new question or whatever.
 		 * Then we can pull the current question - Not sure that I would mark the question
 		 * as "asked" until it's been answered. The following if block would be if-else if - ALYSSA
-		 * 
+		 */ 
 		if (currentGame.getIsActivePlayerAnsweringQuestion()) {
-			Question question = CURRENT QUESTION FROM DB
+			Question question = questionDAO.getCurrentQuestion(currentGame);
 			model.put("question", question);
-		} */
+		}
 		
-		// TODO: See: questionDAO.getCurrentQuestion(currentGame);
-		// getUnaskedQuestion() must be called before that works, obviously. - Brooks
-		
-		
-		if (!currentPlayerSpace.isCenter()) {
-				// && !(currentGame.getIsActivePlayerAnsweringQuestion())) { - GOES HERE IF Q IS IN DB - ALYSSA
+		if (!currentPlayerSpace.isCenter() && !(currentGame.getIsActivePlayerAnsweringQuestion())) {
 			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
 					currentPlayerSpace.getCategory().getCategoryId());
 			model.put("question", question);
@@ -81,8 +76,8 @@ public class QuestionController {
 			// gameDAO.setHasSelectedCategory(currentGame, false);
 		} else if (currentGame.getHasActivePlayerSelectedCategory()) {
 			
-			/* NEED TO STORE ACTIVE QUESTION IN DB TO RETRIEVE 
-			*/
+			Question question = questionDAO.getCurrentQuestion(currentGame);
+			model.put("question", question);
 			
 			gameDAO.setIsAnsweringQuestion(currentGame, true);
 		}
@@ -112,11 +107,10 @@ public class QuestionController {
 			gameDAO.setHasSelectedCategory(currentGame, true);
 			currentGame.setHasActivePlayerSelectedCategory(true);
 			
-			/* Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
+			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
 					categoryId);
-			 store active question in db
-
-			 */ 
+			
+			questionDAO.setQuestionAsked(currentGame, question);
 			
 			return "redirect:/question/" + currentGame.getGameCode();
 		}

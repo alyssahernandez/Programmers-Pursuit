@@ -37,6 +37,10 @@ public class GameboardController {
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		model.put("currentGame", currentGame);
 		
+		if (currentGame.getIsActivePlayerAnsweringQuestion()) {
+			return "redirect:/question/{gameCode}";
+		}
+		
 		List<Player> playersInGame = currentGame.getActivePlayers();
 		model.put("playersInGame", playersInGame);
 		
