@@ -35,7 +35,7 @@ public class JDBCQuestionDAO implements QuestionDAO {
 			return null;
 		//TODO: @Controller, if null is returned, tell users the game is over because they're out of questions for a category.
 		
-		int questionIndex = getQuestionIndex(questions);
+		int questionIndex = getQuestionIndex(questions.size());
 		question = questions.get(questionIndex);
 		
 		String query = "UPDATE game_question SET is_current_question = true WHERE game_question.game_id = ? AND game_question.question_id = ?";
@@ -74,7 +74,7 @@ public class JDBCQuestionDAO implements QuestionDAO {
 	public void setQuestionAsked(Game game, Question question)
 	{
 		
-		 String query = "UPDATE game_question SET is_current_question = false WHERE game_id = ? AND question_id = ?";
+		String query = "UPDATE game_question SET is_current_question = false WHERE game_id = ? AND question_id = ?";
 		//String query = "UPDATE game_question SET asked = true, is_current_question = false WHERE game_id = ? AND question_id = ?";
 		jdbcTemplate.update(query, game.getGameID(), question.getQuestionID());
 	}
@@ -150,13 +150,13 @@ public class JDBCQuestionDAO implements QuestionDAO {
 	}
 	
 	// Helper method to retrieve a random question from a List<Question> based on the list's size (because questions are pulled from the DB in the same order every time -- we want unique games)
-	private int getQuestionIndex(List<Question> questions)
+	private int getQuestionIndex(int length)
 	{	
 		int questionIndex = 0;
-		if (questions.size() > 1) 
+		if (length > 1) 
 		{		
 			int minQuestionIndex = 0;
-			int maxQuestionIndex = questions.size() - 1;
+			int maxQuestionIndex = length - 1;
 			Random r = new Random();
 			questionIndex = r.nextInt((maxQuestionIndex - minQuestionIndex) + 1) + minQuestionIndex;		
 		}

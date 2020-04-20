@@ -110,7 +110,7 @@ public class QuestionController {
 			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
 					categoryId);
 			
-			questionDAO.setQuestionAsked(currentGame, question);
+			//questionDAO.setQuestionAsked(currentGame, question);
 			
 			return "redirect:/question/" + currentGame.getGameCode();
 		}
