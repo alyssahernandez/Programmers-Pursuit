@@ -47,7 +47,7 @@ public class MainMenuController {
 	//// AUTH0 CONTROLLER TO REDIRECT TO THE USERS PROFILE PAGE
 	
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-<<<<<<< HEAD
+
 	protected String home(final Map<String, Object> model, final HttpServletRequest req) {
 
 	    String accessToken = (String) SessionUtils.get(req, "accessToken");
@@ -68,18 +68,6 @@ public class MainMenuController {
 	    	
 	    }catch (Auth0Exception e) {
 	    	System.out.println(e);
-=======
-	protected String home(final Map<String, Object> model, final HttpServletRequest req, ModelMap map) {
-	    String accessToken = (String) SessionUtils.get(req, "accessToken");
-	    String idToken = (String) SessionUtils.get(req, "idToken");
-	    if (accessToken != null) {
-	        model.put("userId", accessToken);
-	        map.put("userId", accessToken);
-	    } else if (idToken != null) {
-	        model.put("userId", idToken);
-	        map.put("userId", idToken);
-	        
->>>>>>> 4d926515d2adfe678961bb2f7ef8085bcace53fa
 	    }
 	   
 	    req.getRemoteUser();
