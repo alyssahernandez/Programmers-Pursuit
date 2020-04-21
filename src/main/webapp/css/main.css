@@ -508,6 +508,7 @@ ul {
   height: 1.5rem;
   border-radius: 50%;
   border: 1px solid #d1d8e0;
+  z-index: 9999;
 }
 
 .space {

@@ -94,22 +94,64 @@
 				<div class="space ${ isNode } ${ category } ${ reachable }" id="${ spaceId }">
 				
 					<c:if test="${player1Pos == j}">
-						<div class="player-piece--small u-color1-alt"></div>
+						<div class="player-piece--small u-color1-alt">
+							<c:if test="${not empty reachable }">
+								<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
+										style="display:none">		
+									<input type="hidden" name="spaceChoice" value="${j}"/>
+								</form>
+							</c:if>						
+						</div>
 					</c:if>
 					<c:if test="${player2Pos == j}">
-						<div class="player-piece--small u-color2-alt"></div>
+						<div class="player-piece--small u-color2-alt">
+							<c:if test="${not empty reachable }">
+								<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
+										style="display:none">		
+									<input type="hidden" name="spaceChoice" value="${j}"/>
+								</form>
+							</c:if>						
+						</div>
 					</c:if>
 					<c:if test="${player3Pos == j}">
-						<div class="player-piece--small u-color3-alt"></div>
+						<div class="player-piece--small u-color3-alt">
+							<c:if test="${not empty reachable }">
+								<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
+										style="display:none">		
+									<input type="hidden" name="spaceChoice" value="${j}"/>
+								</form>
+							</c:if>						
+						</div>
 					</c:if>
 					<c:if test="${player4Pos == j}">
-						<div class="player-piece--small u-color4-alt"></div>
+						<div class="player-piece--small u-color4-alt">
+							<c:if test="${not empty reachable }">
+								<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
+										style="display:none">		
+									<input type="hidden" name="spaceChoice" value="${j}"/>
+								</form>
+							</c:if>						
+						</div>
 					</c:if>
 					<c:if test="${player5Pos == j}">
-						<div class="player-piece--small u-color5-alt"></div>
+						<div class="player-piece--small u-color5-alt">
+							<c:if test="${not empty reachable }">
+								<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
+										style="display:none">		
+									<input type="hidden" name="spaceChoice" value="${j}"/>
+								</form>
+							</c:if>						
+						</div>
 					</c:if>
 					<c:if test="${player6Pos == j}">
-						<div class="player-piece--small u-color6-alt"></div>
+						<div class="player-piece--small u-color6-alt">
+							<c:if test="${not empty reachable }">
+								<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
+										style="display:none">		
+									<input type="hidden" name="spaceChoice" value="${j}"/>
+								</form>
+							</c:if>
+						</div>
 					</c:if>
 				
 					<!-- get by ID form ID - js submit() -->
@@ -178,22 +220,64 @@
 						</c:if>
 					
 						<c:if test="${player1Pos == j}">
-							<div class="player-piece--small u-color1-alt"></div>
+							<div class="player-piece--small u-color1-alt">
+								<c:if test="${not empty reachable }">
+									<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
+											style="display:none">		
+									<input type="hidden" name="spaceChoice" value="${j}"/>
+									</form>
+								</c:if>
+							</div>
 						</c:if>
 						<c:if test="${player2Pos == j}">
-							<div class="player-piece--small u-color2-alt"></div>
+							<div class="player-piece--small u-color2-alt">
+								<c:if test="${not empty reachable }">
+									<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
+											style="display:none">		
+									<input type="hidden" name="spaceChoice" value="${j}"/>
+									</form>
+								</c:if>
+							</div>
 						</c:if>
 						<c:if test="${player3Pos == j}">
-							<div class="player-piece--small u-color3-alt"></div>
+							<div class="player-piece--small u-color3-alt">
+								<c:if test="${not empty reachable }">
+									<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
+											style="display:none">		
+									<input type="hidden" name="spaceChoice" value="${j}"/>
+									</form>
+								</c:if>
+							</div>
 						</c:if>
 						<c:if test="${player4Pos == j}">
-							<div class="player-piece--small u-color4-alt"></div>
+							<div class="player-piece--small u-color4-alt">
+								<c:if test="${not empty reachable }">
+									<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
+											style="display:none">		
+									<input type="hidden" name="spaceChoice" value="${j}"/>
+									</form>
+								</c:if>
+							</div>
 						</c:if>
 						<c:if test="${player5Pos == j}">
-							<div class="player-piece--small u-color5-alt"></div>
+							<div class="player-piece--small u-color5-alt">
+								<c:if test="${not empty reachable }">
+									<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
+											style="display:none">		
+									<input type="hidden" name="spaceChoice" value="${j}"/>
+									</form>
+								</c:if>
+							</div>
 						</c:if>
 						<c:if test="${player6Pos == j}">
-							<div class="player-piece--small u-color6-alt"></div>
+							<div class="player-piece--small u-color6-alt">
+								<c:if test="${not empty reachable }">
+									<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
+											style="display:none">		
+									<input type="hidden" name="spaceChoice" value="${j}"/>
+									</form>
+								</c:if>
+							</div>
 						</c:if>				
 					</div>	
 					
@@ -223,22 +307,64 @@
 	
 		<div>
 			<c:if test="${player1Pos == 0}">
-				<div class="player-piece--small u-color1-alt"></div>
+				<div class="player-piece--small u-color1-alt">
+					<c:if test="${not empty reachable }">
+						<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-0"
+								style="display:none">		
+							<input type="hidden" name="spaceChoice" value="0"/>
+						</form>
+					</c:if>		
+				</div>
 			</c:if>
 			<c:if test="${player2Pos == 0}">
-				<div class="player-piece--small u-color2-alt"></div>
+				<div class="player-piece--small u-color2-alt">
+					<c:if test="${not empty reachable }">
+						<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-0"
+								style="display:none">		
+							<input type="hidden" name="spaceChoice" value="0"/>
+						</form>
+					</c:if>				
+				</div>
 			</c:if>
 			<c:if test="${player3Pos == 0}">
-				<div class="player-piece--small u-color3-alt"></div>
+				<div class="player-piece--small u-color3-alt">
+					<c:if test="${not empty reachable }">
+						<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-0"
+								style="display:none">		
+							<input type="hidden" name="spaceChoice" value="0"/>
+						</form>
+					</c:if>					
+				</div>
 			</c:if>
 			<c:if test="${player4Pos == 0}">
-				<div class="player-piece--small u-color4-alt"></div>
+				<div class="player-piece--small u-color4-alt">
+					<c:if test="${not empty reachable }">
+						<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-0"
+								style="display:none">		
+							<input type="hidden" name="spaceChoice" value="0"/>
+						</form>
+					</c:if>					
+				</div>
 			</c:if>
 			<c:if test="${player5Pos == 0}">
-				<div class="player-piece--small u-color5-alt"></div>
+				<div class="player-piece--small u-color5-alt">
+					<c:if test="${not empty reachable }">
+						<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-0"
+								style="display:none">		
+							<input type="hidden" name="spaceChoice" value="0"/>
+						</form>
+					</c:if>						
+				</div>
 			</c:if>
 			<c:if test="${player6Pos == 0}">
-				<div class="player-piece--small u-color6-alt"></div>
+				<div class="player-piece--small u-color6-alt">
+					<c:if test="${not empty reachable }">
+						<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-0"
+								style="display:none">		
+							<input type="hidden" name="spaceChoice" value="0"/>
+						</form>
+					</c:if>					
+				</div>
 			</c:if>
 		</div>
 	
