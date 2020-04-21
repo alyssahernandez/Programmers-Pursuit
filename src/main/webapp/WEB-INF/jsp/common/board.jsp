@@ -168,7 +168,7 @@
 					</c:forEach>				
 					
 	<!-- 				THIS PUTS PIECES IN THE SPACE -->
-					<div class="space space__spoke-space ${ category } ${ reachable }">	
+					<div class="space space__spoke-space ${ category } ${ reachable }" id="${ spaceId }">	
 					
 						<c:if test="${not empty reachable }">
 							<form method="POST" action="${chooseSpaceForm}" id="formForSpaceChoice-${j}"
