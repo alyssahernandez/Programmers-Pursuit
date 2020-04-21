@@ -13,6 +13,19 @@
     <c:url var="alyssaImgURL" value="/img/alyssa_hernandez.jpg" />
     
     <div class="team">
+        <div class="team-member u-color6">
+            <img src="${ alyssaImgURL }" alt="headshot" class="team-member__headshot">
+            <div class="team-member__details">
+                <h3 class="team-member-name">Alyssa Hernandez</h3>
+                <p class="team-member-bio">
+                    Cu clita vituperata eam, ius apeirian intellegat an, ex.
+                </p>
+                <div class="team-member__links">
+                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
+                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
+                </div>
+            </div>
+        </div>
         <div class="team-member u-color1">
             <img src="${ jakeImgURL }" alt="jake casassa headshot" class="team-member__headshot">
             <div class="team-member__details">
@@ -21,8 +34,8 @@
                     Lorem ipsum dolor sit amet, qui bonorum consectetuer et.
                 </p>
                 <div class="team-member__links">
-                    <a href="#" class="team-member-link"><ion-icon name="logo-linkedin"></ion-icon></a>
-                    <a href="#" class="team-member-link"><ion-icon name="logo-github"></ion-icon></a>
+                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
+                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
                 </div>
             </div>
         </div>
@@ -34,8 +47,8 @@
                     Dolor nominavi praesent ei vim, has viris lobortis et, est.
                 </p>
                 <div class="team-member__links">
-                    <a href="#" class="team-member-link"><ion-icon name="logo-linkedin"></ion-icon></a>
-                    <a href="#" class="team-member-link"><ion-icon name="logo-github"></ion-icon></a>
+                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
+                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
                 </div>
             </div>
         </div>
@@ -47,8 +60,8 @@
                     Te qui quis adolescens, id eos soleat scripserit, ne his.
                 </p>
                 <div class="team-member__links">
-                                        <a href="#" class="team-member-link"><ion-icon name="logo-linkedin"></ion-icon></a>
-                    <a href="#" class="team-member-link"><ion-icon name="logo-github"></ion-icon></a>
+                    <a href="https://www.linkedin.com/in/jeffcrosley/" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
+                    <a href="https://github.com/jeffcrosley" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
                 </div>
             </div>
         </div>
@@ -60,8 +73,8 @@
                     Sea duis putant et, sed sint corpora antiopam ut. Nibh.
                 </p>
                 <div class="team-member__links">
-                                        <a href="#" class="team-member-link"><ion-icon name="logo-linkedin"></ion-icon></a>
-                    <a href="#" class="team-member-link"><ion-icon name="logo-github"></ion-icon></a>
+                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
+                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
                 </div>
             </div>
         </div>
@@ -73,21 +86,8 @@
                     Eos nullam mollis similique cu, qui ea harum invidunt.
                 </p>
                 <div class="team-member__links">
-                                        <a href="#" class="team-member-link"><ion-icon name="logo-linkedin"></ion-icon></a>
-                    <a href="#" class="team-member-link"><ion-icon name="logo-github"></ion-icon></a>
-                </div>
-            </div>
-        </div>
-        <div class="team-member u-color6">
-            <img src="${ alyssaImgURL }" alt="headshot" class="team-member__headshot">
-            <div class="team-member__details">
-                <h3 class="team-member-name">Alyssa Hernandez</h3>
-                <p class="team-member-bio">
-                    Cu clita vituperata eam, ius apeirian intellegat an, ex.
-                </p>
-                <div class="team-member__links">
-                    <a href="#" class="team-member-link"><ion-icon name="logo-linkedin"></ion-icon></a>
-                    <a href="#" class="team-member-link"><ion-icon name="logo-github"></ion-icon></a>
+                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
+                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
                 </div>
             </div>
         </div>
