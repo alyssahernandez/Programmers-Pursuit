@@ -1,8 +1,6 @@
 package com.sideprojects.trivialpursuit.controller;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sideprojects.trivialpursuit.model.Category;
-import com.sideprojects.trivialpursuit.model.CategoryDAO;
 import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
@@ -28,9 +25,6 @@ public class QuestionController {
     
     @Autowired
     private GameDAO gameDAO;
-    
-    @Autowired
-    private CategoryDAO categoryDAO;
     
     @Autowired
     private QuestionDAO questionDAO;
@@ -57,29 +51,39 @@ public class QuestionController {
 				
 		List<Category> gameCategories = currentGame.getUniqueCategories();
 		model.put("gameCategories", gameCategories);
-		
-		/* I think we talked about this, but we should definitely store the current question
-		 * being asked in the DB so the user can't refresh and get a new question or whatever.
-		 * Then we can pull the current question - Not sure that I would mark the question
-		 * as "asked" until it's been answered. The following if block would be if-else if - ALYSSA
-		 */ 
+
 		if (currentGame.getIsActivePlayerAnsweringQuestion()) {
+			
 			Question question = questionDAO.getCurrentQuestion(currentGame);
 			model.put("question", question);
-		}
-		
-		if (!currentPlayerSpace.isCenter() && !(currentGame.getIsActivePlayerAnsweringQuestion())) {
+			
+			// TODO: this is currently printing the answers with array brackets around
+			// the first and last answer. it has something to do with the way
+			// the string list is being looped over in the jsp
+			List<String> possibleAnswers = question.getPossibleAnswers();
+			model.put("possibleAnswers", possibleAnswers);
+			
+		} else if (!currentPlayerSpace.isCenter() && !(currentGame.getIsActivePlayerAnsweringQuestion())) {
+			
 			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
 					currentPlayerSpace.getCategory().getCategoryId());
 			model.put("question", question);
-			gameDAO.setIsAnsweringQuestion(currentGame, true);
-			// gameDAO.setHasSelectedCategory(currentGame, false);
-		} else if (currentGame.getHasActivePlayerSelectedCategory()) {
+			
+			List<String> possibleAnswers = question.getPossibleAnswers();
+			model.put("possibleAnswers", possibleAnswers);
+			
+			gameDAO.setIsAnsweringQuestion(currentGame, true);		
+			
+		} else if (currentGame.getHasActivePlayerSelectedCategory()) {		
 			
 			Question question = questionDAO.getCurrentQuestion(currentGame);
-			model.put("question", question);
+			model.put("question", question);	
+			
+			List<String> possibleAnswers = question.getPossibleAnswers();
+			model.put("possibleAnswers", possibleAnswers);
 			
 			gameDAO.setIsAnsweringQuestion(currentGame, true);
+			
 		}
 		
 		return "question";
@@ -105,28 +109,24 @@ public class QuestionController {
 		if (currentPlayerSpace.isCenter() && categoryChoiceId != null && chosenCenterSpaceCategory.equals("true")) {
 			
 			gameDAO.setHasSelectedCategory(currentGame, true);
-			currentGame.setHasActivePlayerSelectedCategory(true);
+			currentGame.setHasActivePlayerSelectedCategory(true);			
 			
-			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
-					categoryId);
-			
-			//TODO: Note @ Alyssa: This is what is/was causing the center space to not display a question. We only need to call it once an answer is given, otherwise there won't be a "current question"
-			//questionDAO.setQuestionAsked(currentGame, question);
-			
+			questionDAO.getUnaskedQuestionByCategory(currentGame, categoryId);
+				
 			return "redirect:/question/" + currentGame.getGameCode();
 		}
 		
 		if (answer != null) {
 			
-			// TODO: @Alyssa: Updated this to make sure it works. Do whatever with it!
 			Question currentQuestion = questionDAO.getCurrentQuestion(currentGame);
 			boolean isAnswerCorrect = answer.equalsIgnoreCase(currentQuestion.getAnswer());
+			
 			questionDAO.setQuestionAsked(currentGame, currentQuestion);
 			
 			if (currentPlayerSpace.hasPie() && isAnswerCorrect) {			
 				playerDAO.givePlayerPiePiece(currentPlayerSpace.getSpaceId(), currentGame);	
 				
-				// optimize this later - ALYSSA
+				// TODO: optimize this later - ALYSSA
 				if (currentPlayerSpace.getSpaceId() == 6) {
 					currentPlayerTurn.setPie1(true);
 				} else if (currentPlayerSpace.getSpaceId() == 18) {
@@ -147,14 +147,11 @@ public class QuestionController {
 				gameDAO.setIsGameActive(currentGame, false);
 				currentGame.setActive(false);
 			}  
-		
-		// I could call givePlayerPiePiece() in setActivePlayer(), including this conditional with it. You'd just have to call setActivePlayer() as you did below. Would shorten a couple of files. Lmk. - Brooks
 			
 			chosenCenterSpaceCategory = "false";
 			categoryChoiceId = null;
 			
 			gameDAO.setActivePlayer(currentGame, isAnswerCorrect);
-			
 	        gameDAO.setHasSelectedCategory(currentGame, false);
 	        gameDAO.setIsAnsweringQuestion(currentGame, false);
 	        
@@ -163,8 +160,7 @@ public class QuestionController {
 	        
 			return "redirect:/gameboard/" + currentGame.getGameCode();
         
-		}
-		
+		}		
 		
 		return "redirect:/question/" + currentGame.getGameCode();
 	}
