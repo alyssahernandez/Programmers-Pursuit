@@ -62,12 +62,14 @@
 		</c:when>	
 		<c:otherwise>	
 			<form action="${ questionFormURL }" method="POST" class="question-form">
-				<label class="question-form__text" for="answer">${question.question}
+				<label class="question-form__text u-margin-bottom-medium" for="answer">${question.question}
 					<c:forEach var="answer" items="${possibleAnswers}">
-					<input class="question-form__answer" name="answer" type="radio" value="${answer }"/>${answer}
+						<div class="question-form__group">
+							<input class="question-form__answer" name="answer" type="radio" value="${answer }"/>${answer}
+						</div>
 					</c:forEach>
 				</label>
-				<input type="submit" value="Submit"/>
+				<input class="button" type="submit" value="Submit"/>
 			</form>
 		</c:otherwise>	
 	</c:choose>

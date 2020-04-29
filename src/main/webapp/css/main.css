@@ -603,6 +603,7 @@ ul {
 
 .question-form {
   background-color: #a5b1c2;
+  color: #d1d8e0;
   width: 80%;
   padding: 2rem 3rem;
   box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
@@ -611,10 +612,23 @@ ul {
   align-items: center;
 }
 
+.question-form__text {
+  color: #d1d8e0;
+  font-size: 3rem;
+  font-weight: 400;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.question-form__group {
+  display: flex;
+  align-items: center;
+}
+
 .question-form__answer {
-  margin: 2rem 3rem;
-  width: 50%;
-  padding: 1rem 2rem;
+  margin-right: 1rem;
 }
 
 .about {
