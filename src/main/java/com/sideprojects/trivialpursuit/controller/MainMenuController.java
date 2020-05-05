@@ -59,7 +59,7 @@ public class MainMenuController {
 	    	UserInfo result = auth.userInfo(accessToken).execute();
 	    	if (accessToken != null) {
 		        model.put("userId", accessToken);
-		        model.put("userInfo", result.getValues());
+		        model.put("userInfo", result.getValues().values());
 		        
 		    } else if (idToken != null) {
 		        model.put("userId", idToken);

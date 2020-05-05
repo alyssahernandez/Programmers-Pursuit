@@ -7,7 +7,7 @@
 
 <div>
 	<h3>this is the access Id: ${userId}</h3>
-	<h3>this is the email: ${userInfo }</h3>
+	<h3>this is the idToken: ${userInfo }</h3>
 </div>
 
 
