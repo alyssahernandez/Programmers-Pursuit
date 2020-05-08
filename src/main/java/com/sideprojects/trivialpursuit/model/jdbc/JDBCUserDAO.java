@@ -4,8 +4,10 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import com.sideprojects.trivialpursuit.model.User;
 import com.sideprojects.trivialpursuit.model.UserDAO;
 
 
@@ -21,16 +23,26 @@ public class JDBCUserDAO implements UserDAO {
 	
 	
 	@Override
-	public String getUserByToken(String token) {
-		// TODO Auto-generated method stub
-		return null;
+	public User getUserByToken(String token) {
+		User user = new User();
+		String userQuery = "SELECT * FROM user_account WHERE id_token = ?";
+		SqlRowSet result = template.queryForRowSet(userQuery, token); 
+		
+		if(result.next()) {
+			user.setUserId(result.getInt("user_id"));
+			user.setUsername(result.getString("username"));
+			user.setIdToken(result.getString("id_token"));
+		} else {
+			return null;
+		}
+		return user;
 	}
-
+	
 
 	@Override
-	public void createUser(String token) {
-		// TODO Auto-generated method stub
-		
+	public void createUser(String username, String token) {
+		String newUserSQL = "INSERT INTO user_account (username, id_token) VALUES (?, ?)";
+		template.update(newUserSQL, username, token);
 	}
 
 }

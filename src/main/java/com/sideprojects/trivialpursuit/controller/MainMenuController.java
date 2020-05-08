@@ -1,6 +1,7 @@
 package com.sideprojects.trivialpursuit.controller;
 
 
+
 import java.util.ArrayList;
 
 import java.util.List;
@@ -16,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.auth0.client.auth.AuthAPI;
-import com.auth0.exception.Auth0Exception;
-import com.auth0.json.auth.UserInfo;
 import com.auth0.SessionUtils;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
@@ -37,7 +35,6 @@ public class MainMenuController {
 	PlayerDAO playerDAO;
 	
 	private AppConfig config;
-	
 
 	@RequestMapping(path="/", method=RequestMethod.GET)
 	public String displayMainMenu(ModelMap map) {
@@ -47,30 +44,21 @@ public class MainMenuController {
 	//// AUTH0 CONTROLLER TO REDIRECT TO THE USERS PROFILE PAGE
 	
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-
 	protected String home(final Map<String, Object> model, final HttpServletRequest req) {
 
 	    String accessToken = (String) SessionUtils.get(req, "accessToken");
 	    String idToken = (String) SessionUtils.get(req, "idToken");
 	    
-	    AuthAPI auth = new AuthAPI("dev-3pru6zrv.auth0.com", "0mWzxq2llBlbc7a3up2rOISQV96i847w",
-				"8KCBnXpiGUyqjxhX1WEGMSYI76-fesU5qh8OuP7g_vnE_dcdmH9TdKyQFt6ID1aj");
-	    try { 
-	    	UserInfo result = auth.userInfo(accessToken).execute();
-	    	if (accessToken != null) {
-		        model.put("userId", accessToken);
-		        model.put("userInfo", result.getValues().values());
-		        
-		    } else if (idToken != null) {
-		        model.put("userId", idToken);
-		        
-		    }
-	    	
-	    }catch (Auth0Exception e) {
-	    	System.out.println(e);
-	    }
-	   
+	    
+	    if (accessToken != null) {
+		    model.put("userId", accessToken);
+		    //model.put("body", );
+		    
+		} else if (idToken != null) {
+		    model.put("userId", idToken);
+		}
 	    req.getRemoteUser();
+	    
 	    return "profilePage";
 	}
 	
