@@ -22,6 +22,8 @@ import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
+import com.sideprojects.trivialpursuit.model.User;
+import com.sideprojects.trivialpursuit.model.UserDAO;
 import com.sideprojects.trivialpursuit.model.auth.*;
 
 
@@ -33,6 +35,9 @@ public class MainMenuController {
 	
 	@Autowired
 	PlayerDAO playerDAO;
+	
+	@Autowired
+	UserDAO userDAO;
 	
 	private AppConfig config;
 
@@ -48,14 +53,15 @@ public class MainMenuController {
 
 	    String accessToken = (String) SessionUtils.get(req, "accessToken");
 	    String idToken = (String) SessionUtils.get(req, "idToken");
+	    String userId = (String) SessionUtils.get(req, "userId");
 	    
-	    
+	    User currentUser = userDAO.getUserByToken(userId);
+	    		
 	    if (accessToken != null) {
-		    model.put("userId", accessToken);
-		    //model.put("body", );
+		    model.put("currentUser", currentUser);
 		    
 		} else if (idToken != null) {
-		    model.put("userId", idToken);
+		    model.put("currentUser", currentUser);
 		}
 	    req.getRemoteUser();
 	    

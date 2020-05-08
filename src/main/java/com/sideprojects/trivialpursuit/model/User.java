@@ -5,6 +5,8 @@ public class User {
 	private Integer userId;
 	private String username;
 	private String idToken;
+	private String email;
+	private String picture;
 	
 	
 	
@@ -31,6 +33,24 @@ public class User {
 	public void setIdToken(String idToken) {
 		this.idToken = idToken;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+	
+	
 
 	
 }

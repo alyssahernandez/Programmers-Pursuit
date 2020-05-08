@@ -14,7 +14,9 @@ CREATE TABLE user_account
 (
         user_id serial PRIMARY KEY,
         username varchar(100) not null,
-        id_token varchar(255) not null
+        id_token varchar(255) not null,
+        email varchar(255) not null,
+        picture varchar(255)
 );
 
 CREATE TABLE player

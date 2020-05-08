@@ -78,12 +78,18 @@ public class CallbackController {
 	  	  
 	  	  JSONArray identities = userJSON.getJSONArray("identities");
 	  	  JSONObject ids = identities.getJSONObject(0);
+	  	  
 	  	  String userId = ids.getString("user_id");
+	  	  String nickname = userJSON.getString("nickname");
+	  	  String email = userJSON.getString("email");
+	  	  String picture = userJSON.getString("picture");
+	  	  
+	  	  SessionUtils.set(req, "userId", userId);
 	      
 	      if(user.getUserByToken(userId) != null) {
 	    	  User currentUser = user.getUserByToken(idToken);
 	      } else {
-	    	  user.createUser(userJSON.getString("nickname"), userId);
+	    	  user.createUser(nickname, userId, email, picture);
 	      }
 	 
 	      return "redirect:/profile";

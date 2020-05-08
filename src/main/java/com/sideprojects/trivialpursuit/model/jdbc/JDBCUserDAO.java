@@ -32,6 +32,8 @@ public class JDBCUserDAO implements UserDAO {
 			user.setUserId(result.getInt("user_id"));
 			user.setUsername(result.getString("username"));
 			user.setIdToken(result.getString("id_token"));
+			user.setEmail(result.getString("email"));
+			user.setPicture(result.getString("picture"));
 		} else {
 			return null;
 		}
@@ -40,9 +42,9 @@ public class JDBCUserDAO implements UserDAO {
 	
 
 	@Override
-	public void createUser(String username, String token) {
-		String newUserSQL = "INSERT INTO user_account (username, id_token) VALUES (?, ?)";
-		template.update(newUserSQL, username, token);
+	public void createUser(String username, String token, String email, String picture) {
+		String newUserSQL = "INSERT INTO user_account (username, id_token, email, picture) VALUES (?, ?, ?, ?)";
+		template.update(newUserSQL, username, token, email, picture);
 	}
 
 }
