@@ -56,7 +56,7 @@ public class CallbackController {
 	      String accessToken = (String) SessionUtils.get(req, "accessToken");
 	      UserInfo result = auth.userInfo(accessToken).execute();
 	      
-	      String idToken = (String) result.getValues().values().toArray()[0];
+	      String token = (String) result.getValues().values().toArray()[0];
 	      
 	      
 	      HttpResponse<String> response = Unirest.post("https://dev-3pru6zrv.auth0.com/oauth/token")
@@ -68,7 +68,7 @@ public class CallbackController {
 	  	  JSONObject bodyJSON = new JSONObject(body);
 	  			 
 	  			
-	  	  HttpResponse<String> readUserResponse = Unirest.get("https://dev-3pru6zrv.auth0.com/api/v2/users/" + idToken)
+	  	  HttpResponse<String> readUserResponse = Unirest.get("https://dev-3pru6zrv.auth0.com/api/v2/users/" + token)
 	  	  	.header("content-type", "application/json")
 	  	  	.header("authorization", "Bearer " + bodyJSON.getString("access_token"))
 	  	  	.asString();
@@ -79,17 +79,20 @@ public class CallbackController {
 	  	  JSONArray identities = userJSON.getJSONArray("identities");
 	  	  JSONObject ids = identities.getJSONObject(0);
 	  	  
-	  	  String userId = ids.getString("user_id");
+	  	  String idToken = ids.getString("user_id");
 	  	  String nickname = userJSON.getString("nickname");
 	  	  String email = userJSON.getString("email");
 	  	  String picture = userJSON.getString("picture");
 	  	  
-	  	  SessionUtils.set(req, "userId", userId);
+	  	  SessionUtils.set(req, "userId", idToken);
 	      
-	      if(user.getUserByToken(userId) != null) {
+	      if(user.getUserByToken(idToken) != null) {
 	    	  User currentUser = user.getUserByToken(idToken);
+	    	  SessionUtils.set(req, "userId", currentUser.getUserId());
 	      } else {
-	    	  user.createUser(nickname, userId, email, picture);
+	    	  user.createUser(nickname, idToken, email, picture);
+	    	  User currentUser = user.getUserByToken(idToken);
+	    	  SessionUtils.set(req, "userId", currentUser.getUserId());
 	      }
 	 
 	      return "redirect:/profile";

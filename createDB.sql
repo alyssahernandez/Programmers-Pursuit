@@ -23,9 +23,8 @@ CREATE TABLE player
 (
         player_id serial PRIMARY KEY,
         user_id int not null,
-        name varchar(64) not null,
-        games_won int,
-        games_played int,
+        username varchar(64) not null,
+        
        
         constraint fk_player_user_account foreign key (user_id) references user_account (user_id)
 );

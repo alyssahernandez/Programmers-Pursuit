@@ -97,61 +97,22 @@ public class MainMenuController {
 	}
 			
 			
-	@RequestMapping(path="/create", method=RequestMethod.GET)
-	public String displayCreateGameForm() {
-		return "createGame";
-	}
-	
 	@RequestMapping(path="/create", method=RequestMethod.POST)
-	public String createGame(
-			@RequestParam String gameCode,
-			@RequestParam String playerOne, @RequestParam(required=false) String playerTwo,
-			@RequestParam String playerThree, @RequestParam String playerFour,
-			@RequestParam String playerFive, @RequestParam String playerSix
-			) {
+	public String createGame(@RequestParam String gameCode, @RequestParam String nickname, 
+			final HttpServletRequest req) {
 		
-		List<String> playerNames = new ArrayList<>();
-		playerNames.add(playerOne);
-		playerNames.add(playerTwo);
-		playerNames.add(playerThree);
-		playerNames.add(playerFour);
-		playerNames.add(playerFive);
-		playerNames.add(playerSix);
-		
-		playerDAO.createPlayers(playerNames);
+		int userId = (int) SessionUtils.get(req, "userId");
 		
 		
-		/*
-		 * if(playerTwo != null) { Player player = new Player();
-		 * player.setName(playerTwo); players.add(player); }
-		 */
+		playerDAO.createPlayer(userId, nickname);
+		Player newPlayer = playerDAO.getPlayer(userId);
 		
-		return "redirect:/gameboard/${gamecode}";
+		gameDAO.createNewGame(gameCode);
+		Game newGame = gameDAO.getActiveGame(gameCode);
+		
+		playerDAO.putPlayerIntoGame(newGame, newPlayer);
+		return "redirect:/gameboard/" + gameCode;
 	}
 	
-			
-		
-		/* else if (playerName != null && gameName != null) {
-			try {
-				
-				 TODO there needs to be a method in the JDBCGameDAO file
-				 * that allows players to create a new game by typing
-				 * in the game code - there is a setGameCode() method
-				 * i think - Alyssa
-				 * 
-				Game newGame = gameDAO.createNewGame(gameName.toUpperCase());
-				moldelHolder.put("newGame", newGame);
-				
-				
-				
-				// need to return a popup that allows users to join...
-				return "mainMenu";
-			} catch(Exception e) {			
-				return "mainMenu";
-			}
-		}
-		*/
-
-	//	return "redirect:/";
 }
 
