@@ -30,7 +30,7 @@ public class JDBCPlayerDAO implements PlayerDAO
 	public void createPlayer(int userId, String playerName) {
 		
 		String insertPlayer = "INSERT INTO player (user_id, username) VALUES (?, ?)";
-		template.update(insertPlayer, playerName);
+		template.update(insertPlayer, userId, playerName);
 	}
 	
 	
@@ -49,10 +49,11 @@ public class JDBCPlayerDAO implements PlayerDAO
 	@Override
 	public void putPlayerIntoGame(Game game, Player player)
 	{
-		Integer gameId = game.getGameID();
+		int gameId = game.getGameID();
+		int playerId = player.getPlayerId();
 		
-		String sqlPutPlayerIntoGame = "INSERT INTO game_player (player_id, game_id) VALUES (?, ?)";
-		template.update(sqlPutPlayerIntoGame, player.getPlayerId(), game.getGameID());
+		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, player_id) VALUES (?, ?)";
+		template.update(sqlPutPlayerIntoGame, gameId, playerId);
 	
 	}
 	

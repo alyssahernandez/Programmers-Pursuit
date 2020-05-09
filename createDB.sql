@@ -32,7 +32,7 @@ CREATE TABLE player
 CREATE TABLE game
 (
         game_id serial PRIMARY KEY,
-        game_code varchar(8) not null,
+        game_code varchar(255) not null,
         active boolean not null,
         winner_id int,
         active_player_id int, -- remove once finished w/ jdbcs (this is now in game_player)

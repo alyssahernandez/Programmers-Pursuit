@@ -84,7 +84,7 @@ public class CallbackController {
 	  	  String email = userJSON.getString("email");
 	  	  String picture = userJSON.getString("picture");
 	  	  
-	  	  SessionUtils.set(req, "userId", idToken);
+	  	  SessionUtils.set(req, "userIdToken", idToken);
 	      
 	      if(user.getUserByToken(idToken) != null) {
 	    	  User currentUser = user.getUserByToken(idToken);

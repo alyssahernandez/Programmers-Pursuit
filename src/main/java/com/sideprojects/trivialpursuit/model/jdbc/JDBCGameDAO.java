@@ -50,8 +50,8 @@ public class JDBCGameDAO implements GameDAO {
 	//TODO: include "AND active = true" in query
 	@Override
 	public Game getActiveGame(String gameCode) {
-		String getGameQuery = "SELECT * FROM game WHERE game_code = ?";
-		SqlRowSet rowSet = template.queryForRowSet(getGameQuery, gameCode);
+		String getGameQuery = "SELECT * FROM game WHERE game_code ILIKE ? AND active = true";
+		SqlRowSet rowSet = template.queryForRowSet(getGameQuery, "%"+gameCode+"%");
 
 		Game game = new Game();
 		if (rowSet.next()) {
@@ -89,7 +89,7 @@ public class JDBCGameDAO implements GameDAO {
 		
 		while(results.next()) {
 			Player player = new Player();
-			player.setName(results.getString("name"));
+			player.setName(results.getString("username"));
 			player.setPlayerId(results.getInt("player_id"));
 			player.setLocation(game.getGameboard().getSpaces().get(results.getInt("player_position")));
 			player.setColor(results.getLong("player_color"));

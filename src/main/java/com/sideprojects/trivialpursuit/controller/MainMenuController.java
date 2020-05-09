@@ -53,7 +53,7 @@ public class MainMenuController {
 
 	    String accessToken = (String) SessionUtils.get(req, "accessToken");
 	    String idToken = (String) SessionUtils.get(req, "idToken");
-	    String userId = (String) SessionUtils.get(req, "userId");
+	    String userId = (String) SessionUtils.get(req, "userIdToken");
 	    
 	    User currentUser = userDAO.getUserByToken(userId);
 	    		
@@ -101,8 +101,7 @@ public class MainMenuController {
 	public String createGame(@RequestParam String gameCode, @RequestParam String nickname, 
 			final HttpServletRequest req) {
 		
-		int userId = (int) SessionUtils.get(req, "userId");
-		
+		int userId = (Integer) SessionUtils.get(req, "userId");
 		
 		playerDAO.createPlayer(userId, nickname);
 		Player newPlayer = playerDAO.getPlayer(userId);
