@@ -70,11 +70,11 @@
             <div class="team-member__details">
                 <h3 class="team-member-name">Kiran DeSimone</h3>
                 <p class="team-member-bio">
-                    Sea duis putant et, sed sint corpora antiopam ut. Nibh.
+                    Security Specialist. Worked on user authentication, user profiles and game creation.
                 </p>
                 <div class="team-member__links">
-                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
-                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
+                    <a href="https://www.linkedin.com/in/kirandesimone/" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
+                    <a href="https://github.com/kirandesimone" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
                 </div>
             </div>
         </div>

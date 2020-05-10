@@ -4,15 +4,17 @@ import java.util.List;
 
 public interface PlayerDAO {
 	
+	public Player getPlayer(int userId);
+	
 	public void createPlayers(List<String> names);
 	
-	public void createPlayer(String playerName);
+	public void createPlayer(int userId, String playerName);
 	
-	void putPlayersIntoGame(Game game, List<Player> players);
+	public void putPlayerIntoGame(Game game, Player player);
 	
 	public void setPlayerPosition(Game game, Player activePlayer);
 
-	void givePlayerPiePiece(int spaceId, Game game); 
+	public void givePlayerPiePiece(int spaceId, Game game); 
 
 
 }

@@ -13,16 +13,18 @@ DROP TABLE IF EXISTS user_account;
 CREATE TABLE user_account
 (
         user_id serial PRIMARY KEY,
-        id_token varchar(255) not null
+        username varchar(100) not null,
+        id_token varchar(255) not null,
+        email varchar(255) not null,
+        picture varchar(255)
 );
 
 CREATE TABLE player
 (
         player_id serial PRIMARY KEY,
         user_id int not null,
-        name varchar(64) not null,
-        games_won int,
-        games_played int,
+        username varchar(64) not null,
+        
        
         constraint fk_player_user_account foreign key (user_id) references user_account (user_id)
 );
@@ -30,7 +32,7 @@ CREATE TABLE player
 CREATE TABLE game
 (
         game_id serial PRIMARY KEY,
-        game_code varchar(8) not null,
+        game_code varchar(255) not null,
         active boolean not null,
         winner_id int,
         active_player_id int, -- remove once finished w/ jdbcs (this is now in game_player)

@@ -1,6 +1,7 @@
 package com.sideprojects.trivialpursuit.controller;
 
 
+
 import java.util.ArrayList;
 
 import java.util.List;
@@ -16,14 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.auth0.client.auth.AuthAPI;
-import com.auth0.exception.Auth0Exception;
-import com.auth0.json.auth.UserInfo;
 import com.auth0.SessionUtils;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
+import com.sideprojects.trivialpursuit.model.User;
+import com.sideprojects.trivialpursuit.model.UserDAO;
 import com.sideprojects.trivialpursuit.model.auth.*;
 
 
@@ -36,8 +36,10 @@ public class MainMenuController {
 	@Autowired
 	PlayerDAO playerDAO;
 	
-	private AppConfig config;
+	@Autowired
+	UserDAO userDAO;
 	
+	private AppConfig config;
 
 	@RequestMapping(path="/", method=RequestMethod.GET)
 	public String displayMainMenu(ModelMap map) {
@@ -47,30 +49,22 @@ public class MainMenuController {
 	//// AUTH0 CONTROLLER TO REDIRECT TO THE USERS PROFILE PAGE
 	
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-
 	protected String home(final Map<String, Object> model, final HttpServletRequest req) {
 
 	    String accessToken = (String) SessionUtils.get(req, "accessToken");
 	    String idToken = (String) SessionUtils.get(req, "idToken");
+	    String userId = (String) SessionUtils.get(req, "userIdToken");
 	    
-	    AuthAPI auth = new AuthAPI("dev-3pru6zrv.auth0.com", "0mWzxq2llBlbc7a3up2rOISQV96i847w",
-				"8KCBnXpiGUyqjxhX1WEGMSYI76-fesU5qh8OuP7g_vnE_dcdmH9TdKyQFt6ID1aj");
-	    try { 
-	    	UserInfo result = auth.userInfo(accessToken).execute();
-	    	if (accessToken != null) {
-		        model.put("userId", accessToken);
-		        model.put("userInfo", result.getValues());
-		        
-		    } else if (idToken != null) {
-		        model.put("userId", idToken);
-		        
-		    }
-	    	
-	    }catch (Auth0Exception e) {
-	    	System.out.println(e);
-	    }
-	   
+	    User currentUser = userDAO.getUserByToken(userId);
+	    		
+	    if (accessToken != null) {
+		    model.put("currentUser", currentUser);
+		    
+		} else if (idToken != null) {
+		    model.put("currentUser", currentUser);
+		}
 	    req.getRemoteUser();
+	    
 	    return "profilePage";
 	}
 	
@@ -103,61 +97,21 @@ public class MainMenuController {
 	}
 			
 			
-	@RequestMapping(path="/create", method=RequestMethod.GET)
-	public String displayCreateGameForm() {
-		return "createGame";
-	}
-	
 	@RequestMapping(path="/create", method=RequestMethod.POST)
-	public String createGame(
-			@RequestParam String gameCode,
-			@RequestParam String playerOne, @RequestParam(required=false) String playerTwo,
-			@RequestParam String playerThree, @RequestParam String playerFour,
-			@RequestParam String playerFive, @RequestParam String playerSix
-			) {
+	public String createGame(@RequestParam String gameCode, @RequestParam String nickname, 
+			final HttpServletRequest req) {
 		
-		List<String> playerNames = new ArrayList<>();
-		playerNames.add(playerOne);
-		playerNames.add(playerTwo);
-		playerNames.add(playerThree);
-		playerNames.add(playerFour);
-		playerNames.add(playerFive);
-		playerNames.add(playerSix);
+		int userId = (Integer) SessionUtils.get(req, "userId");
 		
-		playerDAO.createPlayers(playerNames);
+		playerDAO.createPlayer(userId, nickname);
+		Player newPlayer = playerDAO.getPlayer(userId);
 		
+		gameDAO.createNewGame(gameCode);
+		Game newGame = gameDAO.getActiveGame(gameCode);
 		
-		/*
-		 * if(playerTwo != null) { Player player = new Player();
-		 * player.setName(playerTwo); players.add(player); }
-		 */
-		
-		return "redirect:/gameboard/${gamecode}";
+		playerDAO.putPlayerIntoGame(newGame, newPlayer);
+		return "redirect:/gameboard/" + gameCode;
 	}
 	
-			
-		
-		/* else if (playerName != null && gameName != null) {
-			try {
-				
-				 TODO there needs to be a method in the JDBCGameDAO file
-				 * that allows players to create a new game by typing
-				 * in the game code - there is a setGameCode() method
-				 * i think - Alyssa
-				 * 
-				Game newGame = gameDAO.createNewGame(gameName.toUpperCase());
-				moldelHolder.put("newGame", newGame);
-				
-				
-				
-				// need to return a popup that allows users to join...
-				return "mainMenu";
-			} catch(Exception e) {			
-				return "mainMenu";
-			}
-		}
-		*/
-
-	//	return "redirect:/";
 }
 
