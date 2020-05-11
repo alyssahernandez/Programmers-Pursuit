@@ -89,7 +89,7 @@ public class JDBCGameDAO implements GameDAO {
 		
 		while(results.next()) {
 			Player player = new Player();
-			player.setName(results.getString("username"));
+			player.setName(results.getString("name"));
 			player.setPlayerId(results.getInt("player_id"));
 			player.setLocation(game.getGameboard().getSpaces().get(results.getInt("player_position")));
 			player.setColor(results.getLong("player_color"));
