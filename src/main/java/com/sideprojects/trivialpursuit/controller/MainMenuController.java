@@ -92,7 +92,7 @@ public class MainMenuController {
 				return "redirect:/gameboard/" + activeGame.getGameCode();
 			} else {
 				flash.addFlashAttribute("message", "Game Not Found");
-				return "mainMain";
+				return "mainMenu";
 			}
 	}
 			

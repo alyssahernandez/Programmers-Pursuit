@@ -22,4 +22,10 @@ public interface GameDAO {
 	
 	public void setIsGameActive(Game game, Boolean isActive);
 	
+	public void setWinner(Game game);
+	
+	public String getWinner(Game game);
+	
+	public Game getCompletedGame(String gameCode);
+	
 }

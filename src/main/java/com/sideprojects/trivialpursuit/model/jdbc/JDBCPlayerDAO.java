@@ -45,7 +45,6 @@ public class JDBCPlayerDAO implements PlayerDAO
 			template.update(insertPlayer, playerName);
 	}
 
-	//TODO: Could (and probably should) pass in a List<Integer> (holding player_ids returned from ^^). 
 	@Override
 	public void putPlayerIntoGame(Game game, Player player)
 	{
