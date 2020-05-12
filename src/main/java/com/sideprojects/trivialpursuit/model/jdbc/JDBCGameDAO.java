@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import com.sideprojects.trivialpursuit.model.CategoryDAO;
+import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.Category;
 import com.sideprojects.trivialpursuit.model.GameDAO;
@@ -46,6 +47,17 @@ public class JDBCGameDAO implements GameDAO {
 		String newGameId = "INSERT INTO game (game_code, active) VALUES (?, ?)";
 		template.update(newGameId, gameCode.toUpperCase(), true);
 	}
+	
+	@Override
+	public void createNewGame(String gameCode, Integer user_id) {
+		
+		Dice dice = new Dice();
+		int dice_roll = dice.getDiceRoll();
+		
+		String newGameId = "INSERT INTO game (game_code, active, active_player_id, active_player_roll) VALUES (?, ?, ?, ?)";
+		template.update(newGameId, gameCode.toUpperCase(), true, user_id, dice_roll);
+	}
+	
 	
 	//TODO: Change ILIKE back to equals (=)
 	@Override
@@ -87,14 +99,14 @@ public class JDBCGameDAO implements GameDAO {
 	public List<Player> getAllPlayersInAGame(Game game) 
 	{
 		List<Player> players = new ArrayList<>();                   
-		String sqlGetAllPlayers = "SELECT * FROM game_player JOIN player ON game_player.player_id "
-				+ "= player.player_id WHERE game_player.game_id = ?";
+		String sqlGetAllPlayers = "SELECT * FROM game_player JOIN user_account ON game_player.user_id "
+				+ "= user_account.user_id WHERE game_player.game_id = ?";
 		SqlRowSet results = template.queryForRowSet(sqlGetAllPlayers, game.getGameID());
 		
 		while(results.next()) {
 			Player player = new Player();
 			player.setName(results.getString("username"));
-			player.setPlayerId(results.getInt("player_id"));
+			player.setPlayerId(results.getInt("user_id"));
 			player.setLocation(game.getGameboard().getSpaces().get(results.getInt("player_position")));
 			player.setColor(results.getLong("player_color"));
 			player.setPie1(results.getBoolean("player_score_cat_1"));
@@ -113,14 +125,14 @@ public class JDBCGameDAO implements GameDAO {
 	public Player getActivePlayer(Game game)
 	{
 		Player player = new Player();
-		String query = "SELECT player.*, game_player.*, game.active_player_roll FROM player " + 
-				"INNER JOIN game_player ON (player.player_id = game_player.player_id) " + 
-				"INNER JOIN game ON (game_player.game_id = game.game_id) WHERE game.game_id = ? AND player.player_id = game.active_player_id";
+		String query = "SELECT user_account.*, game_player.*, game.active_player_roll FROM user_account " + 
+				"INNER JOIN game_player ON (user_account.user_id = game_player.user_id) " + 
+				"INNER JOIN game ON (game_player.game_id = game.game_id) WHERE game.game_id = ? AND user_account.user_id = game.active_player_id";
 		
 		SqlRowSet results = template.queryForRowSet(query, game.getGameID());
 		if (results.next())
 		{
-			player.setPlayerId(results.getInt("player_id"));
+			player.setPlayerId(results.getInt("user_id"));
 			player.setLocation(game.getGameboard().getSpaces().get(results.getInt("player_position")));
 			player.setName(results.getString("username"));
 			player.setColor(results.getLong("player_color"));
@@ -189,7 +201,7 @@ public class JDBCGameDAO implements GameDAO {
 	
 	@Override
 	public String getWinner(Game game) {
-		String query = "SELECT * FROM player INNER JOIN game ON player.player_id = game.winner_id WHERE game.game_id = ?";
+		String query = "SELECT * FROM user_account INNER JOIN game ON user_account.user_id = game.winner_id WHERE game.game_id = ?";
 		SqlRowSet rowSet = template.queryForRowSet(query, game.getGameID());
 		
 		String playerName = null;

@@ -8,6 +8,8 @@ public interface GameDAO {
 	
 	public void createNewGame(String code); //AC changed return to void added Code arg
 	
+	public void createNewGame(String code, Integer user_id);
+	
 	public List<Player> getAllPlayersInAGame(Game game);
 	
 	public Player getActivePlayer(Game game);	

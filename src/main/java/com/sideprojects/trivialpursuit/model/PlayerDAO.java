@@ -6,8 +6,6 @@ public interface PlayerDAO {
 	
 	public Player getPlayer(int userId);
 	
-	public void createPlayers(List<String> names);
-	
 	public void createPlayer(int userId, String playerName);
 	
 	public void putPlayerIntoGame(Game game, Player player);
@@ -16,5 +14,5 @@ public interface PlayerDAO {
 
 	public void givePlayerPiePiece(int spaceId, Game game); 
 
-
+	public void putPlayerIntoGameV2(Game game, Integer user_id);
 }

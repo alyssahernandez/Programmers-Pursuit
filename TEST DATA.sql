@@ -5,50 +5,45 @@ INSERT INTO user_account (username, id_token, email) VALUES ('kawjdkadhad', 'kje
 INSERT INTO user_account (username, id_token, email) VALUES ('lemonface', '23jh89123y218diuadkaydahwdkjahdawidu12312', 'lemonface@programmerspursuit.com');
 INSERT INTO user_account (username, id_token, email) VALUES ('noodles', '12491823y12821dbakwjdwahdawkjdgh12j3k1bdwad', 'noodles@programmerspursuit.com');
 
-INSERT INTO game (game_id, game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES (1, 'TEST1', true, 1, 2, false, false);
-INSERT INTO game (game_id, game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES (2, 'TEST2', true, 2, 3, false, false);
-INSERT INTO game (game_id, game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES (3, 'TEST3', true, 3, 4, false, false);
-INSERT INTO game (game_id, game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES (4, 'TEST4', true, 4, 5, false, false);
+INSERT INTO game (game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES ('TEST1', true, 1, 2, false, false);
+INSERT INTO game (game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES ('TEST2', true, 2, 3, false, false);
+INSERT INTO game (game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES ('TEST3', true, 3, 4, false, false);
+INSERT INTO game (game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES ('TEST4', true, 4, 5, false, false);
 
-INSERT INTO player (username) VALUES ('Joseph');
-INSERT INTO player (username) VALUES ('kawjdkadhad');
-INSERT INTO player (username) VALUES ('lemonface');
-INSERT INTO player (username) VALUES ('noodles');
-
-INSERT INTO game_player (game_id, player_id, player_color, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
 VALUES (1, 1, 2, false, false, false, false, false, false, true, false, false, 2);
-INSERT INTO game_player (game_id, player_id, player_color, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (1, 2, 4, false, false, false, false, false, false, false, false, 3);
-INSERT INTO game_player (game_id, player_id, player_color, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (1, 3, 6, false, false, false, false, false, false, false, false, 4);
-INSERT INTO game_player (game_id, player_id, player_color, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (1, 4, 1, false, false, false, false, false, false, false, false, 5);
 
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (2, 1, 1, 60, false, false, false, false, false, false, false, false, 2);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
 VALUES (2, 2, 3, 53, false, false, false, false, false, false, true, false, false, 3);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (2, 3, 5, 42, false, false, false, false, false, false, false, false, 4);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (2, 4, 2, 3, false, false, false, false, false, false, false, false, 5);
 
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (3, 1, 2, 35, true, true, true, true, true, true, false, false, 2);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (3, 2, 4, 41, true, true, true, true, true, true, false, false, 3);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
 VALUES (3, 3, 6, 67, true, true, true, true, true, true, true, false, false, 4);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (3, 4, 3, 67, true, true, true, true, true, true, false, false, 5);
 
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (4, 1, 1, 4, false, false, false, false, false, false, false, false, 2);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (4, 2, 3, 4, false, false, false, false, false, false, false, false, 3);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (4, 3, 5, 4, false, false, false, false, false, false, false, false, 4);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
 VALUES (4, 4, 1, 70, false, false, false, false, false, false, true, false, false, 5);
 
 INSERT INTO category (name) VALUES ('Java & OOP Fundamentals');

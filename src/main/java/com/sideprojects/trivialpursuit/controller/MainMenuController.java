@@ -102,14 +102,15 @@ public class MainMenuController {
 			final HttpServletRequest req) {
 		
 		int userId = (Integer) SessionUtils.get(req, "userId");
-		
+	/*	
 		playerDAO.createPlayer(userId, nickname);
 		Player newPlayer = playerDAO.getPlayer(userId);
+	*/	
 		
-		gameDAO.createNewGame(gameCode);
+		gameDAO.createNewGame(gameCode, userId);
 		Game newGame = gameDAO.getActiveGame(gameCode);
 		
-		playerDAO.putPlayerIntoGame(newGame, newPlayer);
+		playerDAO.putPlayerIntoGameV2(newGame, userId);
 		return "redirect:/gameboard/" + gameCode;
 	}
 	
