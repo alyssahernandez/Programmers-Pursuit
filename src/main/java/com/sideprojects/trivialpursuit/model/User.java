@@ -7,8 +7,8 @@ public class User {
 	private String idToken;
 	private String email;
 	private String picture;
-	
-	
+	private Integer gamesWon;
+	private Integer gamesPlayed;
 	
 	public Integer getUserId() {
 		return userId;
@@ -48,6 +48,22 @@ public class User {
 
 	public void setPicture(String picture) {
 		this.picture = picture;
+	}
+
+	public Integer getGamesPlayed() {
+		return gamesPlayed;
+	}
+
+	public void setGamesPlayed(Integer gamesPlayed) {
+		this.gamesPlayed = gamesPlayed;
+	}
+
+	public Integer getGamesWon() {
+		return gamesWon;
+	}
+
+	public void setGamesWon(Integer gamesWon) {
+		this.gamesWon = gamesWon;
 	}
 	
 	

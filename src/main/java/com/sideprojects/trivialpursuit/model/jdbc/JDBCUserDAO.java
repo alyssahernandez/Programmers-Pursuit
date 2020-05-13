@@ -34,6 +34,8 @@ public class JDBCUserDAO implements UserDAO {
 			user.setIdToken(result.getString("id_token"));
 			user.setEmail(result.getString("email"));
 			user.setPicture(result.getString("picture"));
+			user.setGamesPlayed(result.getInt("games_played"));
+			user.setGamesWon(result.getInt("games_won"));
 		} else {
 			return null;
 		}

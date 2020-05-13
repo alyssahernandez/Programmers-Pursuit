@@ -8,6 +8,8 @@ public interface GameDAO {
 	
 	public void createNewGame(String code); //AC changed return to void added Code arg
 	
+	public void createNewGame(String code, Integer user_id);
+	
 	public List<Player> getAllPlayersInAGame(Game game);
 	
 	public Player getActivePlayer(Game game);	
@@ -21,5 +23,11 @@ public interface GameDAO {
 	public void setHasSelectedCategory(Game game, Boolean hasSelectedCategory);
 	
 	public void setIsGameActive(Game game, Boolean isActive);
+	
+	public void setWinner(Game game);
+	
+	public String getWinner(Game game);
+	
+	public Game getCompletedGame(String gameCode);
 	
 }

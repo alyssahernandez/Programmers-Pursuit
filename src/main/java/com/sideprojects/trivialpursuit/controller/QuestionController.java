@@ -146,6 +146,7 @@ public class QuestionController {
 			if (currentPlayerSpace.isCenter() && isAnswerCorrect && currentPlayerTurn.getAllPies()) {				
 				gameDAO.setIsGameActive(currentGame, false);
 				currentGame.setActive(false);
+				//gameDAO.setWinner(currentGame);
 			}  
 			
 			chosenCenterSpaceCategory = "false";

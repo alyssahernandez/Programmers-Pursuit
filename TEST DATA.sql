@@ -1,54 +1,49 @@
 BEGIN TRANSACTION;
 
-INSERT INTO user_account (user_id, id_token) VALUES (1, 'awkdhadwahdajkhd12jeh12jhdawkdakdhad');
-INSERT INTO user_account (user_id, id_token) VALUES (2, 'kjeiuqgdkjwadhawdawd12e812312dwadawfaf12313');
-INSERT INTO user_account (user_id, id_token) VALUES (3, '23jh89123y218diuadkaydahwdkjahdawidu12312');
-INSERT INTO user_account (user_id, id_token) VALUES (4, '12491823y12821dbakwjdwahdawkjdgh12j3k1bdwad');
+INSERT INTO user_account (username, id_token, email) VALUES ('Joseph', 'awkdhadwahdajkhd12jeh12jhdawkdakdhad', 'joseph@programmerspursuit.com');
+INSERT INTO user_account (username, id_token, email) VALUES ('kawjdkadhad', 'kjeiuqgdkjwadhawdawd12e812312dwadawfaf12313', 'kawjdkadhad@programmerspursuit.com');
+INSERT INTO user_account (username, id_token, email) VALUES ('lemonface', '23jh89123y218diuadkaydahwdkjahdawidu12312', 'lemonface@programmerspursuit.com');
+INSERT INTO user_account (username, id_token, email) VALUES ('noodles', '12491823y12821dbakwjdwahdawkjdgh12j3k1bdwad', 'noodles@programmerspursuit.com');
 
-INSERT INTO game (game_id, game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES (1, 'TEST1', true, 1, 2, false, false);
-INSERT INTO game (game_id, game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES (2, 'TEST2', true, 2, 3, false, false);
-INSERT INTO game (game_id, game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES (3, 'TEST3', true, 3, 4, false, false);
-INSERT INTO game (game_id, game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES (4, 'TEST4', true, 4, 5, false, false);
+INSERT INTO game (game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES ('TEST1', true, 1, 2, false, false);
+INSERT INTO game (game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES ('TEST2', true, 2, 3, false, false);
+INSERT INTO game (game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES ('TEST3', true, 3, 4, false, false);
+INSERT INTO game (game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES ('TEST4', true, 4, 5, false, false);
 
-INSERT INTO player (player_id, user_id, name) VALUES (1, 3, 'Joeseph');
-INSERT INTO player (player_id, user_id, name) VALUES (2, 2, 'kawjdkadhad');
-INSERT INTO player (player_id, user_id, name) VALUES (3, 4, 'lemonface');
-INSERT INTO player (player_id, user_id, name) VALUES (4, 1, 'noodles');
+INSERT INTO game_player (game_id, user_id, player_color, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
+VALUES (1, 1, 2, false, false, false, false, false, false, true, false, false, 2);
+INSERT INTO game_player (game_id, user_id, player_color, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+VALUES (1, 2, 4, false, false, false, false, false, false, false, false, 3);
+INSERT INTO game_player (game_id, user_id, player_color, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+VALUES (1, 3, 6, false, false, false, false, false, false, false, false, 4);
+INSERT INTO game_player (game_id, user_id, player_color, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+VALUES (1, 4, 1, false, false, false, false, false, false, false, false, 5);
 
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
-VALUES (1, 1, 2, 0, false, false, false, false, false, false, true, false, false, 2);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
-VALUES (1, 2, 4, 12, false, false, false, false, false, false, false, false, 3);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
-VALUES (1, 3, 6, 53, false, false, false, false, false, false, false, false, 4);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
-VALUES (1, 4, 1, 53, false, false, false, false, false, false, false, false, 5);
-
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (2, 1, 1, 60, false, false, false, false, false, false, false, false, 2);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
 VALUES (2, 2, 3, 53, false, false, false, false, false, false, true, false, false, 3);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (2, 3, 5, 42, false, false, false, false, false, false, false, false, 4);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (2, 4, 2, 3, false, false, false, false, false, false, false, false, 5);
 
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (3, 1, 2, 35, true, true, true, true, true, true, false, false, 2);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (3, 2, 4, 41, true, true, true, true, true, true, false, false, 3);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
 VALUES (3, 3, 6, 67, true, true, true, true, true, true, true, false, false, 4);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (3, 4, 3, 67, true, true, true, true, true, true, false, false, 5);
 
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (4, 1, 1, 4, false, false, false, false, false, false, false, false, 2);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (4, 2, 3, 4, false, false, false, false, false, false, false, false, 3);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
 VALUES (4, 3, 5, 4, false, false, false, false, false, false, false, false, 4);
-INSERT INTO game_player (game_id, player_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
+INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
 VALUES (4, 4, 1, 70, false, false, false, false, false, false, true, false, false, 5);
 
 INSERT INTO category (name) VALUES ('Java & OOP Fundamentals');
@@ -56,7 +51,7 @@ INSERT INTO category (name) VALUES ('SQL & Databases');
 INSERT INTO category (name) VALUES ('HTML & CSS');
 INSERT INTO category (name) VALUES ('Spring MVC & Design Patterns');
 INSERT INTO category (name) VALUES ('JavaScript');
-INSERT INTO category (name) VALUES ('TDD');
+INSERT INTO category (name) VALUES ('Vue.js');
 
 INSERT INTO category_game (category_id, game_id) VALUES (1, 1);
 INSERT INTO category_game (category_id, game_id) VALUES (2, 1);
@@ -95,6 +90,10 @@ INSERT INTO question (category_id, question, correct_answer, answer_choice_a, an
         VALUES (1, 'Which keyword is used to indicate that a member is associated with a class (and not an instance of the class)?', 'static', 'final', 'readonly', 'static', 'const');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b)
         VALUES (1, 'Is multiple inheritance allowed in Java?', 'No', 'Yes', 'No');
+INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
+        VALUES (6, 'What is the testing method in which components are tested individually?', 'Unit Testing', 'Regression Testing', 'Unit Testing', 'Integration Testing', 'Smoke Testing');
+INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
+        VALUES (6, 'Which annotation is used before each jUnit test method?', '@Test', '@TestMethod', '@Testing', '@Test', '@JUnit');
 
 -- ^^ I don't see why we couldn't do true/false. In JSP, you'll loop thru the list of possible answers to display as radio buttons.
 -- In controller, check for null form inputs & filter out the non-null
@@ -119,13 +118,13 @@ INSERT INTO question (category_id, question, correct_answer, answer_choice_a, an
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
         VALUES (3, 'What does HTML stand for?', 'Hypertext Markup Language', 'Hypertext Markup Language', 'Hometext Markup Language', 'Hyperlink Text Markup Language', 'Hypertext Manipulation Language');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (3, 'The HTML tag for the largest heading is:', '<h1>', '<h4>', '<h6>', '<h>', '<h1>');
+        VALUES (3, 'The HTML tag for the largest heading is:', '< h1 >', '< h4 >', '< h6 >', '< h >', '< h1 >');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (3, 'HTML pages begin with the following tag:', '<!DOCTYPE html>', '<!DOCTYPE html>', '<head>', '<html>', '<body>');
+        VALUES (3, 'HTML pages begin with the following tag:', '< !DOCTYPE html >', '< !DOCTYPE html >', '< head >', '< html >', '< body >');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
         VALUES (3, 'HTML IDs are referenced in CSS with which selector:', '#', '#', '@', '.', ':');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (3, 'Which tag is used to insert a line break?', '<br>', '<b>', '<break>', '<br>', '</n>');
+        VALUES (3, 'Which tag is used to insert a line break?', '< br >', '< b >', '< break >', '< br >', '< /n >');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
         VALUES (3, 'HTML classes are referenced in CSS with which selector:', '.', '#', '@', '.', ':');
        
@@ -147,7 +146,7 @@ INSERT INTO question (category_id, question, correct_answer, answer_choice_a, an
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
         VALUES (5, 'Which array function is used to iterate over the elements of an array?', 'forEach()', 'forEach()', 'for()', 'iterate()', 'map()');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (5, 'Which HTML element is used to contain JavaScript code?', '<script>', '<javascript>', '<style>', '<script>', '<js>');
+        VALUES (5, 'Which HTML element is used to contain JavaScript code?', '< script >', '< javascript >', '< style >', '< script >', '< js >');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
         VALUES (5, 'Which of the following is an invalid keyword used to declare variables:', 'All are valid keywords', 'var', 'const', 'let', 'All are valid keywords');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
@@ -159,21 +158,24 @@ INSERT INTO question (category_id, question, correct_answer, answer_choice_a, an
 
 -- There are multiples of the pair of TDD questions because I didn't feel like coming up with any more when I did this. Will update - Brooks
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'What is the testing method in which components are tested individually?', 'Unit Testing', 'Regression Testing', 'Unit Testing', 'Integration Testing', 'Smoke Testing');
+        VALUES (6, 'Which keyword is associated with two-way data binding?', 'v-model', 'v-bind', 'v-sync', 'v-doublebind', 'v-model');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'Which annotation is used before each jUnit test method?', '@Test', '@TestMethod', '@Testing', '@Test', '@JUnit');
+        VALUES (6, 'In Vue.js, HTML is written within the following tag:', '< template >', '< vue >', '< template >', '< html >', '< body >');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'What is the testing method in which components are tested individually?', 'Unit Testing', 'Regression Testing', 'Unit Testing', 'Integration Testing', 'Smoke Testing');
+        VALUES (6, 'Which keyword is associated with two-way data binding?', 'v-model', 'v-bind', 'v-sync', 'v-doublebind', 'v-model');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'Which annotation is used before each jUnit test method?', '@Test', '@TestMethod', '@Testing', '@Test', '@JUnit');
+        VALUES (6, 'In Vue.js, HTML is written within the following tag:', '< template >', '< vue >', '< template >', '< html >', '< body >');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'What is the testing method in which components are tested individually?', 'Unit Testing', 'Regression Testing', 'Unit Testing', 'Integration Testing', 'Smoke Testing');
+        VALUES (6, 'Which keyword is associated with two-way data binding?', 'v-model', 'v-bind', 'v-sync', 'v-doublebind', 'v-model');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'Which annotation is used before each jUnit test method?', '@Test', '@TestMethod', '@Testing', '@Test', '@JUnit');
+        VALUES (6, 'In Vue.js, HTML is written within the following tag:', '< template >', '< vue >', '< template >', '< html >', '< body >');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'What is the testing method in which components are tested individually?', 'Unit Testing', 'Regression Testing', 'Unit Testing', 'Integration Testing', 'Smoke Testing');
+        VALUES (6, 'Which keyword is associated with two-way data binding?', 'v-model', 'v-bind', 'v-sync', 'v-doublebind', 'v-model');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'Which annotation is used before each jUnit test method?', '@Test', '@TestMethod', '@Testing', '@Test', '@JUnit');
+        VALUES (6, 'In Vue.js, HTML is written within the following tag:', '< template >', '< vue >', '< template >', '< html >', '< body >');
+
+
+
 
 INSERT INTO game_question (game_id, question_id, asked) VALUES (1, 1, false);
 INSERT INTO game_question (game_id, question_id, asked) VALUES (1, 2, false);
@@ -299,6 +301,5 @@ INSERT INTO game_question (game_id, question_id, asked) VALUES (4, 40, false);
 INSERT INTO game_question (game_id, question_id, asked) VALUES (4, 41, false);
 INSERT INTO game_question (game_id, question_id, asked) VALUES (4, 42, false);
 INSERT INTO game_question (game_id, question_id, asked) VALUES (4, 43, false);
-
 
 COMMIT;

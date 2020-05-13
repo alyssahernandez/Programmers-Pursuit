@@ -33,29 +33,36 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template.update(insertPlayer, userId, playerName);
 	}
 	
-	
-	
-	//TODO: This is probably not going to be used. Make that determination and remove it if unused. - Brooks
-	//TODO: If used, include game_player insertion method within createPlayers method to do everything at once. - Brooks 
-	@Override
-	public void createPlayers(List<String> players) {
+
+	public void putPlayerIntoGame(Game game, Integer user_id)
+	{
+		int gameId = game.getGameID();
 		
-		String insertPlayer = "INSERT INTO player (name, games_won, games_played) VALUES (?, 0, 0)";
-		for (String playerName : players)
-			template.update(insertPlayer, playerName);
+		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id) VALUES (?, ?)";
+		template.update(sqlPutPlayerIntoGame, gameId, user_id);
+	
 	}
 
-	//TODO: Could (and probably should) pass in a List<Integer> (holding player_ids returned from ^^). 
+	// TODO: This will probably go unused -- see ^^^
 	@Override
 	public void putPlayerIntoGame(Game game, Player player)
 	{
 		int gameId = game.getGameID();
 		int playerId = player.getPlayerId();
 		
-		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, player_id) VALUES (?, ?)";
+		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id) VALUES (?, ?)";
 		template.update(sqlPutPlayerIntoGame, gameId, playerId);
 	
 	}
+	
+	public void putFirstPlayerIntoGame(Game game, Integer user_id) {
+		
+		int gameId = game.getGameID();
+		
+		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id, player_color) VALUES (?, ?, 1)";
+		template.update(sqlPutPlayerIntoGame, gameId, user_id);
+	}
+
 	
 	// TODO: Could also pass in an integer to jibe with form input (rather than updating activePlayer's position in the Controller, which this method assumes is happening):
 	// setPlayerPosition(Game game, Integer newPosition), 
@@ -63,11 +70,11 @@ public class JDBCPlayerDAO implements PlayerDAO
 	public void setPlayerPosition(Game game, Player activePlayer) {
 		
 		Integer position = activePlayer.getLocation().getSpaceId();
-		Integer player_id = activePlayer.getPlayerId();
+		Integer user_id = activePlayer.getPlayerId();
 		Integer game_id = game.getGameID();
 		
-		String setPlayerPosition = "UPDATE game_player SET player_position = ? WHERE player_id = ? AND game_id = ?";
-		template.update(setPlayerPosition, position, player_id, game_id);
+		String setPlayerPosition = "UPDATE game_player SET player_position = ? WHERE user_id = ? AND game_id = ?";
+		template.update(setPlayerPosition, position, user_id, game_id);
 	}
 	
 	//TODO: Could move this to JDBCGameDAO, privatize, and call in the setActivePlayer() method (pulling the conditional from Controller & putting in jdbc)
@@ -91,7 +98,7 @@ public class JDBCPlayerDAO implements PlayerDAO
 			  pie_cat = "player_score_cat_6";
 		  }
 		  
-		String givePlayerPiePiece = String.format("UPDATE game_player SET %s = true WHERE player_id = ? AND game_id = ?", pie_cat);
+		String givePlayerPiePiece = String.format("UPDATE game_player SET %s = true WHERE user_id = ? AND game_id = ?", pie_cat);
 		template.update(givePlayerPiePiece, playerId, game.getGameID());	
 	}
 
@@ -103,7 +110,7 @@ public class JDBCPlayerDAO implements PlayerDAO
 		SqlRowSet result = template.queryForRowSet(getPlayerSQL, userId);
 		
 		if(result.next()) {
-			newPlayer.setPlayerId(result.getInt("player_id"));
+			newPlayer.setPlayerId(result.getInt("user_id"));
 			newPlayer.setName(result.getString("username"));
 		}
 		return newPlayer;

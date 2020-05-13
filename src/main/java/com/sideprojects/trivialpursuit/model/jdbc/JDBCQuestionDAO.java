@@ -11,6 +11,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import com.sideprojects.trivialpursuit.model.Category;
+import com.sideprojects.trivialpursuit.model.CategoryDAO;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.Question;
 import com.sideprojects.trivialpursuit.model.QuestionDAO;
@@ -19,18 +21,19 @@ import com.sideprojects.trivialpursuit.model.QuestionDAO;
 public class JDBCQuestionDAO implements QuestionDAO {
 	
 	private JdbcTemplate jdbcTemplate;
+	private CategoryDAO categoryDAO;
 
 	@Autowired
 	public JDBCQuestionDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
-	// Returns a randomly selected question & updates the DB to "asked" so that it can't be selected again.
 	@Override
 	public Question getUnaskedQuestionByCategory(Game game, Integer category_id)
 	{
 		Question question = null;
 		List<Question> questions = getUnaskedQuestionsByCategory(game, category_id);
+		
 		if (questions == null || questions.size() == 0)
 			return null;
 		//TODO: @Controller, if null is returned, tell users the game is over because they're out of questions for a category.
@@ -44,7 +47,6 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		return question;
 	}
 	
-	// Retrieves the current question (called after getUnaskedQuestionByCategory(), which pulls & initially sets the current question)
 	public Question getCurrentQuestion(Game game)
 	{
 		Question question = new Question();
@@ -69,7 +71,6 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		return question;
 	}
 	
-	// Updates the current question the current question so that we don't pull it again.
 	@Override
 	public void setQuestionAsked(Game game, Question question)
 	{
@@ -79,19 +80,18 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		jdbcTemplate.update(query, game.getGameID(), question.getQuestionID());
 	}
 	
-	// TODO: May need to pass in something other than a list depending on how Kiran does form input
-	// Uses private "getQuestionsByCategory()" method below to set questions in game_question. //TODO: This is what will be used in Controller @ Kiran. - Brooks
 	@Override
 	public void setGameQuestions(Game game, List<Integer> category_IDs)
 	{
+		
 		List<Question> questions = getQuestionsByCategory(category_IDs);
 		String query = "INSERT INTO game_question (game_id, question_id, asked) VALUES (?, ?, false)";
 		
 		for (Question q : questions)
 			jdbcTemplate.update(query, game.getGameID(), q.getQuestionID());
+			
 	}
 	
-	// Pulls a list of unasked questions, from which we'll pull a single question in getUnaskedQuestion above.
 	private List<Question> getUnaskedQuestionsByCategory(Game game, Integer category_id)
 	{
 		List<Question> questions = new ArrayList<>();
@@ -118,17 +118,14 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		return questions;
 	}
 	
-	// This is called inside of setGameQuestions()
-	// TODO: May need to pass in something other than a list depending on how Kiran does form input
-	// Gets questions by a list of category_id's to store in game_question.
-	private List<Question> getQuestionsByCategory(List<Integer> category_IDs)
+	private List<Question> getQuestionsByCategory(List<Integer> category_ids)
 	{
 		List<Question> questions = new ArrayList<>();
 		String sqlGetQuestionFromCategory = "SELECT * FROM question WHERE category_id = ?";
 		
-		for (Integer cat_id : category_IDs)
+		for (Integer cat : category_ids)
 		{
-			SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlGetQuestionFromCategory, cat_id);
+			SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlGetQuestionFromCategory, cat);
 			
 			while (rowSet.next()) 
 			{
@@ -148,6 +145,49 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		}
 		return questions;
 	}
+	
+	/*
+	private List<Question> getQuestionsByCategory(List<Category> categories)
+	{
+		List<Question> questions = new ArrayList<>();
+		String sqlGetQuestionFromCategory = "SELECT * FROM question WHERE category_id = ?";
+		
+		for (Category cat : categories)
+		{
+			SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlGetQuestionFromCategory, cat.getCategoryId());
+			
+			while (rowSet.next()) 
+			{
+				Question question = new Question();
+				List<String> possibleAnswers = new ArrayList<>();
+				question.setAnswer(rowSet.getString("correct_answer"));
+				question.setCategoryID(rowSet.getInt("category_id"));
+				question.setQuestion(rowSet.getString("question"));
+				question.setQuestionID(rowSet.getInt("question_id"));
+				possibleAnswers.add(rowSet.getString("answer_choice_a"));
+				possibleAnswers.add(rowSet.getString("answer_choice_b"));
+				possibleAnswers.add(rowSet.getString("answer_choice_c"));
+				possibleAnswers.add(rowSet.getString("answer_choice_d"));
+				question.setPossibleAnswers(possibleAnswers);
+				questions.add(question);
+			}
+		}
+		return questions;
+	}
+	
+		
+	
+	public void setGameQuestions(Game game, List<Category> categories) {
+		
+		List<Question> questions = getQuestionsByCategory(categories);
+		String query = "INSERT INTO game_question (game_id, question_id, asked) VALUES (?, ?, false)";
+		
+		for (Question q : questions)
+			jdbcTemplate.update(query, game.getGameID(), q.getQuestionID());
+		
+	}
+	*/
+	
 	
 	// Helper method to retrieve a random question from a List<Question> based on the list's size (because questions are pulled from the DB in the same order every time -- we want unique games)
 	private int getQuestionIndex(int length)

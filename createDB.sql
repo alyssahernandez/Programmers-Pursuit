@@ -13,21 +13,14 @@ DROP TABLE IF EXISTS user_account;
 CREATE TABLE user_account
 (
         user_id serial PRIMARY KEY,
-        username varchar(100) not null,
+        username varchar(100) not null UNIQUE,
         id_token varchar(255) not null,
         email varchar(255) not null,
-        picture varchar(255)
+        picture varchar(255),
+        games_played int not null default(0),
+        games_won int not null default(0)
 );
 
-CREATE TABLE player
-(
-        player_id serial PRIMARY KEY,
-        user_id int not null,
-        username varchar(64) not null,
-        
-       
-        constraint fk_player_user_account foreign key (user_id) references user_account (user_id)
-);
 
 CREATE TABLE game
 (
@@ -37,30 +30,30 @@ CREATE TABLE game
         winner_id int,
         active_player_id int, -- remove once finished w/ jdbcs (this is now in game_player)
         active_player_roll int, -- remove once finished w/ jdbcs (this is now in game_player)
-        active_player_answering_question boolean, -- remove once finished w/ jdbcs (this is now in game_player)
-        active_player_category_selected_center boolean -- remove once finished w/ jdbcs (this is now in game_player) -- Brooks
+        active_player_answering_question boolean default(false), -- remove once finished w/ jdbcs (this is now in game_player)
+        active_player_category_selected_center boolean default(false)-- remove once finished w/ jdbcs (this is now in game_player) -- Brooks
 );
 
 CREATE TABLE game_player
 (
         game_id int not null,        
-        player_id int not null,
-        player_color int not null,
-        player_position int not null,
+        user_id int not null,
+        player_color int,
         player_roll int, -- update jdbc - Brooks
-        player_score_cat_1 boolean not null,
-        player_score_cat_2 boolean not null,
-        player_score_cat_3 boolean not null,
-        player_score_cat_4 boolean not null,
-        player_score_cat_5 boolean not null,
-        player_score_cat_6 boolean not null,
+        player_position int not null default(0),
+        player_score_cat_1 boolean not null default(false),
+        player_score_cat_2 boolean not null default(false),
+        player_score_cat_3 boolean not null default(false),
+        player_score_cat_4 boolean not null default(false),
+        player_score_cat_5 boolean not null default(false),
+        player_score_cat_6 boolean not null default(false),
         is_turn boolean, -- update jdbc - Brooks
-        is_answering_question boolean, -- update jdbc + Player.java
-        has_selected_category_center boolean, -- update jdbc + Player.java - Brooks
+        is_answering_question boolean default(false), -- update jdbc + Player.java
+        has_selected_category_center boolean default(false), -- update jdbc + Player.java - Brooks
 
-        constraint pk_game_player primary key (game_id, player_id),
+        constraint pk_game_player primary key (game_id, user_id),
         constraint fk_game_player_game foreign key (game_id) references game (game_id),
-        constraint fk_game_player_player foreign key (player_id) references player (player_id)
+        constraint fk_game_player_user_account foreign key (user_id) references user_account (user_id)
 );
 
 CREATE TABLE category
