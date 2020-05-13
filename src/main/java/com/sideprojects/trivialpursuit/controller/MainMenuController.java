@@ -110,7 +110,7 @@ public class MainMenuController {
 		gameDAO.createNewGame(gameCode, userId);
 		Game newGame = gameDAO.getActiveGame(gameCode);
 		
-		playerDAO.putPlayerIntoGameV2(newGame, userId);
+		playerDAO.putPlayerIntoGame(newGame, userId);
 		return "redirect:/gameboard/" + gameCode;
 	}
 	

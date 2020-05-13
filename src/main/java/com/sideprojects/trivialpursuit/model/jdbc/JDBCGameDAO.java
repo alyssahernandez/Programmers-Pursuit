@@ -51,8 +51,7 @@ public class JDBCGameDAO implements GameDAO {
 	@Override
 	public void createNewGame(String gameCode, Integer user_id) {
 		
-		Dice dice = new Dice();
-		int dice_roll = dice.getDiceRoll();
+		int dice_roll = Dice.getDiceRoll();
 		
 		String newGameId = "INSERT INTO game (game_code, active, active_player_id, active_player_roll) VALUES (?, ?, ?, ?)";
 		template.update(newGameId, gameCode.toUpperCase(), true, user_id, dice_roll);

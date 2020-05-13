@@ -34,7 +34,7 @@ public class JDBCPlayerDAO implements PlayerDAO
 	}
 	
 
-	public void putPlayerIntoGameV2(Game game, Integer user_id)
+	public void putPlayerIntoGame(Game game, Integer user_id)
 	{
 		int gameId = game.getGameID();
 		

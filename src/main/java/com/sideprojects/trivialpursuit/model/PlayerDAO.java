@@ -14,5 +14,5 @@ public interface PlayerDAO {
 
 	public void givePlayerPiePiece(int spaceId, Game game); 
 
-	public void putPlayerIntoGameV2(Game game, Integer user_id);
+	public void putPlayerIntoGame(Game game, Integer user_id);
 }
