@@ -65,4 +65,27 @@ public class JDBCCategoryDAO implements CategoryDAO {
 		for (Integer cat_id : category_IDs)
 			jdbcTemplate.update(query, game.getGameID(), cat_id);
 	}
+	
+	@Override
+	public void setCategoriesByGameIdV2(Game game, List<Category> categories) {
+		String query = "INSERT INTO category_game (game_id, category_id) VALUES (?, ?)"; 
+		for (Category c : categories) {
+			jdbcTemplate.update(query, game.getGameID(), c.getCategoryId());
+		}
+	}
+	
+	@Override
+	public List<Category> getAllCategories() {
+		String query = "SELECT * FROM category";
+		SqlRowSet rowSet = jdbcTemplate.queryForRowSet(query);
+		
+		List<Category> categories = new ArrayList<>();
+		while (rowSet.next()) {
+			Category category = new Category();
+			category.setCategoryId(rowSet.getInt("category_id"));
+			category.setCategoryName(rowSet.getString("name"));
+			categories.add(category);
+		}
+		return categories;
+	}
 }

@@ -8,4 +8,10 @@ public interface CategoryDAO {
 	
 	public void setCategoriesByGameId(Game game, List<Integer> category_IDs);
 	
+	public void setCategoriesByGameIdV2(Game game, List<Category> categories);
+	
+	public List<Category> getAllCategories();
+	
+	
+	
 }

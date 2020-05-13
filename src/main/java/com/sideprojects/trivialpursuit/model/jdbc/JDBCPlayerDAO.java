@@ -54,6 +54,14 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template.update(sqlPutPlayerIntoGame, gameId, playerId);
 	
 	}
+	
+	public void putFirstPlayerIntoGame(Game game, Integer user_id) {
+		
+		int gameId = game.getGameID();
+		
+		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id, player_color) VALUES (?, ?, 1)";
+		template.update(sqlPutPlayerIntoGame, gameId, user_id);
+	}
 
 	
 	// TODO: Could also pass in an integer to jibe with form input (rather than updating activePlayer's position in the Controller, which this method assumes is happening):

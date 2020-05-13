@@ -36,11 +36,12 @@
 				<c:otherwise>	
 				
 					<form action="${ questionFormURL }" method="POST" class="question-form">
-						<label class="question-form__text" for="answer">${question.question}
-							<c:forEach var="answer" items="${possibleAnswers}">
+						${question.question}
+						<c:forEach var="answer" items="${possibleAnswers}">
+							<label class="question-form__text" for="answer">
 								<input class="question-form__answer" name="answer" type="radio" value="${answer}"/>${answer}
-							</c:forEach>
-						</label>
+							</label>
+						</c:forEach>
 						<input type="submit" value="Submit"/>	
 					</form>
 						
