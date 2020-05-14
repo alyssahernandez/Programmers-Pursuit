@@ -63,13 +63,15 @@
 		</c:when>	
 		<c:otherwise>	
 			<form action="${ questionFormURL }" method="POST" class="question-form">
-				<label class="question-form__text u-margin-bottom-medium" for="answer">${question.question}
-					<c:forEach var="answer" items="${possibleAnswers}">
-						<div class="question-form__group">
-							<input class="question-form__answer" name="answer" type="radio" value="${answer }"/>${answer}
+				<h3 class="question-form__question u-margin-bottom-medium">${ question.question }</h3>
+				<div class="question-form__answers u-margin-bottom-medium">
+					<c:forEach var="answer" items="${ possibleAnswers }">
+						<div class="question-form__group u-margin-bottom-small">
+							<input class="question-form__radio" name="answer" type="radio" id="${ answer }" value="${ answer }">
+							<label class="question-form__label" for="${ answer }">${ answer }</label>
 						</div>
 					</c:forEach>
-				</label>
+				</div>
 				<input class="button" type="submit" value="Submit"/>
 			</form>
 		</c:otherwise>	
