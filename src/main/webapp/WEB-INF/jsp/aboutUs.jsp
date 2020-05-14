@@ -57,7 +57,7 @@
             <div class="team-member__details">
                 <h3 class="team-member-name">Jeff Crosley</h3>
                 <p class="team-member-bio">
-                    Te qui quis adolescens, id eos soleat scripserit, ne his.
+                    Design Specialist. Worked on layout, design elements, and gameboard generation algorithm.
                 </p>
                 <div class="team-member__links">
                     <a href="https://www.linkedin.com/in/jeffcrosley/" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>

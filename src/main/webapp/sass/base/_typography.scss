@@ -59,17 +59,20 @@ ul {
 
 .about-header {
     color: $color-grey-dark-2;
-    font-size: 4rem;
+    font-size: 5rem;
 }
 
 .team-member-name {
     color: $color-grey-light-1;
     font-size: 2.5rem;
+    text-shadow: $shadow-small;
 }
 
 .team-member-bio {
     color: $color-grey-light-1;
     font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: $shadow-small;
 }
 
 .team-member-link {
