@@ -22,6 +22,7 @@
 		<label for="gameCode">Game Code:</label> 
 		<input type="text" name="gameCode" />
 		
+		<span>Categories:</span>
 		<c:forEach var="category" items="${categories }">
 			<label for="categorySelection">${category.categoryName }</label> 
 			<input type="checkbox" name="categorySelection" value="${category.categoryId }" />

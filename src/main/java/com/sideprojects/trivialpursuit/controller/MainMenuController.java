@@ -112,7 +112,7 @@ public class MainMenuController {
 			
 			
 	@RequestMapping(path="/create", method=RequestMethod.POST)
-	public String createGame(@RequestParam String gameCode, @RequestParam String nickname, @RequestParam Integer[] categorySelection,
+	public String createGame(@RequestParam String gameCode, @RequestParam String nickname, @RequestParam List<Integer> categorySelection,
 			final HttpServletRequest req) {
 		
 		int userId = (Integer) SessionUtils.get(req, "userId");
@@ -129,9 +129,8 @@ public class MainMenuController {
 		
 		playerDAO.putFirstPlayerIntoGame(newGame, userId);
 		
-		List<Integer> categoryIds = Arrays.asList(categorySelection);
-		categoryDAO.setCategoriesByGameId(newGame, categoryIds);
-		questionDAO.setGameQuestions(newGame, categoryIds);
+		categoryDAO.setCategoriesByGameId(newGame, categorySelection);
+		questionDAO.setGameQuestions(newGame, categorySelection);
 		
 		return "redirect:/gameboard/" + gameCode;
 	}
