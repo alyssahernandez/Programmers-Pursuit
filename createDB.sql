@@ -1,14 +1,13 @@
 BEGIN TRANSACTION;
 
+DROP TABLE IF EXISTS user_invite;
 DROP TABLE IF EXISTS category_game;
 DROP TABLE IF EXISTS game_question;
 DROP TABLE IF EXISTS game_player;
 DROP TABLE IF EXISTS question;
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS game;
-DROP TABLE IF EXISTS player;
 DROP TABLE IF EXISTS user_account;
-
 
 CREATE TABLE user_account
 (
@@ -20,7 +19,6 @@ CREATE TABLE user_account
         games_played int not null default(0),
         games_won int not null default(0)
 );
-
 
 CREATE TABLE game
 (
@@ -50,6 +48,7 @@ CREATE TABLE game_player
         is_turn boolean, -- update jdbc - Brooks
         is_answering_question boolean default(false), -- update jdbc + Player.java
         has_selected_category_center boolean default(false), -- update jdbc + Player.java - Brooks
+        is_active boolean default(true),
 
         constraint pk_game_player primary key (game_id, user_id),
         constraint fk_game_player_game foreign key (game_id) references game (game_id),
@@ -96,6 +95,17 @@ CREATE TABLE game_question
         constraint pk_game_question primary key (game_id, question_id),
         constraint fk_game_question_question foreign key (question_id) references question (question_id),
         constraint fk_game_question_game foreign key (game_id) references game (game_id)        
+);
+
+CREATE TABLE user_invite
+(
+        invite_id serial PRIMARY KEY,
+        game_id int not null,
+        invitee varchar(100) not null,
+        invited_by varchar(100) not null,
+        
+        constraint fk_user_invite_game foreign key (game_id) references game (game_id),
+        constraint fk_user_invite_user_account foreign key (invitee) references user_account (username)
 );
 
 COMMIT;

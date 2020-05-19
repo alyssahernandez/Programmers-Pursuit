@@ -4,17 +4,38 @@
 <c:url var = "dieURL" value="common/die.jsp" />
 <c:url var = "legendURL" value="common/legend.jsp" />
 
+<c:url var = "invitationURL" value="${gameCode}/sendInvitation" />
+<c:url var="startGameURL" value="/startGame" />
+
 <div class="hud">
 
+	<c:if test="${!(currentGame.active) && currentGame.winnerId == 0}" > 
+		<c:forEach var="player" items="${playersInGame}">
+			<div>
+				<p>${player.name}</p>
+			</div>
+			
+		</c:forEach>
+		<form action="${invitationURL}" method="POST">
+			<label for="username">Player Name:</label> 
+			<input type="text" name="username" />
+			<input type="submit" class="button" value="Send Invitation" />
+		</form>
+		<c:if test="${currentGame.activePlayers.size() >= 2 }" >
+		 	<form action="${startGameURL}" method="POST">
+				<input type="submit" class="button" value="Start Game" />
+			</form>
+		</c:if>
+	</c:if>
 <!-- 	MESSAGE SECTION -->
 	<div class="hud__message u-center-text">
 		<h2 class="hud-message hud-message--primary">
 			<c:choose>
 				<c:when test="${ currentPlayerTurn.allPies && !currentGame.active}">
-					<c:out value="${ currentPlayerTurn.name }" />, you won!
+					<c:out value="${ currentPlayerTurn.name}" />, you won!
 				</c:when>
 				<c:otherwise>
-					<c:out value="${ currentPlayerTurn.name }" />, it's your turn.
+					<c:out value="${ currentPlayerTurn.name}" />, it's your turn.
 				</c:otherwise>
 			</c:choose>
 		</h2>
@@ -36,5 +57,6 @@
 	<c:if test="${ questionHUD }">
 		<c:import url="${ legendURL }" />
 	</c:if>
+	
 
 </div>

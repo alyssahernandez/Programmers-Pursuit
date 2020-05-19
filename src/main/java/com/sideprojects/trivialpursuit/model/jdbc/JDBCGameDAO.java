@@ -16,6 +16,7 @@ import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.Category;
 import com.sideprojects.trivialpursuit.model.GameDAO;
+import com.sideprojects.trivialpursuit.model.Invitation;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 import com.sideprojects.trivialpursuit.model.Space;
@@ -41,12 +42,15 @@ public class JDBCGameDAO implements GameDAO {
 			- (which is only created upon insertion into DB) to update game_player, game_category, game_question, etc.
 				- Brooks
 	*/
+	
+	/*
 	@Override
 	public void createNewGame(String gameCode) {
 		
 		String newGameId = "INSERT INTO game (game_code, active) VALUES (?, ?)";
 		template.update(newGameId, gameCode.toUpperCase(), true);
 	}
+	*/
 	
 	@Override
 	public void createNewGame(String gameCode, Integer user_id) {
@@ -54,43 +58,16 @@ public class JDBCGameDAO implements GameDAO {
 		int dice_roll = Dice.getDiceRoll();
 		
 		String newGameId = "INSERT INTO game (game_code, active, active_player_id, active_player_roll) VALUES (?, ?, ?, ?)";
-		template.update(newGameId, gameCode.toUpperCase(), true, user_id, dice_roll);
+		template.update(newGameId, gameCode.toUpperCase(), false, user_id, dice_roll);
 	}
-	
 	
 	//TODO: Change ILIKE back to equals (=)
 	@Override
 	public Game getActiveGame(String gameCode) {
-		String getGameQuery = "SELECT * FROM game WHERE game_code ILIKE ? AND active = true";
-		SqlRowSet rowSet = template.queryForRowSet(getGameQuery, "%"+gameCode+"%");
+		String getGameQuery = "SELECT * FROM game WHERE game_code = ? AND active = true";
+		SqlRowSet rowSet = template.queryForRowSet(getGameQuery, gameCode);
 
-		Game game = null;
-		if (rowSet.next()) {
-			game = new Game();
-			game.setGameID(rowSet.getInt("game_id"));
-			game.setActive(rowSet.getBoolean("active"));
-			game.setGameCode(gameCode.toUpperCase()); 
-			game.setWinnerId(rowSet.getInt("winner_id"));
-			game.setActivePlayerRoll(rowSet.getInt("active_player_roll"));
-			game.setIsActivePlayerAnsweringQuestion(rowSet.getBoolean("active_player_answering_question"));
-			game.setHasActivePlayerSelectedCategory(rowSet.getBoolean("active_player_category_selected_center"));
-		}
-		
-		if (game == null) {
-			return null;
-		}
-		
-		List<Category> categoriesInGame = categoryDAO.getCategoriesByGame(game);
-		game.setCategories(categoriesInGame);
-		game.createGameboard(categoriesInGame); // TODO: Could do this within Gameboard class once setCategories() is called.
-
-		List<Player> activePlayers = getAllPlayersInAGame(game);
-		Player activePlayer = getActivePlayer(game);
-		activePlayer.setDiceRoll(game.getActivePlayerRoll());
-		game.setActivePlayers(activePlayers);
-		game.setActivePlayer(activePlayer);
-		
-		return game;
+		return gameHelper(rowSet, gameCode);
 	}
 	
 	//TODO: These should be in the JDBCPlayerDAO/PlayerDAO.
@@ -116,7 +93,6 @@ public class JDBCGameDAO implements GameDAO {
 			player.setPie6(results.getBoolean("player_score_cat_6"));
 			players.add(player);
 		}
-		
 		return players;
 	}
 	
@@ -216,6 +192,42 @@ public class JDBCGameDAO implements GameDAO {
 		String query = "SELECT * FROM game WHERE game_code = ? AND active = false";
 		SqlRowSet rowSet = template.queryForRowSet(query, gameCode);
 		
+		return gameHelper(rowSet, gameCode);
+	}
+	
+	@Override
+	public Game getUnstartedGame(String gameCode) {
+		String query = "SELECT * FROM game WHERE game_code = ? AND active = false AND winner_id IS NULL";
+		SqlRowSet rowSet = template.queryForRowSet(query, gameCode);
+		
+		return gameHelper(rowSet, gameCode);
+	}
+	
+	@Override
+	public void sendInvitation(Integer game_id, String invitee, String invitedBy) {
+		String query = "INSERT INTO user_invite (game_id, invitee, invited_by) VALUES (?, ?, ?)";
+		template.update(query, game_id, invitee, invitedBy);
+	}
+	
+	@Override
+	//TODO: Update this for game.active=false and winner_id = null
+	public List<Invitation> getInvitations(String username) {
+		String query = "SELECT * FROM user_invite WHERE invitee = ?";
+		SqlRowSet results = template.queryForRowSet(query, username);
+		
+		List<Invitation> invitations = new ArrayList<>();
+		while (results.next()) {
+			Invitation i = new Invitation();
+			i.setGameId(results.getInt("game_id"));
+			i.setInvitationId(results.getInt("invite_id"));
+			i.setInvitedBy(results.getString("invited_by"));
+			i.setInvitee(results.getString("invitee"));
+			invitations.add(i);
+		}
+		return invitations;
+	}
+	
+	private Game gameHelper(SqlRowSet rowSet, String gameCode) {
 		Game game = null;
 		if (rowSet.next()) {
 			game = new Game();
@@ -244,5 +256,6 @@ public class JDBCGameDAO implements GameDAO {
 		
 		return game;
 	}
+	
 }
 

@@ -23,46 +23,32 @@ public class JDBCPlayerDAO implements PlayerDAO
 	public JDBCPlayerDAO(DataSource dataSource) {
 		template = new JdbcTemplate(dataSource);
 	}
-	
-	// TODO: We're going to have to do this based on user_id. This will need reworked. - Brooks
-	// TODO: 99% sure we need a RETURNING statement here, returning Player_id, so we can insert into game_player without a refresh.
-	@Override
-	public void createPlayer(int userId, String playerName) {
-		
-		String insertPlayer = "INSERT INTO player (user_id, username) VALUES (?, ?)";
-		template.update(insertPlayer, userId, playerName);
-	}
-	
 
-	public void putPlayerIntoGame(Game game, Integer user_id)
+	public void putPlayerIntoGame(Game game, Integer user_id, Integer color_id)
 	{
 		int gameId = game.getGameID();
 		
-		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id) VALUES (?, ?)";
-		template.update(sqlPutPlayerIntoGame, gameId, user_id);
-	
-	}
-
-	// TODO: This will probably go unused -- see ^^^
-	@Override
-	public void putPlayerIntoGame(Game game, Player player)
-	{
-		int gameId = game.getGameID();
-		int playerId = player.getPlayerId();
-		
-		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id) VALUES (?, ?)";
-		template.update(sqlPutPlayerIntoGame, gameId, playerId);
-	
+		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id, player_color) VALUES (?, ?, ?)";
+		template.update(sqlPutPlayerIntoGame, gameId, user_id, color_id);
 	}
 	
 	public void putFirstPlayerIntoGame(Game game, Integer user_id) {
 		
-		int gameId = game.getGameID();
+		Integer gameId = game.getGameID();
 		
 		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id, player_color) VALUES (?, ?, 1)";
 		template.update(sqlPutPlayerIntoGame, gameId, user_id);
 	}
-
+	
+	public Integer getPlayerCountByGame(Game game) {
+		Integer count = null;
+		String query = "SELECT COUNT(user_id) FROM game_player WHERE game_id = ?";
+		SqlRowSet results = template.queryForRowSet(query, game.getGameID());
+		if (results.next()) {
+			count = results.getInt("count");
+		}
+		return count;
+	}
 	
 	// TODO: Could also pass in an integer to jibe with form input (rather than updating activePlayer's position in the Controller, which this method assumes is happening):
 	// setPlayerPosition(Game game, Integer newPosition), 
@@ -115,6 +101,11 @@ public class JDBCPlayerDAO implements PlayerDAO
 		}
 		return newPlayer;
 	}
-	
+
+	@Override
+	public void putPlayerIntoGame(Game game, Integer user_id) {
+		// TODO Auto-generated method stub
+		
+	}	
 }
 
