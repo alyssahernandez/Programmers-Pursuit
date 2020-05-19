@@ -11,6 +11,10 @@
 		<c:url var="stylesheetHref" value="/css/main.css" />
 		<c:url var="scriptSrc" value="/js/script.js" />
 		<link rel="stylesheet" href="${stylesheetHref}">
+		
+		<c:url var="faviconHref" value="/img/favicon.png" />
+		<link rel="icon" type="image/png" href="${ faviconHref }" sizes="16x16">		
+		
 		<script src="${ scriptSrc }"></script>
 	</head>
 	<body>
