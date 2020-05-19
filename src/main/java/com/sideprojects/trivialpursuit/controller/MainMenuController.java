@@ -130,8 +130,7 @@ public class MainMenuController {
 	*/	
 		
 		
-		String newGameCode = Game.generateGameCode();
-		gameDAO.createNewGame(newGameCode, userId);
+		String newGameCode = gameDAO.createNewGame();
 		//Game newGame = gameDAO.getActiveGame(gameCode);
 		Game newGame = gameDAO.getUnstartedGame(newGameCode);
 		
@@ -142,6 +141,8 @@ public class MainMenuController {
 		
 		return "redirect:/gameboard/" + newGameCode;
 	}
+	
+	
 
 }
 

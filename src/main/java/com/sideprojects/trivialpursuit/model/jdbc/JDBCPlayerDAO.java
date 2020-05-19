@@ -10,6 +10,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import com.sideprojects.trivialpursuit.model.Category;
+import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
@@ -24,31 +25,26 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template = new JdbcTemplate(dataSource);
 	}
 
-	public void putPlayerIntoGame(Game game, Integer user_id, Integer color_id)
+	@Override
+	public void putPlayerIntoGame(Integer game_id, Integer user_id, Integer color_id)
 	{
-		int gameId = game.getGameID();
-		
 		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id, player_color) VALUES (?, ?, ?)";
-		template.update(sqlPutPlayerIntoGame, gameId, user_id, color_id);
+		template.update(sqlPutPlayerIntoGame, game_id, user_id, color_id);
 	}
 	
 	public void putFirstPlayerIntoGame(Game game, Integer user_id) {
 		
 		Integer gameId = game.getGameID();
 		
-		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id, player_color) VALUES (?, ?, 1)";
-		template.update(sqlPutPlayerIntoGame, gameId, user_id);
+		int dice_roll = Dice.getDiceRoll();
+		
+		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id, player_color, player_roll, is_turn) VALUES (?, ?, 1, ?, true)";
+		String query = "UPDATE game SET active_player_id = ?, active_player_roll = ? WHERE game_id = ?";
+		
+		template.update(sqlPutPlayerIntoGame, gameId, user_id, dice_roll);
+		template.update(query, user_id, dice_roll, gameId);
 	}
 	
-	public Integer getPlayerCountByGame(Game game) {
-		Integer count = null;
-		String query = "SELECT COUNT(user_id) FROM game_player WHERE game_id = ?";
-		SqlRowSet results = template.queryForRowSet(query, game.getGameID());
-		if (results.next()) {
-			count = results.getInt("count");
-		}
-		return count;
-	}
 	
 	// TODO: Could also pass in an integer to jibe with form input (rather than updating activePlayer's position in the Controller, which this method assumes is happening):
 	// setPlayerPosition(Game game, Integer newPosition), 
@@ -102,10 +98,5 @@ public class JDBCPlayerDAO implements PlayerDAO
 		return newPlayer;
 	}
 
-	@Override
-	public void putPlayerIntoGame(Game game, Integer user_id) {
-		// TODO Auto-generated method stub
-		
-	}	
 }
 

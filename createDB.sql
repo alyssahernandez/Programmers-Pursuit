@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS question;
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS game;
 DROP TABLE IF EXISTS user_account;
+DROP TABLE IF EXISTS player;
 
 CREATE TABLE user_account
 (
@@ -23,7 +24,7 @@ CREATE TABLE user_account
 CREATE TABLE game
 (
         game_id serial PRIMARY KEY,
-        game_code varchar(255) not null,
+        game_code varchar(32) not null unique,
         active boolean not null,
         winner_id int,
         active_player_id int, -- remove once finished w/ jdbcs (this is now in game_player)
@@ -100,11 +101,11 @@ CREATE TABLE game_question
 CREATE TABLE user_invite
 (
         invite_id serial PRIMARY KEY,
-        game_id int not null,
+        game_code varchar(32) not null,
         invitee varchar(100) not null,
         invited_by varchar(100) not null,
         
-        constraint fk_user_invite_game foreign key (game_id) references game (game_id),
+        constraint fk_user_invite_game foreign key (game_code) references game (game_code),
         constraint fk_user_invite_user_account foreign key (invitee) references user_account (username)
 );
 

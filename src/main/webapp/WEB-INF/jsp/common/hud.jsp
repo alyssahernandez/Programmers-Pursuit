@@ -24,6 +24,7 @@
 		<c:if test="${currentGame.activePlayers.size() >= 2 }" >
 		 	<form action="${startGameURL}" method="POST">
 				<input type="submit" class="button" value="Start Game" />
+				<input type="hidden" name="gameCode" value="${currentGame.gameCode}"/>
 			</form>
 		</c:if>
 	</c:if>
@@ -35,7 +36,9 @@
 					<c:out value="${ currentPlayerTurn.name}" />, you won!
 				</c:when>
 				<c:otherwise>
-					<c:out value="${ currentPlayerTurn.name}" />, it's your turn.
+					<c:if test="${currentGame.active }">
+						<c:out value="${ currentPlayerTurn.name}" />, it's your turn.
+					</c:if>
 				</c:otherwise>
 			</c:choose>
 		</h2>

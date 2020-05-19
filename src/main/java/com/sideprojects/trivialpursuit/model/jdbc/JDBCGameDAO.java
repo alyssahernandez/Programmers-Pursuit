@@ -25,13 +25,14 @@ import com.sideprojects.trivialpursuit.model.Space;
 public class JDBCGameDAO implements GameDAO {
 	
 	private JdbcTemplate template;
-	
+	private JDBCPlayerDAO playerDAO;
 	@Autowired
 	private CategoryDAO categoryDAO;
 
 	@Autowired
 	public JDBCGameDAO(DataSource dataSource) {
 		template = new JdbcTemplate(dataSource);
+		playerDAO = new JDBCPlayerDAO(dataSource);
 	}
 	
 	/*
@@ -53,12 +54,25 @@ public class JDBCGameDAO implements GameDAO {
 	*/
 	
 	@Override
-	public void createNewGame(String gameCode, Integer user_id) {
+	public String createNewGame() {
 		
-		int dice_roll = Dice.getDiceRoll();
+		String gameCodeLookup = "SELECT * FROM game WHERE game_code = ?";
+		String gameCode = Game.generateGameCode();
+		boolean validGameCode = false;
 		
-		String newGameId = "INSERT INTO game (game_code, active, active_player_id, active_player_roll) VALUES (?, ?, ?, ?)";
-		template.update(newGameId, gameCode.toUpperCase(), false, user_id, dice_roll);
+		do {
+			SqlRowSet results = template.queryForRowSet(gameCodeLookup, gameCode);
+			if (results.next()) {
+				gameCode = Game.generateGameCode();
+				continue;
+			} else {
+				validGameCode = true;
+			}
+			
+		} while (!validGameCode);	
+
+		String query = "INSERT INTO game (game_code, active) VALUES (?, ?) RETURNING game_code";
+		return template.queryForObject(query, String.class, gameCode.toUpperCase(), false);
 	}
 	
 	//TODO: Change ILIKE back to equals (=)
@@ -162,6 +176,12 @@ public class JDBCGameDAO implements GameDAO {
 	}
 	
 	@Override
+	public void setIsGameActive(String gameCode, Boolean isActive) {
+        String query = "UPDATE game SET active = ? WHERE game_code = ?";
+        template.update(query, isActive, gameCode);
+	}
+	
+	@Override
 	public void setHasSelectedCategory(Game game, Boolean hasSelectedCategory)
 	{
 		String query = "UPDATE game SET active_player_category_selected_center = ? WHERE game_id = ?";
@@ -204,27 +224,44 @@ public class JDBCGameDAO implements GameDAO {
 	}
 	
 	@Override
-	public void sendInvitation(Integer game_id, String invitee, String invitedBy) {
-		String query = "INSERT INTO user_invite (game_id, invitee, invited_by) VALUES (?, ?, ?)";
-		template.update(query, game_id, invitee, invitedBy);
+	public void sendInvitation(String gameCode, String invitee, String invitedBy) {
+		String query = "INSERT INTO user_invite (game_code, invitee, invited_by) VALUES (?, ?, ?)";
+		template.update(query, gameCode, invitee, invitedBy);
 	}
 	
 	@Override
 	//TODO: Update this for game.active=false and winner_id = null
 	public List<Invitation> getInvitations(String username) {
-		String query = "SELECT * FROM user_invite WHERE invitee = ?";
+		String query = "SELECT ui.game_code, ui.invited_by, ui.invitee, ui.invite_id FROM user_invite AS ui INNER JOIN game ON ui.game_code = game.game_code  WHERE game.active = false AND game.winner_id IS NULL AND ui.invitee = ?";
 		SqlRowSet results = template.queryForRowSet(query, username);
 		
 		List<Invitation> invitations = new ArrayList<>();
 		while (results.next()) {
+			
+			Integer count = getPlayerCountByGame(results.getString("game_code"));
+			if (count == null || count == 0 || count == 6) {
+				continue;
+			}
 			Invitation i = new Invitation();
-			i.setGameId(results.getInt("game_id"));
+			i.setGameCode(results.getString("game_code"));
 			i.setInvitationId(results.getInt("invite_id"));
 			i.setInvitedBy(results.getString("invited_by"));
 			i.setInvitee(results.getString("invitee"));
 			invitations.add(i);
 		}
 		return invitations;
+	}
+	
+	@Override
+	public Integer getPlayerCountByGame(String gameCode) {
+		Integer count = null;
+		String query = "SELECT COUNT(user_id) FROM game_player INNER JOIN game ON game_player.game_id = game.game_id WHERE game.game_code = ?" + 
+				"";
+		SqlRowSet results = template.queryForRowSet(query, gameCode);
+		if (results.next()) {
+			count = results.getInt("count");
+		}
+		return count;
 	}
 	
 	private Game gameHelper(SqlRowSet rowSet, String gameCode) {

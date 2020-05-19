@@ -5,7 +5,7 @@ public class Invitation {
 	private Integer invitationId;
 	private String invitee;
 	private String invitedBy;
-	private Integer gameId;
+	private String gameCode;
 	
 	public Integer getInvitationId() {
 		return invitationId;
@@ -25,11 +25,11 @@ public class Invitation {
 	public void setInvitedBy(String invitedBy) {
 		this.invitedBy = invitedBy;
 	}
-	public Integer getGameId() {
-		return gameId;
+	public String getGameCode() {
+		return gameCode;
 	}
-	public void setGameId(Integer gameId) {
-		this.gameId = gameId;
+	public void setGameCode(String gameCode) {
+		this.gameCode = gameCode;
 	}
 	
 	

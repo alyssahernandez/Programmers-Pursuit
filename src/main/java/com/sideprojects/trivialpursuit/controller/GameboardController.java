@@ -112,12 +112,37 @@ public class GameboardController {
 		
 	    String userId = (String) SessionUtils.get(req, "userIdToken");
 	    User currentUser = userDAO.getUserByToken(userId);
-	    
-		Game game = gameDAO.getUnstartedGame(gameCode);
-		Integer game_id = game.getGameID();
-		
-		gameDAO.sendInvitation(game_id, username, currentUser.getUsername());
+	    	
+		gameDAO.sendInvitation(gameCode, username, currentUser.getUsername());
 		
 		return "redirect:/gameboard/" + gameCode;
 	}
+	
+	@RequestMapping(path="/joinGame", method=RequestMethod.POST)
+	public String joinGame(@RequestParam String gameCode, final HttpServletRequest req) {
+		
+	    String userId = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userId);
+	    
+	    Game game = gameDAO.getUnstartedGame(gameCode);
+	    
+	    Integer count = gameDAO.getPlayerCountByGame(gameCode);
+	    Integer colorId = count + 1;
+	    
+	    if (count == 0 || count == 6 || count == null) {
+	    	return "redirect:/profile";
+	    }
+	    
+	    playerDAO.putPlayerIntoGame(game.getGameID(), currentUser.getUserId(), colorId);
+	    
+	    return "redirect:/gameboard/" + gameCode;
+	}
+	
+	@RequestMapping(path="startGame", method=RequestMethod.POST)
+	public String startGame(@RequestParam String gameCode) {
+		
+		gameDAO.setIsGameActive(gameCode, true);
+		return "redirect:/gameboard/" + gameCode;
+	}
+	
 }
