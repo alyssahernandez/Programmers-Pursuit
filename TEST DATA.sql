@@ -10,6 +10,7 @@ INSERT INTO game (game_code, active, active_player_id, active_player_roll, activ
 INSERT INTO game (game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES ('TEST3', true, 3, 4, false, false);
 INSERT INTO game (game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES ('TEST4', true, 4, 5, false, false);
 
+
 INSERT INTO game_player (game_id, user_id, player_color, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
 VALUES (1, 1, 2, false, false, false, false, false, false, true, false, false, 2);
 INSERT INTO game_player (game_id, user_id, player_color, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_answering_question, has_selected_category_center, player_roll)
@@ -45,6 +46,8 @@ INSERT INTO game_player (game_id, user_id, player_color, player_position, player
 VALUES (4, 3, 5, 4, false, false, false, false, false, false, false, false, 4);
 INSERT INTO game_player (game_id, user_id, player_color, player_position, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
 VALUES (4, 4, 1, 70, false, false, false, false, false, false, true, false, false, 5);
+
+
 
 INSERT INTO category (name) VALUES ('Java & OOP Fundamentals');
 INSERT INTO category (name) VALUES ('SQL & Databases');

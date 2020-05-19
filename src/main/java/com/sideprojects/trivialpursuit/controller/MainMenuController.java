@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ import com.sideprojects.trivialpursuit.model.Category;
 import com.sideprojects.trivialpursuit.model.CategoryDAO;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
+import com.sideprojects.trivialpursuit.model.Invitation;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 import com.sideprojects.trivialpursuit.model.QuestionDAO;
@@ -63,19 +65,24 @@ public class MainMenuController {
 		// Would be used to display a category selection in gameCreation.jsp
 		List<Category> categories = categoryDAO.getAllCategories();
 		
+		
 	    String accessToken = (String) SessionUtils.get(req, "accessToken");
 	    String idToken = (String) SessionUtils.get(req, "idToken");
 	    String userId = (String) SessionUtils.get(req, "userIdToken");
 	    
 	    User currentUser = userDAO.getUserByToken(userId);
+	    
+	    List<Invitation> invitations = gameDAO.getInvitations(currentUser.getUsername());
 	    		
 	    if (accessToken != null) {
 		    model.put("currentUser", currentUser);
 		    model.put("categories", categories);
+		    model.put("invitations", invitations);
 		    
 		} else if (idToken != null) {
 		    model.put("currentUser", currentUser);
 		    model.put("categories", categories);
+		    model.put("invitations", invitations);
 		}
 	    req.getRemoteUser();
 	    
@@ -112,8 +119,7 @@ public class MainMenuController {
 			
 			
 	@RequestMapping(path="/create", method=RequestMethod.POST)
-	public String createGame(@RequestParam String gameCode, @RequestParam String nickname, @RequestParam List<Integer> categorySelection,
-			final HttpServletRequest req) {
+	public String createGame(@RequestParam List<Integer> categorySelection, final HttpServletRequest req) {
 		
 		int userId = (Integer) SessionUtils.get(req, "userId");
 	
@@ -124,16 +130,19 @@ public class MainMenuController {
 	*/	
 		
 		
-		gameDAO.createNewGame(gameCode, userId);
-		Game newGame = gameDAO.getActiveGame(gameCode);
+		String newGameCode = gameDAO.createNewGame();
+		//Game newGame = gameDAO.getActiveGame(gameCode);
+		Game newGame = gameDAO.getUnstartedGame(newGameCode);
 		
 		playerDAO.putFirstPlayerIntoGame(newGame, userId);
 		
 		categoryDAO.setCategoriesByGameId(newGame, categorySelection);
 		questionDAO.setGameQuestions(newGame, categorySelection);
 		
-		return "redirect:/gameboard/" + gameCode;
+		return "redirect:/gameboard/" + newGameCode;
 	}
 	
+	
+
 }
 

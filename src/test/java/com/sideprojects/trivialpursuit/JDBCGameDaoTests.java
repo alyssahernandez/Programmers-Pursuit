@@ -63,6 +63,7 @@ public class JDBCGameDaoTests {
 		return dataSource;
 	}
 	
+	/*
 	@Test
 	public void createGameByCodeTest()
 	{
@@ -118,7 +119,6 @@ public class JDBCGameDaoTests {
 	
 	
 	
-	/*
 	@Test
 	public void getAllPlayersInAGameTest()
 	{

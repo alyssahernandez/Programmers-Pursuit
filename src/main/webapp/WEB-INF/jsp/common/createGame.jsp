@@ -15,13 +15,13 @@
 	<c:url var="createGameURL" value="/create" />
 
 	<form action="${createGameURL }" method="POST">
-
+		<!--  
 		<label for="nickname">Nickname:</label>
 		<input type="text" name="nickname" />
 		
 		<label for="gameCode">Game Code:</label> 
 		<input type="text" name="gameCode" />
-		
+		-->
 		<span>Categories:</span>
 		<c:forEach var="category" items="${categories }">
 			<label for="categorySelection">${category.categoryName }</label> 
@@ -32,8 +32,12 @@
 
 	</form>
 
-
-
 </div>
+
+<style>
+#invite {
+	border: 1px solid white;
+}
+</style>
 
 
