@@ -10,7 +10,7 @@
 	<div class="profile__content">
 	 	<c:import url="${createGame }" />
 	 	<div class="profile__content--right">
-	 		<button class="button">Game Lobby</button>
+	 		<button class="button u-margin-bottom-small">Game Lobby</button>
 			<c:import url="${invites }" />
 	 	</div>
 	</div>
