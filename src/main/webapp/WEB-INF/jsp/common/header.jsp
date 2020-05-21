@@ -5,7 +5,7 @@
 	<head>
 	    <meta charset="UTF-8">
 	    
-		<title>Programmers' Pursuit?</title>
+		<title>Programmers' Pursuit</title>
 		
 		<c:url var="stylesheetHref" value="/css/main.css" />
 		<link rel="stylesheet" href="${stylesheetHref}">
