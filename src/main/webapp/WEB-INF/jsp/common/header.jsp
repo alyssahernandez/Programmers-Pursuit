@@ -24,6 +24,9 @@
             <h1 class="header-main"><a href="${ homepageURL }">Programmers' Pursuit</a></h1>
             
 			<ul class="header__right-nav">
+				<c:url var="profilePicURL" value="${currentUser.picture }"/>
+				<img class="header__right-nav--pic" src="${ profilePicURL }">
+			
                 <c:url var="profileURL" value="/profile"/>
                 <li class="header__right-nav--link link header-link" id="profile"><a href="${profileURL}">Profile</a></li>
             </ul>

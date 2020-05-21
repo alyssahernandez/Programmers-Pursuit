@@ -663,6 +663,11 @@ ul {
           justify-content: flex-end;
 }
 
+.header__right-nav--pic {
+  width: auto;
+  height: 100%;
+}
+
 .header__right-nav--link {
   height: 100%;
   padding: 0 3rem;

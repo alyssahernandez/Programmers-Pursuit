@@ -11,7 +11,6 @@
 <div>
 	<h3>this is the Nickname: ${currentUser.username }</h3>
 	<h3>this is the email: ${currentUser.email }</h3>
-	<img src="<c:url value="${currentUser.picture }"/>">
 	
 	<c:import url="${invites }" />
 	
