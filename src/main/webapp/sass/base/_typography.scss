@@ -85,3 +85,13 @@ ul {
 .team-member-link {
     font-size: 1.5rem;
 }
+
+// JEFF NOTE TO SELF: RESTRUCTURE TYPOGRAPHY LIKE THIS
+
+.headers {
+
+    &__profile {
+        font-size: 3rem;
+        color: $color-grey-dark-2;
+    }
+}
