@@ -29,12 +29,12 @@ body {
 
 ::-moz-selection {
   background-color: #0fb9b1;
-  color: #d1d8e0;
+  color: #e5e9ee;
 }
 
 ::selection {
   background-color: #0fb9b1;
-  color: #d1d8e0;
+  color: #e5e9ee;
 }
 
 body {
@@ -43,7 +43,7 @@ body {
 
 a {
   text-decoration: none;
-  color: #d1d8e0;
+  color: #e5e9ee;
 }
 
 ul {
@@ -51,18 +51,18 @@ ul {
 }
 
 .title {
-  color: #d1d8e0;
+  color: #e5e9ee;
   font-size: 8rem;
 }
 
 .subtitle {
-  color: #d1d8e0;
+  color: #e5e9ee;
   font-size: 4rem;
 }
 
 .homepage-link {
   text-decoration: none;
-  color: #d1d8e0;
+  color: #e5e9ee;
   font-size: 2rem;
   font-weight: 700;
 }
@@ -82,7 +82,7 @@ ul {
 }
 
 .hud-message {
-  color: #d1d8e0;
+  color: #e5e9ee;
   font-size: 4rem;
 }
 
@@ -91,7 +91,7 @@ ul {
 }
 
 .question-form__question {
-  color: #d1d8e0;
+  color: #e5e9ee;
   font-size: 3.5rem;
   font-weight: 600;
 }
@@ -101,18 +101,18 @@ ul {
 }
 
 .about-header {
-  color: #4b6584;
+  color: #3f546e;
   font-size: 5rem;
 }
 
 .team-member-name {
-  color: #d1d8e0;
+  color: #e5e9ee;
   font-size: 2.5rem;
   text-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.2);
 }
 
 .team-member-bio {
-  color: #d1d8e0;
+  color: #e5e9ee;
   font-size: 1.5rem;
   font-weight: 700;
   text-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.2);
@@ -124,12 +124,12 @@ ul {
 
 .headers__profile {
   font-size: 3rem;
-  color: #4b6584;
+  color: #3f546e;
 }
 
 .headers__invites {
   font-size: 2rem;
-  color: #d1d8e0;
+  color: #e5e9ee;
 }
 
 .u-center-text {
@@ -202,7 +202,7 @@ ul {
 
 .button {
   background-color: #2bcbba;
-  color: #4b6584;
+  color: #3f546e;
   font-size: 2.5rem;
   font-weight: 700;
   text-decoration: none;
@@ -219,7 +219,7 @@ ul {
   -webkit-box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.2);
           box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.2);
   background-color: #0fb9b1;
-  color: #d1d8e0;
+  color: #e5e9ee;
 }
 
 .button:active, .button:focus {
@@ -574,7 +574,7 @@ ul {
       -ms-flex-align: center;
           align-items: center;
   padding: 1rem 2rem;
-  background-color: #4b6584;
+  background-color: #3f546e;
 }
 
 .invites__invite {
@@ -588,12 +588,12 @@ ul {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #d1d8e0;
+  background-color: #e5e9ee;
   padding: 1rem 2rem;
 }
 
 .invites__details {
-  color: #4b6584;
+  color: #3f546e;
   font-size: 1.5rem;
 }
 
@@ -609,7 +609,7 @@ ul {
 
 .legend {
   padding: 1rem 2rem;
-  background-color: #d1d8e0;
+  background-color: #e5e9ee;
   -webkit-box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
           box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
   display: -webkit-box;
@@ -658,19 +658,19 @@ ul {
   width: 2rem;
   height: 2rem;
   margin: .5rem 1rem;
-  background-color: #d1d8e0;
+  background-color: #e5e9ee;
 }
 
 .player-piece--small {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
-  border: 1px solid #d1d8e0;
+  border: 1px solid #e5e9ee;
   z-index: 9999;
 }
 
 .space {
-  color: #d1d8e0;
+  color: #e5e9ee;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -744,7 +744,7 @@ ul {
 }
 
 #profile a {
-  color: #4b6584;
+  color: #3f546e;
 }
 
 #profile:hover {
@@ -752,7 +752,7 @@ ul {
 }
 
 #profile:hover a {
-  color: #d1d8e0;
+  color: #e5e9ee;
   -webkit-transition: all .2s;
   transition: all .2s;
 }
@@ -788,7 +788,7 @@ ul {
 
 .main-content {
   height: 90%;
-  background-color: #d1d8e0;
+  background-color: #e5e9ee;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -813,7 +813,7 @@ ul {
 
 .question-form {
   background-color: #a5b1c2;
-  color: #d1d8e0;
+  color: #e5e9ee;
   width: 80%;
   padding: 3rem 4rem;
   -webkit-box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
@@ -920,8 +920,8 @@ ul {
 .homepage {
   height: 100vh;
   padding: 3%;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(75, 101, 132, 0.95)), color-stop(70%, rgba(75, 101, 132, 0.95)), to(rgba(0, 0, 0, 0.95))), url(../img/hero.jpg);
-  background-image: linear-gradient(to bottom, rgba(75, 101, 132, 0.95), rgba(75, 101, 132, 0.95) 70%, rgba(0, 0, 0, 0.95)), url(../img/hero.jpg);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(63, 84, 110, 0.95)), color-stop(70%, rgba(63, 84, 110, 0.95)), to(rgba(0, 0, 0, 0.95))), url(../img/hero.jpg);
+  background-image: linear-gradient(to bottom, rgba(63, 84, 110, 0.95), rgba(63, 84, 110, 0.95) 70%, rgba(0, 0, 0, 0.95)), url(../img/hero.jpg);
   background-position: center;
   background-size: cover;
   position: relative;
