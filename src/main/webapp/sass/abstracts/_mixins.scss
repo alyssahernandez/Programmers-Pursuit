@@ -41,4 +41,12 @@
     }
   }
 
-  
+//////////////////////
+// CENTER ITEMS IN A COLUMN //
+//////////////////////
+
+@mixin columnCentered() {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

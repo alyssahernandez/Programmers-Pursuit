@@ -2,19 +2,26 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:url var="joinGameURL" value="/joinGame"/>
-<div>
-	
+<div class="invites">	
+	<h3 class="headers__invites u-margin-bottom-small">Invitations</h3>
 	<c:forEach var="invitation" items="${invitations }">
-		<div id="invite">
-			<p>${invitation.gameCode }</p>
-			<p>${invitation.invitee }</p>
-			<p>${invitation.invitedBy }</p>
-		
-			<form method="POST" action="${joinGameURL}">
-				<input type="submit" class="button" value="Join Game"/>
-				<input type="hidden" value="${invitation.gameCode }" name="gameCode"/>
-			</form>	
+		<div class="invites__invite u-margin-bottom-small">
+			<div class="invites__details u-margin-bottom-small">
+				Game Code: <c:out value="${invitation.gameCode }"/><br>
+				Invited By: <c:out value="${invitation.invitedBy }"/>
+			</div>
+			<div class="invites__buttons">
+				<form method="POST" action="${joinGameURL}">
+					<input type="submit" class="button--small" value="Accept"/>
+					<input type="hidden" value="${invitation.gameCode }" name="gameCode"/>
+				</form>
+				
+<!-- 			JEFF: THIS BUTTON NEEDS CONFIGURING -->
+				<form method="POST" action="${rejectGameURL}">
+					<input type="submit" class="button--small" value="Reject"/>
+					<input type="hidden" value="${invitation.gameCode }" name="gameCode"/>
+				</form>			
+			</div>
 		</div>
 	</c:forEach>
-
 </div>
