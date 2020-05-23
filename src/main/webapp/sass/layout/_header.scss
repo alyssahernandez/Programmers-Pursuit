@@ -16,6 +16,11 @@
         display: flex;
         justify-content: flex-end;
 
+        &--pic {
+            width: auto;
+            height: 100%;
+        }
+
         &--link {
             height: 100%;
             padding: 0 3rem;

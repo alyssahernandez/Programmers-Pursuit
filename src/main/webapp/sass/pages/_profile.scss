@@ -1,0 +1,25 @@
+.profile {
+    width: 100%;
+    padding: 3rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__header {
+        
+    }
+
+    &__content {
+        width: 100%;
+
+        display: flex;
+        justify-content: space-evenly;
+
+        &--right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}

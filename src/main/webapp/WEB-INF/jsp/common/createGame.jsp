@@ -7,9 +7,7 @@
 
 <div>
 
-	<h2>
-		<c:out value="Create a Game!" />
-	</h2>
+	<h2><c:out value="Create a Game!" /></h2>
 
 
 
