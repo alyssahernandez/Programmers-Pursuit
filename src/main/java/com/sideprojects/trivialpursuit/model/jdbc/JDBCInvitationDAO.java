@@ -82,10 +82,61 @@ public class JDBCInvitationDAO implements InvitationDAO {
 		return false;
 	}
 	
+	@Override
+	public void addFriend(String username, String friendName) {
+		if (doesFriendInquiryExist(username, friendName)) return;
+		else if (doesFriendInquiryExist(friendName, username)) acceptFriendRequest(friendName, username);
+		else {
+			String query = "INSERT INTO friends (username, friend_name) VALUES (?, ?)";
+			template.update(query, username, friendName);
+		}
+	}
+	
+	@Override
+	public void acceptFriendRequest(String username, String friendName) {
+		String query = "UPDATE friends SET friends = true WHERE username = ? AND friend_name = ?";
+		template.update(query, username, friendName);
+		
+		if (!doesFriendInquiryExist(friendName, username)) {
+			String query2 = "INSERT INTO friends (username, friend_name, friends) VALUES (?, ?, true)";
+			template.update(query2, friendName, username);
+		}
+		
+		String query3 = "UPDATE friends SET friends = true WHERE username = ? AND friend_name = ?";
+		template.update(query3, friendName, username);
+	}
+	
+	@Override
+	public void cancelFriendRequest(String username, String friendName) {
+		String query = "DELETE FROM friends WHERE username = ? AND friend_name = ? AND friends = false";
+		template.update(query, username, friendName);
+	}
+	
+	public void rejectFriendRequest(String username, String friendName) {
+		String query = "DELETE FROM friends WHERE username = ? AND friend_name = ? AND friends = false";
+		template.update(query, friendName, username);
+	}
+	
+	@Override
+	public void removeFriend(String username, String friendName) {
+		String query = "DELETE FROM friends WHERE username = ? AND friend_name = ? AND friends = true";
+		template.update(query, username, friendName);
+		template.update(query, friendName, username);
+	}
+	
 	private boolean doesInvitationExist(String gameCode, String invitee, String invitedBy) {
 		String query = "SELECT * FROM user_invite WHERE game_code = ? AND invitee = ? AND invited_by = ?";
 		SqlRowSet result = template.queryForRowSet(query, gameCode, invitee, invitedBy);
 		if (result.next()) return true;
 		return false;
 	}
+	
+	private boolean doesFriendInquiryExist(String username, String friendName) {
+		String query = "SELECT * FROM friends WHERE username = ? AND friend_name = ?";
+		SqlRowSet result = template.queryForRowSet(query, username, friendName);
+		if (result.next()) return true;
+		else return false;
+	}
+	
+	
 }

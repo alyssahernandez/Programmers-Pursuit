@@ -76,12 +76,15 @@ public class MainMenuController {
 		if (!modelHolder.containsAttribute("createGame")) {
 			modelHolder.addAttribute("createGame", new GameCreationForm());
 		}
-		
+	
 	    String accessToken = (String) SessionUtils.get(req, "accessToken");
 	    String idToken = (String) SessionUtils.get(req, "idToken");
+
 	    String userId = (String) SessionUtils.get(req, "userIdToken");
 	    User currentUser = userDAO.getUserByToken(userId);
-	    
+ 
+	    // TODO: In JSP, compare currentUser.username to anyone.username. If equal, we're on our own profile -- so display invites, etc. Otherwise, just display basic info - Brooks
+		User anyone = userDAO.getUserByUsername(username);
 	    List<Invitation> invitations = invitationDAO.getInvitations(currentUser.getUsername());
 		
 	    // This is to pair categories with invitations. We could add a categories property to Invitation class, but eh, this seems easier. Checks in JDBCs should ensure that categories always pull - Brooks
@@ -96,6 +99,7 @@ public class MainMenuController {
 		
 	    if (accessToken != null) {
 		    model.put("currentUser", currentUser);
+		    model.put("anyone", anyone);
 		    model.put("categories", categories);
 		    model.put("invitations", invitations);
 		    model.put("pairs", pairs);
@@ -104,6 +108,8 @@ public class MainMenuController {
 		    model.put("currentUser", currentUser);
 		    model.put("categories", categories);
 		    model.put("invitations", invitations);
+		    model.put("pairs", pairs);
+		    model.put("anyone", anyone);
 		}
 	    req.getRemoteUser();
 	    

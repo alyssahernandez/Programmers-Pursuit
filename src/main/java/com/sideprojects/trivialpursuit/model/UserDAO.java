@@ -8,4 +8,6 @@ public interface UserDAO {
 
 	public boolean validateUsername(String username);
 	
+	public User getUserByUsername(String username);
+	
 }

@@ -127,4 +127,60 @@ public class InvitationController {
 	    
 	    return "redirect:/profile/" + username;
 	}
+	
+	@RequestMapping(path="/addFriend", method=RequestMethod.POST)
+	public String addFriend(@RequestParam String username, final HttpServletRequest req) {
+		
+		String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+		User currentUser = userDAO.getUserByToken(userIdToken);
+		
+		invitationDAO.addFriend(currentUser.getUsername(), username);
+		
+		return "redirect:/profile/" + username;
+	}
+	
+	@RequestMapping(path="/acceptFriendRequest", method=RequestMethod.POST)
+	public String acceptFriendRequest(@RequestParam String username, final HttpServletRequest req) {
+		
+		String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+		User currentUser = userDAO.getUserByToken(userIdToken);
+		
+		invitationDAO.acceptFriendRequest(username, currentUser.getUsername());
+		
+		return "redirect:/profile/" + currentUser.getUsername();
+	}
+	
+	@RequestMapping(path="/rejectFriendRequest", method=RequestMethod.POST)
+	public String rejectFriendRequest(@RequestParam String username, final HttpServletRequest req) {
+		
+		String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+		User currentUser = userDAO.getUserByToken(userIdToken);
+		
+		invitationDAO.rejectFriendRequest(currentUser.getUsername(), username);
+		
+		return "redirect:/profile/" + currentUser.getUsername();
+	}
+	
+	@RequestMapping(path="/removeFriend", method=RequestMethod.POST)
+	public String removeFriend(@RequestParam String username, final HttpServletRequest req) {
+		
+		String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+		User currentUser = userDAO.getUserByToken(userIdToken);
+		
+		invitationDAO.removeFriend(username, currentUser.getUsername());
+		
+		return "redirect:/profile/" + username;
+	}
+	
+	@RequestMapping(path="/cancelFriendRequest", method=RequestMethod.POST)
+	public String cancelFriendRequest(@RequestParam String username, final HttpServletRequest req) {
+		
+		String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+		User currentUser = userDAO.getUserByToken(userIdToken);
+		
+		invitationDAO.cancelFriendRequest(currentUser.getUsername(), username);
+		
+		return "redirect:/profile/" + username;
+	}
+
 }
