@@ -175,9 +175,20 @@ public class JDBCGameDAO implements GameDAO {
 	}
 	
 	@Override
-	public void setWinner(Game game) {
+	public void setEndGameStatus(Game game) {
 		String query = "UPDATE game SET winner_id = ? WHERE game_id = ?";
 		template.update(query, game.getActivePlayer().getPlayerId(), game.getGameID());
+		
+		String query2 = "UPDATE user_account SET games_won = games_won + 1, games_played = games_played + 1 WHERE user_id = ?";
+		String query3 = "UPDATE user_account SET games_played = games_played + 1 WHERE user_id = ?";
+		
+		for (Player p : game.getActivePlayers()) {
+			if (!p.equals(game.getActivePlayer())) {
+				template.update(query3, p.getPlayerId());
+			} else {
+				template.update(query2, p.getPlayerId());
+			}
+		}
 	}
 	
 	@Override
@@ -234,6 +245,17 @@ public class JDBCGameDAO implements GameDAO {
 		
 		List<Game> games = new ArrayList<>();
 		SqlRowSet rowSet = template.queryForRowSet(query);
+		while (rowSet.next()) {
+			games.add(gameHelper(rowSet));
+		}
+		return games;
+	}
+	
+	@Override
+	public List<Game> getActiveGamesByPlayer(Integer user_id) {
+		String query = "SELECT game.* FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game_player.user_id = ? AND game.active = true GROUP BY game.game_id";
+		List<Game> games = new ArrayList<>();
+		SqlRowSet rowSet = template.queryForRowSet(query, user_id);
 		while (rowSet.next()) {
 			games.add(gameHelper(rowSet));
 		}

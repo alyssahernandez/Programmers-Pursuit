@@ -1,5 +1,7 @@
 package com.sideprojects.trivialpursuit.model;
 
+import java.util.List;
+
 public interface UserDAO {
 
 	public User getUserByToken(String token); // grabs user by token from db
@@ -10,4 +12,5 @@ public interface UserDAO {
 	
 	public User getUserByUsername(String username);
 	
+	public List<User> getLeaderboard();
 }

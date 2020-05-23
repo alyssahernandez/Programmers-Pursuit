@@ -171,5 +171,18 @@ public class MainMenuController {
 		
 		return "redirect:/gameboard/" + newGameCode;
 	}
+	
+	@RequestMapping(path="/leaderboard", method=RequestMethod.GET)
+	public String displayLeaderboard(ModelMap map, final HttpServletRequest req) {
+		
+	    String userId = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userId);
+	    map.put("currentUser", currentUser);
+	    
+		List<User> leaders = userDAO.getLeaderboard();
+		map.put("leaders", leaders);
+		
+		return "leaderboard";
+	}
 }
 

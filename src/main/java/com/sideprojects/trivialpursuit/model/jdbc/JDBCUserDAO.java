@@ -95,6 +95,24 @@ public class JDBCUserDAO implements UserDAO {
 		return friends;
 	}
 	
+	@Override
+	public List<User> getLeaderboard() {
+		String query = "SELECT * FROM user_account WHERE games_won != 0 AND games_played !=0 AND games_won IS NOT NULL ORDER BY games_won DESC, (games_won / games_played) DESC, games_played DESC";
+		SqlRowSet rowSet = template.queryForRowSet(query);
+		List<User> leaders = new ArrayList<>();
+		while (rowSet.next()) {
+			User user = new User();
+			user.setUserId(rowSet.getInt("user_id"));
+			user.setUsername(rowSet.getString("username"));
+			user.setIdToken(rowSet.getString("id_token"));
+			user.setPicture(rowSet.getString("picture"));
+			user.setGamesPlayed(rowSet.getInt("games_played"));
+			user.setGamesWon(rowSet.getInt("games_won"));
+			leaders.add(user);
+		}
+		return leaders;
+	}
+	
 	private User userHelper(SqlRowSet result) {
 		User user = new User();
 		user.setUserId(result.getInt("user_id"));

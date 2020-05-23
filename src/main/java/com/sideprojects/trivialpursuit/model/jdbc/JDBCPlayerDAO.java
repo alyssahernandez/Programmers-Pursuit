@@ -1,5 +1,6 @@
 package com.sideprojects.trivialpursuit.model.jdbc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;

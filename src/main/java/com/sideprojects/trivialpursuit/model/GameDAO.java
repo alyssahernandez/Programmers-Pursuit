@@ -22,7 +22,7 @@ public interface GameDAO {
 	
 	public void setIsGameActive(String gameCode, Boolean isActive);
 	
-	public void setWinner(Game game);
+	public void setEndGameStatus(Game game);
 	
 	public String getWinner(Game game);
 	
@@ -33,5 +33,7 @@ public interface GameDAO {
 	public Integer getPlayerCountByGame(String gameCode);
 	
 	public List<Game> getUnstartedPublicGames();
+	
+	public List<Game> getActiveGamesByPlayer(Integer user_id);
 	
 }
