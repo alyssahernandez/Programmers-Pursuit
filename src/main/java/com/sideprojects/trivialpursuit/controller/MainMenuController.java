@@ -5,6 +5,7 @@ package com.sideprojects.trivialpursuit.controller;
 import java.util.ArrayList;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +31,7 @@ import com.sideprojects.trivialpursuit.model.GameCreationForm;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Invitation;
+import com.sideprojects.trivialpursuit.model.InvitationDAO;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 import com.sideprojects.trivialpursuit.model.QuestionDAO;
@@ -56,6 +58,9 @@ public class MainMenuController {
 	@Autowired
 	QuestionDAO questionDAO;
 	
+	@Autowired
+	InvitationDAO invitationDAO;
+	
 	private AppConfig config;
 
 	@RequestMapping(path="/", method=RequestMethod.GET)
@@ -75,16 +80,25 @@ public class MainMenuController {
 	    String accessToken = (String) SessionUtils.get(req, "accessToken");
 	    String idToken = (String) SessionUtils.get(req, "idToken");
 	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    
 	    User currentUser = userDAO.getUserByToken(userId);
 	    
-	    List<Invitation> invitations = gameDAO.getInvitations(currentUser.getUsername());
+	    List<Invitation> invitations = invitationDAO.getInvitations(currentUser.getUsername());
+		
+	    // This is to pair categories with invitations. We could add a categories property to Invitation class, but eh, this seems easier. Checks in JDBCs should ensure that categories always pull - Brooks
+	    Map<Invitation, List<Category>> pairs = new HashMap<>();
+		for (Invitation i : invitations) {
+			String gameCode = i.getGameCode();
+			List<Category> cats = gameDAO.getUnstartedGame(gameCode).getUniqueCategories();
+			pairs.put(i, cats);
+		}
+				
 		List<Category> categories = categoryDAO.getAllCategories();
-	    		
+		
 	    if (accessToken != null) {
 		    model.put("currentUser", currentUser);
 		    model.put("categories", categories);
 		    model.put("invitations", invitations);
+		    model.put("pairs", pairs);
 		    
 		} else if (idToken != null) {
 		    model.put("currentUser", currentUser);

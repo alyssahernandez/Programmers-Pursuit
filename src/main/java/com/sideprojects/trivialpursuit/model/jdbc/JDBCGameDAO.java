@@ -27,14 +27,13 @@ public class JDBCGameDAO implements GameDAO {
 	
 	private JdbcTemplate template;
 	private PlayerDAO playerDAO;
-	
-	@Autowired
 	private CategoryDAO categoryDAO;
 
 	@Autowired
 	public JDBCGameDAO(DataSource dataSource) {
 		template = new JdbcTemplate(dataSource);
 		playerDAO = new JDBCPlayerDAO(dataSource);
+		categoryDAO = new JDBCCategoryDAO(dataSource);
 	}
 	
 	@Override
@@ -217,43 +216,6 @@ public class JDBCGameDAO implements GameDAO {
 	}
 	
 	@Override
-	public void sendInvitation(String gameCode, String invitee, String invitedBy) {
-		
-		if (doesInvitationExist(gameCode, invitee, invitedBy)) return;
-		
-		String insertQuery = "INSERT INTO user_invite (game_code, invitee, invited_by) VALUES (?, ?, ?)";
-		template.update(insertQuery, gameCode, invitee, invitedBy);
-	}
-	
-	@Override
-	public List<Invitation> getInvitations(String username) {
-		String query = "SELECT ui.game_code, ui.invited_by, ui.invitee, ui.invite_id, game.game_id FROM user_invite AS ui INNER JOIN game ON ui.game_code = game.game_code WHERE game.active = false AND game.winner_id IS NULL AND ui.invitee = ?";
-		SqlRowSet results = template.queryForRowSet(query, username);
-		
-		List<Invitation> invitations = new ArrayList<>();
-		while (results.next()) {
-			Integer game_id = results.getInt("game_id");
-			User user = playerDAO.getUserByUsername(username);
-			
-			if (playerDAO.isPlayerAlreadyInGame(game_id, user.getUserId())) {
-				continue;
-			}
-			
-			Integer count = getPlayerCountByGame(results.getString("game_code"));
-			if (count == null || count <= 0 || count >= 6) {
-				continue;
-			}
-			Invitation i = new Invitation();
-			i.setGameCode(results.getString("game_code"));
-			i.setInvitationId(results.getInt("invite_id"));
-			i.setInvitedBy(results.getString("invited_by"));
-			i.setInvitee(results.getString("invitee"));
-			invitations.add(i);
-		}
-		return invitations;
-	}
-	
-	@Override
 	public Integer getPlayerCountByGame(String gameCode) {
 		Integer count = null;
 		String query = "SELECT COUNT(user_id) FROM game_player INNER JOIN game ON game_player.game_id = game.game_id WHERE game.game_code = ?" + 
@@ -265,25 +227,10 @@ public class JDBCGameDAO implements GameDAO {
 		return count;
 	}
 	
-	@Override 
-	public void deleteInvitation(String gameCode, String username) {
-		String query = "DELETE FROM user_invite WHERE game_code = ? AND invitee = ?";
-		template.update(query, gameCode, username);
-	}
-	
 	@Override
-	public boolean doesInvitationExist(String gameCode, String invitee) {
-		String query = "SELECT * FROM user_invite WHERE game_code = ? AND invitee = ?";
-		SqlRowSet result = template.queryForRowSet(query, gameCode, invitee);
-		if (result.next()) return true;
-		return false;
-	}
-	
 	public List<Game> getUnstartedPublicGames() {
-		String query = "SELECT game.game_id, game.game_code, COUNT(game_player.game_id) AS player_count "
-				+ "FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game.active = false "
-				+ "AND game.winner_id IS NULL AND is_public = true GROUP BY game.game_id "
-				+ "ORDER BY COUNT(game_player.game_id) DESC";
+		String query = "SELECT game.* FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game.active = false "
+				+ "AND game.winner_id IS NULL AND is_public = true GROUP BY game.game_id ORDER BY COUNT(game_player.game_id) DESC";
 		
 		List<Game> games = new ArrayList<>();
 		SqlRowSet rowSet = template.queryForRowSet(query);
@@ -336,11 +283,6 @@ public class JDBCGameDAO implements GameDAO {
 		return player;
 	}
 	
-	private boolean doesInvitationExist(String gameCode, String invitee, String invitedBy) {
-		String query = "SELECT * FROM user_invite WHERE game_code = ? AND invitee = ? AND invited_by = ?";
-		SqlRowSet result = template.queryForRowSet(query, gameCode, invitee, invitedBy);
-		if (result.next()) return true;
-		return false;
-	}
+
 }
 

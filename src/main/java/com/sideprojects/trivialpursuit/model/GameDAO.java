@@ -30,19 +30,8 @@ public interface GameDAO {
 	
 	public Game getUnstartedGame(String gameCode);
 	
-	public void deleteInvitation(String gameCode, String username);
-	
 	public Integer getPlayerCountByGame(String gameCode);
 	
-	public boolean doesInvitationExist(String gameCode, String invitee);
-	
-	// TODO: put these in InvitationDAO / methods in InvitationJDBC, etc.
-	public void sendInvitation(String gameCode, String invitee, String invitedBy);
-	
-	public List<Invitation> getInvitations(String username);
-	
-	
-	
-	
+	public List<Game> getUnstartedPublicGames();
 	
 }

@@ -2,6 +2,7 @@
 
 <c:url var="createGame" value="common/createGame.jsp"/>
 <c:url var="invites" value="common/invitations.jsp"/>
+<c:url var="lobbiesURL" value="/lobbies"/>
 
 <c:import url="/WEB-INF/jsp/common/header.jsp" />
 
@@ -10,7 +11,9 @@
 	<div class="profile__content">
 	 	<c:import url="${createGame }" />
 	 	<div class="profile__content--right">
-	 		<button class="button u-margin-bottom-small">Game Lobby</button>
+	 		<form action="${lobbiesURL}" method="GET">
+	 			<button class="button u-margin-bottom-small">Game Lobby</button>
+	 		</form>
 			<c:import url="${invites }" />
 	 	</div>
 	</div>

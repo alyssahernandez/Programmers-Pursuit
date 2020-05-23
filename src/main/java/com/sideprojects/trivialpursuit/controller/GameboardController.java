@@ -132,4 +132,16 @@ public class GameboardController {
 		return "redirect:/gameboard/" + gameCode;
 	}
 	
+	@RequestMapping(path="/lobbies", method=RequestMethod.GET)
+	public String displayLobbyPage(ModelMap model, final HttpServletRequest req) {
+		
+	    String userId = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userId);
+	    model.put("currentUser", currentUser);
+	    
+		List<Game> openGames = gameDAO.getUnstartedPublicGames();
+		model.put("openGames", openGames);
+		return "lobby";
+	}
+	
 }

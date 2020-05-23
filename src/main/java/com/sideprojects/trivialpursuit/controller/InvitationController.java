@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.auth0.SessionUtils;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
+import com.sideprojects.trivialpursuit.model.InvitationDAO;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 import com.sideprojects.trivialpursuit.model.User;
 import com.sideprojects.trivialpursuit.model.UserDAO;
@@ -29,6 +30,9 @@ public class InvitationController {
 	
 	@Autowired
 	PlayerDAO playerDAO;
+	
+	@Autowired
+	InvitationDAO invitationDAO;
 
 	@RequestMapping(path="/gameboard/{gameCode}/sendInvitation", method=RequestMethod.POST)
 	public String sendInvitation(@RequestParam String username, @PathVariable String gameCode, final HttpServletRequest req, ModelMap map, RedirectAttributes flash) {
@@ -47,7 +51,7 @@ public class InvitationController {
 	    String userId = (String) SessionUtils.get(req, "userIdToken");
 	    User currentUser = userDAO.getUserByToken(userId);
 	    	
-		gameDAO.sendInvitation(gameCode, username, currentUser.getUsername());
+	    invitationDAO.sendInvitation(gameCode, username, currentUser.getUsername());
 		
 		return "redirect:/gameboard/" + gameCode;
 	}
@@ -58,8 +62,8 @@ public class InvitationController {
 	    String userId = (String) SessionUtils.get(req, "userIdToken");
 	    User currentUser = userDAO.getUserByToken(userId);
 	    
-    	if (gameDAO.doesInvitationExist(gameCode, currentUser.getUsername())) {
-    		gameDAO.deleteInvitation(gameCode, currentUser.getUsername());
+    	if (invitationDAO.doesInvitationExist(gameCode, currentUser.getUsername())) {
+    		invitationDAO.deleteInvitation(gameCode, currentUser.getUsername());
     	}
 	  
 	    Game newGame = gameDAO.getUnstartedGame(gameCode);
@@ -99,7 +103,7 @@ public class InvitationController {
 	    User currentUser = userDAO.getUserByToken(userId);
 	    String username = currentUser.getUsername();
 	    
-	    gameDAO.deleteInvitation(gameCode, username);
+	    invitationDAO.deleteInvitation(gameCode, username);
 	    
 	    Game newGame = gameDAO.getUnstartedGame(gameCode);
 
