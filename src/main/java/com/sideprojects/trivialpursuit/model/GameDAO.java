@@ -6,7 +6,7 @@ public interface GameDAO {
 
 	public Game getActiveGame(String gameCode);
 	
-	public String createNewGame();
+	public String createNewGame(String publicOrPrivate);
 	
 	public List<Player> getAllPlayersInAGame(Game game);
 	
@@ -33,6 +33,8 @@ public interface GameDAO {
 	public void deleteInvitation(String gameCode, String username);
 	
 	public Integer getPlayerCountByGame(String gameCode);
+	
+	public boolean doesInvitationExist(String gameCode, String invitee);
 	
 	// TODO: put these in InvitationDAO / methods in InvitationJDBC, etc.
 	public void sendInvitation(String gameCode, String invitee, String invitedBy);

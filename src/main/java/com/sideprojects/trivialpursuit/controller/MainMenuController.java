@@ -3,6 +3,7 @@ package com.sideprojects.trivialpursuit.controller;
 
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.auth0.SessionUtils;
 import com.sideprojects.trivialpursuit.model.Category;
 import com.sideprojects.trivialpursuit.model.CategoryDAO;
-import com.sideprojects.trivialpursuit.model.CategorySelectionForm;
+import com.sideprojects.trivialpursuit.model.GameCreationForm;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Invitation;
@@ -68,7 +69,7 @@ public class MainMenuController {
 	protected String home(@PathVariable String username, final Map<String, Object> model, final HttpServletRequest req, Model modelHolder) {
 		
 		if (!modelHolder.containsAttribute("createGame")) {
-			modelHolder.addAttribute("createGame", new CategorySelectionForm());
+			modelHolder.addAttribute("createGame", new GameCreationForm());
 		}
 		
 	    String accessToken = (String) SessionUtils.get(req, "accessToken");
@@ -125,12 +126,12 @@ public class MainMenuController {
 			
 			
 	@RequestMapping(path="/create", method=RequestMethod.POST)
-	public String createGame(@Valid @ModelAttribute("createGame") CategorySelectionForm selectionForm, 
+	public String createGame(@Valid @ModelAttribute("createGame") GameCreationForm selectionForm, 
 							 BindingResult result, 
 							 final HttpServletRequest req, 
 							 RedirectAttributes flash) {
 		
-		String newGameCode = gameDAO.createNewGame();
+		String newGameCode = gameDAO.createNewGame(selectionForm.getPublicOrPrivate());
 		Game newGame = gameDAO.getUnstartedGame(newGameCode);
 		
 		if (result.hasErrors()) {

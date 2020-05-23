@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.auth0.SessionUtils;
 import com.sideprojects.trivialpursuit.model.Category;
-import com.sideprojects.trivialpursuit.model.CategorySelectionForm;
+import com.sideprojects.trivialpursuit.model.GameCreationForm;
 import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
@@ -123,60 +123,6 @@ public class GameboardController {
 		}
 				
 		return "redirect:/question/{gameCode}";
-	}
-	
-	@RequestMapping(path="/gameboard/{gameCode}/sendInvitation", method=RequestMethod.POST)
-	public String sendInvitation(@RequestParam String username, @PathVariable String gameCode, final HttpServletRequest req, ModelMap map, RedirectAttributes flash) {
-		
-		if (username == null || username.length() == 0) {
-			flash.addAttribute("invalidEntry", true);
-			return "redirect:/gameboard/" + gameCode;
-		}
-		
-		Boolean isValid = userDAO.validateUsername(username);
-		if (!isValid) {
-			flash.addAttribute("userNotFound", true);
-			return "redirect:/gameboard/" + gameCode;
-		}
-		
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
-	    	
-		gameDAO.sendInvitation(gameCode, username, currentUser.getUsername());
-		
-		return "redirect:/gameboard/" + gameCode;
-	}
-	
-	@RequestMapping(path="/joinGame", method=RequestMethod.POST)
-	public String joinGame(@RequestParam String gameCode, final HttpServletRequest req) {
-		
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
-	  
-	    Game newGame = gameDAO.getUnstartedGame(gameCode);
-	    Integer numberOfPlayers = gameDAO.getPlayerCountByGame(gameCode);
-	    
-	    if (numberOfPlayers <= 0 || numberOfPlayers >= 6 || numberOfPlayers == null) {
-	    	return "redirect:/profile/" + currentUser.getUsername();
-	    }
-	    
-	    Integer playerColorId = numberOfPlayers + 1;
-	    playerDAO.putPlayerIntoGame(newGame.getGameID(), currentUser.getUserId(), playerColorId);
-	    gameDAO.deleteInvitation(gameCode, currentUser.getUsername());
-	    
-	    return "redirect:/gameboard/" + gameCode;
-	}
-	
-	@RequestMapping(path="/rejectGame", method=RequestMethod.POST)
-	public String rejectGame(@RequestParam String gameCode, final HttpServletRequest req) {
-		
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
-	    String username = currentUser.getUsername();
-	    
-	    gameDAO.deleteInvitation(gameCode, username);
-	    
-	    return "redirect:/profile/" + username;
 	}
 	
 	@RequestMapping(path="/startGame", method=RequestMethod.POST)

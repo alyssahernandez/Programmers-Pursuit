@@ -16,6 +16,7 @@ public class Game {
 	private Boolean active;
 	private Boolean isActivePlayerAnsweringQuestion;
 	private Boolean hasActivePlayerSelectedCategory;
+	private Boolean isPublic;
 	private Question question;
 	private Player activePlayer;
 	private Gameboard gameboard;
@@ -199,5 +200,13 @@ public class Game {
 				break;
 		}
 		return players;
+	}
+
+	public Boolean getIsPublic() {
+		return isPublic;
+	}
+
+	public void setIsPublic(Boolean isPublic) {
+		this.isPublic = isPublic;
 	}
 }

@@ -133,7 +133,6 @@ public class JDBCQuestionDAO implements QuestionDAO {
 			possibleAnswers.add(possibleAnswer);
 	}
 	
-	
 	// Helper method to retrieve a random question from a List<Question> based on the list's size (because questions are pulled from the DB in the same order every time -- we want unique games)
 	private int getQuestionIndex(int length)
 	{	
