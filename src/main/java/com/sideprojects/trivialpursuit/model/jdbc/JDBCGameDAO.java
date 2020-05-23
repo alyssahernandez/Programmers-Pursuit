@@ -25,14 +25,13 @@ import com.sideprojects.trivialpursuit.model.Space;
 public class JDBCGameDAO implements GameDAO {
 	
 	private JdbcTemplate template;
-	private JDBCPlayerDAO playerDAO;
+	
 	@Autowired
 	private CategoryDAO categoryDAO;
 
 	@Autowired
 	public JDBCGameDAO(DataSource dataSource) {
 		template = new JdbcTemplate(dataSource);
-		playerDAO = new JDBCPlayerDAO(dataSource);
 	}
 	
 	/*
@@ -219,21 +218,23 @@ public class JDBCGameDAO implements GameDAO {
 	
 	@Override
 	public void sendInvitation(String gameCode, String invitee, String invitedBy) {
-		String query = "INSERT INTO user_invite (game_code, invitee, invited_by) VALUES (?, ?, ?)";
-		template.update(query, gameCode, invitee, invitedBy);
+		
+		if (doesInvitationExist(gameCode, invitee, invitedBy)) return;
+		
+		String insertQuery = "INSERT INTO user_invite (game_code, invitee, invited_by) VALUES (?, ?, ?)";
+		template.update(insertQuery, gameCode, invitee, invitedBy);
 	}
 	
 	@Override
-	//TODO: Update this for game.active=false and winner_id = null
 	public List<Invitation> getInvitations(String username) {
-		String query = "SELECT ui.game_code, ui.invited_by, ui.invitee, ui.invite_id FROM user_invite AS ui INNER JOIN game ON ui.game_code = game.game_code  WHERE game.active = false AND game.winner_id IS NULL AND ui.invitee = ?";
+		String query = "SELECT ui.game_code, ui.invited_by, ui.invitee, ui.invite_id FROM user_invite AS ui INNER JOIN game ON ui.game_code = game.game_code WHERE game.active = false AND game.winner_id IS NULL AND ui.invitee = ?";
 		SqlRowSet results = template.queryForRowSet(query, username);
 		
 		List<Invitation> invitations = new ArrayList<>();
 		while (results.next()) {
 			
 			Integer count = getPlayerCountByGame(results.getString("game_code"));
-			if (count == null || count == 0 || count == 6) {
+			if (count == null || count <= 0 || count >= 6) {
 				continue;
 			}
 			Invitation i = new Invitation();
@@ -256,6 +257,12 @@ public class JDBCGameDAO implements GameDAO {
 			count = results.getInt("count");
 		}
 		return count;
+	}
+	
+	@Override 
+	public void deleteInvitation(String gameCode, String username) {
+		String query = "DELETE FROM user_invite WHERE game_code = ? AND invitee = ?";
+		template.update(query, gameCode, username);
 	}
 	
 	private Game gameHelper(SqlRowSet rowSet, String gameCode) {
@@ -286,6 +293,13 @@ public class JDBCGameDAO implements GameDAO {
 		game.setActivePlayer(activePlayer);
 		
 		return game;
+	}
+	
+	private boolean doesInvitationExist(String gameCode, String invitee, String invitedBy) {
+		String query = "SELECT * FROM user_invite WHERE game_code = ? AND invitee = ? AND invited_by = ?";
+		SqlRowSet result = template.queryForRowSet(query, gameCode, invitee, invitedBy);
+		if (result.next()) return true;
+		return false;
 	}
 	
 }

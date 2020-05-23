@@ -44,9 +44,14 @@ public class GameboardController {
 	public String displayGameboard(
 			ModelMap model,
 			Model modelHolder,
-			@PathVariable String gameCode) {
+			@PathVariable String gameCode,
+			final HttpServletRequest req) {
 
+	    String userId = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userId);
+	    model.put("currentUser", currentUser);
 		
+	    // TODO: Fix/remove these as they're not currently doing anything - Brooks
 		if (modelHolder.containsAttribute("invalidEntry")) {
 			model.put("invalidEntry", true);
 		}
@@ -152,13 +157,26 @@ public class GameboardController {
 	    Integer numberOfPlayers = gameDAO.getPlayerCountByGame(gameCode);
 	    
 	    if (numberOfPlayers <= 0 || numberOfPlayers >= 6 || numberOfPlayers == null) {
-	    	return "redirect:/profile";
+	    	return "redirect:/profile/" + currentUser.getUsername();
 	    }
 	    
 	    Integer playerColorId = numberOfPlayers + 1;
 	    playerDAO.putPlayerIntoGame(newGame.getGameID(), currentUser.getUserId(), playerColorId);
+	    gameDAO.deleteInvitation(gameCode, currentUser.getUsername());
 	    
 	    return "redirect:/gameboard/" + gameCode;
+	}
+	
+	@RequestMapping(path="/rejectGame", method=RequestMethod.POST)
+	public String rejectGame(@RequestParam String gameCode, final HttpServletRequest req) {
+		
+	    String userId = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userId);
+	    String username = currentUser.getUsername();
+	    
+	    gameDAO.deleteInvitation(gameCode, username);
+	    
+	    return "redirect:/profile/" + username;
 	}
 	
 	@RequestMapping(path="/startGame", method=RequestMethod.POST)

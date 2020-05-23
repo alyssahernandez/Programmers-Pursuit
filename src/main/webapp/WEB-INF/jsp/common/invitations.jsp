@@ -2,6 +2,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:url var="joinGameURL" value="/joinGame"/>
+<c:url var="rejectGameURL" value="/rejectGame"/>
+
 <div class="invites">	
 	<h3 class="headers__invites u-margin-bottom-small">Invitations</h3>
 	<c:forEach var="invitation" items="${invitations }">

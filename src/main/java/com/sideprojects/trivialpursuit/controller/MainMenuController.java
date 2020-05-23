@@ -64,8 +64,8 @@ public class MainMenuController {
 	
 	//// AUTH0 CONTROLLER TO REDIRECT TO THE USERS PROFILE PAGE
 	
-	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	protected String home(final Map<String, Object> model, final HttpServletRequest req, Model modelHolder) {
+	@RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
+	protected String home(@PathVariable String username, final Map<String, Object> model, final HttpServletRequest req, Model modelHolder) {
 		
 		if (!modelHolder.containsAttribute("createGame")) {
 			modelHolder.addAttribute("createGame", new CategorySelectionForm());
@@ -136,7 +136,11 @@ public class MainMenuController {
 		if (result.hasErrors()) {
 			flash.addFlashAttribute("createGame", selectionForm);
 			flash.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "createGame", result);
-			return "redirect:/profile";
+			
+		    String userId = (String) SessionUtils.get(req, "userIdToken");
+		    User currentUser = userDAO.getUserByToken(userId);
+		    
+			return "redirect:/profile/" + currentUser.getUsername();
 		}
 		int userId = (Integer) SessionUtils.get(req, "userId");
 		

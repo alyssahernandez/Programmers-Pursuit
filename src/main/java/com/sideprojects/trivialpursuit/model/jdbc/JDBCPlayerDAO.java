@@ -19,7 +19,6 @@ import com.sideprojects.trivialpursuit.model.PlayerDAO;
 public class JDBCPlayerDAO implements PlayerDAO 
 {
 	private JdbcTemplate template;
-
 	@Autowired
 	public JDBCPlayerDAO(DataSource dataSource) {
 		template = new JdbcTemplate(dataSource);
@@ -96,6 +95,28 @@ public class JDBCPlayerDAO implements PlayerDAO
 			newPlayer.setName(result.getString("username"));
 		}
 		return newPlayer;
+	}
+	
+	
+	public Player getUserByUsername(String username) {
+		String query = "SELECT * FROM user_account WHERE username = ?";
+		SqlRowSet results = template.queryForRowSet(query, username);
+		Player player = null;
+		if (results.next())
+		{
+			player = new Player();
+			player.setPlayerId(results.getInt("user_id"));
+			player.setName(results.getString("username"));
+		}
+		return player;
+	}
+	
+	public List<Game> getAllGamesByPlayer(Integer user_id) {
+		return null;
+	}
+	
+	public List<Game> getActiveGamesByPlayer(Integer user_id) {
+		return null;
 	}
 
 }
