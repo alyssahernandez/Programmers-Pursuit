@@ -7,14 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.auth0.SessionUtils;
 import com.sideprojects.trivialpursuit.model.Category;
+import com.sideprojects.trivialpursuit.model.CategorySelectionForm;
 import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
@@ -40,8 +43,18 @@ public class GameboardController {
 	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.GET)
 	public String displayGameboard(
 			ModelMap model,
+			Model modelHolder,
 			@PathVariable String gameCode) {
-				
+
+		
+		if (modelHolder.containsAttribute("invalidEntry")) {
+			model.put("invalidEntry", true);
+		}
+		
+		if (modelHolder.containsAttribute("userNotFound")) {
+			model.put("userNotFound", true);
+		}
+
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		
         if (currentGame != null) {
@@ -108,7 +121,18 @@ public class GameboardController {
 	}
 	
 	@RequestMapping(path="/gameboard/{gameCode}/sendInvitation", method=RequestMethod.POST)
-	public String sendInvitation(@RequestParam String username, @PathVariable String gameCode, final HttpServletRequest req) {
+	public String sendInvitation(@RequestParam String username, @PathVariable String gameCode, final HttpServletRequest req, ModelMap map, RedirectAttributes flash) {
+		
+		if (username == null || username.length() == 0) {
+			flash.addAttribute("invalidEntry", true);
+			return "redirect:/gameboard/" + gameCode;
+		}
+		
+		Boolean isValid = userDAO.validateUsername(username);
+		if (!isValid) {
+			flash.addAttribute("userNotFound", true);
+			return "redirect:/gameboard/" + gameCode;
+		}
 		
 	    String userId = (String) SessionUtils.get(req, "userIdToken");
 	    User currentUser = userDAO.getUserByToken(userId);
@@ -123,22 +147,21 @@ public class GameboardController {
 		
 	    String userId = (String) SessionUtils.get(req, "userIdToken");
 	    User currentUser = userDAO.getUserByToken(userId);
+	  
+	    Game newGame = gameDAO.getUnstartedGame(gameCode);
+	    Integer numberOfPlayers = gameDAO.getPlayerCountByGame(gameCode);
 	    
-	    Game game = gameDAO.getUnstartedGame(gameCode);
-	    
-	    Integer count = gameDAO.getPlayerCountByGame(gameCode);
-	    Integer colorId = count + 1;
-	    
-	    if (count == 0 || count == 6 || count == null) {
+	    if (numberOfPlayers <= 0 || numberOfPlayers >= 6 || numberOfPlayers == null) {
 	    	return "redirect:/profile";
 	    }
 	    
-	    playerDAO.putPlayerIntoGame(game.getGameID(), currentUser.getUserId(), colorId);
+	    Integer playerColorId = numberOfPlayers + 1;
+	    playerDAO.putPlayerIntoGame(newGame.getGameID(), currentUser.getUserId(), playerColorId);
 	    
 	    return "redirect:/gameboard/" + gameCode;
 	}
 	
-	@RequestMapping(path="startGame", method=RequestMethod.POST)
+	@RequestMapping(path="/startGame", method=RequestMethod.POST)
 	public String startGame(@RequestParam String gameCode) {
 		
 		gameDAO.setIsGameActive(gameCode, true);

@@ -20,8 +20,6 @@ public interface GameDAO {
 	
 	public void setHasSelectedCategory(Game game, Boolean hasSelectedCategory);
 	
-	public void setIsGameActive(Game game, Boolean isActive);
-	
 	public void setIsGameActive(String gameCode, Boolean isActive);
 	
 	public void setWinner(Game game);

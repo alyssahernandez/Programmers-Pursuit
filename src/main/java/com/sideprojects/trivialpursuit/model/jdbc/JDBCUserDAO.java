@@ -2,6 +2,7 @@ package com.sideprojects.trivialpursuit.model.jdbc;
 
 import javax.sql.DataSource;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -49,8 +50,13 @@ public class JDBCUserDAO implements UserDAO {
 		template.update(newUserSQL, username, token, email, picture);
 	}
 	
-	public void inviteUser(String username, Integer game_id) {
-		
+	public boolean validateUsername(String username) {
+		String query = "SELECT * FROM user_account WHERE username = ?";
+		SqlRowSet result = template.queryForRowSet(query, username);
+		if (result.next()) {
+			return true;
+		}
+		return false;
 	}
 
 }

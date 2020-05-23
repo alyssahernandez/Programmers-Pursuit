@@ -170,12 +170,6 @@ public class JDBCGameDAO implements GameDAO {
 	}
 	
 	@Override
-	public void setIsGameActive(Game game, Boolean isActive) {
-        String query = "UPDATE game SET active = ? WHERE game_id = ?";
-        template.update(query, isActive, game.getGameID());
-	}
-	
-	@Override
 	public void setIsGameActive(String gameCode, Boolean isActive) {
         String query = "UPDATE game SET active = ? WHERE game_code = ?";
         template.update(query, isActive, gameCode);

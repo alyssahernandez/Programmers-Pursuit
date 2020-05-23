@@ -20,6 +20,12 @@
 			<label for="username">Player Name:</label> 
 			<input type="text" name="username" />
 			<input type="submit" class="button" value="Send Invitation" />
+			<c:if test="${invalidEntry == true}">
+				<p>Please enter a username</p>
+			</c:if>
+			<c:if test="${userNotFound == true}">
+				<p>Please enter valid username</p>
+			</c:if>
 		</form>
 		<c:if test="${currentGame.activePlayers.size() >= 2 }" >
 		 	<form action="${startGameURL}" method="POST">
