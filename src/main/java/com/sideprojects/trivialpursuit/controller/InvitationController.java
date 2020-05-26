@@ -42,6 +42,7 @@ public class InvitationController {
 			return "redirect:/gameboard/" + gameCode;
 		}
 		
+		// This isn't doing anything as of now  - Brooks
 		Boolean isValid = userDAO.validateUsername(username);
 		if (!isValid) {
 			flash.addAttribute("userNotFound", true);

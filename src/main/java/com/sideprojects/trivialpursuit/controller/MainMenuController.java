@@ -124,13 +124,6 @@ public class MainMenuController {
 		@RequestParam(required=false) String gameName,
 		ModelMap moldelHolder,
 		RedirectAttributes flash) {
-			
-		
-		/* TODO from the main menu, we need to create
-		 * and store a list of users in the database based on the
-		 * names of players that are typed into the create game
-		 * form - Alyssa
-		 */
 		
 //		THIS SECTION SEARCHES FOR AND RETURNS AN ACTIVE GAME; THE REDIRECT IN  - JEFF
 			Game activeGame = gameDAO.getActiveGame(gameSearch.toUpperCase());
@@ -143,8 +136,7 @@ public class MainMenuController {
 				return "mainMenu";
 			}
 	}
-			
-			
+					
 	@RequestMapping(path="/create", method=RequestMethod.POST)
 	public String createGame(@Valid @ModelAttribute("createGame") GameCreationForm selectionForm, 
 							 BindingResult result, 
@@ -183,6 +175,18 @@ public class MainMenuController {
 		map.put("leaders", leaders);
 		
 		return "leaderboard";
+	}
+	
+	@RequestMapping(path="/lobbies", method=RequestMethod.GET)
+	public String displayLobbyPage(ModelMap model, final HttpServletRequest req) {
+		
+	    String userId = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userId);
+	    model.put("currentUser", currentUser);
+	    
+		List<Game> openGames = gameDAO.getUnstartedPublicGames();
+		model.put("openGames", openGames);
+		return "lobby";
 	}
 }
 
