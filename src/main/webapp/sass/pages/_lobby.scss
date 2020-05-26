@@ -1,0 +1,22 @@
+.lobby {
+    width: 100%;
+    padding: 3rem 5rem;
+
+    display: flex;
+
+    & > * {
+        margin: 1rem;
+    }
+}
+
+.games {
+    @include columnCentered();
+
+    width: 75%;
+
+    justify-content: space-evenly;
+}
+
+.create {
+    width: 25%;
+}

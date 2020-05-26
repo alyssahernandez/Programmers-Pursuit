@@ -3,7 +3,7 @@
 
     padding: 1rem 2rem;
 
-    background-color: $color-grey-dark-2;
+    background: linear-gradient(to bottom right, $color-grey-dark-1, $color-grey-dark-2);
 
     &__invite {
         @include columnCentered();

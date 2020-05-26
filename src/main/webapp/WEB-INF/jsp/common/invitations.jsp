@@ -12,13 +12,13 @@
 			</div>
 			<div class="invites__buttons">
 				<form method="POST" action="${joinGameURL}">
-					<input type="submit" class="button--small" value="Accept"/>
+					<input type="submit" class="button--small u-button-green" value="Accept"/>
 					<input type="hidden" value="${invitation.gameCode }" name="gameCode"/>
 				</form>
 				
 <!-- 			JEFF: THIS BUTTON NEEDS CONFIGURING -->
 				<form method="POST" action="${rejectGameURL}">
-					<input type="submit" class="button--small" value="Reject"/>
+					<input type="submit" class="button--small u-button-red" value="Reject"/>
 					<input type="hidden" value="${invitation.gameCode }" name="gameCode"/>
 				</form>			
 			</div>
