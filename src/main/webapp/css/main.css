@@ -83,7 +83,7 @@ ul {
 }
 
 .hud-message {
-  color: #e5e9ee;
+  color: #3f546e;
   font-size: 4rem;
 }
 
@@ -92,13 +92,15 @@ ul {
 }
 
 .question-form__question {
-  color: #e5e9ee;
+  color: #3f546e;
   font-size: 3.5rem;
   font-weight: 600;
 }
 
 .question-form__label {
-  font-size: 2.5rem;
+  color: #3f546e;
+  font-size: 3rem;
+  font-weight: 700;
 }
 
 .about-header {
@@ -154,11 +156,11 @@ ul {
 }
 
 .u-margin-bottom-small {
-  margin-bottom: 1.5rem !important;
+  margin-bottom: 1rem !important;
 }
 
 .u-margin-bottom-medium {
-  margin-bottom: 4rem !important;
+  margin-bottom: 3.5rem !important;
 }
 
 .u-margin-bottom-big {

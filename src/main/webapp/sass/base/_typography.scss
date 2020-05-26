@@ -44,7 +44,7 @@ ul {
 }
 
 .hud-message {
-    color: $color-grey-light-1;
+    color: $color-grey-dark-2;
     font-size: 4rem;
     
     &--rolled {
@@ -55,13 +55,15 @@ ul {
 .question-form {
 
     &__question {
-        color: $color-grey-light-1;
+        color: $color-grey-dark-2;
         font-size: 3.5rem;
         font-weight: 600;
     }
 
     &__label {
-        font-size: 2.5rem;
+        color: $color-grey-dark-2;
+        font-size: 3rem;
+        font-weight: 700;
     }
 }
 
