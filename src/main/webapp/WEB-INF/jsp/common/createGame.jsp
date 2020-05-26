@@ -22,8 +22,8 @@
 		-->
 		<span>Categories:</span>
 		<c:forEach var="category" items="${categories }">
-			<label for="categorySelection">${category.categoryName }</label> 
-			<input type="checkbox" name="categorySelection" value="${category.categoryId }" />
+			<input type="checkbox" name="categorySelection" id="${category.categoryName }" value="${category.categoryId }" />
+			<label for="${category.categoryName }">${category.categoryName }</label> 
 		</c:forEach>
 		
 		<input type="submit" class="button" value="Start Game!" />

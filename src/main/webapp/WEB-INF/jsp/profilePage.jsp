@@ -8,9 +8,9 @@
 <div class="profile">
 	<h1 class="profile__header headers__profile u-margin-bottom-medium"><c:out value="${currentUser.username }"/>'s Games</h1>
 	<div class="profile__content">
-	 	<c:import url="${createGame }" />
+		<div class="active-games">ACTIVE GAMES</div>
 	 	<div class="profile__content--right">
-	 		<button class="button u-margin-bottom-small">Game Lobby</button>
+	 		<div class="tile u-margin-bottom-small">Game Lobby</div>
 			<c:import url="${invites }" />
 	 	</div>
 	</div>

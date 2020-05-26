@@ -17,3 +17,10 @@
 .u-color6 { background-color: $color-purple-2 !important; }
 .u-color6-alt { background-color: $color-purple-1 !important; }
 .u-colorRollAgain { background-color: $color-grey-dark-1 !important; }
+
+.u-button-green { background-color: $color-green-2 !important; 
+    &:hover { background-color: $color-green-1 !important; }    
+}
+.u-button-red { background-color: $color-red-2 !important; 
+    &:hover { background-color: $color-red-1 !important; }    
+}

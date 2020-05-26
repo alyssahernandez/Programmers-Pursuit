@@ -1,6 +1,6 @@
 .button {
-    background-color: $color-aqua-1;
-    color: $color-grey-dark-2;
+    background-color: $color-aqua-2;
+    color: $color-grey-light-1;
     font-size: $button-font-size;
     font-weight: $button-font-weight;
     text-decoration: none;
@@ -13,8 +13,8 @@
     &:hover {
         transform: translateY(-.5rem);
         box-shadow: $shadow-small;
-        background-color: $color-aqua-2;
-        color: $color-grey-light-1;
+        background-color: $color-aqua-1;
+        cursor: pointer;
     }
 
     &:active,
@@ -24,6 +24,26 @@
     }
 
     &--small {
-        
+        color: $color-grey-light-1;
+        font-size: $button-small-font-size;
+        font-weight: $button-small-font-weight;
+        text-decoration: none;
+        padding: 1rem 1.5rem;
+        border: none;
+        border-radius: 2px;
+    
+        transition: all .2s;
+    
+        &:hover {
+            transform: translateY(-.2rem);
+            box-shadow: $shadow-small;
+            cursor: pointer;
+        }
+    
+        &:active,
+        &:focus {
+            transform: translateY(-.1rem);
+            outline: none;
+        }        
     }
 }
