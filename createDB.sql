@@ -7,8 +7,9 @@ DROP TABLE IF EXISTS game_player;
 DROP TABLE IF EXISTS question;
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS game;
-DROP TABLE IF EXISTS user_account;
 DROP TABLE IF EXISTS player;
+DROP TABLE IF EXISTS friends;
+DROP TABLE IF EXISTS user_account;
 
 CREATE TABLE user_account
 (
@@ -30,7 +31,8 @@ CREATE TABLE game
         active_player_id int, -- remove once finished w/ jdbcs (this is now in game_player)
         active_player_roll int, -- remove once finished w/ jdbcs (this is now in game_player)
         active_player_answering_question boolean default(false), -- remove once finished w/ jdbcs (this is now in game_player)
-        active_player_category_selected_center boolean default(false)-- remove once finished w/ jdbcs (this is now in game_player) -- Brooks
+        active_player_category_selected_center boolean default(false),-- remove once finished w/ jdbcs (this is now in game_player) -- Brooks
+        is_public boolean not null default(true)
 );
 
 CREATE TABLE game_player
@@ -107,6 +109,15 @@ CREATE TABLE user_invite
         
         constraint fk_user_invite_game foreign key (game_code) references game (game_code),
         constraint fk_user_invite_user_account foreign key (invitee) references user_account (username)
+);
+
+CREATE TABLE friends
+(
+        username varchar(100) not null REFERENCES user_account (username),
+        friend_name varchar(100) not null REFERENCES user_account (username),
+        friends boolean not null default(false),
+        
+        constraint pk_friends primary key (username, friend_name)
 );
 
 COMMIT;
