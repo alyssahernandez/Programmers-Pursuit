@@ -41,11 +41,11 @@
 			            <div class="team-member__details">
 			                <h3 class="team-member-name">Alyssa Hernandez</h3>
 			                <p class="team-member-bio">
-			                    Cu clita vituperata eam, ius apeirian intellegat an, ex.
+			                    Server-side routing and logic in Spring MVC controllers. Coordinated project and served in a leadership role.
 			                </p>
 			                <div class="team-member__links">
-			                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
-			                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
+			                    <a href="https://www.linkedin.com/in/hernandez-alyssa/" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
+			                    <a href="https://github.com/alyssahernandez" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
 			                </div>
 			            </div>
 			        </div>
