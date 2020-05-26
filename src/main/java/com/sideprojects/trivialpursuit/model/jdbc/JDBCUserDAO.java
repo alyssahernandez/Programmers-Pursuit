@@ -48,5 +48,9 @@ public class JDBCUserDAO implements UserDAO {
 		String newUserSQL = "INSERT INTO user_account (username, id_token, email, picture) VALUES (?, ?, ?, ?)";
 		template.update(newUserSQL, username, token, email, picture);
 	}
+	
+	public void inviteUser(String username, Integer game_id) {
+		
+	}
 
 }

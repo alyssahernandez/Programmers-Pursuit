@@ -10,6 +10,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import com.sideprojects.trivialpursuit.model.Category;
+import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
@@ -23,46 +24,27 @@ public class JDBCPlayerDAO implements PlayerDAO
 	public JDBCPlayerDAO(DataSource dataSource) {
 		template = new JdbcTemplate(dataSource);
 	}
-	
-	// TODO: We're going to have to do this based on user_id. This will need reworked. - Brooks
-	// TODO: 99% sure we need a RETURNING statement here, returning Player_id, so we can insert into game_player without a refresh.
-	@Override
-	public void createPlayer(int userId, String playerName) {
-		
-		String insertPlayer = "INSERT INTO player (user_id, username) VALUES (?, ?)";
-		template.update(insertPlayer, userId, playerName);
-	}
-	
 
-	public void putPlayerIntoGame(Game game, Integer user_id)
-	{
-		int gameId = game.getGameID();
-		
-		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id) VALUES (?, ?)";
-		template.update(sqlPutPlayerIntoGame, gameId, user_id);
-	
-	}
-
-	// TODO: This will probably go unused -- see ^^^
 	@Override
-	public void putPlayerIntoGame(Game game, Player player)
+	public void putPlayerIntoGame(Integer game_id, Integer user_id, Integer color_id)
 	{
-		int gameId = game.getGameID();
-		int playerId = player.getPlayerId();
-		
-		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id) VALUES (?, ?)";
-		template.update(sqlPutPlayerIntoGame, gameId, playerId);
-	
+		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id, player_color) VALUES (?, ?, ?)";
+		template.update(sqlPutPlayerIntoGame, game_id, user_id, color_id);
 	}
 	
 	public void putFirstPlayerIntoGame(Game game, Integer user_id) {
 		
-		int gameId = game.getGameID();
+		Integer gameId = game.getGameID();
 		
-		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id, player_color) VALUES (?, ?, 1)";
-		template.update(sqlPutPlayerIntoGame, gameId, user_id);
+		int dice_roll = Dice.getDiceRoll();
+		
+		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id, player_color, player_roll, is_turn) VALUES (?, ?, 1, ?, true)";
+		String query = "UPDATE game SET active_player_id = ?, active_player_roll = ? WHERE game_id = ?";
+		
+		template.update(sqlPutPlayerIntoGame, gameId, user_id, dice_roll);
+		template.update(query, user_id, dice_roll, gameId);
 	}
-
+	
 	
 	// TODO: Could also pass in an integer to jibe with form input (rather than updating activePlayer's position in the Controller, which this method assumes is happening):
 	// setPlayerPosition(Game game, Integer newPosition), 
@@ -115,6 +97,6 @@ public class JDBCPlayerDAO implements PlayerDAO
 		}
 		return newPlayer;
 	}
-	
+
 }
 

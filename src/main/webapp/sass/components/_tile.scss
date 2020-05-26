@@ -1,0 +1,16 @@
+.tile {
+    width: 100%;
+    padding: 3rem 4rem;
+    font-size: 3rem;
+    font-weight: 700;
+    color: $color-grey-light-1;
+    background-color: $color-blue-2;
+    text-align: center;
+
+    transition: all .2s;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $color-blue-1;
+    }
+}

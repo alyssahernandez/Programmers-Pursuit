@@ -1,0 +1,25 @@
+.create {
+    background-color: $color-grey-dark-2;
+    padding: 2rem 1rem;
+    box-shadow: $shadow;
+
+    align-self: flex-start;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__options {
+        padding: 1rem 2rem;
+    }
+
+    &__label {
+        margin-left: .5rem;
+    }
+}

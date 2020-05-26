@@ -40,10 +40,11 @@ ul {
 .header-link {
     font-size: 2rem;
     font-weight: 600;
+    color: $color-grey-light-1;
 }
 
 .hud-message {
-    color: $color-grey-light-1;
+    color: $color-grey-dark-2;
     font-size: 4rem;
     
     &--rolled {
@@ -54,13 +55,15 @@ ul {
 .question-form {
 
     &__question {
-        color: $color-grey-light-1;
+        color: $color-grey-dark-2;
         font-size: 3.5rem;
         font-weight: 600;
     }
 
     &__label {
-        font-size: 2.5rem;
+        color: $color-grey-dark-2;
+        font-size: 3rem;
+        font-weight: 700;
     }
 }
 
@@ -84,4 +87,38 @@ ul {
 
 .team-member-link {
     font-size: 1.5rem;
+}
+
+// JEFF NOTE TO SELF: RESTRUCTURE TYPOGRAPHY LIKE THIS
+
+.headers {
+
+    &__profile {
+        font-size: 3rem;
+        color: $color-grey-dark-2;
+    }
+
+    &__invites {
+        font-size: 2rem;
+        color: $color-grey-light-1;
+    }
+
+    &__create {
+        font-size: 3rem;
+        color: $color-grey-light-1;
+    }
+
+    &__create-categories {
+        font-size: 2.5rem;
+        color: $color-grey-light-1;
+    }
+}
+
+.labels {
+
+    &__create {
+        color: $color-grey-light-1;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
 }

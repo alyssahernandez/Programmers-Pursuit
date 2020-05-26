@@ -31,11 +31,11 @@ public class Game {
 		this.gameId = gameID;
 	}
 
-	public int getWinnerId() {
+	public Integer getWinnerId() {
 		return winnerId;
 	}
 
-	public void setWinnerId(int winnerID) {
+	public void setWinnerId(Integer winnerID) {
 		this.winnerId = winnerID;
 	}
 
@@ -134,7 +134,7 @@ public class Game {
 	} // genGameCode() probably shouldn't be in the setter.
 
 	// Generates a unique 6-digit hexadecimal code (e.g. B04R9A)
-	private String generateGameCode() {
+	public static String generateGameCode() {
 		String zeros = "000000";
 		Random r = new Random();
 		String s = String.format("%06x", r.nextInt(0x1000000));
@@ -150,6 +150,7 @@ public class Game {
 	// TODO: Store all player dice rolls in DB, or keep them in session. Either way,
 	// we'll need a reference to all of them to sort them.
 	// - Brooks
+	
 	public List<Player> determinePlayerOrder(List<Player> players) {
 		for (Player p : players) {
 			p.setDiceRoll(Dice.getDiceRoll());

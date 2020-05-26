@@ -1,0 +1,27 @@
+.invites {
+    @include columnCentered();
+
+    padding: 1rem 2rem;
+
+    background: linear-gradient(to bottom right, $color-grey-dark-1, $color-grey-dark-2);
+
+    &__invite {
+        @include columnCentered();
+
+        background-color: $color-grey-light-1;
+
+        padding: 1rem 2rem;
+    }
+
+    &__details {
+        color: $color-grey-dark-2;
+        font-size: 1.5rem;
+    }
+
+    &__buttons {
+        width: 100%;
+
+        display: flex;
+        justify-content: space-evenly;
+    }
+}
