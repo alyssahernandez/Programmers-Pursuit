@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<c:url var="createGame" value="common/createGame.jsp"/>
 <c:url var="invites" value="common/invitations.jsp"/>
 
 <c:import url="/WEB-INF/jsp/common/header.jsp" />
@@ -10,7 +9,8 @@
 	<div class="profile__content">
 		<div class="active-games">ACTIVE GAMES</div>
 	 	<div class="profile__content--right">
-	 		<div class="tile u-margin-bottom-small">Game Lobby</div>
+	 		<c:url var="lobbyURL" value="/lobby"/>
+	 		<a class="tile u-margin-bottom-small" href="${ lobbyURL }">Game Lobby</a>
 			<c:import url="${invites }" />
 	 	</div>
 	</div>

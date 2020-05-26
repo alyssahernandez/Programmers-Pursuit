@@ -28,7 +28,7 @@
 				<img class="header__right-nav--pic" src="${ profilePicURL }">
 			
                 <c:url var="profileURL" value="/profile"/>
-                <li class="header__right-nav--link link header-link" id="profile"><a href="${profileURL}">Your Games</a></li>
+                <li><a class="header__right-nav--link link header-link" id="profile" href="${profileURL}">Your Games</a></li>
             </ul>
             
 		</header>
