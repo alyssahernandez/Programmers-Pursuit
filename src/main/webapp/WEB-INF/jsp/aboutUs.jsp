@@ -57,8 +57,8 @@
 			                    Lorem ipsum dolor sit amet, qui bonorum consectetuer et.
 			                </p>
 			                <div class="team-member__links">
-			                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
-			                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
+			                    <a href="https://www.linkedin.com/in/jakecasassa/" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
+			                    <a href="https://github.com/JakeCasassa" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
 			                </div>
 			            </div>
 			        </div>
