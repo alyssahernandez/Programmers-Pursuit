@@ -79,10 +79,11 @@ ul {
 .header-link {
   font-size: 2rem;
   font-weight: 600;
+  color: #e5e9ee;
 }
 
 .hud-message {
-  color: #e5e9ee;
+  color: #3f546e;
   font-size: 4rem;
 }
 
@@ -91,13 +92,15 @@ ul {
 }
 
 .question-form__question {
-  color: #e5e9ee;
+  color: #3f546e;
   font-size: 3.5rem;
   font-weight: 600;
 }
 
 .question-form__label {
-  font-size: 2.5rem;
+  color: #3f546e;
+  font-size: 3rem;
+  font-weight: 700;
 }
 
 .about-header {
@@ -132,16 +135,32 @@ ul {
   color: #e5e9ee;
 }
 
+.headers__create {
+  font-size: 3rem;
+  color: #e5e9ee;
+}
+
+.headers__create-categories {
+  font-size: 2.5rem;
+  color: #e5e9ee;
+}
+
+.labels__create {
+  color: #e5e9ee;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
 .u-center-text {
   text-align: center !important;
 }
 
 .u-margin-bottom-small {
-  margin-bottom: 1.5rem !important;
+  margin-bottom: 1rem !important;
 }
 
 .u-margin-bottom-medium {
-  margin-bottom: 4rem !important;
+  margin-bottom: 3.5rem !important;
 }
 
 .u-margin-bottom-big {
@@ -197,12 +216,28 @@ ul {
 }
 
 .u-colorRollAgain {
-  background-color: #778ca3 !important;
+  background-color: #647b94 !important;
+}
+
+.u-button-green {
+  background-color: #20bf6b !important;
+}
+
+.u-button-green:hover {
+  background-color: #26de81 !important;
+}
+
+.u-button-red {
+  background-color: #eb3b5a !important;
+}
+
+.u-button-red:hover {
+  background-color: #fc5c65 !important;
 }
 
 .button {
-  background-color: #2bcbba;
-  color: #3f546e;
+  background-color: #0fb9b1;
+  color: #e5e9ee;
   font-size: 2.5rem;
   font-weight: 700;
   text-decoration: none;
@@ -218,14 +253,80 @@ ul {
           transform: translateY(-0.5rem);
   -webkit-box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.2);
           box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.2);
-  background-color: #0fb9b1;
-  color: #e5e9ee;
+  background-color: #2bcbba;
+  cursor: pointer;
 }
 
 .button:active, .button:focus {
   -webkit-transform: translateY(-0.25rem);
           transform: translateY(-0.25rem);
   outline: none;
+}
+
+.button--small {
+  color: #e5e9ee;
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-decoration: none;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 2px;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+.button--small:hover {
+  -webkit-transform: translateY(-0.2rem);
+          transform: translateY(-0.2rem);
+  -webkit-box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.button--small:active, .button--small:focus {
+  -webkit-transform: translateY(-0.1rem);
+          transform: translateY(-0.1rem);
+  outline: none;
+}
+
+.create {
+  background-color: #3f546e;
+  padding: 2rem 1rem;
+  -webkit-box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.2);
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.create__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.create__options {
+  padding: 1rem 2rem;
+}
+
+.create__label {
+  margin-left: .5rem;
 }
 
 .die {
@@ -552,7 +653,7 @@ ul {
 .gameboard__center {
   height: 5rem;
   width: 5rem;
-  background-color: #778ca3 !important;
+  background-color: #647b94 !important;
   border-radius: 50%;
   position: absolute;
   top: 50%;
@@ -574,7 +675,8 @@ ul {
       -ms-flex-align: center;
           align-items: center;
   padding: 1rem 2rem;
-  background-color: #3f546e;
+  background: -webkit-gradient(linear, left top, right bottom, from(#647b94), to(#3f546e));
+  background: linear-gradient(to bottom right, #647b94, #3f546e);
 }
 
 .invites__invite {
@@ -630,7 +732,7 @@ ul {
 }
 
 .legend--color {
-  background-color: #a5b1c2;
+  background-color: #cdd4dd;
   width: 2rem;
   height: 2rem;
   margin-right: 1rem;
@@ -687,14 +789,33 @@ ul {
   height: 2.5rem;
 }
 
+.tile {
+  width: 100%;
+  padding: 3rem 4rem;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #e5e9ee;
+  background-color: #2d98da;
+  text-align: center;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+.tile:hover {
+  cursor: pointer;
+  background-color: #45aaf2;
+}
+
 .footer {
   height: 2%;
-  background-color: #3867d6;
+  background: -webkit-gradient(linear, left top, right top, from(#3867d6), to(#4b7bec));
+  background: linear-gradient(to right, #3867d6, #4b7bec);
 }
 
 .header {
   height: 8%;
-  background-color: #3867d6;
+  background: -webkit-gradient(linear, left top, right top, from(#3867d6), to(#4b7bec));
+  background: linear-gradient(to right, #3867d6, #4b7bec);
   padding-left: 2rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -738,27 +859,19 @@ ul {
 }
 
 #profile {
-  background-color: #2bcbba;
-  -webkit-transition: all .2s;
-  transition: all .2s;
-}
-
-#profile a {
-  color: #3f546e;
-}
-
-#profile:hover {
   background-color: #0fb9b1;
-}
-
-#profile:hover a {
   color: #e5e9ee;
   -webkit-transition: all .2s;
   transition: all .2s;
 }
 
+#profile:hover {
+  background-color: #2bcbba;
+  cursor: pointer;
+}
+
 .hud {
-  background-color: #a5b1c2;
+  background-color: #cdd4dd;
   height: 100%;
   padding: 2rem;
   -webkit-box-flex: 2;
@@ -812,7 +925,7 @@ ul {
 }
 
 .question-form {
-  background-color: #a5b1c2;
+  background-color: #cdd4dd;
   color: #e5e9ee;
   width: 80%;
   padding: 3rem 4rem;
@@ -950,6 +1063,39 @@ ul {
 
 .homepage__links:not(:last-child) {
   margin-right: 2rem;
+}
+
+.lobby {
+  width: 100%;
+  padding: 3rem 5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.lobby > * {
+  margin: 1rem;
+}
+
+.games {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 75%;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.create {
+  width: 25%;
 }
 
 .profile {

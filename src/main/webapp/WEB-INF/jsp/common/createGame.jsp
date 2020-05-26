@@ -1,28 +1,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:url var="createGameURL" value="/create" />
 
 
-<div>
-
-
+<div class="create">
+  
 	<c:if test="${currentUser.username == anyone.username }">
-		<h2><c:out value="Create a Game!" /></h2>
-		<form:form action="${createGameURL }" method="POST" modelAttribute="createGame">
-			<!--  
-			<label for="nickname">Nickname:</label>
-			<input type="text" name="nickname" /
-			
-			<label for="gameCode">Game Code:</label> 
-			<input type="text" name="gameCode" />
-			-->
-			<span>Categories:</span>
+	  <h2 class="headers__create u-center-text u-margin-bottom-small"><c:out value="Create a Game" /></h2>
+    
+		<form:form class="create__form" action="${createGameURL }" method="POST" modelAttribute="createGame">
+		  <h3 class="headers__create-categories">Topics:</h3>
 			<c:forEach var="category" items="${categories }">
-				<form:label path="selectedCategories">${category.categoryName }</form:label> 
-				<form:checkbox path="selectedCategories" value="${category.categoryId }" />
+        
+        <div class="create__form-group">
+          <form:checkbox path="selectedCategories" class="create__checkbox" id="${category.categoryName }" value="${category.categoryId }" />
+          <form:label path="selectedCategories" class="create__label labels__create" for="${category.categoryName }">${category.categoryName }</label>
+        </div>
+                
 			</c:forEach>
+      
 			<form:label path="publicOrPrivate">Access:</form:label>
 			<form:select path="publicOrPrivate">
 				<form:option value="">Select public or private:</form:option>
@@ -38,11 +35,5 @@
 	</c:if>
 
 </div>
-
-<style>
-#invite {
-	border: 1px solid white;
-}
-</style>
 
 

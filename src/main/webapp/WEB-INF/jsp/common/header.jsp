@@ -35,6 +35,7 @@
 			
                 <c:url var="profileURL" value="/profile/${currentUser.username}"/>
                 <li class="header__right-nav--link link header-link" id="profile"><a href="${profileURL}">Your Games</a></li>
+
             </ul>
             
 		</header>
