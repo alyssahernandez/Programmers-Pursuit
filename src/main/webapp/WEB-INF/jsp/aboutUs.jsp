@@ -54,7 +54,7 @@
 			            <div class="team-member__details">
 			                <h3 class="team-member-name">Jake Casassa</h3>
 			                <p class="team-member-bio">
-			                    Lorem ipsum dolor sit amet, qui bonorum consectetuer et.
+			                    My role in this project focused on backend. I also spent time programming with Kiran on user authentication with Auth0.  
 			                </p>
 			                <div class="team-member__links">
 			                    <a href="https://www.linkedin.com/in/jakecasassa/" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
