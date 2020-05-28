@@ -54,11 +54,11 @@
 			            <div class="team-member__details">
 			                <h3 class="team-member-name">Jake Casassa</h3>
 			                <p class="team-member-bio">
-			                    Lorem ipsum dolor sit amet, qui bonorum consectetuer et.
+			                    My role in this project focused on backend. I also spent time programming with Kiran on user authentication with Auth0.  
 			                </p>
 			                <div class="team-member__links">
-			                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
-			                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
+			                    <a href="https://www.linkedin.com/in/jakecasassa/" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
+			                    <a href="https://github.com/JakeCasassa" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
 			                </div>
 			            </div>
 			        </div>
@@ -116,6 +116,7 @@
 			        </div>
 			    </div>
 			</div>
+>>>>>>> f8e8e7953b4732e9681e205f6cc9c18af2083928
 
 
 <c:import url="/WEB-INF/jsp/common/footer.jsp" />

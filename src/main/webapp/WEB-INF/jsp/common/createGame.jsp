@@ -14,7 +14,7 @@
 		<label for="gameCode">Game Code:</label> 
 		<input type="text" name="gameCode" />
 		 -->
-		<h3 class="headers__create-categories">Categories:</h3>
+		<h3 class="headers__create-categories">Topics:</h3>
 		
 		<div class="create__options">
 			<c:forEach var="category" items="${categories }">
