@@ -38,6 +38,7 @@ import com.sideprojects.trivialpursuit.model.PlayerDAO;
 import com.sideprojects.trivialpursuit.model.QuestionDAO;
 import com.sideprojects.trivialpursuit.model.User;
 import com.sideprojects.trivialpursuit.model.UserDAO;
+import com.sideprojects.trivialpursuit.model.auth.AppConfig;
 
 
 @Controller

@@ -15,7 +15,7 @@
         
         <div class="create__form-group">
           <form:checkbox path="selectedCategories" class="create__checkbox" id="${category.categoryName }" value="${category.categoryId }" />
-          <form:label path="selectedCategories" class="create__label labels__create" for="${category.categoryName }">${category.categoryName }</label>
+          <form:label path="selectedCategories" class="create__label labels__create" for="${category.categoryName }">${category.categoryName }</form:label>
         </div>
                 
 			</c:forEach>
