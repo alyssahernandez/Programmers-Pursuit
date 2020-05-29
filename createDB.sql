@@ -1,5 +1,6 @@
 BEGIN TRANSACTION;
 
+
 DROP TABLE IF EXISTS user_invite;
 DROP TABLE IF EXISTS category_game;
 DROP TABLE IF EXISTS game_question;
@@ -7,19 +8,8 @@ DROP TABLE IF EXISTS game_player;
 DROP TABLE IF EXISTS question;
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS game;
-DROP TABLE IF EXISTS user_account;
 DROP TABLE IF EXISTS player;
-
-CREATE TABLE user_account
-(
-        user_id serial PRIMARY KEY,
-        username varchar(100) not null UNIQUE,
-        id_token varchar(255) not null,
-        email varchar(255) not null,
-        picture varchar(255),
-        games_played int not null default(0),
-        games_won int not null default(0)
-);
+DROP TABLE IF EXISTS user_account;
 
 CREATE TABLE game
 (
@@ -31,6 +21,17 @@ CREATE TABLE game
         active_player_roll int, -- remove once finished w/ jdbcs (this is now in game_player)
         active_player_answering_question boolean default(false), -- remove once finished w/ jdbcs (this is now in game_player)
         active_player_category_selected_center boolean default(false)-- remove once finished w/ jdbcs (this is now in game_player) -- Brooks
+);
+
+CREATE TABLE user_account
+(
+        user_id serial PRIMARY KEY,
+        username varchar(100) not null UNIQUE,
+        id_token varchar(255) not null,
+        email varchar(255) not null,
+        picture varchar(255),
+        games_played int not null default(0),
+        games_won int not null default(0)
 );
 
 CREATE TABLE game_player
@@ -108,5 +109,6 @@ CREATE TABLE user_invite
         constraint fk_user_invite_game foreign key (game_code) references game (game_code),
         constraint fk_user_invite_user_account foreign key (invitee) references user_account (username)
 );
+
 
 COMMIT;

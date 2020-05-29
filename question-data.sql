@@ -1,0 +1,384 @@
+BEGIN TRANSACTION;
+
+INSERT INTO category (name) VALUES ('Java & OOP Fundamentals');
+INSERT INTO category (name) VALUES ('SQL & Databases');
+INSERT INTO category (name) VALUES ('HTML & CSS');
+INSERT INTO category (name) VALUES ('Spring MVC & Design Patterns');
+INSERT INTO category (name) VALUES ('JavaScript');
+INSERT INTO category (name) VALUES ('Vue.js');
+
+
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'What are the three (3) principles of Object-Oriented Programming?','Encapsulation, Inheritance, Polymorphism','Polymorphism, Inheritance, Composition','Encapsulation, Aggregation, Composition','Encapsulation, Inheritance, Polymorphism','Inheritance, Aggregation, Encapsulation');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'Which keyword is used in class''s declaration to inherit from another class?','extends','extends','inherits','overrides','implements');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'Which data structure represents a Last-In-First-Out (LIFO) collection of objects?','Stack','Queue','HashMap','ArrayList','Stack');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'Which data structure works in a First-In-First-Out (FIFO) manner?','Queue','Queue','HashMap','ArrayList','Stack');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'Which class do all Java classes inherit from?','System.Object','System.Class','System.Object','System.Java','System.Parent');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'Which keyword is used to ensure that a value can''t be changed once set?','final','final','static','readonly','const');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'Which keyword is used to indicate that a member is associated with a class (and not an instance of the class)?','static','final','readonly','static','const');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (1,'Is multiple inheritance allowed in Java?','No','Yes','No');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'ClassA inherets from Class B. Class B is a _______.','subclass','subclass','child-class','second-class','superclass');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'What is a method of a class that initializes an object of that type?','constructor','constructor','initializer','build','final');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'What are the two most common access modifiers?','public and private','public and private','get and set','int and String','if and for');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (1,'True or false: Overloaded methods must have the same name.','TRUE','TRUE','FALSE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (1,'True or false: Overloaded methods must have the same return type.','TRUE','TRUE','FALSE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (1,'True or false: Overloaded methods must differ in the number of parameters and/or parameter types.','TRUE','TRUE','FALSE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'What is the time it takes to access something in an array if you know its position?','O(1)','O(1)','O(N)','O(N^2)','O(M)');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'what is the time it takes to loop through an array?','O(N)','O(N)','O(1)','O(N^2)','O(M)');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'What is the time it takes to run a nested loop?','O(N^2)','O(N^2)','O(1)','O(N)','O(M)');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'When an application runs, what is the memory space set up for it called','The Stack','The Stack','The Heap','The RAM','the data array');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'The ___ is the memory space where arrays and objects go','the heap','the heap','the stack','The RAM','the data array');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'Which symbol asserts equality in conditional statements','==','==','=','>=','+=');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'Which symbol is the assignment operator','=','=','==','>=','+=');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'Which data type is whole numbers only?','Integer','Integer','Long','Double','Var');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'Which data type can support decimals?','Double','Double','Integer','Long','Chr');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'What keyword is used to import a package, class or interface','Import','Import','Get','Retrieve','Unpack');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'What is the last step in the completion of a method?','Return','Return','Finish','Finally','Go');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (1,'Return must return a data in a data type','FALSE','FALSE','TRUE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'What is a non-access modifier used for classes, attributes and methods, which makes them non-changeable','Final','Final','Private','Const','Public');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'Information can be passed to methods as a ___','parameter','parameter','member','value','constructor');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'With ___, methods can have the same name with different parameters','Overloading','Overloading','Overthrowing','Overwriting','Overriding');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (1,'A ___ class cannot be used to create objects','Abstract','Abstract','Private','Public','Overridden');
+
+
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'Which keyword is used to extract only records that fufill a specific condition?','WHERE','FROM','WHERE','LIKE','IN');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'Which keyword is used to display query results in descending order?','DESC','DESCENDING','DESC','DESCEND','DES');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'Which statement could be used to select all columns and rows from a table?','SELECT * FROM table','SELECT * FROM table','SELECT all FROM table','SELECT FROM table','SELECT ^ FROM table');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'Which function is used to retrieve a maximum value?','MAX()','MOST()','UPPER()','MAX()','TOP()');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'Which function is used to count the number of rows in a query?','COUNT()','TOTAL()','SUM()','NUMBER()','COUNT()');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'Which of the following is not a DDL command?','INSERT','TRUNCATE','INSERT','ALTER','None of the options are DDL commands');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'Which of the following is not a category of SQL commands?','DBL','DDL','DBL','DCL','DQL');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'Insert the missing statement to get all the columns from the Animals table: ____ * FROM Customers;','SELECT','SELECT','GRAB','GET','PULL');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'A ___ database is made up of tables that contain columns where each column has a name and a data type','relational','relational','structural','distributed','joined');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'What does SQL stand for?','Structured Query Language','Structured Query Language','Single Query Lithograph','Structured Question Link','Sample Query Language');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'What is the PostgreSQL propritary data type that is an auto-incrementing integer used for unique values','SERIAL','SERIAL','SPECIFIC','COUNT','UNIQUE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'One of the main ways that data gets stolen or destroyed in web applications is via an attack called a(n)...','SQL injection','SQL injection','data leak','Code injection','Cross site attack');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'This type of SQL statement can protect against attacks.','Paramaterized statement','Paramaterized statement','Fixed statement','Protected statement','Inside statement');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'What is used to hide original data by scrambling it into something new and not repeatable?','Hashing','Hashing','Encryption','Hiding','Protecting');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'What  is used to scramble data in a way that can be reversed?','Encryption','Encryption','Hashing','Hiding','Protecting');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'What is a fixed-length, cryptographically-strong random value usually added to the end of a hash','salt','salt','hash brown','hash suffix','randomizer');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'A ___ is a vertical entity in a table that contains all information associated with a specific field in a table.','column','column','row','box','pillar');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'A(n) ___ value in a table is a value in a field that appears to be blank','null','null','empty','constrained','constant');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'Q 8 - Which of the following code will remove all the rows from the table LOCATIONS?','TRUNCATE TABLE locations;','TRUNCATE TABLE locations;','DROP TABLE locations;','DELETE TABLE locations;','None of the above.');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'Transactions have the following four standard properties, usually referred to by the acronym _. _. _. _.','ACID','ACID','BEAR','CORN','CRSS');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'This property of transactions ensures that the database properly changes states upon a successfully committed transaction','Consistancy','Consistancy','Isolation','Atomicity','Stateless');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'The transaction control ___ is used to save the changes.','COMMIT','COMMIT','ROLLBACK','BEGIN TRANSATION','SET TRANSACTION');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'The transaction control ___ is used to roll back the changes.','ROLLBACK','ROLLBACK','COMMIT','BEGIN TRANSATION','SET TRANSACTION');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'The transaction control ___ is used to set the follwing SQL in a transactoin.','BEGIN TRANSATION','BEGIN TRANSATION','ROLLBACK','COMMIT','SET TRANSACTION');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'A ___ JOIN returns rows when there is a match in both tables.','INNER','INNER','CENTER','FULL','SELF');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'A ___ JOIN returns all rows from the left table, even if there are no matches in the right table','LEFT','LEFT','INNER','CENTER','FULL');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'A ___ JOIN returns rows when there is a match in one of the tables.','FULL','FULL','LEFT','INNER','CENTER');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'The ___ uniquely identifies a row/record in any of the given database tables.','FOREIGN Key','FOREIGN Key','PRIMARY Key','DEFAULT Constraint','INDEX');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (2,'True or False. Any constraint that you have defined can be dropped using the ALTER CONSTRAINT command','FALSE','FALSE','TRUE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (2,'A ___ is a query within another SQL query and embedded within the WHERE clause.','All of the above','All of the above','Inner query','Nested query','Subquery');
+
+
+
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'What is the default direction of contents in a Flex Box?','Row','Row','Stretch','Span','Column');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'What does HTML stand for?','Hypertext Markup Language','Hypertext Markup Language','Hometext Markup Language','Hyperlink Text Markup Language','Hypertext Manipulation Language');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'The HTML tag for the largest heading is:','< h1 >','< h4 >','< h6 >','< h >','< h1 >');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'HTML pages begin with the following tag:','< !DOCTYPE html >','< !DOCTYPE html >','< head >','< html >','< body >');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'HTML IDs are referenced in CSS with which selector:','#','#','@','.',':');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'Which tag is used to insert a line break?','< br >','< b >','< break >','< br >','< /n >');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'HTML classes are referenced in CSS with which selector:','.','#','@','.',':');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (3,'Which is the correct way to print out the world *Hello* in an HTML document?','< p >Hello< /p >','< p >"Hello"< /p >','< p >Hello< /p >');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'Which is not a possible way to allow use of CSS in an HTML file?','Importing the CSS file in the HTML < header > tag','Importing the CSS file in the HTML < head > tag','Using in-line style tags','Adding CSS in a < style > block','Importing the CSS file in the HTML < head > tag');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'How many different heading tags are there?','Six','Three','Four','Five','Six');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (3,'Which of these is the correct way to add a left margin to an element in the style block?','margin-left: 10px;','margin-left: 10px;','margin-left: 10 px;');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (3,'What is margin?','The outer space of an element','The outer space of an element','The inner space of an element');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (3,'What is padding?','The inner space of an element','The inner space of an element','The outer space of an element');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'Can you use the *auto* value on margin, padding, both or neither?','Margin','Padding','Both','Margin','Neither');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'Which CSS property do you use to specify animation styles?','@keyframes','@keyframes','@animation','@animate','@transition');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'Who is making the Web standards?','World Wide Web Consortium','Oracle','Mozilla','World Wide Web Consortium','Microsoft');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'Which is the correct HTML for adding a green font color?','< h1 style="color:green;" >This is a green heading< /h1 >','< h1 color=green>This is a green heading< /h1 >','< h1 font-color:green >This is a green heading< /h1 >','< h1 style="color:green;" >This is a green heading< /h1 >','< h1 font-color: "green" >This is a green heading< /h1 >');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'Choose the correct HTML tag to only change the appearance of text to bold:','< b >','< strong >','< b >','< bold >','< important >');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'Choose the correct HTML for creating a hyperlink:','< a href="programmerspursuit.com" Programmers'' Pursuit< /a >','< a url="programmerspursuit.com" Programmers'' Pursuit< /a >','< a link="programmerspursuit.com" Programmers'' Pursuit< /a >','< a website="programmerspursuit.com" Programmers'' Pursuit< /a >','< a href="programmerspursuit.com" Programmers'' Pursuit< /a >');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'What type of display is a div element?','block','inline','inline-block','block','block-inline');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'Which of the following is the default value for the justify-content property?','flex-start','flex-start','flex-end','center','inherit');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'Which of the following is an invalid HTML input type?','symbol','symbol','color','file','week');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'What is the only type of element you can put inside of < ul > or < ol > ?','< li >','< li >','< p >','< i >','< a >');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'How do you write a comment in HTML?','< !-- comment here -- >','< !-- comment here -- >','< %-- comment here --% >','/* comment here */','/** comment here */');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'How do write a comment in CSS?','/* comment here */','/* comment here */','< !-- comment here -- >','// comment here','/** comment here */');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'Which of the follow is in invalid declaration of the background color property?','background-color:white, 50%;','background-color:white, 50%;','background-color:hsla(9, 100%, 64%, 0.5);','background-color:#ff6347;','background-color:MediumSeaGreen;');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (3,'Where is the < head > element placed?','Within the < html > block and above the < body > block','Within the < html > block and above the < body > block','Within the < body > block','Below the < html > block and above the < body > block','Above the < html > block');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (3,'TRUE or FALSE: An image is a block element.','FALSE','FALSE','TRUE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c) 
+        VALUES (3,'Will HTML elements display correctly if you don''t provide the closing tag?','It''s valid syntax, but it can cause problems so it is discouraged.','It''s valid syntax, but it can cause problems sometimes so it is discouraged.','No, it is invalid syntax so the elements will not display properly.','Yes, the browsers are able to infer where closing tags should be so the HTML displays correctly.');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (3,'TRUE or FALSE: You need to specify the < !DOCTYPE > of an HTML file.','TRUE','TRUE','FALSE');
+
+       
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'Which Spring MVC annotation is used to tie an HTTP request path to a Controller handler method?','@RequestMapping','@RequestRouting','@RequestParam','@RequestBody','@RequestMapping');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'What does MVC stand for? (Format: Word1-Word2-Word3)','Model-View-Controller','Model-View-Coordinator','Model-ViewModel-Controller','Model-View-Control','Model-View-Controller');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'What does JSP stand for?','Java Server Pages','JavaScript Server Pages','Java Server Pages','Java Servlet Page','Java Server Package');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'Which data type is returned from a Controller method to reference a particular JSP file?','String','String','Array','Integer','ArrayList');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'Which data structure is used to store data from the Model to reference in a JSP?','Map','Set','Stack','Map','Array');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'Which Spring MVC annotation is used for Dependency Injection?','@Autowired','@Dependency','@Autowired','@Component','@CrossOrigin');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'In Java, what is a simple Java class that represents the data of the app.','model','model','controller','view','object');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'Models are instantiated and populated from within a ___.','controller','controller','Model','View','Browser');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'The ___ method is used to send data to a server so that it can be created on the server.','POST','POST','GET','PUT','DELETE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'In MVC, which one plays the mediator role for between other two?','Controller','Controller','Model','View','HTML');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'What in MVC makes up the pieces of an application that are used to display the user interface.','View','View','Model','Controller','JavaScript');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'It is important to understand that MVC alone is a ___.','design pattern','design pattern','framework','company','product');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'The first T in HTTP stands for ___.','Transfer','Transfer','Text','Task','Time');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'_ _ _ _ is a lightweight data-interchange format','JSON','JSON','HTML','JDBC','HTTP');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'REST uses which of the standard web technologies?','HTTP','HTTP','URLs','JSON','APIs');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'Most applications you create consist of ___, which are the objects defined in the application.','resources','resources','JSON','private data','public methods');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'The C operation in CRUD is imlpemented by this HTTP method','GET','GET','PUT','POST','DELETE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'An operation is ___ if it produces the same result regardless of the number of times it is performed.','idempotent','idempotent','independant','atomicitus','inherited');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'Which HTTP status code is for Client Errors?','4xx','4xx','1xx','5xx','4xx');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'Which of the following is an often used bean validation annotation?','@NotNull','@NotNull','@RequestMapping','@Assert','@CrossOrigin');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'URL stands for ___.','Uniform Resource Locator','Uniform Resource Locator','Uniform Request Lock','Unique Request List','Unique Request Locator');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'Domains cannot be registered under which TLD.','.arpa','.arpa','.co','.edu','.gov');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'Which number in URLs is always needed but rarely seen?','Port','Port','Protocol','Creation','HTTP');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'HTTP communication consists of 2 things, a ___ and a ___. (Format: Word1-Word2)','Request-Respose','Request-Respose','Pull-Push','Get-Post','Object-Class');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (4,'True or false, the client sends a request again if they recieve a 404 status code.','TRUE','TRUE','FALSE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'This part of the URL is an internal page reference, sometimes called a named anchor.','Fragment','Fragment','Subdomain','Domain Name','Protocol');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'MVC is a design pattern for a ___-Side API.','Server','Server','Client','Front','Model');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'You can use the ___ annotation to have method arguments deserialized into an Object','@RequestBody','@RequestBody','@RequestMapping','@RequestRouting','@RequestParam');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'A Web API ___ is the URL that you use to access an API.','endpoint','endpoint','request','object','layer');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (4,'Which of the following means to convert an object into a string','serialize','serialize','deserialize','stringify','cast');
+
+
+
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'Which function is used to display a message in console?','console.log()','console.print()','console.write()','console.log()','console.println()');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'Which array function is used to iterate over the elements of an array?','forEach()','forEach()','for()','iterate()','map()');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'Which HTML element is used to contain JavaScript code?','<script>','<javascript>','<style>','<script>','<js>');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'Which of the following is an invalid keyword used to declare variables:','All are valid keywords','var','const','let','All are valid keywords');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'The _______ method of an Array object adds and/or removes elements from an array','splice()','remove()','splice()','shift()','split()');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'_______ is an input event that is fired when a user releases a key while on a particular DOM element:','keyup','keydown','keyup','keypress','keyclick');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'_______ is an input event that is fired when a user presses down on a key while on a particular DOM element:','keydown','keyclick','keyup','keypress','keydown');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (5,'TRUE or FALSE: JavaScript is a dynamic language.','TRUE','TRUE','FALSE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (5,'TRUE or FALSE: JavaScript is based off of Java.','FALSE','FALSE','TRUE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (5,'Can you have two variables with the same name but different cases? (Ex: variable and Variable)','Yes','No','No');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (5,'Do you need to declare a data type in JavaScript? (Ex: string numberOfPiePieces)','No','No','Yes');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (5,'Which of the following means a variable has been declared but has not been assigned a value?','undefined','undefined','null');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'What will happen if you assign a new value to a const variable?','You will get an error','You will get an error','The variable''s value will be updated','A second variable of the same name is created with the new value','The program will crash');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (5,'Do you have to declare a const variable''s value when you initialize it?','Yes','Yes','No');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (5,'Do you have to declare a let variable''s value when you initialize it?','No','No','Yes');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (5,'TRUE or FALSE: This is valid syntax: const a = 1, b = 2','TRUE','TRUE','FALSE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'What is the following called in JavaScript?: ${...}','template literal','template literal','JSTL','HTML expression','JavaScript expression');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'How do you declare an object in JavaScript?','const obj = { var a , var b }','const obj = [ var a, var b ]','const obj = { var a , var b }','const obj = var a, var b','const obj = ( var a, var b )');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'What happens if you have an array with three elements and you run the following code?: array.length = 2','The third element is cut off and the array becomes two elements','The third element is cut off and the array becomes two elements','You get an error','Nothing happens because length is zero-based, so length 2 is still three elements','The line of code is ignored because it is invalid');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'How do you remove an element from the beginning of an array in JavaScript?','shift()','shift()','unshift()','push()','pop()');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'How do you add an element to the beginning of an array in JavaScript?','unshift()','unshift()','shift()','push()','pop()');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'How do you join two arrays named "a" and "b"?','a.concat(b)','a.concat(b)','a + b','a.add(b)','a.join(b)');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'How do you check if an element is within an array?','includes()','includes()','find()','contains()','has()');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (5,'Is there an error in this isolated code?: for (i = 0; i < 5; i++) { console.log("Programmers Pursuit"); }','Yes','Yes','No');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (5,'Are parentheses required around parameters in arrow functions to the left of the arrow if there is only one variable?','No','No','Yes');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (5,'If the variable "age" is equal to null, will the following return true or false?: if(age) {...}','TRUE','TRUE','FALSE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (5,'If the variable "age" is equal to undefined, will the following return true or false?: if(age) {...}','FALSE','FALSE','TRUE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'How do you set default values for parameters in JavaScript functions?','function repeatWord(word = "hello") {...}','function repeatWord(word = "hello") {...}','function repeatWord(word (default = "hello")) {..}','function repeatWord(word default = "hello") {...}','function repeatWord(word, default = "hello") {...}');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (5,'What makes a function anonymous?','It doesn''t have a name','It doesn''t have a name','There isn''t a specified return value','The function is nested within another function so it''s not directly accessible','The function is called behind the scenes so programmers don''t see it');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (5,'How do you access nested values in JavaScript objects?','obj.a.b.c','obj.a.b.c','obj[a][b][c]');
+
+
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (6,'Is Vue a JavaScript library or framework?','Framework','Framework','Library');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'Which is the correct syntax for using a JavaScript variable value in the template section?','< p > {{ someVariable }} < /p >','< p > {{ someVariable }} < /p >','< p > ${ someVariable } < /p >','< p > ${{ someVariable }} < /p >','< p ${ someVariable } > < /p >');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'How do you create a Vue app using the Vue CLI?','vue create app-name-here','vue create app-name-here','vue -c app-name-here','vue create app app-name-here','vue -c app app-name-here');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'By default, in which Vue component file do the other components live?','App.vue','App.vue','Main.vue','Components.vue','Vue.vue');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (6,'What does the keyword "scoped" mean when placed within the style tag?','The CSS within the style block will only apply to the current component','The CSS within the style block will only apply to the current component','The CSS within the style block will apply to the entire app');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (6,'TRUE or FALSE: You need to use the Vue CLI to create new Vue projects.','FALSE','FALSE','TRUE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'How would you add an event listener that called the "repeatWord" method on click in Vue?','v-on:click="repeatWord"','v-on:click="repeatWord"','v-on-click:repeatWord','v-onClick="repeatWord"','v-click="repeatWord"');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'Which directive is used for two-way data binding?','v-model','v-model','v-on','v-for','v-bind');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'How do you write a for loop in the template section of a component?','v-for="item in items"','v-for="item in items"','v-for-each="item in items"','v:forEach="item in items"','v:for="item in items"');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (6,'TRUE or FALSE: the created hook runs code after the DOM has rendered','FALSE','FALSE','TRUE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (6,'TRUE or FALSE: Event listeners are automatically removed when a DOM element is destroyed.','FALSE','FALSE','TRUE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (6,'When is the mounted hook called?','After the DOM has been rendered','After the DOM has been rendered','Before the DOM has been rendered');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'What does the computed hook contain?','Properties that rely on outside data values','Properties that rely on outside data values','Methods that involve math','Methods that store/retrieve data in the computer''s hardware','Properties that are retrieved from outside files');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'How do you install Vue globally on your machine using the CLI?','npm install -g @vue/cli','npm install -g @vue/cli','npm install vue-cli','npm -g install vue-cli','npm install vue/cli -g');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'What is the shorthand version of adding a click event listener to an element in the template?','@click="someMethodName"','@click="someMethodName"',':click="someMethodName"',':onClick="someMethodName"','@onClick="someMethodName"');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'Which of the following modifiers would disable the default behavior of an element?','.prevent','.prevent','.stop','.disable','.default');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'How do you prevent an event from bubbling up the DOM tree?','.stop','.stop','.prevent','.disable','.default');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (6,'What is the difference between props and data?','props pass data from parent to children, while data is private','props passes data from parent to children, while data is private','data passes data from parent to children, while props is private');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'What does the following line of code do? < MyComponent name="playerOne" />','Passes the prop "name" with the value of "playerOne" to the MyComponent component','Passes the prop "name" with the value of "playerOne" to the MyComponent component','Gives a name to the MyComponent component so that it''s reusable in the code','Sets the "name" CSS property with a value of "playerOne" in MyComponent','Nothing, it''s invalid syntax');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (6,'TRUE or FALSE: v-if and v-else should be in the same template attribute','FALSE','FALSE','TRUE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'Which directive is used for one-way data binding?','v-bind','v-model','v-on','v-for','v-bind');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (6,'Which directive still renders the template element when the condition is false?','v-show','v-show','v-if');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (6,'Should you use v-model or v-bind on form elements?','v-model','v-model','v-bind');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'Which of the following is not a Vue lifecycle hook?','removed','removed','created','updated','destroyed');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'What type of data structure is the virtual DOM?','Tree','Tree','Linear','Hash','Graph');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (6,'TRUE or FALSE: you can put HTML directly in the < script > section of a component.','FALSE','FALSE','TRUE');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'Which data-binding interpolation is known as "mustache" syntax?','{{ }}','{{ }}','[ ]','v-on','v-model');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b) 
+        VALUES (6,'Does the following code contain an error? : < a v-click="performtask" > click < /a >','Yes','Yes','No');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'What does MVVM stand for?','Model-view-viewmodel','Model-view-viewmodel','Model-vue-viewmodel','Model-view-valuemodel','Model-value-vuemodel');
+INSERT INTO question(category_id,question,correct_answer,answer_choice_a,answer_choice_b,answer_choice_c,answer_choice_d) 
+        VALUES (6,'Which directive is used to attach event listeners that invoke methods?','v-on','v-on','v-model','v-for','v-bind');
+
+COMMIT;
