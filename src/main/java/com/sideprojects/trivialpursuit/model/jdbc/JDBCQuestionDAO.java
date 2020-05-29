@@ -1,6 +1,7 @@
 package com.sideprojects.trivialpursuit.model.jdbc;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -56,18 +57,8 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		
 		SqlRowSet rowSet = jdbcTemplate.queryForRowSet(query, game.getGameID());
 		if (rowSet.next())
-		{
-			List<String> possibleAnswers = new ArrayList<>();
-			question.setAnswer(rowSet.getString("correct_answer"));
-			question.setCategoryID(rowSet.getInt("category_id"));
-			question.setQuestion(rowSet.getString("question"));
-			question.setQuestionID(rowSet.getInt("question_id"));
-			possibleAnswers.add(rowSet.getString("answer_choice_a"));
-			possibleAnswers.add(rowSet.getString("answer_choice_b"));
-			possibleAnswers.add(rowSet.getString("answer_choice_c"));
-			possibleAnswers.add(rowSet.getString("answer_choice_d"));
-			question.setPossibleAnswers(possibleAnswers);
-		}
+			question = questionHelper(rowSet);
+		
 		return question;
 	}
 	
@@ -101,20 +92,8 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		SqlRowSet rowSet = jdbcTemplate.queryForRowSet(query, game.getGameID(), category_id);
 		
 		while (rowSet.next())
-		{
-			Question question = new Question();
-			List<String> possibleAnswers = new ArrayList<>();
-			question.setAnswer(rowSet.getString("correct_answer"));
-			question.setCategoryID(rowSet.getInt("category_id"));
-			question.setQuestion(rowSet.getString("question"));
-			question.setQuestionID(rowSet.getInt("question_id"));
-			possibleAnswers.add(rowSet.getString("answer_choice_a"));
-			possibleAnswers.add(rowSet.getString("answer_choice_b"));
-			possibleAnswers.add(rowSet.getString("answer_choice_c"));
-			possibleAnswers.add(rowSet.getString("answer_choice_d"));
-			question.setPossibleAnswers(possibleAnswers);
-			questions.add(question);
-		}
+			questions.add(questionHelper(rowSet));
+		
 		return questions;
 	}
 	
@@ -126,68 +105,33 @@ public class JDBCQuestionDAO implements QuestionDAO {
 		for (Integer cat : category_ids)
 		{
 			SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlGetQuestionFromCategory, cat);
-			
 			while (rowSet.next()) 
-			{
-				Question question = new Question();
-				List<String> possibleAnswers = new ArrayList<>();
-				question.setAnswer(rowSet.getString("correct_answer"));
-				question.setCategoryID(rowSet.getInt("category_id"));
-				question.setQuestion(rowSet.getString("question"));
-				question.setQuestionID(rowSet.getInt("question_id"));
-				possibleAnswers.add(rowSet.getString("answer_choice_a"));
-				possibleAnswers.add(rowSet.getString("answer_choice_b"));
-				possibleAnswers.add(rowSet.getString("answer_choice_c"));
-				possibleAnswers.add(rowSet.getString("answer_choice_d"));
-				question.setPossibleAnswers(possibleAnswers);
-				questions.add(question);
-			}
+				questions.add(questionHelper(rowSet));
 		}
 		return questions;
 	}
 	
-	/*
-	private List<Question> getQuestionsByCategory(List<Category> categories)
-	{
-		List<Question> questions = new ArrayList<>();
-		String sqlGetQuestionFromCategory = "SELECT * FROM question WHERE category_id = ?";
+	private Question questionHelper(SqlRowSet rowSet) {
 		
-		for (Category cat : categories)
-		{
-			SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sqlGetQuestionFromCategory, cat.getCategoryId());
-			
-			while (rowSet.next()) 
-			{
-				Question question = new Question();
-				List<String> possibleAnswers = new ArrayList<>();
-				question.setAnswer(rowSet.getString("correct_answer"));
-				question.setCategoryID(rowSet.getInt("category_id"));
-				question.setQuestion(rowSet.getString("question"));
-				question.setQuestionID(rowSet.getInt("question_id"));
-				possibleAnswers.add(rowSet.getString("answer_choice_a"));
-				possibleAnswers.add(rowSet.getString("answer_choice_b"));
-				possibleAnswers.add(rowSet.getString("answer_choice_c"));
-				possibleAnswers.add(rowSet.getString("answer_choice_d"));
-				question.setPossibleAnswers(possibleAnswers);
-				questions.add(question);
-			}
-		}
-		return questions;
+		Question question = new Question();
+		List<String> possibleAnswers = new ArrayList<>();
+		question.setAnswer(rowSet.getString("correct_answer"));
+		question.setCategoryID(rowSet.getInt("category_id"));
+		question.setQuestion(rowSet.getString("question"));
+		question.setQuestionID(rowSet.getInt("question_id"));
+		possibleAnswerHelper(possibleAnswers, (rowSet.getString("answer_choice_a")));
+		possibleAnswerHelper(possibleAnswers, (rowSet.getString("answer_choice_b")));
+		possibleAnswerHelper(possibleAnswers, (rowSet.getString("answer_choice_c")));
+		possibleAnswerHelper(possibleAnswers, (rowSet.getString("answer_choice_d")));
+		Collections.shuffle(possibleAnswers);
+		question.setPossibleAnswers(possibleAnswers);
+		return question;
 	}
 	
-		
-	
-	public void setGameQuestions(Game game, List<Category> categories) {
-		
-		List<Question> questions = getQuestionsByCategory(categories);
-		String query = "INSERT INTO game_question (game_id, question_id, asked) VALUES (?, ?, false)";
-		
-		for (Question q : questions)
-			jdbcTemplate.update(query, game.getGameID(), q.getQuestionID());
-		
+	private void possibleAnswerHelper(List<String> possibleAnswers, String possibleAnswer) {
+		if (possibleAnswer != null && possibleAnswer != "")
+			possibleAnswers.add(possibleAnswer);
 	}
-	*/
-	
 	
 	// Helper method to retrieve a random question from a List<Question> based on the list's size (because questions are pulled from the DB in the same order every time -- we want unique games)
 	private int getQuestionIndex(int length)

@@ -95,7 +95,7 @@ public class CallbackController {
 	    	  SessionUtils.set(req, "userId", currentUser.getUserId());
 	      }
 	 
-	      return "redirect:/profile";
+	      return "redirect:/profile/" + nickname;
 	  } catch (IdentityVerificationException e) {
 	      return "redirect:/login";
 	  }

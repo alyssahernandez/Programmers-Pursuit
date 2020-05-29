@@ -6,7 +6,7 @@ public interface GameDAO {
 
 	public Game getActiveGame(String gameCode);
 	
-	public String createNewGame();
+	public String createNewGame(String publicOrPrivate);
 	
 	public List<Player> getAllPlayersInAGame(Game game);
 	
@@ -20,11 +20,9 @@ public interface GameDAO {
 	
 	public void setHasSelectedCategory(Game game, Boolean hasSelectedCategory);
 	
-	public void setIsGameActive(Game game, Boolean isActive);
-	
 	public void setIsGameActive(String gameCode, Boolean isActive);
 	
-	public void setWinner(Game game);
+	public void setEndGameStatus(Game game);
 	
 	public String getWinner(Game game);
 	
@@ -32,11 +30,10 @@ public interface GameDAO {
 	
 	public Game getUnstartedGame(String gameCode);
 	
-	// TODO: put these in InvitationDAO / methods in InvitationJDBC, etc.
-	public void sendInvitation(String gameCode, String invitee, String invitedBy);
-	
-	public List<Invitation> getInvitations(String username);
-	
 	public Integer getPlayerCountByGame(String gameCode);
+	
+	public List<Game> getUnstartedPublicGames();
+	
+	public List<Game> getActiveGamesByPlayer(Integer user_id);
 	
 }

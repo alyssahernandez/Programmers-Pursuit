@@ -48,7 +48,6 @@ INSERT INTO game_player (game_id, user_id, player_color, player_position, player
 VALUES (4, 4, 1, 70, false, false, false, false, false, false, true, false, false, 5);
 
 
-
 INSERT INTO category (name) VALUES ('Java & OOP Fundamentals');
 INSERT INTO category (name) VALUES ('SQL & Databases');
 INSERT INTO category (name) VALUES ('HTML & CSS');
@@ -97,9 +96,7 @@ INSERT INTO question (category_id, question, correct_answer, answer_choice_a, an
         VALUES (6, 'What is the testing method in which components are tested individually?', 'Unit Testing', 'Regression Testing', 'Unit Testing', 'Integration Testing', 'Smoke Testing');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
         VALUES (6, 'Which annotation is used before each jUnit test method?', '@Test', '@TestMethod', '@Testing', '@Test', '@JUnit');
-
--- ^^ I don't see why we couldn't do true/false. In JSP, you'll loop thru the list of possible answers to display as radio buttons.
--- In controller, check for null form inputs & filter out the non-null
+        
 
 INSERT INTO question (category_id, question,  correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
         VALUES (2, 'Which keyword is used to extract only records that fufill a specific condition?', 'WHERE', 'FROM', 'WHERE', 'LIKE', 'IN');
@@ -116,6 +113,7 @@ INSERT INTO question (category_id, question, correct_answer, answer_choice_a, an
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
         VALUES (2, 'Which of the following is not a category of SQL commands?', 'DBL', 'DDL', 'DBL', 'DCL', 'DQL');
 
+
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
         VALUES (3, 'What is the default direction of contents in a Flex Box?', 'Row', 'Row', 'Stretch', 'Span', 'Column');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
@@ -131,6 +129,7 @@ INSERT INTO question (category_id, question, correct_answer, answer_choice_a, an
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
         VALUES (3, 'HTML classes are referenced in CSS with which selector:', '.', '#', '@', '.', ':');
        
+       
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
         VALUES (4, 'Which Spring MVC annotation is used to tie an HTTP request path to a Controller handler method?', '@RequestMapping', '@RequestRouting', '@RequestParam', '@RequestBody', '@RequestMapping');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
@@ -143,6 +142,7 @@ INSERT INTO question (category_id, question, correct_answer, answer_choice_a, an
         VALUES (4, 'Which data structure is used to store data from the Model to reference in a JSP?', 'Map', 'Set', 'Stack', 'Map', 'Array');
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
         VALUES (4, 'Which Spring MVC annotation is used for Dependency Injection?', '@Autowired', '@Dependency', '@Autowired', '@Component', '@CrossOrigin');
+
 
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
         VALUES (5, 'Which function is used to display a message in console?', 'console.log()', 'console.print()', 'console.write()', 'console.log()', 'console.println()');
@@ -159,25 +159,23 @@ INSERT INTO question (category_id, question, correct_answer, answer_choice_a, an
 INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
         VALUES (5, '_______ is an input event that is fired when a user presses down on a key while on a particular DOM element:', 'keydown', 'keyclick', 'keyup', 'keypress', 'keydown');
 
--- There are multiples of the pair of TDD questions because I didn't feel like coming up with any more when I did this. Will update - Brooks
-INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'Which keyword is associated with two-way data binding?', 'v-model', 'v-bind', 'v-sync', 'v-doublebind', 'v-model');
-INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'In Vue.js, HTML is written within the following tag:', '< template >', '< vue >', '< template >', '< html >', '< body >');
-INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'Which keyword is associated with two-way data binding?', 'v-model', 'v-bind', 'v-sync', 'v-doublebind', 'v-model');
-INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'In Vue.js, HTML is written within the following tag:', '< template >', '< vue >', '< template >', '< html >', '< body >');
-INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'Which keyword is associated with two-way data binding?', 'v-model', 'v-bind', 'v-sync', 'v-doublebind', 'v-model');
-INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'In Vue.js, HTML is written within the following tag:', '< template >', '< vue >', '< template >', '< html >', '< body >');
-INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'Which keyword is associated with two-way data binding?', 'v-model', 'v-bind', 'v-sync', 'v-doublebind', 'v-model');
-INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
-        VALUES (6, 'In Vue.js, HTML is written within the following tag:', '< template >', '< vue >', '< template >', '< html >', '< body >');
 
-
+INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
+        VALUES (6, 'Which keyword is associated with two-way data binding?', 'v-model', 'v-bind', 'v-sync', 'v-doublebind', 'v-model');
+INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
+        VALUES (6, 'In Vue.js, HTML is written within the following tag:', '< template >', '< vue >', '< template >', '< html >', '< body >');
+INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
+        VALUES (6, 'Which keyword is associated with two-way data binding?', 'v-model', 'v-bind', 'v-sync', 'v-doublebind', 'v-model');
+INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
+        VALUES (6, 'In Vue.js, HTML is written within the following tag:', '< template >', '< vue >', '< template >', '< html >', '< body >');
+INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
+        VALUES (6, 'Which keyword is associated with two-way data binding?', 'v-model', 'v-bind', 'v-sync', 'v-doublebind', 'v-model');
+INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
+        VALUES (6, 'In Vue.js, HTML is written within the following tag:', '< template >', '< vue >', '< template >', '< html >', '< body >');
+INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
+        VALUES (6, 'Which keyword is associated with two-way data binding?', 'v-model', 'v-bind', 'v-sync', 'v-doublebind', 'v-model');
+INSERT INTO question (category_id, question, correct_answer, answer_choice_a, answer_choice_b, answer_choice_c, answer_choice_d)
+        VALUES (6, 'In Vue.js, HTML is written within the following tag:', '< template >', '< vue >', '< template >', '< html >', '< body >');
 
 
 INSERT INTO game_question (game_id, question_id, asked) VALUES (1, 1, false);

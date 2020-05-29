@@ -7,14 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.auth0.SessionUtils;
 import com.sideprojects.trivialpursuit.model.Category;
+import com.sideprojects.trivialpursuit.model.GameCreationForm;
 import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
@@ -40,8 +43,23 @@ public class GameboardController {
 	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.GET)
 	public String displayGameboard(
 			ModelMap model,
-			@PathVariable String gameCode) {
-				
+			Model modelHolder,
+			@PathVariable String gameCode,
+			final HttpServletRequest req) {
+
+	    String userId = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userId);
+	    model.put("currentUser", currentUser);
+		
+	    // TODO: Fix/remove these as they're not currently doing anything - Brooks
+		if (modelHolder.containsAttribute("invalidEntry")) {
+			model.put("invalidEntry", true);
+		}
+		
+		if (modelHolder.containsAttribute("userNotFound")) {
+			model.put("userNotFound", true);
+		}
+
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		
         if (currentGame != null) {
@@ -107,42 +125,10 @@ public class GameboardController {
 		return "redirect:/question/{gameCode}";
 	}
 	
-	@RequestMapping(path="/gameboard/{gameCode}/sendInvitation", method=RequestMethod.POST)
-	public String sendInvitation(@RequestParam String username, @PathVariable String gameCode, final HttpServletRequest req) {
-		
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
-	    	
-		gameDAO.sendInvitation(gameCode, username, currentUser.getUsername());
-		
-		return "redirect:/gameboard/" + gameCode;
-	}
-	
-	@RequestMapping(path="/joinGame", method=RequestMethod.POST)
-	public String joinGame(@RequestParam String gameCode, final HttpServletRequest req) {
-		
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
-	    
-	    Game game = gameDAO.getUnstartedGame(gameCode);
-	    
-	    Integer count = gameDAO.getPlayerCountByGame(gameCode);
-	    Integer colorId = count + 1;
-	    
-	    if (count == 0 || count == 6 || count == null) {
-	    	return "redirect:/profile";
-	    }
-	    
-	    playerDAO.putPlayerIntoGame(game.getGameID(), currentUser.getUserId(), colorId);
-	    
-	    return "redirect:/gameboard/" + gameCode;
-	}
-	
-	@RequestMapping(path="startGame", method=RequestMethod.POST)
+	@RequestMapping(path="/startGame", method=RequestMethod.POST)
 	public String startGame(@RequestParam String gameCode) {
 		
 		gameDAO.setIsGameActive(gameCode, true);
 		return "redirect:/gameboard/" + gameCode;
 	}
-	
 }

@@ -2,6 +2,8 @@ package com.sideprojects.trivialpursuit.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.auth0.SessionUtils;
 import com.sideprojects.trivialpursuit.model.Category;
 import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
@@ -19,6 +22,8 @@ import com.sideprojects.trivialpursuit.model.PlayerDAO;
 import com.sideprojects.trivialpursuit.model.Question;
 import com.sideprojects.trivialpursuit.model.QuestionDAO;
 import com.sideprojects.trivialpursuit.model.Space;
+import com.sideprojects.trivialpursuit.model.User;
+import com.sideprojects.trivialpursuit.model.UserDAO;
 
 @Controller
 public class QuestionController {
@@ -31,11 +36,19 @@ public class QuestionController {
     
     @Autowired
     private PlayerDAO playerDAO;
+    
+    @Autowired
+    private UserDAO userDAO;
 
 	@RequestMapping(path="/question/{gameCode}", method=RequestMethod.GET)
 	public String displayQuestion(
 			ModelMap model,
-			@PathVariable String gameCode) {
+			@PathVariable String gameCode,
+			final HttpServletRequest req) {
+
+	    String userId = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userId);
+	    model.put("currentUser", currentUser);
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		model.put("currentGame", currentGame);
@@ -65,8 +78,8 @@ public class QuestionController {
 			
 		} else if (!currentPlayerSpace.isCenter() && !(currentGame.getIsActivePlayerAnsweringQuestion())) {
 			
-			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame,
-					currentPlayerSpace.getCategory().getCategoryId());
+			//TODO: If question=null, end game (no questions for a category would be bad)
+			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame, currentPlayerSpace.getCategory().getCategoryId());
 			model.put("question", question);
 			
 			List<String> possibleAnswers = question.getPossibleAnswers();
@@ -111,6 +124,7 @@ public class QuestionController {
 			gameDAO.setHasSelectedCategory(currentGame, true);
 			currentGame.setHasActivePlayerSelectedCategory(true);			
 			
+			//TODO: If question=null, end game (no questions for a category would be bad)
 			questionDAO.getUnaskedQuestionByCategory(currentGame, categoryId);
 				
 			return "redirect:/question/" + currentGame.getGameCode();
@@ -126,6 +140,7 @@ public class QuestionController {
 			if (currentPlayerSpace.hasPie() && isAnswerCorrect) {			
 				playerDAO.givePlayerPiePiece(currentPlayerSpace.getSpaceId(), currentGame);	
 				
+				// Is this actually doing anything? Doesn't seem so - Brooks
 				// TODO: optimize this later - ALYSSA
 				if (currentPlayerSpace.getSpaceId() == 6) {
 					currentPlayerTurn.setPie1(true);
@@ -144,9 +159,9 @@ public class QuestionController {
 			}
 			
 			if (currentPlayerSpace.isCenter() && isAnswerCorrect && currentPlayerTurn.getAllPies()) {				
-				gameDAO.setIsGameActive(currentGame, false);
+				gameDAO.setIsGameActive(currentGame.getGameCode(), false);
 				currentGame.setActive(false);
-				gameDAO.setWinner(currentGame);
+				gameDAO.setEndGameStatus(currentGame);
 			}  
 			
 			chosenCenterSpaceCategory = "false";

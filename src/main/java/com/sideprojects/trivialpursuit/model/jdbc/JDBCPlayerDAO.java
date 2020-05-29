@@ -1,5 +1,6 @@
 package com.sideprojects.trivialpursuit.model.jdbc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -14,12 +15,12 @@ import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
+import com.sideprojects.trivialpursuit.model.User;
 
 @Component
 public class JDBCPlayerDAO implements PlayerDAO 
 {
 	private JdbcTemplate template;
-
 	@Autowired
 	public JDBCPlayerDAO(DataSource dataSource) {
 		template = new JdbcTemplate(dataSource);
@@ -83,19 +84,40 @@ public class JDBCPlayerDAO implements PlayerDAO
 		String givePlayerPiePiece = String.format("UPDATE game_player SET %s = true WHERE user_id = ? AND game_id = ?", pie_cat);
 		template.update(givePlayerPiePiece, playerId, game.getGameID());	
 	}
-
+	
 	@Override
-	public Player getPlayer(int userId) {
-		Player newPlayer = new Player();
+	public boolean isPlayerAlreadyInGame(Integer game_id, Integer user_id) {
 		
-		String getPlayerSQL = "SELECT * FROM player WHERE user_id = ?";
-		SqlRowSet result = template.queryForRowSet(getPlayerSQL, userId);
-		
-		if(result.next()) {
-			newPlayer.setPlayerId(result.getInt("user_id"));
-			newPlayer.setName(result.getString("username"));
+		String query = "SELECT * FROM game_player WHERE game_id = ? AND user_id = ?";
+		SqlRowSet result = template.queryForRowSet(query, game_id, user_id);
+		if (result.next()) return true;
+		else return false;
+	}
+	
+	@Override
+	public User getUserByUsername(String username) {
+		String query = "SELECT * FROM user_account WHERE username = ?";
+		SqlRowSet result = template.queryForRowSet(query, username);
+		User user = null;
+		if (result.next()) {
+			user = new User();
+			user.setUserId(result.getInt("user_id"));
+			user.setUsername(result.getString("username"));
 		}
-		return newPlayer;
+		return user;
+	}
+	
+	public void removePlayerFromGame(Integer game_id, Integer user_id) {
+		String query = "DELETE FROM game_player WHERE game_id = ? AND user_id = ?";
+		template.update(query, game_id, user_id);
+	}
+	
+	public List<Game> getAllGamesByPlayer(Integer user_id) {
+		return null;
+	}
+	
+	public List<Game> getActiveGamesByPlayer(Integer user_id) {
+		return null;
 	}
 
 }

@@ -20,41 +20,31 @@ import com.sideprojects.trivialpursuit.model.Invitation;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 import com.sideprojects.trivialpursuit.model.Space;
+import com.sideprojects.trivialpursuit.model.User;
 
 @Component
 public class JDBCGameDAO implements GameDAO {
 	
 	private JdbcTemplate template;
-	private JDBCPlayerDAO playerDAO;
-	@Autowired
+	private PlayerDAO playerDAO;
 	private CategoryDAO categoryDAO;
 
 	@Autowired
 	public JDBCGameDAO(DataSource dataSource) {
 		template = new JdbcTemplate(dataSource);
 		playerDAO = new JDBCPlayerDAO(dataSource);
+		categoryDAO = new JDBCCategoryDAO(dataSource);
 	}
 	
-	/*
-		TODO: 
-			- After talking w/ Kiran, 95% sure that createNewGame() going to need a "RETURNING game_id" statement @ end 
-			- if our homepage will be setting anything but the gamecode -- categories, players, etc. -- on the same form. 
-			- We'll need an immediate reference to the game_id in the controller 
-			- (which is only created upon insertion into DB) to update game_player, game_category, game_question, etc.
-				- Brooks
-	*/
-	
-	/*
 	@Override
-	public void createNewGame(String gameCode) {
+	public String createNewGame(String publicOrPrivate) {
 		
-		String newGameId = "INSERT INTO game (game_code, active) VALUES (?, ?)";
-		template.update(newGameId, gameCode.toUpperCase(), true);
-	}
-	*/
-	
-	@Override
-	public String createNewGame() {
+		boolean isPublic = false;
+		if (publicOrPrivate.equalsIgnoreCase("public")) {
+			isPublic = true;
+		} else {
+			isPublic = false;
+		}
 		
 		String gameCodeLookup = "SELECT * FROM game WHERE game_code = ?";
 		String gameCode = Game.generateGameCode();
@@ -71,17 +61,19 @@ public class JDBCGameDAO implements GameDAO {
 			
 		} while (!validGameCode);	
 
-		String query = "INSERT INTO game (game_code, active) VALUES (?, ?) RETURNING game_code";
-		return template.queryForObject(query, String.class, gameCode.toUpperCase(), false);
+		String query = "INSERT INTO game (game_code, active, is_public) VALUES (?, ?, ?) RETURNING game_code";
+		return template.queryForObject(query, String.class, gameCode.toUpperCase(), false, isPublic);
 	}
 	
-	//TODO: Change ILIKE back to equals (=)
 	@Override
 	public Game getActiveGame(String gameCode) {
 		String getGameQuery = "SELECT * FROM game WHERE game_code = ? AND active = true";
 		SqlRowSet rowSet = template.queryForRowSet(getGameQuery, gameCode);
-
-		return gameHelper(rowSet, gameCode);
+		Game game = null;
+		if (rowSet.next()) {
+			game = gameHelper(rowSet);
+		}
+		return game;
 	}
 	
 	//TODO: These should be in the JDBCPlayerDAO/PlayerDAO.
@@ -120,19 +112,19 @@ public class JDBCGameDAO implements GameDAO {
 		
 		SqlRowSet results = template.queryForRowSet(query, game.getGameID());
 		if (results.next())
-		{
-			player.setPlayerId(results.getInt("user_id"));
-			player.setLocation(game.getGameboard().getSpaces().get(results.getInt("player_position")));
-			player.setName(results.getString("username"));
-			player.setColor(results.getLong("player_color"));
-			player.setPie1(results.getBoolean("player_score_cat_1"));
-			player.setPie2(results.getBoolean("player_score_cat_2"));
-			player.setPie3(results.getBoolean("player_score_cat_3"));
-			player.setPie4(results.getBoolean("player_score_cat_4"));
-			player.setPie5(results.getBoolean("player_score_cat_5"));
-			player.setPie6(results.getBoolean("player_score_cat_6"));
-			player.setDiceRoll(results.getInt("active_player_roll"));
-		}
+			{
+				player.setPlayerId(results.getInt("user_id"));
+				player.setLocation(game.getGameboard().getSpaces().get(results.getInt("player_position")));
+				player.setName(results.getString("username"));
+				player.setColor(results.getLong("player_color"));
+				player.setPie1(results.getBoolean("player_score_cat_1"));
+				player.setPie2(results.getBoolean("player_score_cat_2"));
+				player.setPie3(results.getBoolean("player_score_cat_3"));
+				player.setPie4(results.getBoolean("player_score_cat_4"));
+				player.setPie5(results.getBoolean("player_score_cat_5"));
+				player.setPie6(results.getBoolean("player_score_cat_6"));
+				player.setDiceRoll(results.getInt("active_player_roll"));
+			}
 		return player;
 	}
 	
@@ -170,12 +162,6 @@ public class JDBCGameDAO implements GameDAO {
 	}
 	
 	@Override
-	public void setIsGameActive(Game game, Boolean isActive) {
-        String query = "UPDATE game SET active = ? WHERE game_id = ?";
-        template.update(query, isActive, game.getGameID());
-	}
-	
-	@Override
 	public void setIsGameActive(String gameCode, Boolean isActive) {
         String query = "UPDATE game SET active = ? WHERE game_code = ?";
         template.update(query, isActive, gameCode);
@@ -189,9 +175,20 @@ public class JDBCGameDAO implements GameDAO {
 	}
 	
 	@Override
-	public void setWinner(Game game) {
+	public void setEndGameStatus(Game game) {
 		String query = "UPDATE game SET winner_id = ? WHERE game_id = ?";
 		template.update(query, game.getActivePlayer().getPlayerId(), game.getGameID());
+		
+		String query2 = "UPDATE user_account SET games_won = games_won + 1, games_played = games_played + 1 WHERE user_id = ?";
+		String query3 = "UPDATE user_account SET games_played = games_played + 1 WHERE user_id = ?";
+		
+		for (Player p : game.getActivePlayers()) {
+			if (!p.equals(game.getActivePlayer())) {
+				template.update(query3, p.getPlayerId());
+			} else {
+				template.update(query2, p.getPlayerId());
+			}
+		}
 	}
 	
 	@Override
@@ -211,45 +208,22 @@ public class JDBCGameDAO implements GameDAO {
 	public Game getCompletedGame(String gameCode) {
 		String query = "SELECT * FROM game WHERE game_code = ? AND active = false";
 		SqlRowSet rowSet = template.queryForRowSet(query, gameCode);
-		
-		return gameHelper(rowSet, gameCode);
+		Game game = null;
+		if (rowSet.next()) {
+			game = gameHelper(rowSet);
+		}
+		return game;
 	}
 	
 	@Override
 	public Game getUnstartedGame(String gameCode) {
 		String query = "SELECT * FROM game WHERE game_code = ? AND active = false AND winner_id IS NULL";
 		SqlRowSet rowSet = template.queryForRowSet(query, gameCode);
-		
-		return gameHelper(rowSet, gameCode);
-	}
-	
-	@Override
-	public void sendInvitation(String gameCode, String invitee, String invitedBy) {
-		String query = "INSERT INTO user_invite (game_code, invitee, invited_by) VALUES (?, ?, ?)";
-		template.update(query, gameCode, invitee, invitedBy);
-	}
-	
-	@Override
-	//TODO: Update this for game.active=false and winner_id = null
-	public List<Invitation> getInvitations(String username) {
-		String query = "SELECT ui.game_code, ui.invited_by, ui.invitee, ui.invite_id FROM user_invite AS ui INNER JOIN game ON ui.game_code = game.game_code  WHERE game.active = false AND game.winner_id IS NULL AND ui.invitee = ?";
-		SqlRowSet results = template.queryForRowSet(query, username);
-		
-		List<Invitation> invitations = new ArrayList<>();
-		while (results.next()) {
-			
-			Integer count = getPlayerCountByGame(results.getString("game_code"));
-			if (count == null || count == 0 || count == 6) {
-				continue;
-			}
-			Invitation i = new Invitation();
-			i.setGameCode(results.getString("game_code"));
-			i.setInvitationId(results.getInt("invite_id"));
-			i.setInvitedBy(results.getString("invited_by"));
-			i.setInvitee(results.getString("invitee"));
-			invitations.add(i);
+		Game game = null;
+		if (rowSet.next()) {
+			game = gameHelper(rowSet);
 		}
-		return invitations;
+		return game;
 	}
 	
 	@Override
@@ -264,22 +238,41 @@ public class JDBCGameDAO implements GameDAO {
 		return count;
 	}
 	
-	private Game gameHelper(SqlRowSet rowSet, String gameCode) {
-		Game game = null;
-		if (rowSet.next()) {
-			game = new Game();
-			game.setGameID(rowSet.getInt("game_id"));
-			game.setActive(rowSet.getBoolean("active"));
-			game.setGameCode(gameCode.toUpperCase()); 
-			game.setWinnerId(rowSet.getInt("winner_id"));
-			game.setActivePlayerRoll(rowSet.getInt("active_player_roll"));
-			game.setIsActivePlayerAnsweringQuestion(rowSet.getBoolean("active_player_answering_question"));
-			game.setHasActivePlayerSelectedCategory(rowSet.getBoolean("active_player_category_selected_center"));
-		}
+	@Override
+	public List<Game> getUnstartedPublicGames() {
+		String query = "SELECT game.* FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game.active = false "
+				+ "AND game.winner_id IS NULL AND is_public = true GROUP BY game.game_id ORDER BY COUNT(game_player.game_id) DESC";
 		
-		if (game == null) {
-			return null;
+		List<Game> games = new ArrayList<>();
+		SqlRowSet rowSet = template.queryForRowSet(query);
+		while (rowSet.next()) {
+			games.add(gameHelper(rowSet));
 		}
+		return games;
+	}
+	
+	@Override
+	public List<Game> getActiveGamesByPlayer(Integer user_id) {
+		String query = "SELECT game.* FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game_player.user_id = ? AND game.active = true GROUP BY game.game_id";
+		List<Game> games = new ArrayList<>();
+		SqlRowSet rowSet = template.queryForRowSet(query, user_id);
+		while (rowSet.next()) {
+			games.add(gameHelper(rowSet));
+		}
+		return games;
+	}
+	
+	private Game gameHelper(SqlRowSet rowSet) {
+		
+		Game game = new Game();
+		game.setGameID(rowSet.getInt("game_id"));
+		game.setActive(rowSet.getBoolean("active"));
+		game.setGameCode(rowSet.getString("game_code")); 
+		game.setWinnerId(rowSet.getInt("winner_id"));
+		game.setActivePlayerRoll(rowSet.getInt("active_player_roll"));
+		game.setIsActivePlayerAnsweringQuestion(rowSet.getBoolean("active_player_answering_question"));
+		game.setHasActivePlayerSelectedCategory(rowSet.getBoolean("active_player_category_selected_center"));
+		game.setIsPublic(rowSet.getBoolean("is_public"));
 		
 		List<Category> categoriesInGame = categoryDAO.getCategoriesByGame(game);
 		game.setCategories(categoriesInGame);
@@ -294,5 +287,24 @@ public class JDBCGameDAO implements GameDAO {
 		return game;
 	}
 	
+	// TODO: Update once id/roll from Game table are switched to game_player
+	private Player playerHelper(SqlRowSet results, Game game) {
+		Player player = new Player();
+		player.setName(results.getString("username"));
+		player.setPlayerId(results.getInt("user_id"));
+		player.setLocation(game.getGameboard().getSpaces().get(results.getInt("player_position")));
+		player.setColor(results.getLong("player_color"));
+		player.setPie1(results.getBoolean("player_score_cat_1"));
+		player.setPie2(results.getBoolean("player_score_cat_2"));
+		player.setPie3(results.getBoolean("player_score_cat_3"));
+		player.setPie4(results.getBoolean("player_score_cat_4"));
+		player.setPie5(results.getBoolean("player_score_cat_5"));
+		player.setPie6(results.getBoolean("player_score_cat_6"));
+		player.setDiceRoll(results.getInt("active_player_roll"));
+		
+		return player;
+	}
+	
+
 }
 
