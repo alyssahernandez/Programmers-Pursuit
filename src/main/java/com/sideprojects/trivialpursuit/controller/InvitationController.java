@@ -37,6 +37,10 @@ public class InvitationController {
 	@RequestMapping(path="/gameboard/{gameCode}/sendInvitation", method=RequestMethod.POST)
 	public String sendInvitation(@RequestParam String username, @PathVariable String gameCode, final HttpServletRequest req, ModelMap map, RedirectAttributes flash) {
 		
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
+	    
 		if (username == null || username.length() == 0) {
 			flash.addAttribute("invalidEntry", true);
 			return "redirect:/gameboard/" + gameCode;
@@ -48,9 +52,6 @@ public class InvitationController {
 			flash.addAttribute("userNotFound", true);
 			return "redirect:/gameboard/" + gameCode;
 		}
-		
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
 	    	
 	    invitationDAO.sendInvitation(gameCode, username, currentUser.getUsername());
 		
@@ -60,8 +61,9 @@ public class InvitationController {
 	@RequestMapping(path="/joinGame", method=RequestMethod.POST)
 	public String joinGame(@RequestParam String gameCode, final HttpServletRequest req) {
 		
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 	    
     	if (invitationDAO.doesInvitationExist(gameCode, currentUser.getUsername())) {
     		invitationDAO.deleteInvitation(gameCode, currentUser.getUsername());
@@ -100,8 +102,9 @@ public class InvitationController {
 	@RequestMapping(path="/rejectGame", method=RequestMethod.POST)
 	public String rejectGame(@RequestParam String gameCode, final HttpServletRequest req) {
 		
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 	    String username = currentUser.getUsername();
 	    
 	    invitationDAO.deleteInvitation(gameCode, username);
@@ -132,8 +135,9 @@ public class InvitationController {
 	@RequestMapping(path="/addFriend", method=RequestMethod.POST)
 	public String addFriend(@RequestParam String username, final HttpServletRequest req) {
 		
-		String userIdToken = (String) SessionUtils.get(req, "userIdToken");
-		User currentUser = userDAO.getUserByToken(userIdToken);
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 		
 		invitationDAO.addFriend(currentUser.getUsername(), username);
 		
@@ -143,8 +147,9 @@ public class InvitationController {
 	@RequestMapping(path="/acceptFriendRequest", method=RequestMethod.POST)
 	public String acceptFriendRequest(@RequestParam String username, final HttpServletRequest req) {
 		
-		String userIdToken = (String) SessionUtils.get(req, "userIdToken");
-		User currentUser = userDAO.getUserByToken(userIdToken);
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 		
 		invitationDAO.acceptFriendRequest(username, currentUser.getUsername());
 		
@@ -154,8 +159,9 @@ public class InvitationController {
 	@RequestMapping(path="/rejectFriendRequest", method=RequestMethod.POST)
 	public String rejectFriendRequest(@RequestParam String username, final HttpServletRequest req) {
 		
-		String userIdToken = (String) SessionUtils.get(req, "userIdToken");
-		User currentUser = userDAO.getUserByToken(userIdToken);
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 		
 		invitationDAO.rejectFriendRequest(currentUser.getUsername(), username);
 		
@@ -165,8 +171,9 @@ public class InvitationController {
 	@RequestMapping(path="/removeFriend", method=RequestMethod.POST)
 	public String removeFriend(@RequestParam String username, final HttpServletRequest req) {
 		
-		String userIdToken = (String) SessionUtils.get(req, "userIdToken");
-		User currentUser = userDAO.getUserByToken(userIdToken);
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 		
 		invitationDAO.removeFriend(username, currentUser.getUsername());
 		
@@ -176,8 +183,9 @@ public class InvitationController {
 	@RequestMapping(path="/cancelFriendRequest", method=RequestMethod.POST)
 	public String cancelFriendRequest(@RequestParam String username, final HttpServletRequest req) {
 		
-		String userIdToken = (String) SessionUtils.get(req, "userIdToken");
-		User currentUser = userDAO.getUserByToken(userIdToken);
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 		
 		invitationDAO.cancelFriendRequest(currentUser.getUsername(), username);
 		

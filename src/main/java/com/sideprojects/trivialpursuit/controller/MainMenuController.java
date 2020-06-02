@@ -70,12 +70,9 @@ public class MainMenuController {
 	    String accessToken = (String) SessionUtils.get(req, "accessToken");
 	    String idToken = (String) SessionUtils.get(req, "idToken");
 
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
- 
-	    if (currentUser == null) {
-	    	return "redirect:/";
-	    }
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 	    
 	    // TODO: In JSP, compare currentUser.username to anyone.username. If equal, we're on our own profile -- so display invites, etc. Otherwise, just display basic info - Brooks
 		User anyone = userDAO.getUserByUsername(username);
@@ -133,6 +130,10 @@ public class MainMenuController {
 							 final HttpServletRequest req, 
 							 RedirectAttributes flash) {
 		
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
+
 		String newGameCode = gameDAO.createNewGame(selectionForm.getPublicOrPrivate());
 		Game newGame = gameDAO.getUnstartedGame(newGameCode);
 		
@@ -154,17 +155,23 @@ public class MainMenuController {
 	@RequestMapping(path="/leaderboard", method=RequestMethod.GET)
 	public String displayLeaderboard(ModelMap map, final HttpServletRequest req) {
 		
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
-	    
-	    if (currentUser == null) {
-	    	return "redirect:/";
-	    }
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 	    
 	    map.put("currentUser", currentUser);
 	    
 		List<User> allTimeleaders = userDAO.getAllTimeLeaders();
 		map.put("allTimeleaders", allTimeleaders);
+		
+		List<User> monthlyLeaders = userDAO.getMonthlyLeaders();
+		map.put("monthlyLeaders", monthlyLeaders);
+		
+		List<User> weeklyLeaders = userDAO.getWeeklyLeaders();
+		map.put("weeklyLeaders", weeklyLeaders);
+		
+		List<User> dailyLeaders = userDAO.getDailyLeaders();
+		map.put("dailyLeaders", dailyLeaders);
 		
 		return "leaderboard";
 	}
@@ -176,12 +183,9 @@ public class MainMenuController {
 			modelHolder.addAttribute("createGame", new GameCreationForm());
 		}
 		
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
-	    
-	    if (currentUser == null) {
-	    	return "redirect:/";
-	    }
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 	    
 	    model.put("currentUser", currentUser);
 	    

@@ -23,7 +23,7 @@
 </div>
 <div>
 	<h3>Monthly</h3>
-	<c:forEach var="user" items="${leaders}">
+	<c:forEach var="user" items="${monthlyLeaders}">
 		<c:url var="userProfileURL" value="/profile/${user.username}"/>
 		<div class="invites__invite u-margin-bottom-small">
 			<div class="invites__details u-margin-bottom-small">
@@ -39,7 +39,7 @@
 </div>
 <div>
 	<h3>Daily</h3>
-	<c:forEach var="user" items="${leaders}">
+	<c:forEach var="user" items="${dailyLeaders}">
 		<c:url var="userProfileURL" value="/profile/${user.username}"/>
 		<div class="invites__invite u-margin-bottom-small">
 			<div class="invites__details u-margin-bottom-small">

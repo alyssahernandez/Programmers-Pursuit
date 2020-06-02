@@ -45,12 +45,10 @@ public class GameboardController {
 			@PathVariable String gameCode,
 			final HttpServletRequest req) {
 
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 	    
-	    if (currentUser == null) {
-	    	return "redirect:/";
-	    }
 	    model.put("currentUser", currentUser);
 		
 	    // TODO: Fix/remove these as they're not currently doing anything - Brooks
@@ -104,7 +102,12 @@ public class GameboardController {
 	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.POST)
 	public String displayGameboardWithPlayers(ModelMap model,
 			@RequestParam(name = "spaceChoice", required = false) Integer spaceChoice,
-			@PathVariable String gameCode) {
+			@PathVariable String gameCode,
+			final HttpServletRequest req) {
+		
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);
@@ -128,7 +131,11 @@ public class GameboardController {
 	}
 	
 	@RequestMapping(path="/startGame", method=RequestMethod.POST)
-	public String startGame(@RequestParam String gameCode) {
+	public String startGame(@RequestParam String gameCode, final HttpServletRequest req) {
+		
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 		
 		gameDAO.setIsGameActive(gameCode, true);
 		return "redirect:/gameboard/" + gameCode;
@@ -137,12 +144,9 @@ public class GameboardController {
 	@RequestMapping(path="/endGame", method=RequestMethod.POST) 
 	public String endGame(@RequestParam String gameCode, final HttpServletRequest req) {
 		
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
-	    
-	    if (currentUser == null) {
-	    	return "redirect:/";
-	    }
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 		
 		gameDAO.setIsGameActive(gameCode, false);
 		return "redirect:/profile/" + currentUser.getUsername();
@@ -151,8 +155,9 @@ public class GameboardController {
 	@RequestMapping(path="/leaveGame", method=RequestMethod.POST)
 	public String leaveGame(@RequestParam Integer game_id, final HttpServletRequest req) {
 		
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 		
 		gameDAO.leaveGame(currentUser.getUserId(), game_id);
 		return "redirect:/profile/" + currentUser.getUsername();

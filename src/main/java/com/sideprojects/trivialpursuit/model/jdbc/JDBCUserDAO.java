@@ -106,22 +106,41 @@ public class JDBCUserDAO implements UserDAO {
 		return leaders;
 	}
 	
+	@Override
 	public List<User> getMonthlyLeaders() {
-		String query = "SELECT * FROM user_account WHERE games_won != 0 AND games_played !=0 AND games_won IS NOT NULL ORDER BY games_won DESC, (games_won / games_played) DESC, games_played DESC LIMIT 25";
+		String query = "SELECT COUNT(game.winner_id), game.winner_id, user_account.* FROM game INNER JOIN user_account ON user_account.user_id = game.winner_id WHERE game.active = false AND game.winner_id IS NOT NULL AND game.created_on >= NOW() - '1 month'::INTERVAL GROUP BY (game.winner_id), user_account.user_id ORDER BY COUNT(game.winner_id) DESC LIMIT 25";
 		SqlRowSet rowSet = template.queryForRowSet(query);
 		List<User> leaders = new ArrayList<>();
 		while (rowSet.next()) {
-			leaders.add(userHelperShort(rowSet));
+			User user = userHelperShort(rowSet);
+			user.setGamesWon(rowSet.getInt("count"));
+			leaders.add(user);
 		}
 		return leaders;
 	}
 	
-	public List<User> getDailyLeaders() {
-		String query = "SELECT * FROM user_account WHERE games_won != 0 AND games_played !=0 AND games_won IS NOT NULL ORDER BY games_won DESC, (games_won / games_played) DESC, games_played DESC LIMIT 25";
+	@Override
+	public List<User> getWeeklyLeaders() {
+		String query = "SELECT COUNT(game.winner_id), game.winner_id, user_account.* FROM game INNER JOIN user_account ON user_account.user_id = game.winner_id WHERE game.active = false AND game.winner_id IS NOT NULL AND game.created_on >= NOW() - '1 week'::INTERVAL GROUP BY (game.winner_id), user_account.user_id ORDER BY COUNT(game.winner_id) DESC LIMIT 25";
 		SqlRowSet rowSet = template.queryForRowSet(query);
 		List<User> leaders = new ArrayList<>();
 		while (rowSet.next()) {
-			leaders.add(userHelperShort(rowSet));
+			User user = userHelperShort(rowSet);
+			user.setGamesWon(rowSet.getInt("count"));
+			leaders.add(user);
+		}
+		return leaders;
+	}
+	
+	@Override
+	public List<User> getDailyLeaders() {
+		String query = "SELECT COUNT(game.winner_id), game.winner_id, user_account.* FROM game INNER JOIN user_account ON user_account.user_id = game.winner_id WHERE game.active = false AND game.winner_id IS NOT NULL AND game.created_on >= NOW() - '1 day'::INTERVAL GROUP BY (game.winner_id), user_account.user_id ORDER BY COUNT(game.winner_id) DESC LIMIT 25";
+		SqlRowSet rowSet = template.queryForRowSet(query);
+		List<User> leaders = new ArrayList<>();
+		while (rowSet.next()) {
+			User user = userHelperShort(rowSet);
+			user.setGamesWon(rowSet.getInt("count"));
+			leaders.add(user);
 		}
 		return leaders;
 	}

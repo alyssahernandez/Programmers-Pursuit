@@ -46,9 +46,9 @@ public class QuestionController {
 			@PathVariable String gameCode,
 			final HttpServletRequest req) {
 
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
-	    model.put("currentUser", currentUser);
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		model.put("currentGame", currentGame);
@@ -108,7 +108,12 @@ public class QuestionController {
 			@RequestParam(name = "categoryChoiceId", required = false) Integer categoryChoiceId,
 			@RequestParam(name = "chosenCenterSpaceCategory", required = false, defaultValue = "false") String chosenCenterSpaceCategory,
 			@RequestParam(name = "answer", required = false) String answer,
-			ModelMap model) {
+			ModelMap model,
+			final HttpServletRequest req) {
+		
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);		
 		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);		
