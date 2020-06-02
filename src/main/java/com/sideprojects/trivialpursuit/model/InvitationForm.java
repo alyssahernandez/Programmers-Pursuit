@@ -1,15 +1,10 @@
 package com.sideprojects.trivialpursuit.model;
 
-import javax.sql.DataSource;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import javax.sql.DataSource;
 import com.sideprojects.trivialpursuit.model.jdbc.JDBCUserDAO;
 
 public class InvitationForm {

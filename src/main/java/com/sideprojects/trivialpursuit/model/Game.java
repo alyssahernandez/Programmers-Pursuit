@@ -1,16 +1,14 @@
 package com.sideprojects.trivialpursuit.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 public class Game {
 	private Integer gameId;
 	private Integer winnerId;
-	private Integer activePlayerId;
 	private Integer activePlayerRoll;
 	private String gameCode;
 	private Boolean active;
@@ -116,18 +114,12 @@ public class Game {
 		this.gameboard = gameboard;
 	}
 
-	// TODO: Rather than pass in List<category>, just pass in "categories" to
-	// Gameboard constructor
 	public void createGameboard(List<Category> categoriesInGame) {
 		this.gameboard = new Gameboard(categoriesInGame);
 	}
 
 	public String getGameCode() {
 		return gameCode;
-	}
-
-	public String getNewGameCode() {
-		return gameCode = generateGameCode();
 	}
 
 	public void setGameCode(String gameCode) {
@@ -143,15 +135,7 @@ public class Game {
 		return game_code;
 	}
 
-	// TODO: Rework this for beta -- it's not useful at present (can't have
-	// setDiceRoll() in here + parts will need to be in Controller)
-	// TODO: Add sorting algo for initial roll (this only handles tie for highest
-	// roll), or re-implement Comparable/compareTo in Player on dice roll (not
-	// ideal)
-	// TODO: Store all player dice rolls in DB, or keep them in session. Either way,
-	// we'll need a reference to all of them to sort them.
-	// - Brooks
-	
+	// TODO: Rework this for beta - Brooks
 	public List<Player> determinePlayerOrder(List<Player> players) {
 		for (Player p : players) {
 			p.setDiceRoll(Dice.getDiceRoll());

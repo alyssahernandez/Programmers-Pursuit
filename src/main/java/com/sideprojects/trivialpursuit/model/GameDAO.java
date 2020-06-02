@@ -36,4 +36,10 @@ public interface GameDAO {
 	
 	public List<Game> getActiveGamesByPlayer(Integer user_id);
 	
+	public List<Game> getCompletedGamesByPlayer(Integer user_id);
+	
+	public List<Game> getUnstartedGamesByPlayer(Integer user_id);
+	
+	public void leaveGame(Integer user_id, Integer game_id);
+	
 }

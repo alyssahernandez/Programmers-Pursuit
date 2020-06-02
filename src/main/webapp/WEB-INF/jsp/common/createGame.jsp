@@ -5,8 +5,6 @@
 
 
 <div class="create">
-  
-	<c:if test="${currentUser.username == anyone.username }">
 	  <h2 class="headers__create u-center-text u-margin-bottom-small"><c:out value="Create a Game" /></h2>
     
 		<form:form class="create__form" action="${createGameURL }" method="POST" modelAttribute="createGame">
@@ -32,8 +30,6 @@
 			<input type="submit" class="button" value="Start Game!" />
 	
 		</form:form>
-	</c:if>
-
 </div>
 
 

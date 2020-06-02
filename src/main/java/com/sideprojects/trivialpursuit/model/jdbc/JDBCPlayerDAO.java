@@ -1,8 +1,5 @@
 package com.sideprojects.trivialpursuit.model.jdbc;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import com.sideprojects.trivialpursuit.model.Category;
 import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.Player;
@@ -60,9 +56,8 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template.update(setPlayerPosition, position, user_id, game_id);
 	}
 	
-	//TODO: Could move this to JDBCGameDAO, privatize, and call in the setActivePlayer() method (pulling the conditional from Controller & putting in jdbc)
 	@Override
-	public void givePlayerPiePiece (int spaceId, Game game) {
+	public void givePlayerPiePiece(int spaceId, Game game) {
 		
 		int playerId = game.getActivePlayer().getPlayerId();
 		String pie_cat = "";
@@ -94,30 +89,12 @@ public class JDBCPlayerDAO implements PlayerDAO
 		else return false;
 	}
 	
+
+
 	@Override
-	public User getUserByUsername(String username) {
-		String query = "SELECT * FROM user_account WHERE username = ?";
-		SqlRowSet result = template.queryForRowSet(query, username);
-		User user = null;
-		if (result.next()) {
-			user = new User();
-			user.setUserId(result.getInt("user_id"));
-			user.setUsername(result.getString("username"));
-		}
-		return user;
-	}
-	
 	public void removePlayerFromGame(Integer game_id, Integer user_id) {
 		String query = "DELETE FROM game_player WHERE game_id = ? AND user_id = ?";
 		template.update(query, game_id, user_id);
-	}
-	
-	public List<Game> getAllGamesByPlayer(Integer user_id) {
-		return null;
-	}
-	
-	public List<Game> getActiveGamesByPlayer(Integer user_id) {
-		return null;
 	}
 
 }

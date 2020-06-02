@@ -12,27 +12,21 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import com.sideprojects.trivialpursuit.model.CategoryDAO;
-import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.Category;
 import com.sideprojects.trivialpursuit.model.GameDAO;
-import com.sideprojects.trivialpursuit.model.Invitation;
 import com.sideprojects.trivialpursuit.model.Player;
-import com.sideprojects.trivialpursuit.model.PlayerDAO;
-import com.sideprojects.trivialpursuit.model.Space;
-import com.sideprojects.trivialpursuit.model.User;
+
 
 @Component
 public class JDBCGameDAO implements GameDAO {
 	
 	private JdbcTemplate template;
-	private PlayerDAO playerDAO;
 	private CategoryDAO categoryDAO;
 
 	@Autowired
 	public JDBCGameDAO(DataSource dataSource) {
 		template = new JdbcTemplate(dataSource);
-		playerDAO = new JDBCPlayerDAO(dataSource);
 		categoryDAO = new JDBCCategoryDAO(dataSource);
 	}
 	
@@ -76,7 +70,6 @@ public class JDBCGameDAO implements GameDAO {
 		return game;
 	}
 	
-	//TODO: These should be in the JDBCPlayerDAO/PlayerDAO.
 	@Override
 	public List<Player> getAllPlayersInAGame(Game game) 
 	{
@@ -203,7 +196,6 @@ public class JDBCGameDAO implements GameDAO {
 		return playerName;
 	}
 	
-	//TODO: Combine this with getActiveGame -- maybe just don't even check if active = true/false, 
 	@Override
 	public Game getCompletedGame(String gameCode) {
 		String query = "SELECT * FROM game WHERE game_code = ? AND active = false";
@@ -229,8 +221,7 @@ public class JDBCGameDAO implements GameDAO {
 	@Override
 	public Integer getPlayerCountByGame(String gameCode) {
 		Integer count = null;
-		String query = "SELECT COUNT(user_id) FROM game_player INNER JOIN game ON game_player.game_id = game.game_id WHERE game.game_code = ?" + 
-				"";
+		String query = "SELECT COUNT(user_id) FROM game_player INNER JOIN game ON game_player.game_id = game.game_id WHERE game.game_code = ?";
 		SqlRowSet results = template.queryForRowSet(query, gameCode);
 		if (results.next()) {
 			count = results.getInt("count");
@@ -253,13 +244,41 @@ public class JDBCGameDAO implements GameDAO {
 	
 	@Override
 	public List<Game> getActiveGamesByPlayer(Integer user_id) {
-		String query = "SELECT game.* FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game_player.user_id = ? AND game.active = true GROUP BY game.game_id";
+		String query = "SELECT * FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game_player.user_id = ? AND game.active = true";
 		List<Game> games = new ArrayList<>();
 		SqlRowSet rowSet = template.queryForRowSet(query, user_id);
 		while (rowSet.next()) {
 			games.add(gameHelper(rowSet));
 		}
 		return games;
+	}
+	
+	@Override
+	public List<Game> getCompletedGamesByPlayer(Integer user_id) {
+		String query = "SELECT game.* FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game_player.user_id = ? AND game.active = false AND game.winner_id IS NOT NULL";
+		List<Game> games = new ArrayList<>();
+		SqlRowSet rowSet = template.queryForRowSet(query, user_id);
+		while (rowSet.next()) {
+			games.add(gameHelper(rowSet));
+		}
+		return games;
+	}
+	
+	@Override
+	public List<Game> getUnstartedGamesByPlayer(Integer user_id) {
+		String query = "SELECT game.* FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game_player.user_id = ? AND game.active = false AND game.winner_id IS NULL";
+		List<Game> games = new ArrayList<>();
+		SqlRowSet rowSet = template.queryForRowSet(query, user_id);
+		while (rowSet.next()) {
+			games.add(gameHelper(rowSet));
+		}
+		return games;
+	}
+	
+	@Override
+	public void leaveGame(Integer user_id, Integer game_id) {
+		String query = "DELETE FROM game_player WHERE user_id = ? AND game_id = ?";
+		template.update(query, user_id, game_id);
 	}
 	
 	private Game gameHelper(SqlRowSet rowSet) {

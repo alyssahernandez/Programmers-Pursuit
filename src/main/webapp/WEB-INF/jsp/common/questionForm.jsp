@@ -39,7 +39,9 @@
 								</div>
 							</c:forEach>
 						</div>
-						<input class="button" type="submit" value="Submit"/>
+						<c:if test="${currentUser.username == currentPlayerTurn.name }">
+							<input class="button" type="submit" value="Submit"/>
+						</c:if>
 					</form>
 						
 					<!-- TODO: @Jeff: styling for the answers - left this commented out for reference.
@@ -68,7 +70,9 @@
 						</div>
 					</c:forEach>
 				</div>
-				<input class="button" type="submit" value="Submit"/>
+				<c:if test="${currentUser.username == currentPlayerTurn.name }">
+					<input class="button" type="submit" value="Submit"/>
+				</c:if>
 			</form>
 		</c:otherwise>	
 	</c:choose>

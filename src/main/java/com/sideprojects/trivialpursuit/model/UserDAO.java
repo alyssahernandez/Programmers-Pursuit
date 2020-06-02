@@ -12,5 +12,5 @@ public interface UserDAO {
 	
 	public User getUserByUsername(String username);
 	
-	public List<User> getLeaderboard();
+	public List<User> getAllTimeLeaders();
 }

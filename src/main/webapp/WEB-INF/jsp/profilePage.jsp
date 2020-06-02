@@ -11,12 +11,7 @@
 <div class="profile">
 	<h1 class="profile__header headers__profile u-margin-bottom-medium"><c:out value="${anyone.username }"/>'s Games</h1>
 	<div class="profile__content">
-		<div class="active-games">ACTIVE GAMES</div>
 	 	<div class="profile__content--right">
-
-	 		<c:url var="lobbyURL" value="/lobby"/>
-	 		<a class="tile u-margin-bottom-small" href="${ lobbyURL }">Game Lobby</a>
-      
 			<c:import url="${invites }" />
 	 	</div>
 	 	<div>

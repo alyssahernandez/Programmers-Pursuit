@@ -96,19 +96,32 @@ public class JDBCUserDAO implements UserDAO {
 	}
 	
 	@Override
-	public List<User> getLeaderboard() {
-		String query = "SELECT * FROM user_account WHERE games_won != 0 AND games_played !=0 AND games_won IS NOT NULL ORDER BY games_won DESC, (games_won / games_played) DESC, games_played DESC";
+	public List<User> getAllTimeLeaders() {
+		String query = "SELECT * FROM user_account WHERE games_won != 0 AND games_played !=0 AND games_won IS NOT NULL ORDER BY games_won DESC, (games_won / games_played) DESC, games_played DESC LIMIT 25";
 		SqlRowSet rowSet = template.queryForRowSet(query);
 		List<User> leaders = new ArrayList<>();
 		while (rowSet.next()) {
-			User user = new User();
-			user.setUserId(rowSet.getInt("user_id"));
-			user.setUsername(rowSet.getString("username"));
-			user.setIdToken(rowSet.getString("id_token"));
-			user.setPicture(rowSet.getString("picture"));
-			user.setGamesPlayed(rowSet.getInt("games_played"));
-			user.setGamesWon(rowSet.getInt("games_won"));
-			leaders.add(user);
+			leaders.add(userHelperShort(rowSet));
+		}
+		return leaders;
+	}
+	
+	public List<User> getMonthlyLeaders() {
+		String query = "SELECT * FROM user_account WHERE games_won != 0 AND games_played !=0 AND games_won IS NOT NULL ORDER BY games_won DESC, (games_won / games_played) DESC, games_played DESC LIMIT 25";
+		SqlRowSet rowSet = template.queryForRowSet(query);
+		List<User> leaders = new ArrayList<>();
+		while (rowSet.next()) {
+			leaders.add(userHelperShort(rowSet));
+		}
+		return leaders;
+	}
+	
+	public List<User> getDailyLeaders() {
+		String query = "SELECT * FROM user_account WHERE games_won != 0 AND games_played !=0 AND games_won IS NOT NULL ORDER BY games_won DESC, (games_won / games_played) DESC, games_played DESC LIMIT 25";
+		SqlRowSet rowSet = template.queryForRowSet(query);
+		List<User> leaders = new ArrayList<>();
+		while (rowSet.next()) {
+			leaders.add(userHelperShort(rowSet));
 		}
 		return leaders;
 	}

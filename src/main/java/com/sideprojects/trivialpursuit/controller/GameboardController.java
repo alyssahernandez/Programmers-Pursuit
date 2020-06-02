@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.auth0.SessionUtils;
 import com.sideprojects.trivialpursuit.model.Category;
-import com.sideprojects.trivialpursuit.model.GameCreationForm;
 import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
@@ -49,6 +47,10 @@ public class GameboardController {
 
 	    String userId = (String) SessionUtils.get(req, "userIdToken");
 	    User currentUser = userDAO.getUserByToken(userId);
+	    
+	    if (currentUser == null) {
+	    	return "redirect:/";
+	    }
 	    model.put("currentUser", currentUser);
 		
 	    // TODO: Fix/remove these as they're not currently doing anything - Brooks
@@ -130,5 +132,29 @@ public class GameboardController {
 		
 		gameDAO.setIsGameActive(gameCode, true);
 		return "redirect:/gameboard/" + gameCode;
+	}
+	
+	@RequestMapping(path="/endGame", method=RequestMethod.POST) 
+	public String endGame(@RequestParam String gameCode, final HttpServletRequest req) {
+		
+	    String userId = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userId);
+	    
+	    if (currentUser == null) {
+	    	return "redirect:/";
+	    }
+		
+		gameDAO.setIsGameActive(gameCode, false);
+		return "redirect:/profile/" + currentUser.getUsername();
+	}
+	
+	@RequestMapping(path="/leaveGame", method=RequestMethod.POST)
+	public String leaveGame(@RequestParam Integer game_id, final HttpServletRequest req) {
+		
+	    String userId = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userId);
+		
+		gameDAO.leaveGame(currentUser.getUserId(), game_id);
+		return "redirect:/profile/" + currentUser.getUsername();
 	}
 }

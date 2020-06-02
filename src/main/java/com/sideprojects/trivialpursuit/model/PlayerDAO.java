@@ -1,7 +1,5 @@
 package com.sideprojects.trivialpursuit.model;
 
-import java.util.List;
-
 public interface PlayerDAO {
 	
 	public void setPlayerPosition(Game game, Player activePlayer);
@@ -15,6 +13,4 @@ public interface PlayerDAO {
 	public boolean isPlayerAlreadyInGame(Integer game_id, Integer user_id);
 	
 	public void removePlayerFromGame(Integer game_id, Integer user_id);
-
-	public User getUserByUsername(String username);
 }
