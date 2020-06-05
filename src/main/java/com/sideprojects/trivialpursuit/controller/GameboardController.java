@@ -59,6 +59,10 @@ public class GameboardController {
 		if (modelHolder.containsAttribute("userNotFound")) {
 			model.put("userNotFound", true);
 		}
+		
+		if (modelHolder.containsAttribute("outOfQuestions")) {
+			model.put("outOfQuestions", true);
+		}
 
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		
@@ -67,14 +71,17 @@ public class GameboardController {
             
             if (currentGame.getIsActivePlayerAnsweringQuestion()) {
                 return "redirect:/question/{gameCode}";
-            }
-                    
+            }                   
         } else {
-        	
         	currentGame = gameDAO.getUnstartedGame(gameCode);
         	if (currentGame == null) {
                 currentGame = gameDAO.getCompletedGame(gameCode);
-                model.put("currentGame", currentGame);
+                if (currentGame == null) {
+                	//TODO: Change this behavior to reference an error-handling / "Game Not Found" JSP.
+                	return "redirect:/lobbies";
+                } else {
+                	 model.put("currentGame", currentGame);
+                }
         	} else {
         		model.put("currentGame", currentGame);
         	}

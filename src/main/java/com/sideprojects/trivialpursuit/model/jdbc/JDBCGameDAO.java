@@ -198,7 +198,7 @@ public class JDBCGameDAO implements GameDAO {
 	
 	@Override
 	public Game getCompletedGame(String gameCode) {
-		String query = "SELECT * FROM game WHERE game_code = ? AND active = false";
+		String query = "SELECT * FROM game WHERE game_code = ? AND active = false AND winner_id IS NOT NULL";
 		SqlRowSet rowSet = template.queryForRowSet(query, gameCode);
 		Game game = null;
 		if (rowSet.next()) {
@@ -279,6 +279,16 @@ public class JDBCGameDAO implements GameDAO {
 	public void leaveGame(Integer user_id, Integer game_id) {
 		String query = "DELETE FROM game_player WHERE user_id = ? AND game_id = ?";
 		template.update(query, user_id, game_id);
+	}
+	
+	public Game getGameByCode(String gameCode) {
+		String query = "SELECT * FROM game WHERE game_code = ?";
+		SqlRowSet result = template.queryForRowSet(query, gameCode);
+		Game game = null;
+		if (result.next()) {
+			game = gameHelper(result);
+		}
+		return game;
 	}
 	
 	private Game gameHelper(SqlRowSet rowSet) {

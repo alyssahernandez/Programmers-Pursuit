@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.auth0.SessionUtils;
 import com.sideprojects.trivialpursuit.model.Category;
@@ -44,11 +45,13 @@ public class QuestionController {
 	public String displayQuestion(
 			ModelMap model,
 			@PathVariable String gameCode,
-			final HttpServletRequest req) {
+			final HttpServletRequest req,
+			RedirectAttributes flash) {
 
 	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
 	    User currentUser = userDAO.getUserByToken(userIdToken);
 	    if (currentUser == null) return "redirect:/";
+	    model.put("currentUser", currentUser);
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		model.put("currentGame", currentGame);
@@ -90,6 +93,7 @@ public class QuestionController {
 		} else if (currentGame.getHasActivePlayerSelectedCategory()) {		
 			
 			Question question = questionDAO.getCurrentQuestion(currentGame);
+			
 			model.put("question", question);	
 			
 			List<String> possibleAnswers = question.getPossibleAnswers();
@@ -118,11 +122,6 @@ public class QuestionController {
 		Game currentGame = gameDAO.getActiveGame(gameCode);		
 		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);		
 		Space currentPlayerSpace = currentPlayerTurn.getLocation();		
-		Integer categoryId = null;
-		
-		if (categoryChoiceId != null) {
-			categoryId = categoryChoiceId;
-		}
 		
 		if (currentPlayerSpace.isCenter() && categoryChoiceId != null && chosenCenterSpaceCategory.equals("true")) {
 			
@@ -130,7 +129,7 @@ public class QuestionController {
 			currentGame.setHasActivePlayerSelectedCategory(true);			
 			
 			//TODO: If question=null, end game (no questions for a category would be bad)
-			questionDAO.getUnaskedQuestionByCategory(currentGame, categoryId);
+			questionDAO.getUnaskedQuestionByCategory(currentGame, categoryChoiceId);
 				
 			return "redirect:/question/" + currentGame.getGameCode();
 		}
@@ -145,8 +144,6 @@ public class QuestionController {
 			if (currentPlayerSpace.hasPie() && isAnswerCorrect) {			
 				playerDAO.givePlayerPiePiece(currentPlayerSpace.getSpaceId(), currentGame);	
 				
-				// Is this actually doing anything? Doesn't seem so - Brooks
-				// TODO: optimize this later - ALYSSA
 				if (currentPlayerSpace.getSpaceId() == 6) {
 					currentPlayerTurn.setPie1(true);
 				} else if (currentPlayerSpace.getSpaceId() == 18) {
@@ -159,8 +156,7 @@ public class QuestionController {
 					currentPlayerTurn.setPie5(true);
 				} else if (currentPlayerSpace.getSpaceId() == 66) {
 					currentPlayerTurn.setPie6(true);
-				}
-				
+				}	
 			}
 			
 			if (currentPlayerSpace.isCenter() && isAnswerCorrect && currentPlayerTurn.getAllPies()) {				
@@ -179,10 +175,8 @@ public class QuestionController {
 	        int diceRoll = Dice.getDiceRoll();        
 	        gameDAO.setActivePlayerDiceRoll(currentGame, diceRoll);
 	        
-			return "redirect:/gameboard/" + currentGame.getGameCode();
-        
+			return "redirect:/gameboard/" + currentGame.getGameCode();      
 		}		
-		
 		return "redirect:/question/" + currentGame.getGameCode();
 	}
 		

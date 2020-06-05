@@ -47,7 +47,7 @@ public class JDBCQuestionDAO implements QuestionDAO {
 	
 	public Question getCurrentQuestion(Game game)
 	{
-		Question question = new Question();
+		Question question = null;
 		
 		String query = "SELECT * FROM question INNER JOIN game_question ON question.question_id = game_question.question_id " +
 					   "WHERE game_question.game_id = ? AND game_question.is_current_question = true";

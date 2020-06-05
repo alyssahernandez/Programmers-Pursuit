@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,7 +36,12 @@ public class InvitationController {
 	InvitationDAO invitationDAO;
 
 	@RequestMapping(path="/gameboard/{gameCode}/sendInvitation", method=RequestMethod.POST)
-	public String sendInvitation(@RequestParam String username, @PathVariable String gameCode, final HttpServletRequest req, ModelMap map, RedirectAttributes flash) {
+	public String sendInvitation(@RequestParam String username, 
+								@PathVariable String gameCode, 
+								final HttpServletRequest req, 
+								ModelMap map, 
+								RedirectAttributes flash,
+								BindingResult result) {
 		
 	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
 	    User currentUser = userDAO.getUserByToken(userIdToken);
