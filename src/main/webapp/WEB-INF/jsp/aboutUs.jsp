@@ -67,11 +67,11 @@
 			            <div class="team-member__details">
 			                <h3 class="team-member-name">Archie Cooley</h3>
 			                <p class="team-member-bio">
-			                    Dolor nominavi praesent ei vim, has viris lobortis et, est.
+			                    My role on the team was to create and maintain the database. Helped write JDBC layers, and write database access methods. I also helped write question and answers. 
 			                </p>
 			                <div class="team-member__links">
-			                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
-			                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
+			                    <a href="#" class="https://www.linkedin.com/in/charlescooley/" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
+			                    <a href="#" class="https://github.com/acooley011" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
 			                </div>
 			            </div>
 			        </div>
