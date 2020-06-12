@@ -8,8 +8,9 @@
 <c:url var="startGameURL" value="/startGame" />
 
 <div class="hud">
+	<c:if test="${outOfQuestions }" ><p>You are out of questions. Game over!</p></c:if>
 
-	<c:if test="${!(currentGame.active) && currentGame.winnerId == 0}" > 
+	<c:if test="${unstartedGame != null}" > 
 		<c:forEach var="player" items="${playersInGame}">
 			<div>
 				<p>${player.name}</p>
@@ -27,7 +28,7 @@
 				<p>Please enter valid username</p>
 			</c:if>
 		</form>
-		<c:if test="${currentGame.activePlayers.size() >= 2 }" >
+		<c:if test="${unstartedGame.activePlayers.size() >= 2 }" >
 		 	<form action="${startGameURL}" method="POST">
 				<input type="submit" class="button" value="Start Game" />
 				<input type="hidden" name="gameCode" value="${currentGame.gameCode}"/>

@@ -24,7 +24,7 @@
 				<form:option value="public">Public</form:option>
 				<form:option value="private">Private</form:option>
 			</form:select>
-			<form:errors path="selectedCategories" cssClass="error"/>
+			<form:errors path="validNumberOfCategories" cssClass="error"/>
 			<form:errors path="publicOrPrivate" cssClass="error"/>		
 			
 			<input type="submit" class="button" value="Start Game!" />

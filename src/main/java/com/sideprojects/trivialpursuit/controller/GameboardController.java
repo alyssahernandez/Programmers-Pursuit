@@ -80,10 +80,10 @@ public class GameboardController {
                 	//TODO: Change this behavior to reference an error-handling / "Game Not Found" JSP.
                 	return "redirect:/lobbies";
                 } else {
-                	 model.put("currentGame", currentGame);
+                	 model.put("completedGame", currentGame);
                 }
         	} else {
-        		model.put("currentGame", currentGame);
+        		model.put("unstartedGame", currentGame);
         	}
         }
         

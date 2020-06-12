@@ -71,6 +71,11 @@ public class QuestionController {
 		if (currentGame.getIsActivePlayerAnsweringQuestion()) {
 			
 			Question question = questionDAO.getCurrentQuestion(currentGame);
+			if (question == null) {
+				gameDAO.setIsGameActive(gameCode, false);
+				flash.addFlashAttribute("outOfQuestions", true);
+				return "redirect:/gameboard/" + gameCode;
+			}
 			model.put("question", question);
 			
 			// TODO: this is currently printing the answers with array brackets around
@@ -83,6 +88,13 @@ public class QuestionController {
 			
 			//TODO: If question=null, end game (no questions for a category would be bad)
 			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame, currentPlayerSpace.getCategory().getCategoryId());
+			if (question == null) {
+				gameDAO.setIsGameActive(gameCode, false);
+				flash.addFlashAttribute("outOfQuestions", true);
+				return "redirect:/gameboard/" + gameCode;
+
+			}
+			
 			model.put("question", question);
 			
 			List<String> possibleAnswers = question.getPossibleAnswers();
@@ -93,7 +105,11 @@ public class QuestionController {
 		} else if (currentGame.getHasActivePlayerSelectedCategory()) {		
 			
 			Question question = questionDAO.getCurrentQuestion(currentGame);
-			
+			if (question == null) {
+				gameDAO.setIsGameActive(gameCode, false);
+				flash.addFlashAttribute("outOfQuestions", true);
+				return "redirect:/gameboard/" + gameCode;
+			}
 			model.put("question", question);	
 			
 			List<String> possibleAnswers = question.getPossibleAnswers();

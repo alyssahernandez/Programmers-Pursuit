@@ -1,5 +1,6 @@
 package com.sideprojects.trivialpursuit.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.AssertTrue;
@@ -10,18 +11,17 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class GameCreationForm {
 	
-	@NotEmpty(message="Please select 2, 3, or 6 categories")
-	@NotNull(message="Please select 2, 3, or 6 categories")
-	private List<Integer> selectedCategories;
+	private List<Integer> selectedCategories = new ArrayList<>();
 	
 	@NotBlank(message="Please select Public or Private")
 	@NotNull(message="Please select Public or Private")
 	private String publicOrPrivate;
-	
+
 	private boolean validNumberOfCategories;
 	@AssertTrue(message="Please select 2, 3, or 6 categories")
-	public boolean isValidNumberOfCategories() {
-		return selectedCategories.size() == 2 || selectedCategories.size() == 3 || selectedCategories.size() == 6;
+	public boolean getValidNumberOfCategories() {
+		this.validNumberOfCategories = selectedCategories.size() == 2 || selectedCategories.size() == 3 || selectedCategories.size() == 6;
+		return this.validNumberOfCategories;
 	}
 
 	public List<Integer> getSelectedCategories() {

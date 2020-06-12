@@ -40,8 +40,7 @@ public class InvitationController {
 								@PathVariable String gameCode, 
 								final HttpServletRequest req, 
 								ModelMap map, 
-								RedirectAttributes flash,
-								BindingResult result) {
+								RedirectAttributes flash) {
 		
 	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
 	    User currentUser = userDAO.getUserByToken(userIdToken);
