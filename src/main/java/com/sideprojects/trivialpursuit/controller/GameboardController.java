@@ -65,7 +65,7 @@ public class GameboardController {
             model.put("currentGame", currentGame);
             
             if (currentGame.getActivePlayer().getIsAnsweringQuestion()) {
-                return "redirect:/question/{gameCode}";
+                return "redirect:/question/" + gameCode;
             }                   
         } else {
         	currentGame = gameDAO.getUnstartedGame(gameCode);
@@ -123,10 +123,10 @@ public class GameboardController {
 		
 		if (updatedPlayerSpace.isRollAgain()) {
 			gameDAO.setActivePlayerDiceRoll(currentGame);
-			return "redirect:/gameboard/{gameCode}";
+			return "redirect:/gameboard/" + gameCode;
 		}
 				
-		return "redirect:/question/{gameCode}";
+		return "redirect:/question/" + gameCode;
 	}
 	
 	@RequestMapping(path="/startGame", method=RequestMethod.POST)
