@@ -6,14 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
-public class Game {
+public class Game 
+{
 	private Integer gameId;
 	private Integer winnerId;
-	private Integer activePlayerRoll;
 	private String gameCode;
 	private Boolean active;
-	private Boolean isActivePlayerAnsweringQuestion;
-	private Boolean hasActivePlayerSelectedCategory;
 	private Boolean isPublic;
 	private Question question;
 	private Player activePlayer;
@@ -46,22 +44,6 @@ public class Game {
 		this.active = active;
 	}
 
-	public boolean getIsActivePlayerAnsweringQuestion() {
-		return isActivePlayerAnsweringQuestion;
-	}
-
-	public void setIsActivePlayerAnsweringQuestion(Boolean isActivePlayerAnsweringQuestion) {
-		this.isActivePlayerAnsweringQuestion = isActivePlayerAnsweringQuestion;
-	}
-
-	public boolean getHasActivePlayerSelectedCategory() {
-		return hasActivePlayerSelectedCategory;
-	}
-
-	public void setHasActivePlayerSelectedCategory(Boolean hasActivePlayerSelectedCategory) {
-		this.hasActivePlayerSelectedCategory = hasActivePlayerSelectedCategory;
-	}
-
 	public List<Player> getActivePlayers() {
 		return activePlayers;
 	}
@@ -84,14 +66,6 @@ public class Game {
 
 	public void setQuestion(Question question) {
 		this.question = question;
-	}
-
-	public Integer getActivePlayerRoll() {
-		return activePlayerRoll;
-	}
-
-	public void setActivePlayerRoll(Integer activePlayerRoll) {
-		this.activePlayerRoll = activePlayerRoll;
 	}
 
 	public List<Category> getCategories() {

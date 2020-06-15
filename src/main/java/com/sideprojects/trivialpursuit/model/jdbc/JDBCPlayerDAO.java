@@ -29,22 +29,13 @@ public class JDBCPlayerDAO implements PlayerDAO
 		template.update(sqlPutPlayerIntoGame, game_id, user_id, color_id);
 	}
 	
+	@Override
 	public void putFirstPlayerIntoGame(Game game, Integer user_id) {
 		
-		Integer gameId = game.getGameID();
-		
-		int dice_roll = Dice.getDiceRoll();
-		
 		String sqlPutPlayerIntoGame = "INSERT INTO game_player (game_id, user_id, player_color, player_roll, is_turn) VALUES (?, ?, 1, ?, true)";
-		String query = "UPDATE game SET active_player_id = ?, active_player_roll = ? WHERE game_id = ?";
-		
-		template.update(sqlPutPlayerIntoGame, gameId, user_id, dice_roll);
-		template.update(query, user_id, dice_roll, gameId);
+		template.update(sqlPutPlayerIntoGame, game.getGameID(), user_id, Dice.getDiceRoll());
 	}
 	
-	
-	// TODO: Could also pass in an integer to jibe with form input (rather than updating activePlayer's position in the Controller, which this method assumes is happening):
-	// setPlayerPosition(Game game, Integer newPosition), 
 	@Override
 	public void setPlayerPosition(Game game, Player activePlayer) {
 		
@@ -89,8 +80,6 @@ public class JDBCPlayerDAO implements PlayerDAO
 		else return false;
 	}
 	
-
-
 	@Override
 	public void removePlayerFromGame(Integer game_id, Integer user_id) {
 		String query = "DELETE FROM game_player WHERE game_id = ? AND user_id = ?";

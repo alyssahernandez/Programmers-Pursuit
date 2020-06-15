@@ -68,7 +68,7 @@ public class QuestionController {
 		List<Category> gameCategories = currentGame.getUniqueCategories();
 		model.put("gameCategories", gameCategories);
 
-		if (currentGame.getIsActivePlayerAnsweringQuestion()) {
+		if (currentGame.getActivePlayer().getIsAnsweringQuestion()) {
 			
 			Question question = questionDAO.getCurrentQuestion(currentGame);
 			if (question == null) {
@@ -84,7 +84,7 @@ public class QuestionController {
 			List<String> possibleAnswers = question.getPossibleAnswers();
 			model.put("possibleAnswers", possibleAnswers);
 			
-		} else if (!currentPlayerSpace.isCenter() && !(currentGame.getIsActivePlayerAnsweringQuestion())) {
+		} else if (!currentPlayerSpace.isCenter() && !(currentGame.getActivePlayer().getIsAnsweringQuestion())) {
 			
 			//TODO: If question=null, end game (no questions for a category would be bad)
 			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame, currentPlayerSpace.getCategory().getCategoryId());
@@ -102,7 +102,7 @@ public class QuestionController {
 			
 			gameDAO.setIsAnsweringQuestion(currentGame, true);		
 			
-		} else if (currentGame.getHasActivePlayerSelectedCategory()) {		
+		} else if (currentGame.getActivePlayer().getHasSelectedCategoryCenter()) {		
 			
 			Question question = questionDAO.getCurrentQuestion(currentGame);
 			if (question == null) {
@@ -116,7 +116,6 @@ public class QuestionController {
 			model.put("possibleAnswers", possibleAnswers);
 			
 			gameDAO.setIsAnsweringQuestion(currentGame, true);
-			
 		}
 		
 		return "question";
@@ -142,8 +141,7 @@ public class QuestionController {
 		if (currentPlayerSpace.isCenter() && categoryChoiceId != null && chosenCenterSpaceCategory.equals("true")) {
 			
 			gameDAO.setHasSelectedCategory(currentGame, true);
-			currentGame.setHasActivePlayerSelectedCategory(true);			
-			
+	
 			//TODO: If question=null, end game (no questions for a category would be bad)
 			questionDAO.getUnaskedQuestionByCategory(currentGame, categoryChoiceId);
 				
@@ -187,9 +185,7 @@ public class QuestionController {
 			gameDAO.setActivePlayer(currentGame, isAnswerCorrect);
 	        gameDAO.setHasSelectedCategory(currentGame, false);
 	        gameDAO.setIsAnsweringQuestion(currentGame, false);
-	        
-	        int diceRoll = Dice.getDiceRoll();        
-	        gameDAO.setActivePlayerDiceRoll(currentGame, diceRoll);
+	        gameDAO.setActivePlayerDiceRoll(currentGame);
 	        
 			return "redirect:/gameboard/" + currentGame.getGameCode();      
 		}		

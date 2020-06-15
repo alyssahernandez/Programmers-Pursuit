@@ -6,7 +6,7 @@
 	<c:choose>
 		<c:when test="${currentPlayerSpace.center }">		
 			<c:choose>		
-				<c:when test="${currentGame.hasActivePlayerSelectedCategory eq false }">				
+				<c:when test="${currentGame.activePlayer.hasSelectedCategoryCenter eq false }">				
 					<form action="${questionFormURL }" method="POST" class="question-form">		
 						<c:choose>
 							<c:when test="${currentPlayerTurn.allPies eq true }">						
@@ -39,9 +39,7 @@
 								</div>
 							</c:forEach>
 						</div>
-						<c:if test="${currentUser.username == currentPlayerTurn.name }">
 							<input class="button" type="submit" value="Submit"/>
-						</c:if>
 					</form>
 						
 					<!-- TODO: @Jeff: styling for the answers - left this commented out for reference.
@@ -70,9 +68,7 @@
 						</div>
 					</c:forEach>
 				</div>
-				<c:if test="${currentUser.username == currentPlayerTurn.name }">
 					<input class="button" type="submit" value="Submit"/>
-				</c:if>
 			</form>
 		</c:otherwise>	
 	</c:choose>

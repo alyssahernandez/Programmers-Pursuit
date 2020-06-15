@@ -29,10 +29,6 @@ CREATE TABLE game
         game_code varchar(32) not null unique,
         active boolean not null,
         winner_id int,
-        active_player_id int, -- remove once finished w/ jdbcs (this is now in game_player)
-        active_player_roll int, -- remove once finished w/ jdbcs (this is now in game_player)
-        active_player_answering_question boolean default(false), -- remove once finished w/ jdbcs (this is now in game_player)
-        active_player_category_selected_center boolean default(false),-- remove once finished w/ jdbcs (this is now in game_player) -- Brooks
         is_public boolean not null default(true),
         created_on timestamp not null default NOW()
 );

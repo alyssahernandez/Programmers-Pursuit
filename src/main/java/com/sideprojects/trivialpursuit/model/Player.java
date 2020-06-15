@@ -17,6 +17,8 @@ public class Player
 	private Boolean pie6;
 	private Boolean isAnsweringQuestion;
 	private Boolean hasSelectedCategoryCenter;
+	private Boolean isTurn;	
+	private Boolean isActive;
 
 	// Getters & Setters:
 	public Integer getPlayerId() { return playerId; }
@@ -57,6 +59,12 @@ public class Player
 	
 	public Boolean getHasSelectedCategoryCenter() { return hasSelectedCategoryCenter; }
 	public void setHasSelectedCategoryCenter(Boolean hasSelectedCategoryCenter) { this.hasSelectedCategoryCenter = hasSelectedCategoryCenter; }
+	
+	public Boolean isTurn() { return isTurn; }
+	public void setTurn(Boolean isTurn) { this.isTurn = isTurn; }
+	
+	public Boolean isActive() { return isActive; }
+	public void setActive(Boolean isActive) { this.isActive = isActive;}
 	
 	public boolean getAllPies() { return isPie1() && isPie2() && isPie3() && isPie4() && isPie5() && isPie6(); }
 	

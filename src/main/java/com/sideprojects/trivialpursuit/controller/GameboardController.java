@@ -51,11 +51,6 @@ public class GameboardController {
 	    
 	    model.put("currentUser", currentUser);
 		
-	    // TODO: Fix/remove these as they're not currently doing anything - Brooks
-		if (modelHolder.containsAttribute("invalidEntry")) {
-			model.put("invalidEntry", true);
-		}
-		
 		if (modelHolder.containsAttribute("userNotFound")) {
 			model.put("userNotFound", true);
 		}
@@ -69,7 +64,7 @@ public class GameboardController {
         if (currentGame != null) {
             model.put("currentGame", currentGame);
             
-            if (currentGame.getIsActivePlayerAnsweringQuestion()) {
+            if (currentGame.getActivePlayer().getIsAnsweringQuestion()) {
                 return "redirect:/question/{gameCode}";
             }                   
         } else {
@@ -127,10 +122,7 @@ public class GameboardController {
 		}
 		
 		if (updatedPlayerSpace.isRollAgain()) {
-			
-	        int diceRoll = Dice.getDiceRoll();        
-	        gameDAO.setActivePlayerDiceRoll(currentGame, diceRoll);
-			
+			gameDAO.setActivePlayerDiceRoll(currentGame);
 			return "redirect:/gameboard/{gameCode}";
 		}
 				

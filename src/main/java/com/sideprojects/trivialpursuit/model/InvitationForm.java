@@ -5,19 +5,14 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.sideprojects.trivialpursuit.model.jdbc.JDBCUserDAO;
 
 public class InvitationForm {
 
-	public InvitationForm() {
-		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setUrl("jdbc:postgresql://localhost:5432/trivialpursuit");
-		dataSource.setUsername("postgres");
-		dataSource.setPassword("postgres1");
-		userDAO = new JDBCUserDAO(dataSource);
-	}
-	
-	private UserDAO userDAO;
+	@Autowired
+	UserDAO userDAO;
 	
 	@NotBlank(message="Please enter a username")
 	@NotNull(message="Please enter a username")

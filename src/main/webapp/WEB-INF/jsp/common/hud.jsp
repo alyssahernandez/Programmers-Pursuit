@@ -31,7 +31,7 @@
 		<c:if test="${unstartedGame.activePlayers.size() >= 2 }" >
 		 	<form action="${startGameURL}" method="POST">
 				<input type="submit" class="button" value="Start Game" />
-				<input type="hidden" name="gameCode" value="${currentGame.gameCode}"/>
+				<input type="hidden" name="gameCode" value="${unstartedGame.gameCode}"/>
 			</form>
 		</c:if>
 	</c:if>

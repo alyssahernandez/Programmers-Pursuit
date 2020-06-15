@@ -14,7 +14,7 @@ public interface GameDAO {
 	
 	public void setActivePlayer(Game game, boolean isCorrectAnswer);
 	
-	public void setActivePlayerDiceRoll(Game game, int diceRoll);
+	public void setActivePlayerDiceRoll(Game game);
 	
 	public void setIsAnsweringQuestion(Game game, Boolean isAnsweringQuestion);
 	

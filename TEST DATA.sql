@@ -1,4 +1,3 @@
-
 BEGIN TRANSACTION;
 
 INSERT INTO user_account (username, id_token, email) VALUES ('Joseph', 'awkdhadwahdajkhd12jeh12jhdawkdakdhad', 'joseph@programmerspursuit.com');
@@ -6,10 +5,10 @@ INSERT INTO user_account (username, id_token, email) VALUES ('kawjdkadhad', 'kje
 INSERT INTO user_account (username, id_token, email) VALUES ('lemonface', '23jh89123y218diuadkaydahwdkjahdawidu12312', 'lemonface@programmerspursuit.com');
 INSERT INTO user_account (username, id_token, email) VALUES ('noodles', '12491823y12821dbakwjdwahdawkjdgh12j3k1bdwad', 'noodles@programmerspursuit.com');
 
-INSERT INTO game (game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES ('TEST1', true, 1, 2, false, false);
-INSERT INTO game (game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES ('TEST2', true, 2, 3, false, false);
-INSERT INTO game (game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES ('TEST3', true, 3, 4, false, false);
-INSERT INTO game (game_code, active, active_player_id, active_player_roll, active_player_answering_question, active_player_category_selected_center) VALUES ('TEST4', true, 4, 5, false, false);
+INSERT INTO game (game_code, active) VALUES ('TEST1', true);
+INSERT INTO game (game_code, active) VALUES ('TEST2', true);
+INSERT INTO game (game_code, active) VALUES ('TEST3', true);
+INSERT INTO game (game_code, active) VALUES ('TEST4', true);
 
 
 INSERT INTO game_player (game_id, user_id, player_color, player_score_cat_1, player_score_cat_2, player_score_cat_3, player_score_cat_4, player_score_cat_5, player_score_cat_6, is_turn, is_answering_question, has_selected_category_center, player_roll)
