@@ -18,10 +18,13 @@ public class InvitationForm {
 	@NotNull(message="Please enter a username")
 	private String inviteeUsername;
 	
-	private Boolean validUser;
+	private boolean validUser;
 	@AssertTrue(message="User not found. Please enter a valid username")
-	public Boolean isValidUser() {
-		return userDAO.validateUsername(getInviteeUsername());
+	public boolean getValidUser() {
+		if (inviteeUsername == "" || inviteeUsername == null) return false;
+		
+		this.validUser = false;
+		return this.validUser;
 	}
 
 	public String getInviteeUsername() {

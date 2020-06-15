@@ -4,7 +4,7 @@
 <c:url var = "dieURL" value="common/die.jsp" />
 <c:url var = "legendURL" value="common/legend.jsp" />
 
-<c:url var = "invitationURL" value="${gameCode}/sendInvitation" />
+<c:url var = "invitationURL" value="/gameboard/${gameCode}/sendInvitation" />
 <c:url var="startGameURL" value="/startGame" />
 
 <div class="hud">

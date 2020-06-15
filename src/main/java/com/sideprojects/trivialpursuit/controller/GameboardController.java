@@ -19,6 +19,7 @@ import com.sideprojects.trivialpursuit.model.Category;
 import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
+import com.sideprojects.trivialpursuit.model.InvitationForm;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 import com.sideprojects.trivialpursuit.model.Space;
@@ -51,8 +52,8 @@ public class GameboardController {
 	    
 	    model.put("currentUser", currentUser);
 		
-		if (modelHolder.containsAttribute("userNotFound")) {
-			model.put("userNotFound", true);
+		if (!modelHolder.containsAttribute("userInvite")) {
+			modelHolder.addAttribute("userInvite", new InvitationForm());
 		}
 		
 		if (modelHolder.containsAttribute("outOfQuestions")) {

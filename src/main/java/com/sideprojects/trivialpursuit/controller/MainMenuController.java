@@ -143,6 +143,7 @@ public class MainMenuController {
 			
 			return "redirect:/lobbies";
 		}
+		
 		int userId = (Integer) SessionUtils.get(req, "userId");
 		
 		playerDAO.putFirstPlayerIntoGame(newGame, userId);
