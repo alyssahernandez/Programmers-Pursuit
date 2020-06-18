@@ -30,6 +30,8 @@ public interface GameDAO {
 	
 	public Game getUnstartedGame(String gameCode);
 	
+	public Game getGameThatEndedEarly(String gameCode);
+	
 	public Integer getPlayerCountByGame(String gameCode);
 	
 	public List<Game> getUnstartedPublicGames();
@@ -41,5 +43,7 @@ public interface GameDAO {
 	public List<Game> getUnstartedGamesByPlayer(Integer user_id);
 	
 	public void leaveGame(Integer user_id, Integer game_id);
+	
+	public Game getGameByCode(String gameCode);
 	
 }

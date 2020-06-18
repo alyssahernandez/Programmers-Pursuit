@@ -55,13 +55,13 @@ public class JDBCGameDAO implements GameDAO {
 			}		
 		} while (!validGameCode);	
 
-		String query = "INSERT INTO game (game_code, active, is_public) VALUES (?, ?, ?) RETURNING game_code";
-		return template.queryForObject(query, String.class, gameCode.toUpperCase(), false, isPublic);
+		String query = "INSERT INTO game (game_code, is_public) VALUES (?, ?) RETURNING game_code";
+		return template.queryForObject(query, String.class, gameCode.toUpperCase(), isPublic);
 	}
 	
 	@Override
 	public Game getActiveGame(String gameCode) {
-		String getGameQuery = "SELECT * FROM game WHERE game_code = ? AND active = true";
+		String getGameQuery = "SELECT * FROM game WHERE game_code = ? AND active = true AND started = true";
 		SqlRowSet rowSet = template.queryForRowSet(getGameQuery, gameCode.toUpperCase());
 		Game game = null;
 		if (rowSet.next()) {
@@ -116,6 +116,9 @@ public class JDBCGameDAO implements GameDAO {
 		
 		String setActivePlayer = "UPDATE game_player SET is_turn = true, is_answering_question = false, has_selected_category_center = false WHERE game_id = ? AND user_id = ?";
 		template.update(setActivePlayer, game.getGameID(), activePlayer.getPlayerId());
+		
+		game.setActivePlayer(activePlayer);
+		setActivePlayerDiceRoll(game);
 	}
 	
 	@Override
@@ -133,7 +136,7 @@ public class JDBCGameDAO implements GameDAO {
 	
 	@Override
 	public void setIsGameActive(String gameCode, Boolean isActive) {
-        String query = "UPDATE game SET active = ? WHERE game_code = ?";
+        String query = "UPDATE game SET active = ?, started = true WHERE game_code = ?";
         template.update(query, isActive, gameCode);
 	}
 	
@@ -175,7 +178,7 @@ public class JDBCGameDAO implements GameDAO {
 	
 	@Override
 	public Game getCompletedGame(String gameCode) {
-		String query = "SELECT * FROM game WHERE game_code = ? AND active = false AND winner_id IS NOT NULL";
+		String query = "SELECT * FROM game WHERE game_code = ? AND active = false AND started = true AND winner_id IS NOT NULL";
 		SqlRowSet rowSet = template.queryForRowSet(query, gameCode);
 		Game game = null;
 		if (rowSet.next()) {
@@ -184,9 +187,18 @@ public class JDBCGameDAO implements GameDAO {
 		return game;
 	}
 	
+	public Game getGameThatEndedEarly(String gameCode) {
+		String query = "SELECT * FROM game WHERE game_code = ? AND active = false AND started = true AND winner_id IS NULL";
+		SqlRowSet rowSet = template.queryForRowSet(query, gameCode);
+		Game game = null;
+		if (rowSet.next()) {
+			game = gameHelper(rowSet);
+		}
+		return game;
+	}
 	@Override
 	public Game getUnstartedGame(String gameCode) {
-		String query = "SELECT * FROM game WHERE game_code = ? AND active = false AND winner_id IS NULL";
+		String query = "SELECT * FROM game WHERE game_code = ? AND active = false AND started = false AND winner_id IS NULL";
 		SqlRowSet rowSet = template.queryForRowSet(query, gameCode);
 		Game game = null;
 		if (rowSet.next()) {
@@ -208,7 +220,7 @@ public class JDBCGameDAO implements GameDAO {
 	
 	@Override
 	public List<Game> getUnstartedPublicGames() {
-		String query = "SELECT game.* FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game.active = false "
+		String query = "SELECT game.* FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game.active = false AND game.started = false "
 				+ "AND game.winner_id IS NULL AND is_public = true GROUP BY game.game_id ORDER BY COUNT(game_player.game_id) DESC";
 		
 		List<Game> games = new ArrayList<>();
@@ -221,7 +233,7 @@ public class JDBCGameDAO implements GameDAO {
 	
 	@Override
 	public List<Game> getActiveGamesByPlayer(Integer user_id) {
-		String query = "SELECT * FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game_player.user_id = ? AND game.active = true";
+		String query = "SELECT * FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game_player.user_id = ? AND game.active = true AND game.started = true";
 		List<Game> games = new ArrayList<>();
 		SqlRowSet rowSet = template.queryForRowSet(query, user_id);
 		while (rowSet.next()) {
@@ -232,7 +244,7 @@ public class JDBCGameDAO implements GameDAO {
 	
 	@Override
 	public List<Game> getCompletedGamesByPlayer(Integer user_id) {
-		String query = "SELECT game.* FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game_player.user_id = ? AND game.active = false AND game.winner_id IS NOT NULL";
+		String query = "SELECT game.* FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game_player.user_id = ? AND game.active = false AND game.started = true AND game.winner_id IS NOT NULL";
 		List<Game> games = new ArrayList<>();
 		SqlRowSet rowSet = template.queryForRowSet(query, user_id);
 		while (rowSet.next()) {
@@ -243,7 +255,7 @@ public class JDBCGameDAO implements GameDAO {
 	
 	@Override
 	public List<Game> getUnstartedGamesByPlayer(Integer user_id) {
-		String query = "SELECT game.* FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game_player.user_id = ? AND game.active = false AND game.winner_id IS NULL";
+		String query = "SELECT game.* FROM game INNER JOIN game_player ON game.game_id = game_player.game_id WHERE game_player.user_id = ? AND game.active = false AND game.started = false AND game.winner_id IS NULL";
 		List<Game> games = new ArrayList<>();
 		SqlRowSet rowSet = template.queryForRowSet(query, user_id);
 		while (rowSet.next()) {
@@ -258,6 +270,7 @@ public class JDBCGameDAO implements GameDAO {
 		template.update(query, user_id, game_id);
 	}
 	
+	@Override
 	public Game getGameByCode(String gameCode) {
 		String query = "SELECT * FROM game WHERE game_code = ?";
 		SqlRowSet result = template.queryForRowSet(query, gameCode);
@@ -276,6 +289,7 @@ public class JDBCGameDAO implements GameDAO {
 		game.setGameCode(rowSet.getString("game_code")); 
 		game.setWinnerId(rowSet.getInt("winner_id"));
 		game.setIsPublic(rowSet.getBoolean("is_public"));
+		game.setHasStarted(rowSet.getBoolean("started"));
 		
 		List<Category> categoriesInGame = categoryDAO.getCategoriesByGame(game);
 		game.setCategories(categoriesInGame);

@@ -39,22 +39,15 @@ public class InvitationController {
 	public String sendInvitation(@RequestParam String username, 
 								@PathVariable String gameCode, 
 								final HttpServletRequest req, 
-								ModelMap map, 
 								RedirectAttributes flash) {
 		
 	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
 	    User currentUser = userDAO.getUserByToken(userIdToken);
 	    if (currentUser == null) return "redirect:/";
-	    
-		if (username == null || username.length() == 0) {
-			flash.addAttribute("invalidEntry", true);
-			return "redirect:/gameboard/" + gameCode;
-		}
 		
-		// This isn't doing anything as of now  - Brooks
 		Boolean isValid = userDAO.validateUsername(username);
-		if (!isValid) {
-			flash.addAttribute("userNotFound", true);
+		if (!isValid || username == null || username.length() == 0 || username.equals("")) {
+			flash.addFlashAttribute("invalidUser", true);
 			return "redirect:/gameboard/" + gameCode;
 		}
 	    	

@@ -13,6 +13,7 @@ public class Game
 	private String gameCode;
 	private Boolean active;
 	private Boolean isPublic;
+	private Boolean hasStarted;
 	private Question question;
 	private Player activePlayer;
 	private Gameboard gameboard;
@@ -91,6 +92,22 @@ public class Game
 	public void createGameboard(List<Category> categoriesInGame) {
 		this.gameboard = new Gameboard(categoriesInGame);
 	}
+	
+	public Boolean getIsPublic() {
+		return isPublic;
+	}
+
+	public void setIsPublic(Boolean isPublic) {
+		this.isPublic = isPublic;
+	}
+
+	public Boolean getHasStarted() {
+		return hasStarted;
+	}
+
+	public void setHasStarted(Boolean hasStarted) {
+		this.hasStarted = hasStarted;
+	}
 
 	public String getGameCode() {
 		return gameCode;
@@ -160,11 +177,4 @@ public class Game
 		return players;
 	}
 
-	public Boolean getIsPublic() {
-		return isPublic;
-	}
-
-	public void setIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
-	}
 }

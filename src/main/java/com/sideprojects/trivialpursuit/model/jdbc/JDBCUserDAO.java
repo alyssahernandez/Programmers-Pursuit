@@ -38,6 +38,7 @@ public class JDBCUserDAO implements UserDAO {
 		return user;
 	}
 	
+	//TODO: call validateUsername() here. If username exists, add an incrementer or something to the end of username. Also, allow users to change their username in profile.
 	@Override
 	public void createUser(String username, String token, String email, String picture) {
 		String newUserSQL = "INSERT INTO user_account (username, id_token, email, picture) VALUES (?, ?, ?, ?)";
@@ -55,6 +56,7 @@ public class JDBCUserDAO implements UserDAO {
 		return user;
 	}
 	
+	//TODO: Account for case insensitivity here and above. "WHERE UPPER(username) = ?" works, but if we're sending an invitation, we need to then pull the user by the same UPPER(username) and use that username -- or return a String here w/ username rather than a boolean.  We get a FK violation otherwise.  For example: Sending an invitation to 'Noodles' rather than 'noodles' doesn't work -- having UPPER(username) validates the username, but we then pass in a username that doesn't match that in the DB. - Brooks
 	@Override
 	public boolean validateUsername(String username) {
 		String query = "SELECT * FROM user_account WHERE username = ?";

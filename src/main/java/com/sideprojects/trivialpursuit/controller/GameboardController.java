@@ -52,35 +52,36 @@ public class GameboardController {
 	    
 	    model.put("currentUser", currentUser);
 		
-		if (!modelHolder.containsAttribute("userInvite")) {
-			modelHolder.addAttribute("userInvite", new InvitationForm());
-		}
+		Game currentGame = gameDAO.getActiveGame(gameCode);	
 		
-		if (modelHolder.containsAttribute("outOfQuestions")) {
-			model.put("outOfQuestions", true);
-		}
-
-		Game currentGame = gameDAO.getActiveGame(gameCode);
 		
-        if (currentGame != null) {
-            model.put("currentGame", currentGame);
-            
-            if (currentGame.getActivePlayer().getIsAnsweringQuestion()) {
-                return "redirect:/question/" + gameCode;
-            }                   
-        } else {
+		// TODO: Refactor this, or take a different approach. - Brooks
+		// The goal is to make the HUD work easier -- if the game hasn't started, display the invitation form; if started/active, display the dice, etc; if finished, display the winner
+        if (currentGame == null) {
         	currentGame = gameDAO.getUnstartedGame(gameCode);
         	if (currentGame == null) {
                 currentGame = gameDAO.getCompletedGame(gameCode);
                 if (currentGame == null) {
-                	//TODO: Change this behavior to reference an error-handling / "Game Not Found" JSP.
-                	return "redirect:/lobbies";
+                	currentGame = gameDAO.getGameThatEndedEarly(gameCode);
+                	if (currentGame == null) {
+                		//TODO: Change this behavior to reference an error-handling / "Game Not Found" JSP.
+                		return "redirect:/lobbies";
+                	} else {
+                		model.put("earlyEnder", currentGame);
+                	}               	
                 } else {
                 	 model.put("completedGame", currentGame);
+                	 String winner = gameDAO.getWinner(currentGame);
+                	 model.put("winner", winner);
                 }
         	} else {
         		model.put("unstartedGame", currentGame);
         	}
+        } else {
+            model.put("currentGame", currentGame);    
+            if (currentGame.getActivePlayer().getIsAnsweringQuestion()) { //TODO: also check if space is Center & hasSelectedCantegoryCenter = false (??) - Brooks
+                return "redirect:/question/" + gameCode;
+            }     
         }
         
 		List<Player> playersInGame = currentGame.getActivePlayers();

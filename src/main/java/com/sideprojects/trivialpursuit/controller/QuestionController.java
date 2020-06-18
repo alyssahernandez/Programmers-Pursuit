@@ -177,15 +177,16 @@ public class QuestionController {
 				gameDAO.setIsGameActive(currentGame.getGameCode(), false);
 				currentGame.setActive(false);
 				gameDAO.setEndGameStatus(currentGame);
+				
+				return "redirect:/gameboard/" + currentGame.getGameCode();  
 			}  
 			
 			chosenCenterSpaceCategory = "false";
 			categoryChoiceId = null;
 			
-			gameDAO.setActivePlayer(currentGame, isAnswerCorrect);
 	        gameDAO.setHasSelectedCategory(currentGame, false);
 	        gameDAO.setIsAnsweringQuestion(currentGame, false);
-	        gameDAO.setActivePlayerDiceRoll(currentGame);
+	        gameDAO.setActivePlayer(currentGame, isAnswerCorrect);
 	        
 			return "redirect:/gameboard/" + currentGame.getGameCode();      
 		}		

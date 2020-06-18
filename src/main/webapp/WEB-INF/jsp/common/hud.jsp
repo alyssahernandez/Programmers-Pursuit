@@ -21,11 +21,8 @@
 			<label for="username">Player Name:</label> 
 			<input type="text" name="username" />
 			<input type="submit" class="button" value="Send Invitation" />
-			<c:if test="${invalidEntry == true}">
-				<p>Please enter a username</p>
-			</c:if>
-			<c:if test="${userNotFound == true}">
-				<p>Please enter valid username</p>
+			<c:if test="${invalidUser}">
+				<p>User not found: Please enter a valid username</p>
 			</c:if>
 		</form>
 		<c:if test="${unstartedGame.activePlayers.size() >= 2 }" >
@@ -39,11 +36,14 @@
 	<div class="hud__message u-center-text">
 		<h2 class="hud-message hud-message--primary">
 			<c:choose>
-				<c:when test="${ currentPlayerTurn.allPies && !currentGame.active}">
+				<c:when test="${completedGame != null}">
 					<c:out value="${ currentPlayerTurn.name}" />, you won!
 				</c:when>
+				<c:when test="${earlyEnder != null }">
+					<c:out value="This game has ended."/>
+				</c:when>
 				<c:otherwise>
-					<c:if test="${currentGame.active }">
+					<c:if test="${currentGame != null}">
 						<c:out value="${ currentPlayerTurn.name}" />, it's your turn.
 					</c:if>
 				</c:otherwise>
