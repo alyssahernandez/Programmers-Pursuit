@@ -27,10 +27,11 @@ CREATE TABLE game
 (
         game_id serial PRIMARY KEY,
         game_code varchar(32) not null unique,
-        active boolean not null,
-        winner_id int,
+        started boolean not null default(false),
+        active boolean not null default(false),
         is_public boolean not null default(true),
-        created_on timestamp not null default NOW()
+        created_on timestamp not null default NOW(),
+        winner_id int
 );
 
 CREATE TABLE game_player
