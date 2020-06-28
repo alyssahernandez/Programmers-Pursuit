@@ -12,5 +12,11 @@ public interface UserDAO {
 	
 	public User getUserByUsername(String username);
 	
-	public List<User> getLeaderboard();
+	public List<User> getAllTimeLeaders();
+	
+	public List<User> getMonthlyLeaders();
+	
+	public List<User> getWeeklyLeaders();
+	
+	public List<User> getDailyLeaders();
 }

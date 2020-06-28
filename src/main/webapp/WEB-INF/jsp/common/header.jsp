@@ -2,6 +2,7 @@
 
 <c:url var="lobbiesURL" value="/lobbies"/>
 <c:url var="leaderboardURL" value="/leaderboard"/>
+<c:url var="aboutUsURL" value="/about"/>
 
 <!DOCTYPE html>
 <html>
@@ -26,8 +27,10 @@
             <c:url var="homepageURL" value="/"/>
             <h1 class="header-main"><a href="${ homepageURL }">Programmers' Pursuit</a></h1>
             
+            <a href="${aboutUsURL }">About Us</a>
    			<a href="${lobbiesURL}">Game Lobby</a>
  			<a href="${leaderboardURL}">Leaderboard</a>
+ 			
             
 			<ul class="header__right-nav">
 				<c:url var="profilePicURL" value="${currentUser.picture }"/>

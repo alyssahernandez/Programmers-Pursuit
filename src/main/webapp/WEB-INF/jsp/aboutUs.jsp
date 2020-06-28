@@ -1,5 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<c:url var="lobbiesURL" value="/lobbies"/>
+<c:url var="leaderboardURL" value="/leaderboard"/>
+<c:url var="aboutUsURL" value="/about"/>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,13 +21,34 @@
 		<script src="${ jsURL }"></script>
 	</head>
 	<body>
-
-		<header class="header">
-
-            <c:url var="homepageURL" value="/"/>
-            <h1 class="header-main"><a href="${ homepageURL }">Programmers' Pursuit</a></h1>
-                        
-		</header>
+		
+		<c:choose>
+			<c:when test="${currentUser == null }">
+				<header class="header">
+		            <c:url var="homepageURL" value="/"/>
+		            <h1 class="header-main"><a href="${ homepageURL }">Programmers' Pursuit</a></h1>                          
+				</header>
+			</c:when>
+			<c:otherwise>
+				<header class="header">
+		            <c:url var="homepageURL" value="/"/>
+		            <h1 class="header-main"><a href="${ homepageURL }">Programmers' Pursuit</a></h1>
+		            
+		            <a href="${aboutUsURL }">About Us</a>
+		   			<a href="${lobbiesURL}">Game Lobby</a>
+		 			<a href="${leaderboardURL}">Leaderboard</a>
+		 			
+					<ul class="header__right-nav">
+						<c:url var="profilePicURL" value="${currentUser.picture }"/>
+						<img class="header__right-nav--pic" src="${ profilePicURL }">
+					
+		                <c:url var="profileURL" value="/profile/${currentUser.username}"/>
+		                <li class="header__right-nav--link link header-link" id="profile"><a href="${profileURL}">Your Games</a></li>
+		            </ul>
+				</header>
+			</c:otherwise>
+		</c:choose>
+		
 		<main class="main-content">
 			<div class="about">
 			    <h2 class="about-header u-center-text">Meet the Team</h2>
@@ -49,33 +74,7 @@
 			                </div>
 			            </div>
 			        </div>
-			        <div class="team-member u-color1">
-			            <img src="${ jakeImgURL }" alt="jake casassa headshot" class="team-member__headshot">
-			            <div class="team-member__details">
-			                <h3 class="team-member-name">Jake Casassa</h3>
-			                <p class="team-member-bio">
-			                    Lorem ipsum dolor sit amet, qui bonorum consectetuer et.
-			                </p>
-			                <div class="team-member__links">
-			                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
-			                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
-			                </div>
-			            </div>
-			        </div>
-			        <div class="team-member u-color2">
-			            <img src="${ archieImgURL }" alt="headshot" class="team-member__headshot">
-			            <div class="team-member__details">
-			                <h3 class="team-member-name">Archie Cooley</h3>
-			                <p class="team-member-bio">
-			                    Dolor nominavi praesent ei vim, has viris lobortis et, est.
-			                </p>
-			                <div class="team-member__links">
-			                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
-			                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
-			                </div>
-			            </div>
-			        </div>
-			        <div class="team-member u-color3">
+			        			        <div class="team-member u-color3">
 			            <img src="${ jeffImgURL }" alt="headshot" class="team-member__headshot">
 			            <div class="team-member__details">
 			                <h3 class="team-member-name">Jeff Crosley</h3>
@@ -85,6 +84,19 @@
 			                <div class="team-member__links">
 			                    <a href="https://www.linkedin.com/in/jeffcrosley/" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
 			                    <a href="https://github.com/jeffcrosley" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
+			                </div>
+			            </div>
+			        </div>
+   			        <div class="team-member u-color5">
+			            <img src="${ brooksImgURL }" alt="headshot" class="team-member__headshot">
+			            <div class="team-member__details">
+			                <h3 class="team-member-name">Brooks Gathagan</h3>
+			                <p class="team-member-bio">
+			                    Eos nullam mollis similique cu, qui ea harum invidunt.
+			                </p>
+			                <div class="team-member__links">
+			                    <a href="https://www.linkedin.com/in/brooksgathagan/" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
+			                    <a href="https://github.com/brooksgathagan" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
 			                </div>
 			            </div>
 			        </div>
@@ -101,16 +113,29 @@
 			                </div>
 			            </div>
 			        </div>
-			        <div class="team-member u-color5">
-			            <img src="${ brooksImgURL }" alt="headshot" class="team-member__headshot">
+			        <div class="team-member u-color2">
+			            <img src="${ archieImgURL }" alt="headshot" class="team-member__headshot">
 			            <div class="team-member__details">
-			                <h3 class="team-member-name">Brooks Gathagan</h3>
+			                <h3 class="team-member-name">Archie Cooley</h3>
 			                <p class="team-member-bio">
-			                    Eos nullam mollis similique cu, qui ea harum invidunt.
+			                    Dolor nominavi praesent ei vim, has viris lobortis et, est.
 			                </p>
 			                <div class="team-member__links">
 			                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
 			                    <a href="#" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
+			                </div>
+			            </div>
+			        </div>
+   			        <div class="team-member u-color1">
+			            <img src="${ jakeImgURL }" alt="jake casassa headshot" class="team-member__headshot">
+			            <div class="team-member__details">
+			                <h3 class="team-member-name">Jake Casassa</h3>
+			                <p class="team-member-bio">
+			                    My role in this project focused on backend. I also spent time programming with Kiran on user authentication with Auth0.  
+			                </p>
+			                <div class="team-member__links">
+			                    <a href="https://www.linkedin.com/in/jakecasassa/" class="team-member-link" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
+			                    <a href="https://github.com/JakeCasassa" class="team-member-link" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
 			                </div>
 			            </div>
 			        </div>

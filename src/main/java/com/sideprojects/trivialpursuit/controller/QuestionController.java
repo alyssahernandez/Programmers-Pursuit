@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.auth0.SessionUtils;
 import com.sideprojects.trivialpursuit.model.Category;
@@ -44,10 +45,12 @@ public class QuestionController {
 	public String displayQuestion(
 			ModelMap model,
 			@PathVariable String gameCode,
-			final HttpServletRequest req) {
+			final HttpServletRequest req,
+			RedirectAttributes flash) {
 
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 	    model.put("currentUser", currentUser);
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
@@ -65,9 +68,14 @@ public class QuestionController {
 		List<Category> gameCategories = currentGame.getUniqueCategories();
 		model.put("gameCategories", gameCategories);
 
-		if (currentGame.getIsActivePlayerAnsweringQuestion()) {
+		if (currentGame.getActivePlayer().getIsAnsweringQuestion()) {
 			
 			Question question = questionDAO.getCurrentQuestion(currentGame);
+			if (question == null) {
+				gameDAO.setIsGameActive(gameCode, false);
+				flash.addFlashAttribute("outOfQuestions", true);
+				return "redirect:/gameboard/" + gameCode;
+			}
 			model.put("question", question);
 			
 			// TODO: this is currently printing the answers with array brackets around
@@ -76,10 +84,17 @@ public class QuestionController {
 			List<String> possibleAnswers = question.getPossibleAnswers();
 			model.put("possibleAnswers", possibleAnswers);
 			
-		} else if (!currentPlayerSpace.isCenter() && !(currentGame.getIsActivePlayerAnsweringQuestion())) {
+		} else if (!currentPlayerSpace.isCenter() && !(currentGame.getActivePlayer().getIsAnsweringQuestion())) {
 			
 			//TODO: If question=null, end game (no questions for a category would be bad)
 			Question question = questionDAO.getUnaskedQuestionByCategory(currentGame, currentPlayerSpace.getCategory().getCategoryId());
+			if (question == null) {
+				gameDAO.setIsGameActive(gameCode, false);
+				flash.addFlashAttribute("outOfQuestions", true);
+				return "redirect:/gameboard/" + gameCode;
+
+			}
+			
 			model.put("question", question);
 			
 			List<String> possibleAnswers = question.getPossibleAnswers();
@@ -87,16 +102,20 @@ public class QuestionController {
 			
 			gameDAO.setIsAnsweringQuestion(currentGame, true);		
 			
-		} else if (currentGame.getHasActivePlayerSelectedCategory()) {		
+		} else if (currentGame.getActivePlayer().getHasSelectedCategoryCenter()) {		
 			
 			Question question = questionDAO.getCurrentQuestion(currentGame);
+			if (question == null) {
+				gameDAO.setIsGameActive(gameCode, false);
+				flash.addFlashAttribute("outOfQuestions", true);
+				return "redirect:/gameboard/" + gameCode;
+			}
 			model.put("question", question);	
 			
 			List<String> possibleAnswers = question.getPossibleAnswers();
 			model.put("possibleAnswers", possibleAnswers);
 			
 			gameDAO.setIsAnsweringQuestion(currentGame, true);
-			
 		}
 		
 		return "question";
@@ -108,24 +127,23 @@ public class QuestionController {
 			@RequestParam(name = "categoryChoiceId", required = false) Integer categoryChoiceId,
 			@RequestParam(name = "chosenCenterSpaceCategory", required = false, defaultValue = "false") String chosenCenterSpaceCategory,
 			@RequestParam(name = "answer", required = false) String answer,
-			ModelMap model) {
+			ModelMap model,
+			final HttpServletRequest req) {
+		
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);		
 		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);		
 		Space currentPlayerSpace = currentPlayerTurn.getLocation();		
-		Integer categoryId = null;
-		
-		if (categoryChoiceId != null) {
-			categoryId = categoryChoiceId;
-		}
 		
 		if (currentPlayerSpace.isCenter() && categoryChoiceId != null && chosenCenterSpaceCategory.equals("true")) {
 			
 			gameDAO.setHasSelectedCategory(currentGame, true);
-			currentGame.setHasActivePlayerSelectedCategory(true);			
-			
+	
 			//TODO: If question=null, end game (no questions for a category would be bad)
-			questionDAO.getUnaskedQuestionByCategory(currentGame, categoryId);
+			questionDAO.getUnaskedQuestionByCategory(currentGame, categoryChoiceId);
 				
 			return "redirect:/question/" + currentGame.getGameCode();
 		}
@@ -140,8 +158,6 @@ public class QuestionController {
 			if (currentPlayerSpace.hasPie() && isAnswerCorrect) {			
 				playerDAO.givePlayerPiePiece(currentPlayerSpace.getSpaceId(), currentGame);	
 				
-				// Is this actually doing anything? Doesn't seem so - Brooks
-				// TODO: optimize this later - ALYSSA
 				if (currentPlayerSpace.getSpaceId() == 6) {
 					currentPlayerTurn.setPie1(true);
 				} else if (currentPlayerSpace.getSpaceId() == 18) {
@@ -154,30 +170,26 @@ public class QuestionController {
 					currentPlayerTurn.setPie5(true);
 				} else if (currentPlayerSpace.getSpaceId() == 66) {
 					currentPlayerTurn.setPie6(true);
-				}
-				
+				}	
 			}
 			
 			if (currentPlayerSpace.isCenter() && isAnswerCorrect && currentPlayerTurn.getAllPies()) {				
 				gameDAO.setIsGameActive(currentGame.getGameCode(), false);
 				currentGame.setActive(false);
 				gameDAO.setEndGameStatus(currentGame);
+				
+				return "redirect:/gameboard/" + currentGame.getGameCode();  
 			}  
 			
 			chosenCenterSpaceCategory = "false";
 			categoryChoiceId = null;
 			
-			gameDAO.setActivePlayer(currentGame, isAnswerCorrect);
 	        gameDAO.setHasSelectedCategory(currentGame, false);
 	        gameDAO.setIsAnsweringQuestion(currentGame, false);
+	        gameDAO.setActivePlayer(currentGame, isAnswerCorrect);
 	        
-	        int diceRoll = Dice.getDiceRoll();        
-	        gameDAO.setActivePlayerDiceRoll(currentGame, diceRoll);
-	        
-			return "redirect:/gameboard/" + currentGame.getGameCode();
-        
+			return "redirect:/gameboard/" + currentGame.getGameCode();      
 		}		
-		
 		return "redirect:/question/" + currentGame.getGameCode();
 	}
 		

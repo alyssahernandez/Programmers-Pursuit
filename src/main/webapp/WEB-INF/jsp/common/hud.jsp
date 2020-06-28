@@ -4,12 +4,13 @@
 <c:url var = "dieURL" value="common/die.jsp" />
 <c:url var = "legendURL" value="common/legend.jsp" />
 
-<c:url var = "invitationURL" value="${gameCode}/sendInvitation" />
+<c:url var = "invitationURL" value="/gameboard/${gameCode}/sendInvitation" />
 <c:url var="startGameURL" value="/startGame" />
 
 <div class="hud">
+	<c:if test="${outOfQuestions }" ><p>You are out of questions. Game over!</p></c:if>
 
-	<c:if test="${!(currentGame.active) && currentGame.winnerId == 0}" > 
+	<c:if test="${unstartedGame != null}" > 
 		<c:forEach var="player" items="${playersInGame}">
 			<div>
 				<p>${player.name}</p>
@@ -20,17 +21,14 @@
 			<label for="username">Player Name:</label> 
 			<input type="text" name="username" />
 			<input type="submit" class="button" value="Send Invitation" />
-			<c:if test="${invalidEntry == true}">
-				<p>Please enter a username</p>
-			</c:if>
-			<c:if test="${userNotFound == true}">
-				<p>Please enter valid username</p>
+			<c:if test="${invalidUser}">
+				<p>User not found: Please enter a valid username</p>
 			</c:if>
 		</form>
-		<c:if test="${currentGame.activePlayers.size() >= 2 }" >
+		<c:if test="${unstartedGame.activePlayers.size() >= 2 }" >
 		 	<form action="${startGameURL}" method="POST">
 				<input type="submit" class="button" value="Start Game" />
-				<input type="hidden" name="gameCode" value="${currentGame.gameCode}"/>
+				<input type="hidden" name="gameCode" value="${unstartedGame.gameCode}"/>
 			</form>
 		</c:if>
 	</c:if>
@@ -38,11 +36,14 @@
 	<div class="hud__message u-center-text">
 		<h2 class="hud-message hud-message--primary">
 			<c:choose>
-				<c:when test="${ currentPlayerTurn.allPies && !currentGame.active}">
+				<c:when test="${completedGame != null}">
 					<c:out value="${ currentPlayerTurn.name}" />, you won!
 				</c:when>
+				<c:when test="${earlyEnder != null }">
+					<c:out value="This game has ended."/>
+				</c:when>
 				<c:otherwise>
-					<c:if test="${currentGame.active }">
+					<c:if test="${currentGame != null}">
 						<c:out value="${ currentPlayerTurn.name}" />, it's your turn.
 					</c:if>
 				</c:otherwise>

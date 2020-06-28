@@ -10,25 +10,27 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import com.sideprojects.trivialpursuit.model.CategoryDAO;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Invitation;
 import com.sideprojects.trivialpursuit.model.InvitationDAO;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 import com.sideprojects.trivialpursuit.model.User;
+import com.sideprojects.trivialpursuit.model.UserDAO;
 
 @Component
 public class JDBCInvitationDAO implements InvitationDAO {
 
 	private JdbcTemplate template;
+	private UserDAO userDAO;
 	private PlayerDAO playerDAO;
 	private GameDAO gameDAO;
 
 	@Autowired
 	public JDBCInvitationDAO(DataSource dataSource) {
 		template = new JdbcTemplate(dataSource);
-		playerDAO = new JDBCPlayerDAO(dataSource);
+		userDAO = new JDBCUserDAO(dataSource);
 		gameDAO = new JDBCGameDAO(dataSource);
+		playerDAO = new JDBCPlayerDAO(dataSource);
 	}
 	
 	@Override
@@ -48,7 +50,7 @@ public class JDBCInvitationDAO implements InvitationDAO {
 		List<Invitation> invitations = new ArrayList<>();
 		while (results.next()) {
 			Integer game_id = results.getInt("game_id");
-			User user = playerDAO.getUserByUsername(username);
+			User user = userDAO.getUserByUsername(username);
 			
 			if (playerDAO.isPlayerAlreadyInGame(game_id, user.getUserId())) {
 				continue;

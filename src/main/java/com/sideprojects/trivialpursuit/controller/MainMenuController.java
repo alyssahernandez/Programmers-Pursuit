@@ -1,10 +1,5 @@
 package com.sideprojects.trivialpursuit.controller;
 
-
-
-import java.util.ArrayList;
-
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +14,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +27,6 @@ import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
 import com.sideprojects.trivialpursuit.model.Invitation;
 import com.sideprojects.trivialpursuit.model.InvitationDAO;
-import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 import com.sideprojects.trivialpursuit.model.QuestionDAO;
 import com.sideprojects.trivialpursuit.model.User;
@@ -72,18 +65,15 @@ public class MainMenuController {
 	//// AUTH0 CONTROLLER TO REDIRECT TO THE USERS PROFILE PAGE
 	
 	@RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
-	protected String home(@PathVariable String username, final Map<String, Object> model, final HttpServletRequest req, Model modelHolder) {
+	protected String home(@PathVariable String username, final Map<String, Object> model, final HttpServletRequest req) {
 		
-		if (!modelHolder.containsAttribute("createGame")) {
-			modelHolder.addAttribute("createGame", new GameCreationForm());
-		}
-	
 	    String accessToken = (String) SessionUtils.get(req, "accessToken");
 	    String idToken = (String) SessionUtils.get(req, "idToken");
 
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
- 
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
+	    
 	    // TODO: In JSP, compare currentUser.username to anyone.username. If equal, we're on our own profile -- so display invites, etc. Otherwise, just display basic info - Brooks
 		User anyone = userDAO.getUserByUsername(username);
 	    List<Invitation> invitations = invitationDAO.getInvitations(currentUser.getUsername());
@@ -95,19 +85,15 @@ public class MainMenuController {
 			List<Category> cats = gameDAO.getUnstartedGame(gameCode).getUniqueCategories();
 			pairs.put(i, cats);
 		}
-				
-		List<Category> categories = categoryDAO.getAllCategories();
 		
 	    if (accessToken != null) {
 		    model.put("currentUser", currentUser);
 		    model.put("anyone", anyone);
-		    model.put("categories", categories);
 		    model.put("invitations", invitations);
 		    model.put("pairs", pairs);
 		    
 		} else if (idToken != null) {
 		    model.put("currentUser", currentUser);
-		    model.put("categories", categories);
 		    model.put("invitations", invitations);
 		    model.put("pairs", pairs);
 		    model.put("anyone", anyone);
@@ -117,7 +103,7 @@ public class MainMenuController {
 	    return "profilePage";
 	}
 	
-	
+	// TODO: Is this being used? Check & delete if not. - Brooks
 	@RequestMapping(path="/", method=RequestMethod.POST)
 	public String createOrLoadGame(	
 		@RequestParam(required=false) String gameSearch,
@@ -144,6 +130,10 @@ public class MainMenuController {
 							 final HttpServletRequest req, 
 							 RedirectAttributes flash) {
 		
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
+
 		String newGameCode = gameDAO.createNewGame(selectionForm.getPublicOrPrivate());
 		Game newGame = gameDAO.getUnstartedGame(newGameCode);
 		
@@ -151,11 +141,9 @@ public class MainMenuController {
 			flash.addFlashAttribute("createGame", selectionForm);
 			flash.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "createGame", result);
 			
-		    String userId = (String) SessionUtils.get(req, "userIdToken");
-		    User currentUser = userDAO.getUserByToken(userId);
-		    
-			return "redirect:/profile/" + currentUser.getUsername();
+			return "redirect:/lobbies";
 		}
+		
 		int userId = (Integer) SessionUtils.get(req, "userId");
 		
 		playerDAO.putFirstPlayerIntoGame(newGame, userId);
@@ -168,25 +156,55 @@ public class MainMenuController {
 	@RequestMapping(path="/leaderboard", method=RequestMethod.GET)
 	public String displayLeaderboard(ModelMap map, final HttpServletRequest req) {
 		
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
+	    
 	    map.put("currentUser", currentUser);
 	    
-		List<User> leaders = userDAO.getLeaderboard();
-		map.put("leaders", leaders);
+		List<User> allTimeleaders = userDAO.getAllTimeLeaders();
+		map.put("allTimeleaders", allTimeleaders);
+		
+		List<User> monthlyLeaders = userDAO.getMonthlyLeaders();
+		map.put("monthlyLeaders", monthlyLeaders);
+		
+		List<User> weeklyLeaders = userDAO.getWeeklyLeaders();
+		map.put("weeklyLeaders", weeklyLeaders);
+		
+		List<User> dailyLeaders = userDAO.getDailyLeaders();
+		map.put("dailyLeaders", dailyLeaders);
 		
 		return "leaderboard";
 	}
 	
 	@RequestMapping(path="/lobbies", method=RequestMethod.GET)
-	public String displayLobbyPage(ModelMap model, final HttpServletRequest req) {
+	public String displayLobbyPage(ModelMap model, final HttpServletRequest req, Model modelHolder) {
 		
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
+		if (!modelHolder.containsAttribute("createGame")) {
+			modelHolder.addAttribute("createGame", new GameCreationForm());
+		}
+		
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
+	    
 	    model.put("currentUser", currentUser);
 	    
 		List<Game> openGames = gameDAO.getUnstartedPublicGames();
 		model.put("openGames", openGames);
+		
+		List<Game> activeGamesByUser = gameDAO.getActiveGamesByPlayer(currentUser.getUserId());
+		model.put("activeGamesByUser", activeGamesByUser);
+		
+		List<Game> unstartedGamesByUser = gameDAO.getUnstartedGamesByPlayer(currentUser.getUserId());
+		model.put("unstartedGamesByUser", unstartedGamesByUser);
+		
+		List<Game> completedGamesByUser = gameDAO.getCompletedGamesByPlayer(currentUser.getUserId());
+		model.put("completedGamesByUser", completedGamesByUser);
+		
+		List<Category> categories = categoryDAO.getAllCategories();
+		model.put("categories", categories);
+		
 		return "lobby";
 	}
 }

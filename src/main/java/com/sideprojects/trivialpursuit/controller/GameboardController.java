@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.auth0.SessionUtils;
 import com.sideprojects.trivialpursuit.model.Category;
-import com.sideprojects.trivialpursuit.model.GameCreationForm;
 import com.sideprojects.trivialpursuit.model.Dice;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.GameDAO;
+import com.sideprojects.trivialpursuit.model.InvitationForm;
 import com.sideprojects.trivialpursuit.model.Player;
 import com.sideprojects.trivialpursuit.model.PlayerDAO;
 import com.sideprojects.trivialpursuit.model.Space;
@@ -47,37 +46,42 @@ public class GameboardController {
 			@PathVariable String gameCode,
 			final HttpServletRequest req) {
 
-	    String userId = (String) SessionUtils.get(req, "userIdToken");
-	    User currentUser = userDAO.getUserByToken(userId);
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
+	    
 	    model.put("currentUser", currentUser);
 		
-	    // TODO: Fix/remove these as they're not currently doing anything - Brooks
-		if (modelHolder.containsAttribute("invalidEntry")) {
-			model.put("invalidEntry", true);
-		}
+		Game currentGame = gameDAO.getActiveGame(gameCode);	
 		
-		if (modelHolder.containsAttribute("userNotFound")) {
-			model.put("userNotFound", true);
-		}
-
-		Game currentGame = gameDAO.getActiveGame(gameCode);
 		
-        if (currentGame != null) {
-            model.put("currentGame", currentGame);
-            
-            if (currentGame.getIsActivePlayerAnsweringQuestion()) {
-                return "redirect:/question/{gameCode}";
-            }
-                    
-        } else {
-        	
+		// TODO: Refactor this, or take a different approach. - Brooks
+		// The goal is to make the HUD work easier -- if the game hasn't started, display the invitation form; if started/active, display the dice, etc; if finished, display the winner
+        if (currentGame == null) {
         	currentGame = gameDAO.getUnstartedGame(gameCode);
         	if (currentGame == null) {
                 currentGame = gameDAO.getCompletedGame(gameCode);
-                model.put("currentGame", currentGame);
+                if (currentGame == null) {
+                	currentGame = gameDAO.getGameThatEndedEarly(gameCode);
+                	if (currentGame == null) {
+                		//TODO: Change this behavior to reference an error-handling / "Game Not Found" JSP.
+                		return "redirect:/lobbies";
+                	} else {
+                		model.put("earlyEnder", currentGame);
+                	}               	
+                } else {
+                	 model.put("completedGame", currentGame);
+                	 String winner = gameDAO.getWinner(currentGame);
+                	 model.put("winner", winner);
+                }
         	} else {
-        		model.put("currentGame", currentGame);
+        		model.put("unstartedGame", currentGame);
         	}
+        } else {
+            model.put("currentGame", currentGame);    
+            if (currentGame.getActivePlayer().getIsAnsweringQuestion()) { //TODO: also check if space is Center & hasSelectedCantegoryCenter = false (??) - Brooks
+                return "redirect:/question/" + gameCode;
+            }     
         }
         
 		List<Player> playersInGame = currentGame.getActivePlayers();
@@ -102,7 +106,12 @@ public class GameboardController {
 	@RequestMapping(path="/gameboard/{gameCode}", method=RequestMethod.POST)
 	public String displayGameboardWithPlayers(ModelMap model,
 			@RequestParam(name = "spaceChoice", required = false) Integer spaceChoice,
-			@PathVariable String gameCode) {
+			@PathVariable String gameCode,
+			final HttpServletRequest req) {
+		
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 		
 		Game currentGame = gameDAO.getActiveGame(gameCode);
 		Player currentPlayerTurn = gameDAO.getActivePlayer(currentGame);
@@ -115,20 +124,43 @@ public class GameboardController {
 		}
 		
 		if (updatedPlayerSpace.isRollAgain()) {
-			
-	        int diceRoll = Dice.getDiceRoll();        
-	        gameDAO.setActivePlayerDiceRoll(currentGame, diceRoll);
-			
-			return "redirect:/gameboard/{gameCode}";
+			gameDAO.setActivePlayerDiceRoll(currentGame);
+			return "redirect:/gameboard/" + gameCode;
 		}
 				
-		return "redirect:/question/{gameCode}";
+		return "redirect:/question/" + gameCode;
 	}
 	
 	@RequestMapping(path="/startGame", method=RequestMethod.POST)
-	public String startGame(@RequestParam String gameCode) {
+	public String startGame(@RequestParam String gameCode, final HttpServletRequest req) {
+		
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
 		
 		gameDAO.setIsGameActive(gameCode, true);
 		return "redirect:/gameboard/" + gameCode;
+	}
+	
+	@RequestMapping(path="/endGame", method=RequestMethod.POST) 
+	public String endGame(@RequestParam String gameCode, final HttpServletRequest req) {
+		
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
+		
+		gameDAO.setIsGameActive(gameCode, false);
+		return "redirect:/profile/" + currentUser.getUsername();
+	}
+	
+	@RequestMapping(path="/leaveGame", method=RequestMethod.POST)
+	public String leaveGame(@RequestParam Integer game_id, final HttpServletRequest req) {
+		
+	    String userIdToken = (String) SessionUtils.get(req, "userIdToken");
+	    User currentUser = userDAO.getUserByToken(userIdToken);
+	    if (currentUser == null) return "redirect:/";
+		
+		gameDAO.leaveGame(currentUser.getUserId(), game_id);
+		return "redirect:/profile/" + currentUser.getUsername();
 	}
 }

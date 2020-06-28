@@ -12,8 +12,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import com.sideprojects.trivialpursuit.model.Category;
-import com.sideprojects.trivialpursuit.model.CategoryDAO;
 import com.sideprojects.trivialpursuit.model.Game;
 import com.sideprojects.trivialpursuit.model.Question;
 import com.sideprojects.trivialpursuit.model.QuestionDAO;
@@ -22,7 +20,6 @@ import com.sideprojects.trivialpursuit.model.QuestionDAO;
 public class JDBCQuestionDAO implements QuestionDAO {
 	
 	private JdbcTemplate jdbcTemplate;
-	private CategoryDAO categoryDAO;
 
 	@Autowired
 	public JDBCQuestionDAO(DataSource dataSource) {
@@ -50,7 +47,7 @@ public class JDBCQuestionDAO implements QuestionDAO {
 	
 	public Question getCurrentQuestion(Game game)
 	{
-		Question question = new Question();
+		Question question = null;
 		
 		String query = "SELECT * FROM question INNER JOIN game_question ON question.question_id = game_question.question_id " +
 					   "WHERE game_question.game_id = ? AND game_question.is_current_question = true";
@@ -66,8 +63,8 @@ public class JDBCQuestionDAO implements QuestionDAO {
 	public void setQuestionAsked(Game game, Question question)
 	{
 		
-		String query = "UPDATE game_question SET is_current_question = false WHERE game_id = ? AND question_id = ?";
-		//String query = "UPDATE game_question SET asked = true, is_current_question = false WHERE game_id = ? AND question_id = ?";
+		//String query = "UPDATE game_question SET is_current_question = false WHERE game_id = ? AND question_id = ?";
+		String query = "UPDATE game_question SET asked = true, is_current_question = false WHERE game_id = ? AND question_id = ?";
 		jdbcTemplate.update(query, game.getGameID(), question.getQuestionID());
 	}
 	

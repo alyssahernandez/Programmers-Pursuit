@@ -38,6 +38,7 @@ public class JDBCUserDAO implements UserDAO {
 		return user;
 	}
 	
+	//TODO: call validateUsername() here. If username exists, add an incrementer or something to the end of username. Also, allow users to change their username in profile.
 	@Override
 	public void createUser(String username, String token, String email, String picture) {
 		String newUserSQL = "INSERT INTO user_account (username, id_token, email, picture) VALUES (?, ?, ?, ?)";
@@ -55,6 +56,7 @@ public class JDBCUserDAO implements UserDAO {
 		return user;
 	}
 	
+	//TODO: Account for case insensitivity here and above. "WHERE UPPER(username) = ?" works, but if we're sending an invitation, we need to then pull the user by the same UPPER(username) and use that username -- or return a String here w/ username rather than a boolean.  We get a FK violation otherwise.  For example: Sending an invitation to 'Noodles' rather than 'noodles' doesn't work -- having UPPER(username) validates the username, but we then pass in a username that doesn't match that in the DB. - Brooks
 	@Override
 	public boolean validateUsername(String username) {
 		String query = "SELECT * FROM user_account WHERE username = ?";
@@ -96,18 +98,50 @@ public class JDBCUserDAO implements UserDAO {
 	}
 	
 	@Override
-	public List<User> getLeaderboard() {
-		String query = "SELECT * FROM user_account WHERE games_won != 0 AND games_played !=0 AND games_won IS NOT NULL ORDER BY games_won DESC, (games_won / games_played) DESC, games_played DESC";
+	public List<User> getAllTimeLeaders() {
+		String query = "SELECT * FROM user_account WHERE games_won != 0 AND games_played !=0 AND games_won IS NOT NULL ORDER BY games_won DESC, (games_won / games_played) DESC, games_played DESC LIMIT 25";
 		SqlRowSet rowSet = template.queryForRowSet(query);
 		List<User> leaders = new ArrayList<>();
 		while (rowSet.next()) {
-			User user = new User();
-			user.setUserId(rowSet.getInt("user_id"));
-			user.setUsername(rowSet.getString("username"));
-			user.setIdToken(rowSet.getString("id_token"));
-			user.setPicture(rowSet.getString("picture"));
-			user.setGamesPlayed(rowSet.getInt("games_played"));
-			user.setGamesWon(rowSet.getInt("games_won"));
+			leaders.add(userHelperShort(rowSet));
+		}
+		return leaders;
+	}
+	
+	@Override
+	public List<User> getMonthlyLeaders() {
+		String query = "SELECT COUNT(game.winner_id), game.winner_id, user_account.* FROM game INNER JOIN user_account ON user_account.user_id = game.winner_id WHERE game.active = false AND game.winner_id IS NOT NULL AND game.created_on >= NOW() - '1 month'::INTERVAL GROUP BY (game.winner_id), user_account.user_id ORDER BY COUNT(game.winner_id) DESC LIMIT 25";
+		SqlRowSet rowSet = template.queryForRowSet(query);
+		List<User> leaders = new ArrayList<>();
+		while (rowSet.next()) {
+			User user = userHelperShort(rowSet);
+			user.setGamesWon(rowSet.getInt("count"));
+			leaders.add(user);
+		}
+		return leaders;
+	}
+	
+	@Override
+	public List<User> getWeeklyLeaders() {
+		String query = "SELECT COUNT(game.winner_id), game.winner_id, user_account.* FROM game INNER JOIN user_account ON user_account.user_id = game.winner_id WHERE game.active = false AND game.winner_id IS NOT NULL AND game.created_on >= NOW() - '1 week'::INTERVAL GROUP BY (game.winner_id), user_account.user_id ORDER BY COUNT(game.winner_id) DESC LIMIT 25";
+		SqlRowSet rowSet = template.queryForRowSet(query);
+		List<User> leaders = new ArrayList<>();
+		while (rowSet.next()) {
+			User user = userHelperShort(rowSet);
+			user.setGamesWon(rowSet.getInt("count"));
+			leaders.add(user);
+		}
+		return leaders;
+	}
+	
+	@Override
+	public List<User> getDailyLeaders() {
+		String query = "SELECT COUNT(game.winner_id), game.winner_id, user_account.* FROM game INNER JOIN user_account ON user_account.user_id = game.winner_id WHERE game.active = false AND game.winner_id IS NOT NULL AND game.created_on >= NOW() - '1 day'::INTERVAL GROUP BY (game.winner_id), user_account.user_id ORDER BY COUNT(game.winner_id) DESC LIMIT 25";
+		SqlRowSet rowSet = template.queryForRowSet(query);
+		List<User> leaders = new ArrayList<>();
+		while (rowSet.next()) {
+			User user = userHelperShort(rowSet);
+			user.setGamesWon(rowSet.getInt("count"));
 			leaders.add(user);
 		}
 		return leaders;
